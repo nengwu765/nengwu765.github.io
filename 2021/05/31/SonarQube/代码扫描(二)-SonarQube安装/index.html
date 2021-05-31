@@ -28,7 +28,7 @@
 <meta property="og:description" content="SonarQube的安装会给予版本有些差异，建议根据你选择的版本结合官方的文档进行安装，中间遇到问题再自行Google一下啦。本文主要是讲解一下版本的安装：SonarQube：7.9 LTS +PostgreSQL 10">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-31T04:12:57.000Z">
-<meta property="article:modified_time" content="2021-05-31T10:37:02.794Z">
+<meta property="article:modified_time" content="2021-05-31T10:39:22.547Z">
 <meta property="article:author" content="765">
 <meta property="article:tag" content="SonarQube">
 <meta property="article:tag" content="代码扫描">
@@ -192,7 +192,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-05-31 12:12:57 / 修改时间：18:37:02" itemprop="dateCreated datePublished" datetime="2021-05-31T12:12:57+08:00">2021-05-31</time>
+              <time title="创建时间：2021-05-31 12:12:57 / 修改时间：18:39:22" itemprop="dateCreated datePublished" datetime="2021-05-31T12:12:57+08:00">2021-05-31</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -226,7 +226,7 @@
 <li>Java JDK：OpenJDK 11 </li>
 </ul>
 <h2 id="安装说明"><a href="#安装说明" class="headerlink" title="安装说明"></a>安装说明</h2><h3 id="1、OpenJDK-11安装"><a href="#1、OpenJDK-11安装" class="headerlink" title="1、OpenJDK 11安装"></a>1、OpenJDK 11安装</h3><p>官方安装引导：<a target="_blank" rel="noopener" href="https://openjdk.java.net/install/">https://openjdk.java.net/install/</a></p>
-<p>安装包（Linux/x64）：（<a target="_blank" rel="noopener" href="https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz">官方下载</a>  <a target="_blank" rel="noopener" href="http://172.17.0.56:8999/source/sonarqube/openjdk-11+28_linux-x64_bin.tar.gz">公司FTP下载</a>）</p>
+<p>安装包（Linux/x64）：（<a target="_blank" rel="noopener" href="https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz">官方下载</a> ）</p>
 <p><strong>解压缩</strong></p>
 <p>&gt; tar -zxvf openjdk-11+28_linux-x64_bin.tar.gz</p>
 <p><strong>配置环境变量</strong></p>
@@ -249,7 +249,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># TYPE  DATABASE        USER            ADDRESS                 METHOD</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># &quot;local&quot; is for Unix domain socket connections only</span></span><br><span class="line"><span class="built_in">local</span>   all             all                                     peer</span><br><span class="line"><span class="comment"># IPv4 local connections:</span></span><br><span class="line">host    all             all             127.0.0.1/32            md5</span><br><span class="line"><span class="comment"># IPv6 local connections:</span></span><br><span class="line">host    all             all             ::1/128                 md5</span><br><span class="line"><span class="comment"># Allow replication connections from localhost, by a user with the</span></span><br><span class="line"><span class="comment"># replication privilege.</span></span><br><span class="line"><span class="comment">#local   replication     postgres                                peer</span></span><br><span class="line"><span class="comment">#host    replication     postgres        127.0.0.1/32            ident</span></span><br><span class="line"><span class="comment">#host    replication     postgres        ::1/128                 ident</span></span><br><span class="line"><span class="comment">#host    replication     sonar           127.0.0.1/32            ident</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="3、SonarQube-7-9安装"><a href="#3、SonarQube-7-9安装" class="headerlink" title="3、SonarQube 7.9安装"></a>3、SonarQube 7.9安装</h3><p>官方的安装引导：<a target="_blank" rel="noopener" href="https://docs.sonarqube.org/7.9/setup/install-server/">https://docs.sonarqube.org/7.9/setup/install-server/</a></p>
-<p>安装包：（<a target="_blank" rel="noopener" href="https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.9.6.zip">官方下载</a>  <a target="_blank" rel="noopener" href="http://172.17.0.56:8999/source/sonarqube/sonarqube-7.9.6.zip">公司FTP下载</a>）</p>
+<p>安装包：（<a target="_blank" rel="noopener" href="https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.9.6.zip">官方下载</a>）</p>
 <p><strong>创建sonar用户</strong></p>
 <p>&gt; sudo useradd sonar</p>
 <p>&gt; passwd sonar (密码：xxxx)</p>
@@ -278,7 +278,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># sonarqube server</span></span><br><span class="line">su - sonar -c <span class="string">&quot;/opt/app/sonarqube/sonarqube-7.9.6/bin/linux-x86-64/sonar.sh start&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="4、SonarQube-Scanner"><a href="#4、SonarQube-Scanner" class="headerlink" title="4、SonarQube Scanner"></a>4、SonarQube Scanner</h3><p>官方的安装引导：<a target="_blank" rel="noopener" href="https://docs.sonarqube.org/7.9/analysis/scan/sonarscanner/">https://docs.sonarqube.org/7.9/analysis/scan/sonarscanner/</a></p>
-<p>安装包：（<a target="_blank" rel="noopener" href="https://docs.sonarqube.org/7.9/analysis/scan/sonarscanner/">官方下载</a>  <a target="_blank" rel="noopener" href="http://172.17.0.56:8999/source/sonarqube/sonar-scanner-cli-4.0.0.1744-linux.zip">公司FTP下载</a>）</p>
+<p>安装包：（<a target="_blank" rel="noopener" href="https://docs.sonarqube.org/7.9/analysis/scan/sonarscanner/">官方下载</a>）</p>
 <p>安装：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置SonarQube Server，位置：$install_directory/conf/sonar-scanner.properties</span></span><br><span class="line"><span class="comment">#----- Default SonarQube server</span></span><br><span class="line">sonar.host.url=http://localhost:9000</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 将$install_directory/bin，加入到环境变量PATH</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 使用 sonar-scanner -h ，做验证</span></span><br></pre></td></tr></table></figure>
 
