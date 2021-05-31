@@ -110,6 +110,107 @@
       </tags>
   </entry>
   <entry>
+    <title>代码扫描(一)-SonarQube安装</title>
+    <url>/2021/05/31/SonarQube/%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F(%E4%BA%8C)-SonarQube%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<p>DevOps必不可少的一环就是代码扫描了，这里面包含了编码规范、代码缺陷、性能、漏洞的检测。目前也会有很多的开源静态代码扫描工具，如：SonarQube、Infer、PMD、FindBugs、CheckStyle。针对此做了简单的收集对比，各位可以根据自身的需求进行参考。</p>
+<p>SonarQube的安装会给予版本有些差异，建议根据你选择的版本结合官方的文档进行安装，中间遇到问题再自行Google一下啦。本文主要是讲解一下版本的安装：SonarQube：7.9 LTS +PostgreSQL 10</p>
+<span id="more"></span>
+
+<h2 id="版本选择"><a href="#版本选择" class="headerlink" title="版本选择"></a>版本选择</h2><p>不同的版本对应的插件选择和数据库支持不同，同时需要考虑版本的稳定性。考虑稳定性，避免出现问题无法跟进处理解决，生产环境不考虑最新版本。</p>
+<p>SonarQube：7.9 LTS </p>
+<p>SonarQube v7.9 的前置依赖说明（<a href="https://docs.sonarqube.org/7.9/requirements/requirements/%EF%BC%89">https://docs.sonarqube.org/7.9/requirements/requirements/）</a></p>
+<ul>
+<li>数据库：PostgreSQL 10</li>
+<li>Java JDK：OpenJDK 11 </li>
+</ul>
+<h2 id="安装说明"><a href="#安装说明" class="headerlink" title="安装说明"></a>安装说明</h2><h3 id="1、OpenJDK-11安装"><a href="#1、OpenJDK-11安装" class="headerlink" title="1、OpenJDK 11安装"></a>1、OpenJDK 11安装</h3><p>官方安装引导：<a href="https://openjdk.java.net/install/">https://openjdk.java.net/install/</a></p>
+<p>安装包（Linux/x64）：（<a href="https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz">官方下载</a>  <a href="http://172.17.0.56:8999/source/sonarqube/openjdk-11+28_linux-x64_bin.tar.gz">公司FTP下载</a>）</p>
+<p><strong>解压缩</strong></p>
+<p>&gt; tar -zxvf openjdk-11+28_linux-x64_bin.tar.gz</p>
+<p><strong>配置环境变量</strong></p>
+<p>&gt; 末尾增加如下内容(根据自己jdk目录修改)：<br>&gt; export JAVA_HOME=/usr/local/jdk-11<br>&gt; export CLASSPATH=$JAVA_HOME/lib:$CLASSPATH<br>&gt; export PATH=$JAVA_HOME/bin:$PATH</p>
+<p><strong>验证</strong></p>
+<p>&gt; java -version</p>
+<h3 id="2、PostgreSQL-10安装"><a href="#2、PostgreSQL-10安装" class="headerlink" title="2、PostgreSQL 10安装"></a>2、PostgreSQL 10安装</h3><p>官方的安装引导：<a href="https://www.postgresql.org/download/linux/redhat/">https://www.postgresql.org/download/linux/redhat/</a></p>
+<ul>
+<li>Select version：10</li>
+<li>Select platform：CentOS 7</li>
+<li>Select architecture: x86_64</li>
+</ul>
+<p>执行安装脚本及初始化启动：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装repo源</span></span><br><span class="line">sudo yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 安装服务端</span></span><br><span class="line">sudo yum install -y postgresql10-server</span><br><span class="line"> </span><br><span class="line"><span class="comment"># PGsql进行初始化</span></span><br><span class="line">sudo /usr/pgsql-10/bin/postgresql-10-setup initdb</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 加入开机启动</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span> postgresql-10</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 启动PGsql</span></span><br><span class="line">stl start postgresql-10</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 查看服务状态</span></span><br><span class="line">systemctl status postgresql-10.service</span><br></pre></td></tr></table></figure>
+
+<p>初始化SonarQube使用的数据</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 切换到postgres用户</span></span><br><span class="line">su - postgres</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 连接到数据库</span></span><br><span class="line">psql</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 创建数据库</span></span><br><span class="line">CREATE DATABASE sonarqube;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 创建用户</span></span><br><span class="line">CREATE USER sonarqube WITH PASSWORD <span class="string">&#x27;xxxxx&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 设置权限</span></span><br><span class="line">GRANT ALL PRIVILEGES ON DATABASE sonarqube TO sonarqube;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 创建授权（必须）</span></span><br><span class="line">ALTER DATABASE sonarqube owner to sonarqube;</span><br></pre></td></tr></table></figure>
+
+<p>修改pg数据的pg_hba.conf（<a href="http://www.postgres.cn/docs/10/auth-pg-hba-conf.html"><code>pg_hba.conf</code>文件说明</a>）将认证 ident 改为 md5，</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># TYPE  DATABASE        USER            ADDRESS                 METHOD</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># &quot;local&quot; is for Unix domain socket connections only</span></span><br><span class="line"><span class="built_in">local</span>   all             all                                     peer</span><br><span class="line"><span class="comment"># IPv4 local connections:</span></span><br><span class="line">host    all             all             127.0.0.1/32            md5</span><br><span class="line"><span class="comment"># IPv6 local connections:</span></span><br><span class="line">host    all             all             ::1/128                 md5</span><br><span class="line"><span class="comment"># Allow replication connections from localhost, by a user with the</span></span><br><span class="line"><span class="comment"># replication privilege.</span></span><br><span class="line"><span class="comment">#local   replication     postgres                                peer</span></span><br><span class="line"><span class="comment">#host    replication     postgres        127.0.0.1/32            ident</span></span><br><span class="line"><span class="comment">#host    replication     postgres        ::1/128                 ident</span></span><br><span class="line"><span class="comment">#host    replication     sonar           127.0.0.1/32            ident</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、SonarQube-7-9安装"><a href="#3、SonarQube-7-9安装" class="headerlink" title="3、SonarQube 7.9安装"></a>3、SonarQube 7.9安装</h3><p>官方的安装引导：<a href="https://docs.sonarqube.org/7.9/setup/install-server/">https://docs.sonarqube.org/7.9/setup/install-server/</a></p>
+<p>安装包：（<a href="https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.9.6.zip">官方下载</a>  <a href="http://172.17.0.56:8999/source/sonarqube/sonarqube-7.9.6.zip">公司FTP下载</a>）</p>
+<p><strong>创建sonar用户</strong></p>
+<p>&gt; sudo useradd sonar</p>
+<p>&gt; passwd sonar (密码：xxxx)</p>
+<p>linux平台文件数限制</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置系统最大文件数</span></span><br><span class="line">sysctl -w vm.max_map_count=262144</span><br><span class="line">sysctl -w fs.file-max=65536</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 设置sonar用户再打文件数 文件：/etc/security/limits.d/99-sonarqube.conf (or /etc/security/limits.conf as you wish)，注：终端需退出重登生效或source后生效？</span></span><br><span class="line">sonar -   nofile   65536</span><br><span class="line">sonar -   nproc    4096</span><br></pre></td></tr></table></figure>
+
+<p><strong>安装配置</strong></p>
+<ul>
+<li>数据库链接</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt; sonar.jdbc.username=sonarqube</span><br><span class="line">&gt; sonar.jdbc.password=mypassword</span><br><span class="line">&gt; sonar.jdbc.url=jdbc:postgresql://localhost/sonarqube</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ES存储</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt; sonar.path.data=/opt/data/sonarqube/data</span><br><span class="line">&gt; sonar.path.temp=/opt/data/sonarqube/temp</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Web Server配置</li>
+</ul>
+<p>自己设定启动端口配置即可</p>
+<p><strong>脚本启动</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; <span class="variable">$&#123;sonar_home&#125;</span>/bin/linux-x86-64/sonar.sh start</span><br></pre></td></tr></table></figure>
+
+<p>服务器部署，注意加入到开机启动项中,，此处我是加入 rc.local 文件中</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># sonarqube server</span></span><br><span class="line">su - sonar -c <span class="string">&quot;/opt/app/sonarqube/sonarqube-7.9.6/bin/linux-x86-64/sonar.sh start&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4、SonarQube-Scanner"><a href="#4、SonarQube-Scanner" class="headerlink" title="4、SonarQube Scanner"></a>4、SonarQube Scanner</h3><p>官方的安装引导：<a href="https://docs.sonarqube.org/7.9/analysis/scan/sonarscanner/">https://docs.sonarqube.org/7.9/analysis/scan/sonarscanner/</a></p>
+<p>安装包：（<a href="https://docs.sonarqube.org/7.9/analysis/scan/sonarscanner/">官方下载</a>  <a href="http://172.17.0.56:8999/source/sonarqube/sonar-scanner-cli-4.0.0.1744-linux.zip">公司FTP下载</a>）</p>
+<p>安装：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置SonarQube Server，位置：$install_directory/conf/sonar-scanner.properties</span></span><br><span class="line"><span class="comment">#----- Default SonarQube server</span></span><br><span class="line">sonar.host.url=http://localhost:9000</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 将$install_directory/bin，加入到环境变量PATH</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 使用 sonar-scanner -h ，做验证</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>每个扫描项目的根目录加入：</strong>sonar-project.properties</p>
+<p>sonar-project.properties示例： <a href="https://github.com/SonarSource/sonar-scanning-examples">browsed</a> or <a href="https://github.com/SonarSource/sonar-scanning-examples/archive/master.zip">downloaded</a></p>
+<h3 id="5、SonarQube-Plugin"><a href="#5、SonarQube-Plugin" class="headerlink" title="5、SonarQube Plugin"></a>5、SonarQube Plugin</h3><ul>
+<li>社区版支持多分支检测： <a href="https://github.com/mc1arke/sonarqube-community-branch-plugin">sonarqube-community-branch-plugin</a>（1.3.2老版本，安装<a href="https://github.com/mc1arke/sonarqube-community-branch-plugin/commit/a6b6db3f30e1ebba7183825542d1f5363b66a831#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5">区别现说明</a>：Copy the plugin JAR file to the <code>extensions/plugins/</code> <strong>and</strong> the <code>lib/common/</code> directories of your SonarQube instance and restart SonarQube）</li>
+<li>汉化包（不建议，总觉得怪怪的）：直接在应用市场检索按照对应的版本即可（jar插件下载：<a href="https://github.com/xuhuisheng/sonar-l10n-zh">sonar-l10n-zh</a>）</li>
+</ul>
+<h3 id="6、相关配置"><a href="#6、相关配置" class="headerlink" title="6、相关配置"></a>6、相关配置</h3><ul>
+<li><strong>解决增量代码小于20行，QG不生效情况：</strong></li>
+</ul>
+<p>&gt; 配置：sonarqube → quality gates → create/copy a new QG , set :Lines to Cover on New Code to 0</p>
+<h2 id="问题记录"><a href="#问题记录" class="headerlink" title="问题记录"></a>问题记录</h2><p><strong>1、Some Quality Gate conditions on New Code were ignored because of the small number of New Lines</strong></p>
+<p>但分支模式增量代码扫描，少于20行时，代码坏味道无法检测到，可以参考：<a href="https://jira.sonarsource.com/browse/SONAR-9352">SONAR-9352</a> 或 <a href="https://groups.google.com/g/sonarqube/c/qxQLr7OAioA/m/Dk9J7Ji8BgAJ?pli=1">论坛讨论</a></p>
+<p>解决：解决方案说明参考 <a href="https://groups.google.com/g/sonarqube/c/qxQLr7OAioA/m/Dk9J7Ji8BgAJ?pli=1">论坛讨论</a>，</p>
+<p>步骤：sonarqube → quality gates → create/copy a new QG , set :Lines to Cover on New Code to 0</p>
+<p><strong>2、the main branch has no lines of code</strong></p>
+<p>扫描php，遇到的错误，主要原因是唯一的php的文件在解析阶段就出现错误，无法正常解析，也就没有扫描文件，更没有扫描结果了。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a href="https://bbs.huaweicloud.com/blogs/159762">SonarQube安装及踩坑体验</a></li>
+<li><a href="https://blog.csdn.net/CN_TangZheng/article/details/109244806">调研sonarqube版本区别</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1732805">从零开始针对 .NET 应用的 DevOps 运营实践 - Jenkins &amp; SonarQube 安装配置</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>SonarQube</category>
+      </categories>
+      <tags>
+        <tag>SonarQube</tag>
+        <tag>代码扫描</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Jenkins Pipeline语法详解</title>
     <url>/2021/05/27/Jenkins/Jenkins%20Pipeline%E8%AF%AD%E6%B3%95%E8%AF%A6%E8%A7%A3/</url>
     <content><![CDATA[<p>如何编写流水线文件jenkinsfile呢？其实其重点是使用<code>Pipeline语法</code>。 所以此处将重点介绍如何使用Pipeline的语法，从Pipeline插件2.5版开始，Pipeline支持两种独立的语法结构：<strong>Declarative Pipeline</strong> 和 <strong>Scripted Pipeline</strong>，两者都支持建立连续传送的Pipeline。 </p>
