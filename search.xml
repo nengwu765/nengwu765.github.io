@@ -110,10 +110,9 @@
       </tags>
   </entry>
   <entry>
-    <title>代码扫描(一)-SonarQube安装</title>
+    <title>代码扫描(二)-SonarQube安装</title>
     <url>/2021/05/31/SonarQube/%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F(%E4%BA%8C)-SonarQube%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<p>DevOps必不可少的一环就是代码扫描了，这里面包含了编码规范、代码缺陷、性能、漏洞的检测。目前也会有很多的开源静态代码扫描工具，如：SonarQube、Infer、PMD、FindBugs、CheckStyle。针对此做了简单的收集对比，各位可以根据自身的需求进行参考。</p>
-<p>SonarQube的安装会给予版本有些差异，建议根据你选择的版本结合官方的文档进行安装，中间遇到问题再自行Google一下啦。本文主要是讲解一下版本的安装：SonarQube：7.9 LTS +PostgreSQL 10</p>
+    <content><![CDATA[<p>SonarQube的安装会给予版本有些差异，建议根据你选择的版本结合官方的文档进行安装，中间遇到问题再自行Google一下啦。本文主要是讲解一下版本的安装：SonarQube：7.9 LTS +PostgreSQL 10</p>
 <span id="more"></span>
 
 <h2 id="版本选择"><a href="#版本选择" class="headerlink" title="版本选择"></a>版本选择</h2><p>不同的版本对应的插件选择和数据库支持不同，同时需要考虑版本的稳定性。考虑稳定性，避免出现问题无法跟进处理解决，生产环境不考虑最新版本。</p>
