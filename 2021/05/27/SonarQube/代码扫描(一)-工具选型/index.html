@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"doublejia.site","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"doublejia.site","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="DevOps必不可少的一环就是代码扫描了，这里面包含了编码规范、代码缺陷、性能、漏洞的检测。目前也会有很多的开源静态代码扫描工具，如：SonarQube、Infer、PMD、FindBugs、CheckStyle。针对此做了简单的收集对比，各位可以根据自身的需求进行参考。">
@@ -83,7 +83,9 @@
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
     <div class="headband"></div>
-
+      <a target="_blank" rel="noopener" href="https://github.com/nengwu765" class="github-corner" aria-label="View source on GitHub">
+      <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+      <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
@@ -106,6 +108,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -140,11 +143,38 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
@@ -210,7 +240,21 @@
                 </span>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>833</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -223,101 +267,109 @@
       
         <p>DevOps必不可少的一环就是代码扫描了，这里面包含了编码规范、代码缺陷、性能、漏洞的检测。目前也会有很多的开源静态代码扫描工具，如：SonarQube、Infer、PMD、FindBugs、CheckStyle。针对此做了简单的收集对比，各位可以根据自身的需求进行参考。</p>
 <span id="more"></span>
-
-<h2 id="工具选型调研"><a href="#工具选型调研" class="headerlink" title="工具选型调研"></a>工具选型调研</h2><h3 id="工具对比说明"><a href="#工具对比说明" class="headerlink" title="工具对比说明"></a>工具对比说明</h3><p>目前比较流行的开源的静态代码扫描工具：SonarQube、Infer、PMD、FindBugs、CheckStyle。因为后续会有流程定制化等需求，暂不考虑商业化的软件。</p>
+<h2 id="工具选型调研"><a class="markdownIt-Anchor" href="#工具选型调研"></a> 工具选型调研</h2>
+<h3 id="工具对比说明"><a class="markdownIt-Anchor" href="#工具对比说明"></a> 工具对比说明</h3>
+<p>目前比较流行的开源的静态代码扫描工具：SonarQube、Infer、PMD、FindBugs、CheckStyle。因为后续会有流程定制化等需求，暂不考虑商业化的软件。</p>
 <table>
 <thead>
 <tr>
-<th align="left">产品</th>
-<th align="center">定位</th>
-<th align="left">OpenApi</th>
-<th align="left">Web项目友好</th>
-<th align="left">支持代码质量检查</th>
-<th align="left">支持语言</th>
-<th align="left">可扩展性/插件支持</th>
-<th align="left">是否侵入项目</th>
+<th style="text-align:left">产品</th>
+<th style="text-align:center">定位</th>
+<th style="text-align:left">OpenApi</th>
+<th style="text-align:left">Web项目友好</th>
+<th style="text-align:left">支持代码质量检查</th>
+<th style="text-align:left">支持语言</th>
+<th style="text-align:left">可扩展性/插件支持</th>
+<th style="text-align:left">是否侵入项目</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">SonarQube</td>
-<td align="center">代码质量平台 <br />通过插件的<br />方式提供对各个<br />语言进行支持，<br />可以和 Checkstyle、PMD、Simian <br />等工具进行集成</td>
-<td align="left">支持</td>
-<td align="left">是</td>
-<td align="left">支持</td>
-<td align="left">常见语言都支持</td>
-<td align="left">高</td>
-<td align="left">否</td>
+<tbody>
+<tr>
+<td style="text-align:left">SonarQube</td>
+<td style="text-align:center">代码质量平台 <br>通过插件的<br>方式提供对各个<br>语言进行支持，<br>可以和 Checkstyle、PMD、Simian <br>等工具进行集成</td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">常见语言都支持</td>
+<td style="text-align:left">高</td>
+<td style="text-align:left">否</td>
 </tr>
 <tr>
-<td align="left">Infer</td>
-<td align="center">代码分析</td>
-<td align="left">不支持</td>
-<td align="left">否（移动端友好）</td>
-<td align="left">支持</td>
-<td align="left">Android/java</td>
-<td align="left">中</td>
-<td align="left">是</td>
+<td style="text-align:left">Infer</td>
+<td style="text-align:center">代码分析</td>
+<td style="text-align:left">不支持</td>
+<td style="text-align:left">否（移动端友好）</td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">Android/java</td>
+<td style="text-align:left">中</td>
+<td style="text-align:left">是</td>
 </tr>
 <tr>
-<td align="left">PMD</td>
-<td align="center">代码分析</td>
-<td align="left">不支持</td>
-<td align="left">是</td>
-<td align="left">支持</td>
-<td align="left">java</td>
-<td align="left">高</td>
-<td align="left">否</td>
+<td style="text-align:left">PMD</td>
+<td style="text-align:center">代码分析</td>
+<td style="text-align:left">不支持</td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">java</td>
+<td style="text-align:left">高</td>
+<td style="text-align:left">否</td>
 </tr>
 <tr>
-<td align="left">FindBugs</td>
-<td align="center">字节码分析，侧重Bug检测</td>
-<td align="left">不支持</td>
-<td align="left"></td>
-<td align="left">支持</td>
-<td align="left">java</td>
-<td align="left">低</td>
-<td align="left">是</td>
+<td style="text-align:left">FindBugs</td>
+<td style="text-align:center">字节码分析，侧重Bug检测</td>
+<td style="text-align:left">不支持</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">java</td>
+<td style="text-align:left">低</td>
+<td style="text-align:left">是</td>
 </tr>
 <tr>
-<td align="left">CheckStyle</td>
-<td align="center">语法层面分析</td>
-<td align="left">不支持</td>
-<td align="left"></td>
-<td align="left">支持</td>
-<td align="left">java</td>
-<td align="left">低</td>
-<td align="left">是</td>
+<td style="text-align:left">CheckStyle</td>
+<td style="text-align:center">语法层面分析</td>
+<td style="text-align:left">不支持</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">java</td>
+<td style="text-align:left">低</td>
+<td style="text-align:left">是</td>
 </tr>
-</tbody></table>
-<h3 id="选型"><a href="#选型" class="headerlink" title="选型"></a>选型</h3><p>基于上述，<strong>选型SonarQube作为代码扫描工具</strong>，SonarQube 也是是一款目前比较流行的工具，国内很多互联网公司都选择用它来搭建静态检查的平台。</p>
+</tbody>
+</table>
+<h3 id="选型"><a class="markdownIt-Anchor" href="#选型"></a> 选型</h3>
+<p>基于上述，<strong>选型SonarQube作为代码扫描工具</strong>，SonarQube 也是是一款目前比较流行的工具，国内很多互联网公司都选择用它来搭建静态检查的平台。</p>
 <p>SonarQube介绍: <a target="_blank" rel="noopener" href="https://www.sonarqube.org/">官网</a></p>
-<h2 id="实施计划"><a href="#实施计划" class="headerlink" title="实施计划"></a>实施计划</h2><ul>
+<h2 id="实施计划"><a class="markdownIt-Anchor" href="#实施计划"></a> 实施计划</h2>
+<ul>
 <li>SonarQube的部署使用调研</li>
 <li>代码检测集成方案，（Jenkins、gitlab CI、代码检测时机等）</li>
 <li>考虑代码质量平台管理（原生平台界面不友好、同时展示维度无法做到应用维度）</li>
 </ul>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h2><table>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> <strong>参考资料</strong></h2>
+<table>
 <thead>
 <tr>
-<th align="left"></th>
-<th align="left">资料</th>
-<th align="left">概述</th>
-<th align="left">参考价值</th>
+<th style="text-align:left"></th>
+<th style="text-align:left">资料</th>
+<th style="text-align:left">概述</th>
+<th style="text-align:left">参考价值</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">1</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://testerhome.com/articles/24210">酷家乐质量效能 代码度量平台</a></td>
-<td align="left">引入使用 SQALE 代码质量评估模型的 SonarQube 进行代码静态扫描，辅以 Cobra 的进行代码审计，Synk 进行三方包漏洞扫描，形成一套完整的代码度量工具链</td>
-<td align="left"><strong>高</strong><br />整合平台页面参考</td>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://testerhome.com/articles/24210">酷家乐质量效能 代码度量平台</a></td>
+<td style="text-align:left">引入使用 SQALE 代码质量评估模型的 SonarQube 进行代码静态扫描，辅以 Cobra 的进行代码审计，Synk 进行三方包漏洞扫描，形成一套完整的代码度量工具链</td>
+<td style="text-align:left"><strong>高</strong><br>整合平台页面参考</td>
 </tr>
 <tr>
-<td align="left">2</td>
-<td align="left"><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/d9RzCFkYrW27m1_LkeA2rw">系列 | 58集团白盒代码审计系统建设实践1：技术选型</a></td>
-<td align="left">对比了常见的的开源方案和商业方案，同时涉及介绍 SDL 相关检测知识</td>
-<td align="left"><strong>高</strong><br />选型对比数据参考</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/d9RzCFkYrW27m1_LkeA2rw">系列 | 58集团白盒代码审计系统建设实践1：技术选型</a></td>
+<td style="text-align:left">对比了常见的的开源方案和商业方案，同时涉及介绍 SDL 相关检测知识</td>
+<td style="text-align:left"><strong>高</strong><br>选型对比数据参考</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
     </div>
 
@@ -326,9 +378,10 @@
     
 
       <footer class="post-footer">
+          
           <div class="post-tags">
-              <a href="/tags/SonarQube/" rel="tag"># SonarQube</a>
-              <a href="/tags/%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F/" rel="tag"># 代码扫描</a>
+              <a href="/tags/SonarQube/" rel="tag"><i class="fa fa-tag"></i> SonarQube</a>
+              <a href="/tags/%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F/" rel="tag"><i class="fa fa-tag"></i> 代码扫描</a>
           </div>
 
         
@@ -403,7 +456,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E9%80%89%E5%9E%8B%E8%B0%83%E7%A0%94"><span class="nav-number">1.</span> <span class="nav-text">工具选型调研</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E5%AF%B9%E6%AF%94%E8%AF%B4%E6%98%8E"><span class="nav-number">1.1.</span> <span class="nav-text">工具对比说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">选型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%96%BD%E8%AE%A1%E5%88%92"><span class="nav-number">2.</span> <span class="nav-text">实施计划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E9%80%89%E5%9E%8B%E8%B0%83%E7%A0%94"><span class="nav-number">1.</span> <span class="nav-text"> 工具选型调研</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E5%AF%B9%E6%AF%94%E8%AF%B4%E6%98%8E"><span class="nav-number">1.1.</span> <span class="nav-text"> 工具对比说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text"> 选型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%96%BD%E8%AE%A1%E5%88%92"><span class="nav-number">2.</span> <span class="nav-text"> 实施计划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">3.</span> <span class="nav-text"> 参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -419,20 +472,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -464,8 +517,20 @@
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">765</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">22k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20 分钟</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
         
@@ -504,6 +569,8 @@
 
 
 
+  
+<script src="/js/local-search.js"></script>
 
 
 
@@ -514,6 +581,10 @@
 
 
 
+
+
+
+  
 
   
 
