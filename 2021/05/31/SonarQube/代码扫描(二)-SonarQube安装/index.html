@@ -240,14 +240,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.9k</span>
+              <span>3.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -261,7 +261,7 @@
       
         <p>SonarQube的安装会给予版本有些差异，建议根据你选择的版本结合官方的文档进行安装，中间遇到问题再自行Google一下啦。本文主要是讲解一下版本的安装：SonarQube：7.9 LTS +PostgreSQL 10</p>
 <span id="more"></span>
-<h2 id="版本选择"><a class="markdownIt-Anchor" href="#版本选择"></a> 版本选择</h2>
+<h2 id="%E7%89%88%E6%9C%AC%E9%80%89%E6%8B%A9">版本选择</h2>
 <p>不同的版本对应的插件选择和数据库支持不同，同时需要考虑版本的稳定性。考虑稳定性，避免出现问题无法跟进处理解决，生产环境不考虑最新版本。</p>
 <p>SonarQube：7.9 LTS</p>
 <p>SonarQube v7.9 的前置依赖说明（<a target="_blank" rel="noopener" href="https://docs.sonarqube.org/7.9/requirements/requirements/%EF%BC%89">https://docs.sonarqube.org/7.9/requirements/requirements/）</a></p>
@@ -269,8 +269,8 @@
 <li>数据库：PostgreSQL 10</li>
 <li>Java JDK：OpenJDK 11</li>
 </ul>
-<h2 id="安装说明"><a class="markdownIt-Anchor" href="#安装说明"></a> 安装说明</h2>
-<h3 id="1-openjdk-11安装"><a class="markdownIt-Anchor" href="#1-openjdk-11安装"></a> 1、OpenJDK 11安装</h3>
+<h2 id="%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E">安装说明</h2>
+<h3 id="1%E3%80%81openjdk-11%E5%AE%89%E8%A3%85">1、OpenJDK 11安装</h3>
 <p>官方安装引导：<a target="_blank" rel="noopener" href="https://openjdk.java.net/install/">https://openjdk.java.net/install/</a></p>
 <p>安装包（Linux/x64）：（<a target="_blank" rel="noopener" href="https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz">官方下载</a> ）</p>
 <p><strong>解压缩</strong></p>
@@ -278,11 +278,11 @@
 <p><strong>配置环境变量</strong></p>
 <p>&gt; 末尾增加如下内容(根据自己jdk目录修改)：<br>
 &gt; export JAVA_HOME=/usr/local/jdk-11<br>
-&gt; export CLASSPATH=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>J</mi><mi>A</mi><mi>V</mi><msub><mi>A</mi><mi>H</mi></msub><mi>O</mi><mi>M</mi><mi>E</mi><mi mathvariant="normal">/</mi><mi>l</mi><mi>i</mi><mi>b</mi><mo>:</mo></mrow><annotation encoding="application/x-tex">JAVA_HOME/lib:</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.09618em;">J</span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.08125em;">H</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span></span></span></span>CLASSPATH<br>
-&gt; export PATH=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>J</mi><mi>A</mi><mi>V</mi><msub><mi>A</mi><mi>H</mi></msub><mi>O</mi><mi>M</mi><mi>E</mi><mi mathvariant="normal">/</mi><mi>b</mi><mi>i</mi><mi>n</mi><mo>:</mo></mrow><annotation encoding="application/x-tex">JAVA_HOME/bin:</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.09618em;">J</span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.08125em;">H</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord">/</span><span class="mord mathdefault">b</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span></span></span></span>PATH</p>
+&gt; export CLASSPATH=$JAVA_HOME/lib:$CLASSPATH<br>
+&gt; export PATH=$JAVA_HOME/bin:$PATH</p>
 <p><strong>验证</strong></p>
 <p>&gt; java -version</p>
-<h3 id="2-postgresql-10安装"><a class="markdownIt-Anchor" href="#2-postgresql-10安装"></a> 2、PostgreSQL 10安装</h3>
+<h3 id="2%E3%80%81postgresql-10%E5%AE%89%E8%A3%85">2、PostgreSQL 10安装</h3>
 <p>官方的安装引导：<a target="_blank" rel="noopener" href="https://www.postgresql.org/download/linux/redhat/">https://www.postgresql.org/download/linux/redhat/</a></p>
 <ul>
 <li>Select version：10</li>
@@ -295,7 +295,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切换到postgres用户</span></span><br><span class="line">su - postgres</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 连接到数据库</span></span><br><span class="line">psql</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 创建数据库</span></span><br><span class="line">CREATE DATABASE sonarqube;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 创建用户</span></span><br><span class="line">CREATE USER sonarqube WITH PASSWORD <span class="string">&#x27;xxxxx&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 设置权限</span></span><br><span class="line">GRANT ALL PRIVILEGES ON DATABASE sonarqube TO sonarqube;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 创建授权（必须）</span></span><br><span class="line">ALTER DATABASE sonarqube owner to sonarqube;</span><br></pre></td></tr></table></figure>
 <p>修改pg数据的pg_hba.conf（<a target="_blank" rel="noopener" href="http://www.postgres.cn/docs/10/auth-pg-hba-conf.html"><code>pg_hba.conf</code>文件说明</a>）将认证 ident 改为 md5，</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># TYPE  DATABASE        USER            ADDRESS                 METHOD</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># &quot;local&quot; is for Unix domain socket connections only</span></span><br><span class="line"><span class="built_in">local</span>   all             all                                     peer</span><br><span class="line"><span class="comment"># IPv4 local connections:</span></span><br><span class="line">host    all             all             127.0.0.1/32            md5</span><br><span class="line"><span class="comment"># IPv6 local connections:</span></span><br><span class="line">host    all             all             ::1/128                 md5</span><br><span class="line"><span class="comment"># Allow replication connections from localhost, by a user with the</span></span><br><span class="line"><span class="comment"># replication privilege.</span></span><br><span class="line"><span class="comment">#local   replication     postgres                                peer</span></span><br><span class="line"><span class="comment">#host    replication     postgres        127.0.0.1/32            ident</span></span><br><span class="line"><span class="comment">#host    replication     postgres        ::1/128                 ident</span></span><br><span class="line"><span class="comment">#host    replication     sonar           127.0.0.1/32            ident</span></span><br></pre></td></tr></table></figure>
-<h3 id="3-sonarqube-79安装"><a class="markdownIt-Anchor" href="#3-sonarqube-79安装"></a> 3、SonarQube 7.9安装</h3>
+<h3 id="3%E3%80%81sonarqube-7.9%E5%AE%89%E8%A3%85">3、SonarQube 7.9安装</h3>
 <p>官方的安装引导：<a target="_blank" rel="noopener" href="https://docs.sonarqube.org/7.9/setup/install-server/">https://docs.sonarqube.org/7.9/setup/install-server/</a></p>
 <p>安装包：（<a target="_blank" rel="noopener" href="https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.9.6.zip">官方下载</a>）</p>
 <p><strong>创建sonar用户</strong></p>
@@ -320,31 +320,31 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="variable">$&#123;sonar_home&#125;</span>/bin/linux-x86-64/sonar.sh start</span><br></pre></td></tr></table></figure>
 <p>服务器部署，注意加入到开机启动项中,，此处我是加入 rc.local 文件中</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># sonarqube server</span></span><br><span class="line">su - sonar -c <span class="string">&quot;/opt/app/sonarqube/sonarqube-7.9.6/bin/linux-x86-64/sonar.sh start&quot;</span></span><br></pre></td></tr></table></figure>
-<h3 id="4-sonarqube-scanner"><a class="markdownIt-Anchor" href="#4-sonarqube-scanner"></a> 4、SonarQube Scanner</h3>
+<h3 id="4%E3%80%81sonarqube-scanner">4、SonarQube Scanner</h3>
 <p>官方的安装引导：<a target="_blank" rel="noopener" href="https://docs.sonarqube.org/7.9/analysis/scan/sonarscanner/">https://docs.sonarqube.org/7.9/analysis/scan/sonarscanner/</a></p>
 <p>安装包：（<a target="_blank" rel="noopener" href="https://docs.sonarqube.org/7.9/analysis/scan/sonarscanner/">官方下载</a>）</p>
 <p>安装：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置SonarQube Server，位置：$install_directory/conf/sonar-scanner.properties</span></span><br><span class="line"><span class="comment">#----- Default SonarQube server</span></span><br><span class="line">sonar.host.url=http://localhost:9000</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 将$install_directory/bin，加入到环境变量PATH</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 使用 sonar-scanner -h ，做验证</span></span><br></pre></td></tr></table></figure>
 <p>**每个扫描项目的根目录加入：**sonar-project.properties</p>
 <p>sonar-project.properties示例： <a target="_blank" rel="noopener" href="https://github.com/SonarSource/sonar-scanning-examples">browsed</a> or <a target="_blank" rel="noopener" href="https://github.com/SonarSource/sonar-scanning-examples/archive/master.zip">downloaded</a></p>
-<h3 id="5-sonarqube-plugin"><a class="markdownIt-Anchor" href="#5-sonarqube-plugin"></a> 5、SonarQube Plugin</h3>
+<h3 id="5%E3%80%81sonarqube-plugin">5、SonarQube Plugin</h3>
 <ul>
 <li>社区版支持多分支检测： <a target="_blank" rel="noopener" href="https://github.com/mc1arke/sonarqube-community-branch-plugin">sonarqube-community-branch-plugin</a>（1.3.2老版本，安装<a target="_blank" rel="noopener" href="https://github.com/mc1arke/sonarqube-community-branch-plugin/commit/a6b6db3f30e1ebba7183825542d1f5363b66a831#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5">区别现说明</a>：Copy the plugin JAR file to the <code>extensions/plugins/</code> <strong>and</strong> the <code>lib/common/</code> directories of your SonarQube instance and restart SonarQube）</li>
 <li>汉化包（不建议，总觉得怪怪的）：直接在应用市场检索按照对应的版本即可（jar插件下载：<a target="_blank" rel="noopener" href="https://github.com/xuhuisheng/sonar-l10n-zh">sonar-l10n-zh</a>）</li>
 </ul>
-<h3 id="6-相关配置"><a class="markdownIt-Anchor" href="#6-相关配置"></a> 6、相关配置</h3>
+<h3 id="6%E3%80%81%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE">6、相关配置</h3>
 <ul>
 <li><strong>解决增量代码小于20行，QG不生效情况：</strong></li>
 </ul>
 <p>&gt; 配置：sonarqube → quality gates → create/copy a new QG , set :Lines to Cover on New Code to 0</p>
-<h2 id="问题记录"><a class="markdownIt-Anchor" href="#问题记录"></a> 问题记录</h2>
+<h2 id="%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95">问题记录</h2>
 <p><strong>1、Some Quality Gate conditions on New Code were ignored because of the small number of New Lines</strong></p>
 <p>但分支模式增量代码扫描，少于20行时，代码坏味道无法检测到，可以参考：<a target="_blank" rel="noopener" href="https://jira.sonarsource.com/browse/SONAR-9352">SONAR-9352</a> 或 <a target="_blank" rel="noopener" href="https://groups.google.com/g/sonarqube/c/qxQLr7OAioA/m/Dk9J7Ji8BgAJ?pli=1">论坛讨论</a></p>
 <p>解决：解决方案说明参考 <a target="_blank" rel="noopener" href="https://groups.google.com/g/sonarqube/c/qxQLr7OAioA/m/Dk9J7Ji8BgAJ?pli=1">论坛讨论</a>，</p>
 <p>步骤：sonarqube → quality gates → create/copy a new QG , set :Lines to Cover on New Code to 0</p>
 <p><strong>2、the main branch has no lines of code</strong></p>
 <p>扫描php，遇到的错误，主要原因是唯一的php的文件在解析阶段就出现错误，无法正常解析，也就没有扫描文件，更没有扫描结果了。</p>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<h2 id="%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</h2>
 <ol>
 <li><a target="_blank" rel="noopener" href="https://bbs.huaweicloud.com/blogs/159762">SonarQube安装及踩坑体验</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/CN_TangZheng/article/details/109244806">调研sonarqube版本区别</a></li>
@@ -436,7 +436,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E9%80%89%E6%8B%A9"><span class="nav-number">1.</span> <span class="nav-text"> 版本选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text"> 安装说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-openjdk-11%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text"> 1、OpenJDK 11安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-postgresql-10%E5%AE%89%E8%A3%85"><span class="nav-number">2.2.</span> <span class="nav-text"> 2、PostgreSQL 10安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-sonarqube-79%E5%AE%89%E8%A3%85"><span class="nav-number">2.3.</span> <span class="nav-text"> 3、SonarQube 7.9安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-sonarqube-scanner"><span class="nav-number">2.4.</span> <span class="nav-text"> 4、SonarQube Scanner</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-sonarqube-plugin"><span class="nav-number">2.5.</span> <span class="nav-text"> 5、SonarQube Plugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="nav-number">2.6.</span> <span class="nav-text"> 6、相关配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95"><span class="nav-number">3.</span> <span class="nav-text"> 问题记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">4.</span> <span class="nav-text"> 参考资料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E9%80%89%E6%8B%A9"><span class="nav-number">1.</span> <span class="nav-text">版本选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">安装说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81openjdk-11%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">1、OpenJDK 11安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81postgresql-10%E5%AE%89%E8%A3%85"><span class="nav-number">2.2.</span> <span class="nav-text">2、PostgreSQL 10安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81sonarqube-7.9%E5%AE%89%E8%A3%85"><span class="nav-number">2.3.</span> <span class="nav-text">3、SonarQube 7.9安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81sonarqube-scanner"><span class="nav-number">2.4.</span> <span class="nav-text">4、SonarQube Scanner</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81sonarqube-plugin"><span class="nav-number">2.5.</span> <span class="nav-text">5、SonarQube Plugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="nav-number">2.6.</span> <span class="nav-text">6、相关配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95"><span class="nav-number">3.</span> <span class="nav-text">问题记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
