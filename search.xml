@@ -836,4 +836,82 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
         <tag>Jenkins</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Jenkins共享库</title>
+    <url>/2021/06/08/Jenkins/Jenkins%E5%85%B1%E4%BA%AB%E5%BA%93/</url>
+    <content><![CDATA[<h1 id="jenkins共享库使用说明"><a class="markdownIt-Anchor" href="#jenkins共享库使用说明"></a> Jenkins共享库使用说明</h1>
+<p><strong><code>在Jenkin pipelines脚本中，抽象出一些公共的函数类库，避免项目方重复冗余的脚本代码书写</code></strong>，在此处我也把我经常使用的一些共享函数库（<strong><a href="https://github.com/nengwu765/jenkins-share-library">jenkins-share-library</a></strong>）分享出来，欢迎交流指正哈！</p>
+<span id="more"></span>
+<h2 id="1-如何使用jenkins共享库"><a class="markdownIt-Anchor" href="#1-如何使用jenkins共享库"></a> 1. 如何使用Jenkins共享库</h2>
+<ul>
+<li>在Jenkinsfile的脚本文件第一行引入以下代码</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">library &#x27;jenkins-shared-libraries&#x27;</span><br><span class="line"></span><br><span class="line">pipeline &#123; ... &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>调用示例</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">stage (&quot;demo&quot;) &#123;</span><br><span class="line">	steps &#123;</span><br><span class="line">		script &#123;</span><br><span class="line">			// 调用：共享方法名+入参</span><br><span class="line">			demoFunction(params1, params2, ...)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-支持的共享库方法"><a class="markdownIt-Anchor" href="#2-支持的共享库方法"></a> 2. 支持的共享库方法</h2>
+<h3 id="21-git仓库拉取-gitcodefetch"><a class="markdownIt-Anchor" href="#21-git仓库拉取-gitcodefetch"></a> 2.1 Git仓库拉取 - gitCodeFetch()</h3>
+<p>支持基于分支/标签 和 Submodule子仓库拉取以及基于MR拉取分支，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/gitCodeFetch.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Git仓库版本拉取 -- 支持基于分支/标签 和 Submodule子仓库拉取以及基于MR拉取分支</span><br><span class="line"> *</span><br><span class="line"> * @param fetchMode Git代码拉取方式：branch-基于分支; tag-基于标签</span><br><span class="line"> * @param gitBranchOrTag Git仓库分支 或 标签</span><br><span class="line"> * @param gitRepository  Git仓库地址</span><br><span class="line"> * @param gitCredentialsId  Git拉取凭证ID 【若存在Submodule子仓库，则该凭证需要有子仓库拉取权限】</span><br><span class="line"> * @param gitEvent  git拉取事件,基于分支或Tag拉取,则置空; MergeRequest则为:&quot;MR&quot;</span><br><span class="line"> * @param targetBranch 若gitEvent为&quot;MR&quot;,此处为MR目标分支</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">void call(String fetchMode,String gitBranchOrTag, String gitRepository, String gitCredentialsId, String gitEvent = &#x27;&#x27;, String targetBranch = &#x27;&#x27;) </span><br></pre></td></tr></table></figure>
+<h3 id="22-md5值校验-md5check"><a class="markdownIt-Anchor" href="#22-md5值校验-md5check"></a> 2.2 MD5值校验 - md5Check()</h3>
+<p>文件MD5值check，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/md5Check.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 文件MD5值check</span><br><span class="line"> *</span><br><span class="line"> * @param filePath 文件路径</span><br><span class="line"> * @param md5 文件md5值</span><br><span class="line"> * @param forceCheck 是强制检查，是-必检，否-md5值非空则进行检查</span><br><span class="line"> */</span><br><span class="line">void md5Check(String filePath, String md5, boolean forceCheck = true)</span><br><span class="line"></span><br><span class="line">注：forceCheck=true时，校验不通过则报错，流水线终止</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="23-sha1值校验-sha1check"><a class="markdownIt-Anchor" href="#23-sha1值校验-sha1check"></a> 2.3 SHA1值校验 - sha1Check()</h3>
+<p>文件SHA1值check，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/sha1Check.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 文件SHA1值check</span><br><span class="line"> *</span><br><span class="line"> * @param filePath 文件路径</span><br><span class="line"> * @param sha1 文件md5值</span><br><span class="line"> * @param forceCheck 是强制检查，是-必检，否-md5值非空则进行检查</span><br><span class="line"> */</span><br><span class="line">void sha1Check(String filePath, String sha1, boolean forceCheck = true)</span><br><span class="line"></span><br><span class="line">注：forceCheck=true时，校验不通过则报错，流水线终止</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="24-ftp上传-ftpupload"><a class="markdownIt-Anchor" href="#24-ftp上传-ftpupload"></a> 2.4 FTP上传 - ftpUpload()</h3>
+<p>FTP文件上传  – // 参数参考说明：<a href="https://jenkins.io/doc/pipeline/steps/publish-over-ftp">https://jenkins.io/doc/pipeline/steps/publish-over-ftp</a></p>
+<p><a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/ftpUpload.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * FTP文件上传  -- // 参数参考说明：https://jenkins.io/doc/pipeline/steps/publish-over-ftp</span><br><span class="line"> * @param configName  在Jenkins全局设置的FTP Server名称</span><br><span class="line"> * @param sourceFiles  上传源文件，支持正则匹配，如[递归目录层级使用&#x27;**&#x27;]：&#x27;**/*.apk,public/**/*&#x27;</span><br><span class="line"> * @param remoteDir  上传子目录路径，注此路径会追加到全局设置的FTP Server的Remote Directory之后</span><br><span class="line"> * @param excludes  排除上传文件，支持正则匹配，如[递归目录层级使用&#x27;**&#x27;]： &#x27;**/*.log,**/*.tmp,.git/&#x27;</span><br><span class="line"> * @param removePrefix  去除上传文件的路径前缀，避免ftp服务器中生成无用的目录路径,注：所有上传文件必须都有该前缀，否则报错</span><br><span class="line"> */</span><br><span class="line">void ftpUpload(String configName, String sourceFiles, String remoteDir = &#x27;&#x27;, String excludes = &#x27;&#x27;, String removePrefix = &#x27;&#x27;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="25-rsync-module远程同步-rsyncmodule"><a class="markdownIt-Anchor" href="#25-rsync-module远程同步-rsyncmodule"></a> 2.5 Rsync Module远程同步 - rsyncModule()</h3>
+<p>rsync 使用Module远程同步，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/rsyncWithModule.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  rsync 使用Module远程同步</span><br><span class="line"> *</span><br><span class="line"> * @param ip rsync服务器IP</span><br><span class="line"> * @param port rsync服务器监听端口</span><br><span class="line"> * @param path rsync本地同步绝对路径</span><br><span class="line"> * @param module rsync同步模块</span><br><span class="line"> * @param user  rsync同步用户，指定传输文件为指定用户</span><br><span class="line"> * @param customParams 定制rsync参数，不允许出现&quot;delete&quot;关键字，如：--exclude=PATTERN --include=PATTERN --exclude-from=FILE --include-from=FILE</span><br><span class="line"> * @param bwlimit</span><br><span class="line"> */</span><br><span class="line">void rsyncModule(String ip, int port, String path, String module, String user = &#x27;&#x27;, String customParams = &#x27;&#x27;, int bwlimit = 8192)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="26-制品上传nexus-uploadartifactstonexus"><a class="markdownIt-Anchor" href="#26-制品上传nexus-uploadartifactstonexus"></a> 2.6 制品上传Nexus - uploadArtifactsToNexus()</h3>
+<p>如果你是以Nexus作为制品库的话，这个可以作为参考，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/uploadArtifactsToNexus.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 上传制品至Nexus仓库</span><br><span class="line"> *</span><br><span class="line"> * @param nexusRepository Nexus上传仓库</span><br><span class="line"> * @param dir 检索目录</span><br><span class="line"> * @param fileMatchRegex 文件正则匹配规则， 支持文件类型、文件前缀、文件全名，</span><br><span class="line"> *        如文件：prefix_file.test,</span><br><span class="line"> *        匹配规则：</span><br><span class="line"> *              文件类型： fileMatchRegex = &quot;.test&quot;</span><br><span class="line"> *              文件前缀： fileMatchRegex = &quot;prefix_&quot;</span><br><span class="line"> *              文件全名： fileMatchRegex = &quot;prefix_file.test&quot;</span><br><span class="line"> * @param uploadSubPath 制品上传路经</span><br><span class="line"> * @param isRecursion 是否递归检索子目录,默认：否【注：同名文件会被覆盖】</span><br><span class="line"> * @param artifacts 制品存储数据，Map结构，默认：空Map</span><br><span class="line"> * @return Map 返回上传制品数据</span><br><span class="line"> *         eg: [</span><br><span class="line"> *              &#x27;file1&#x27;:[</span><br><span class="line"> *                  &#x27;url&#x27;:&#x27;https://nexus.demo.com/.../file1&#x27;  // 文件在nexus中的上传路径【即下载路径】</span><br><span class="line"> *                  &#x27;md5&#x27;:&#x27;xxxx&#x27; // 文件md5值</span><br><span class="line"> *                  &#x27;sha1&#x27;:&#x27;xxxx&#x27;   // 文件sha1值</span><br><span class="line"> *               ],</span><br><span class="line"> *         ]</span><br><span class="line"> */</span><br><span class="line">def uploadArtifactsToNexus(String nexusRepository, String dir, String fileMatchRegex, String uploadPath, boolean isRecursion = false, Map artifacts = [:])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Android制品上传Nexus - uploadAndroidArtifacts()</li>
+</ul>
+<p><strong><code>针对Android制品上传，做了一层外围封装，防止不同业务上传仓库紊乱</code></strong>，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/uploadAndroidArtifacts.groovy">源码参考</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 上传制品至Nexus仓库</span><br><span class="line"> *</span><br><span class="line"> * @param dir 检索目录</span><br><span class="line"> * @param fileMatchRegex 文件正则匹配规则， 支持文件类型、文件前缀、文件全名，</span><br><span class="line"> *        如文件：prefix_file.test,</span><br><span class="line"> *        匹配规则：</span><br><span class="line"> *              文件类型： fileMatchRegex = &quot;.test&quot;</span><br><span class="line"> *              文件前缀： fileMatchRegex = &quot;prefix_&quot;</span><br><span class="line"> *              文件全名： fileMatchRegex = &quot;prefix_file.test&quot;</span><br><span class="line"> * @param uploadSubPath 制品上传路经</span><br><span class="line"> * @param isRecursion 是否递归检索子目录,默认：否【注：同名文件会被覆盖】</span><br><span class="line"> * @param artifacts 制品存储数据，Map结构，默认：空Map</span><br><span class="line"> * @return Map 返回上传制品数据</span><br><span class="line"> *         eg: [</span><br><span class="line"> *              &#x27;file1&#x27;:[</span><br><span class="line"> *                  &#x27;url&#x27;:&#x27;https://nexus.demo.com/.../file1&#x27;  // 文件在nexus中的上传路径【即下载路径】</span><br><span class="line"> *                  &#x27;md5&#x27;:&#x27;xxxx&#x27; // 文件md5值</span><br><span class="line"> *                  &#x27;sha1&#x27;:&#x27;xxxx&#x27;   // 文件sha1值</span><br><span class="line"> *               ],</span><br><span class="line"> *         ]</span><br><span class="line"> */</span><br><span class="line">def uploadAndroidArtifacts(String dir, String fileMatchRegex, String uploadPath, boolean isRecursion = false, Map artifacts = [:])</span><br></pre></td></tr></table></figure>
+<h3 id="27-流水线结果回调-callbackaction"><a class="markdownIt-Anchor" href="#27-流水线结果回调-callbackaction"></a> 2.7 流水线结果回调 - callBackAction()</h3>
+<p>Jenkins pipeline结果回调通知（这个其实有个Plugin支持，Job Notification，但是我觉得不够灵活），这边我自定义了一个通用回调，可以防止在任何位置，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/callBackAction.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 流水线执行结果回调操作</span><br><span class="line"> *</span><br><span class="line"> * @param callBackUrlsJson 回调Url地址Json数据</span><br><span class="line"> * @param artifacts 制品存储数据</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">void callBackAction(String callBackUrlsJson, Map artifacts = [:])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用示例</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">	agent any</span><br><span class="line"></span><br><span class="line">	stages &#123;...&#125;</span><br><span class="line">    </span><br><span class="line">	post &#123;</span><br><span class="line">        always &#123;</span><br><span class="line">            // 回调Api通知对接JOB执行结果</span><br><span class="line">            script &#123;</span><br><span class="line">                if (!binding.variables.containsKey(&quot;ARTIFACTS&quot;)) &#123;</span><br><span class="line">                    ARTIFACTS = [:]</span><br><span class="line">                &#125;</span><br><span class="line">                callBackAction(params.CALLBACK_URLS_JSON, ARTIFACTS)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            echo &quot;I will be executed while failed or succeed&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5-引用"><a class="markdownIt-Anchor" href="#5-引用"></a> 5 引用</h2>
+<p><a href="https://www.jenkins.io/doc/book/pipeline/shared-libraries/">官方参考，Extending with Shared Libraries</a></p>
+]]></content>
+      <categories>
+        <category>Jenkins</category>
+      </categories>
+      <tags>
+        <tag>Jenkins</tag>
+      </tags>
+  </entry>
 </search>
