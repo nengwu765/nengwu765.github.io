@@ -1,6 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Jenkins共享库使用-初阶</title>
+    <url>/2021/06/08/Jenkins/Jenkins%E5%85%B1%E4%BA%AB%E5%BA%93%E4%BD%BF%E7%94%A8-%E5%88%9D%E9%98%B6/</url>
+    <content><![CDATA[<p>在我们实际写Jenkin pipelines脚本中，可能会出现``java.lang.RuntimeException: Method code too large!<code>，这个时候你就要抽象出一些公共的函数类库，</code>避免项目方重复冗余的脚本代码书写`，在此处我也把我经常使用的一些共享函数库（<strong><a href="https://github.com/nengwu765/jenkins-share-library">jenkins-share-library</a></strong>）分享出来，欢迎交流指正哈！</p>
+<span id="more"></span>
+<h2 id="1-如何使用jenkins共享库"><a class="markdownIt-Anchor" href="#1-如何使用jenkins共享库"></a> 1. 如何使用Jenkins共享库</h2>
+<ul>
+<li>在Jenkinsfile的脚本文件第一行引入以下代码</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">library &#x27;jenkins-shared-libraries&#x27;</span><br><span class="line"></span><br><span class="line">pipeline &#123; ... &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>调用示例</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">stage (&quot;demo&quot;) &#123;</span><br><span class="line">	steps &#123;</span><br><span class="line">		script &#123;</span><br><span class="line">			// 调用：共享方法名+入参</span><br><span class="line">			demoFunction(params1, params2, ...)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-支持的共享库方法"><a class="markdownIt-Anchor" href="#2-支持的共享库方法"></a> 2. 支持的共享库方法</h2>
+<h3 id="21-git仓库拉取-gitcodefetch"><a class="markdownIt-Anchor" href="#21-git仓库拉取-gitcodefetch"></a> 2.1 Git仓库拉取 - gitCodeFetch()</h3>
+<p>支持基于分支/标签 和 Submodule子仓库拉取以及基于MR拉取分支，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/gitCodeFetch.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Git仓库版本拉取 -- 支持基于分支/标签 和 Submodule子仓库拉取以及基于MR拉取分支</span><br><span class="line"> *</span><br><span class="line"> * @param fetchMode Git代码拉取方式：branch-基于分支; tag-基于标签</span><br><span class="line"> * @param gitBranchOrTag Git仓库分支 或 标签</span><br><span class="line"> * @param gitRepository  Git仓库地址</span><br><span class="line"> * @param gitCredentialsId  Git拉取凭证ID 【若存在Submodule子仓库，则该凭证需要有子仓库拉取权限】</span><br><span class="line"> * @param gitEvent  git拉取事件,基于分支或Tag拉取,则置空; MergeRequest则为:&quot;MR&quot;</span><br><span class="line"> * @param targetBranch 若gitEvent为&quot;MR&quot;,此处为MR目标分支</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">void call(String fetchMode,String gitBranchOrTag, String gitRepository, String gitCredentialsId, String gitEvent = &#x27;&#x27;, String targetBranch = &#x27;&#x27;) </span><br></pre></td></tr></table></figure>
+<h3 id="22-md5值校验-md5check"><a class="markdownIt-Anchor" href="#22-md5值校验-md5check"></a> 2.2 MD5值校验 - md5Check()</h3>
+<p>文件MD5值check，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/md5Check.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 文件MD5值check</span><br><span class="line"> *</span><br><span class="line"> * @param filePath 文件路径</span><br><span class="line"> * @param md5 文件md5值</span><br><span class="line"> * @param forceCheck 是强制检查，是-必检，否-md5值非空则进行检查</span><br><span class="line"> */</span><br><span class="line">void md5Check(String filePath, String md5, boolean forceCheck = true)</span><br><span class="line"></span><br><span class="line">注：forceCheck=true时，校验不通过则报错，流水线终止</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="23-sha1值校验-sha1check"><a class="markdownIt-Anchor" href="#23-sha1值校验-sha1check"></a> 2.3 SHA1值校验 - sha1Check()</h3>
+<p>文件SHA1值check，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/sha1Check.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 文件SHA1值check</span><br><span class="line"> *</span><br><span class="line"> * @param filePath 文件路径</span><br><span class="line"> * @param sha1 文件md5值</span><br><span class="line"> * @param forceCheck 是强制检查，是-必检，否-md5值非空则进行检查</span><br><span class="line"> */</span><br><span class="line">void sha1Check(String filePath, String sha1, boolean forceCheck = true)</span><br><span class="line"></span><br><span class="line">注：forceCheck=true时，校验不通过则报错，流水线终止</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="24-ftp上传-ftpupload"><a class="markdownIt-Anchor" href="#24-ftp上传-ftpupload"></a> 2.4 FTP上传 - ftpUpload()</h3>
+<p>FTP文件上传  – // 参数参考说明：<a href="https://jenkins.io/doc/pipeline/steps/publish-over-ftp">https://jenkins.io/doc/pipeline/steps/publish-over-ftp</a></p>
+<p><a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/ftpUpload.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * FTP文件上传  -- // 参数参考说明：https://jenkins.io/doc/pipeline/steps/publish-over-ftp</span><br><span class="line"> * @param configName  在Jenkins全局设置的FTP Server名称</span><br><span class="line"> * @param sourceFiles  上传源文件，支持正则匹配，如[递归目录层级使用&#x27;**&#x27;]：&#x27;**/*.apk,public/**/*&#x27;</span><br><span class="line"> * @param remoteDir  上传子目录路径，注此路径会追加到全局设置的FTP Server的Remote Directory之后</span><br><span class="line"> * @param excludes  排除上传文件，支持正则匹配，如[递归目录层级使用&#x27;**&#x27;]： &#x27;**/*.log,**/*.tmp,.git/&#x27;</span><br><span class="line"> * @param removePrefix  去除上传文件的路径前缀，避免ftp服务器中生成无用的目录路径,注：所有上传文件必须都有该前缀，否则报错</span><br><span class="line"> */</span><br><span class="line">void ftpUpload(String configName, String sourceFiles, String remoteDir = &#x27;&#x27;, String excludes = &#x27;&#x27;, String removePrefix = &#x27;&#x27;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="25-rsync-module远程同步-rsyncmodule"><a class="markdownIt-Anchor" href="#25-rsync-module远程同步-rsyncmodule"></a> 2.5 Rsync Module远程同步 - rsyncModule()</h3>
+<p>rsync 使用Module远程同步，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/rsyncWithModule.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  rsync 使用Module远程同步</span><br><span class="line"> *</span><br><span class="line"> * @param ip rsync服务器IP</span><br><span class="line"> * @param port rsync服务器监听端口</span><br><span class="line"> * @param path rsync本地同步绝对路径</span><br><span class="line"> * @param module rsync同步模块</span><br><span class="line"> * @param user  rsync同步用户，指定传输文件为指定用户</span><br><span class="line"> * @param customParams 定制rsync参数，不允许出现&quot;delete&quot;关键字，如：--exclude=PATTERN --include=PATTERN --exclude-from=FILE --include-from=FILE</span><br><span class="line"> * @param bwlimit</span><br><span class="line"> */</span><br><span class="line">void rsyncModule(String ip, int port, String path, String module, String user = &#x27;&#x27;, String customParams = &#x27;&#x27;, int bwlimit = 8192)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="26-制品上传nexus-uploadartifactstonexus"><a class="markdownIt-Anchor" href="#26-制品上传nexus-uploadartifactstonexus"></a> 2.6 制品上传Nexus - uploadArtifactsToNexus()</h3>
+<p>如果你是以Nexus作为制品库的话，这个可以作为参考，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/uploadArtifactsToNexus.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 上传制品至Nexus仓库</span><br><span class="line"> *</span><br><span class="line"> * @param nexusRepository Nexus上传仓库</span><br><span class="line"> * @param dir 检索目录</span><br><span class="line"> * @param fileMatchRegex 文件正则匹配规则， 支持文件类型、文件前缀、文件全名，</span><br><span class="line"> *        如文件：prefix_file.test,</span><br><span class="line"> *        匹配规则：</span><br><span class="line"> *              文件类型： fileMatchRegex = &quot;.test&quot;</span><br><span class="line"> *              文件前缀： fileMatchRegex = &quot;prefix_&quot;</span><br><span class="line"> *              文件全名： fileMatchRegex = &quot;prefix_file.test&quot;</span><br><span class="line"> * @param uploadSubPath 制品上传路经</span><br><span class="line"> * @param isRecursion 是否递归检索子目录,默认：否【注：同名文件会被覆盖】</span><br><span class="line"> * @param artifacts 制品存储数据，Map结构，默认：空Map</span><br><span class="line"> * @return Map 返回上传制品数据</span><br><span class="line"> *         eg: [</span><br><span class="line"> *              &#x27;file1&#x27;:[</span><br><span class="line"> *                  &#x27;url&#x27;:&#x27;https://nexus.demo.com/.../file1&#x27;  // 文件在nexus中的上传路径【即下载路径】</span><br><span class="line"> *                  &#x27;md5&#x27;:&#x27;xxxx&#x27; // 文件md5值</span><br><span class="line"> *                  &#x27;sha1&#x27;:&#x27;xxxx&#x27;   // 文件sha1值</span><br><span class="line"> *               ],</span><br><span class="line"> *         ]</span><br><span class="line"> */</span><br><span class="line">def uploadArtifactsToNexus(String nexusRepository, String dir, String fileMatchRegex, String uploadPath, boolean isRecursion = false, Map artifacts = [:])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Android制品上传Nexus - uploadAndroidArtifacts()</li>
+</ul>
+<p><strong><code>针对Android制品上传，做了一层外围封装，防止不同业务上传仓库紊乱</code></strong>，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/uploadAndroidArtifacts.groovy">源码参考</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 上传制品至Nexus仓库</span><br><span class="line"> *</span><br><span class="line"> * @param dir 检索目录</span><br><span class="line"> * @param fileMatchRegex 文件正则匹配规则， 支持文件类型、文件前缀、文件全名，</span><br><span class="line"> *        如文件：prefix_file.test,</span><br><span class="line"> *        匹配规则：</span><br><span class="line"> *              文件类型： fileMatchRegex = &quot;.test&quot;</span><br><span class="line"> *              文件前缀： fileMatchRegex = &quot;prefix_&quot;</span><br><span class="line"> *              文件全名： fileMatchRegex = &quot;prefix_file.test&quot;</span><br><span class="line"> * @param uploadSubPath 制品上传路经</span><br><span class="line"> * @param isRecursion 是否递归检索子目录,默认：否【注：同名文件会被覆盖】</span><br><span class="line"> * @param artifacts 制品存储数据，Map结构，默认：空Map</span><br><span class="line"> * @return Map 返回上传制品数据</span><br><span class="line"> *         eg: [</span><br><span class="line"> *              &#x27;file1&#x27;:[</span><br><span class="line"> *                  &#x27;url&#x27;:&#x27;https://nexus.demo.com/.../file1&#x27;  // 文件在nexus中的上传路径【即下载路径】</span><br><span class="line"> *                  &#x27;md5&#x27;:&#x27;xxxx&#x27; // 文件md5值</span><br><span class="line"> *                  &#x27;sha1&#x27;:&#x27;xxxx&#x27;   // 文件sha1值</span><br><span class="line"> *               ],</span><br><span class="line"> *         ]</span><br><span class="line"> */</span><br><span class="line">def uploadAndroidArtifacts(String dir, String fileMatchRegex, String uploadPath, boolean isRecursion = false, Map artifacts = [:])</span><br></pre></td></tr></table></figure>
+<h3 id="27-流水线结果回调-callbackaction"><a class="markdownIt-Anchor" href="#27-流水线结果回调-callbackaction"></a> 2.7 流水线结果回调 - callBackAction()</h3>
+<p>Jenkins pipeline结果回调通知（这个其实有个Plugin支持，Job Notification，但是我觉得不够灵活），这边我自定义了一个通用回调，可以防止在任何位置，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/callBackAction.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 流水线执行结果回调操作</span><br><span class="line"> *</span><br><span class="line"> * @param callBackUrlsJson 回调Url地址Json数据</span><br><span class="line"> * @param artifacts 制品存储数据</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">void callBackAction(String callBackUrlsJson, Map artifacts = [:])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用示例</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">	agent any</span><br><span class="line"></span><br><span class="line">	stages &#123;...&#125;</span><br><span class="line">    </span><br><span class="line">	post &#123;</span><br><span class="line">        always &#123;</span><br><span class="line">            // 回调Api通知对接JOB执行结果</span><br><span class="line">            script &#123;</span><br><span class="line">                if (!binding.variables.containsKey(&quot;ARTIFACTS&quot;)) &#123;</span><br><span class="line">                    ARTIFACTS = [:]</span><br><span class="line">                &#125;</span><br><span class="line">                callBackAction(params.CALLBACK_URLS_JSON, ARTIFACTS)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            echo &quot;I will be executed while failed or succeed&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5-引用"><a class="markdownIt-Anchor" href="#5-引用"></a> 5 引用</h2>
+<p><a href="https://www.jenkins.io/doc/book/pipeline/shared-libraries/">官方参考，Extending with Shared Libraries</a></p>
+]]></content>
+      <categories>
+        <category>Jenkins</category>
+      </categories>
+      <tags>
+        <tag>Jenkins</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Jenkins部署-K8s OR 物理机</title>
+    <url>/2021/06/10/Jenkins/Jenkins%E9%83%A8%E7%BD%B2-K8sOR%E7%89%A9%E7%90%86%E6%9C%BA/</url>
+    <content><![CDATA[<p>如果你开始使用Jenkins作为你的CI工具，刚好也在使用K8s集群做CD，那你一定很纠结我的Jenkins到底用什么方式进行部署管理呢？<br>
+这里我将我们遇到的实际经验分享给各位参考，希望能给到你一些帮助吧，😄</p>
+<span id="more"></span>
+<h2 id="1-结论"><a class="markdownIt-Anchor" href="#1-结论"></a> 1、结论</h2>
+<p>不拖沓，直接上结论：</p>
+<p><strong>轻易不要上K8s</strong>，启动速度和Slave镜像管理以及构建缓存等会比较<code>耗精力</code>；在CICD起步，日构建在500次左右，特别是含Android的gradle构建时，建议直接上物理机，绝对<code>真香</code>。</p>
+<blockquote>
+<p>选择适合的，并不是技术领先的，当然能Hold住的大佬，请随意哈😁</p>
+</blockquote>
+<hr>
+<p>备注说明下目前我遇到的构建量级吧，相对大厂是小儿科了点，勿喷哈。</p>
+<ul>
+<li>Web应用构建，约日均构建在400-500次/日</li>
+<li>移动端构建（Android为主），约日均构建在30-50次/日，偶尔会有批量的渠道打包量比较大（渠道量1K+）</li>
+</ul>
+<h2 id="2-k8s集群里的jenkins"><a class="markdownIt-Anchor" href="#2-k8s集群里的jenkins"></a> 2、K8s集群里的Jenkins</h2>
+<h3 id="21-选择背景"><a class="markdownIt-Anchor" href="#21-选择背景"></a> 2.1、选择背景</h3>
+<p>公司开始做中台了，其中包括建设CICD系统，基本是从 O 起步吧，当初直接选型了：java spring微服务 + K8s作为接下来的技术发展方向。作为<code>打辅助</code>的持续交付系统也就那个时候定型的，选型CI工具为Jenkins（当然还有很多的周边的工具链选型），部署原则：<strong>Everything in docker</strong></p>
+<h3 id="22-遇到问题"><a class="markdownIt-Anchor" href="#22-遇到问题"></a> 2.2、遇到问题</h3>
+<ul>
+<li>K8s集群稳定性是第一大考验</li>
+<li>动态的Slave启动慢，修改长时间存活，莫名会出现心跳终端，SalvePod假死</li>
+<li>各Slave节点构建依赖的缓存共享设置，尤其是移动端的Gradle的缓存（谁用谁知道！参考：<a href="https://blog.dreamtobe.cn/lls_ci/">流利说客户端持续交付工程实践</a>……）</li>
+<li>Slave多了后占用的资源无法想象，最后不得不给Jenkins独立的Node，打上标签区分</li>
+<li>还有就是构建过程，一个字儿：<strong>超级慢</strong>，很大原因是K8s集群的Ceph文件系统</li>
+<li>Slave镜像维护成本也颇高，尤其是需要版本升级的时候</li>
+<li>…</li>
+</ul>
+<h2 id="3-物理机里的jenkins"><a class="markdownIt-Anchor" href="#3-物理机里的jenkins"></a> 3、物理机里的Jenkins</h2>
+<h3 id="31-选择背景"><a class="markdownIt-Anchor" href="#31-选择背景"></a> 3.1、选择背景</h3>
+<p>我们重新建设了DevOps平台（定位：一站式研发协同平台），对于原有的功能迁移后，发现对于很多<code>核心、根本</code>问题，治标不治本。新平台也迫切需要出成绩，最终开出了 <code>历史的倒车</code>，我们回到了物理机Jenkins。</p>
+<h3 id="32-效果"><a class="markdownIt-Anchor" href="#32-效果"></a> 3.2、效果</h3>
+<p>一个字：<strong>快</strong>，平均提速达到30%+（其中移动端提速了甚至到了50%），且稳定性更高</p>
+<h3 id="33-成本核算"><a class="markdownIt-Anchor" href="#33-成本核算"></a> 3.3、成本核算</h3>
+<p>迁移到物理是不是成本很高啊，那可是物理机啊，然并卵……</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">迁移前</th>
+<th>迁移后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">K8s独立Node：64c+128G（1），32c+32G（1）</td>
+<td>32c+32G（5）</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>Jenkins</category>
+      </categories>
+      <tags>
+        <tag>Jenkins</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>DevOps启蒙-开发测试管理系统</title>
     <url>/2019/09/01/Iflow2345/%E5%BC%80%E5%8F%91%E6%B5%8B%E8%AF%95%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/</url>
     <content><![CDATA[<p>这个算是个回顾吧，自己再2019年进入X公司，发现开发测试流程耦合严重，没有独立的测试环境管理平台，所以参照自己的前东家（👉iflow系统）实现了一个<code>简单</code>的开发测试流程管理系统，当时的<code>思想还很稚嫩，观点粗浅</code>（算是自己DevOps启蒙篇吧），仅供参考哈。</p>
@@ -116,143 +253,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Jenkins部署-K8s OR 物理机</title>
-    <url>/2021/06/10/Jenkins/Jenkins%E9%83%A8%E7%BD%B2-K8sOR%E7%89%A9%E7%90%86%E6%9C%BA/</url>
-    <content><![CDATA[<p>如果你开始使用Jenkins作为你的CI工具，刚好也在使用K8s集群做CD，那你一定很纠结我的Jenkins到底用什么方式进行部署管理呢？<br>
-这里我将我们遇到的实际经验分享给各位参考，希望能给到你一些帮助吧，😄</p>
-<span id="more"></span>
-<h2 id="1-结论"><a class="markdownIt-Anchor" href="#1-结论"></a> 1、结论</h2>
-<p>不拖沓，直接上结论：</p>
-<p><strong>轻易不要上K8s</strong>，启动速度和Slave镜像管理以及构建缓存等会比较<code>耗精力</code>；在CICD起步，日构建在500次左右，特别是含Android的gradle构建时，建议直接上物理机，绝对<code>真香</code>。</p>
-<blockquote>
-<p>选择适合的，并不是技术领先的，当然能Hold住的大佬，请随意哈😁</p>
-</blockquote>
-<hr>
-<p>备注说明下目前我遇到的构建量级吧，相对大厂是小儿科了点，勿喷哈。</p>
-<ul>
-<li>Web应用构建，约日均构建在400-500次/日</li>
-<li>移动端构建（Android为主），约日均构建在30-50次/日，偶尔会有批量的渠道打包量比较大（渠道量1K+）</li>
-</ul>
-<h2 id="2-k8s集群里的jenkins"><a class="markdownIt-Anchor" href="#2-k8s集群里的jenkins"></a> 2、K8s集群里的Jenkins</h2>
-<h3 id="21-选择背景"><a class="markdownIt-Anchor" href="#21-选择背景"></a> 2.1、选择背景</h3>
-<p>公司开始做中台了，其中包括建设CICD系统，基本是从 O 起步吧，当初直接选型了：java spring微服务 + K8s作为接下来的技术发展方向。作为<code>打辅助</code>的持续交付系统也就那个时候定型的，选型CI工具为Jenkins（当然还有很多的周边的工具链选型），部署原则：<strong>Everything in docker</strong></p>
-<h3 id="22-遇到问题"><a class="markdownIt-Anchor" href="#22-遇到问题"></a> 2.2、遇到问题</h3>
-<ul>
-<li>K8s集群稳定性是第一大考验</li>
-<li>动态的Slave启动慢，修改长时间存活，莫名会出现心跳终端，SalvePod假死</li>
-<li>各Slave节点构建依赖的缓存共享设置，尤其是移动端的Gradle的缓存（谁用谁知道！参考：<a href="https://blog.dreamtobe.cn/lls_ci/">流利说客户端持续交付工程实践</a>……）</li>
-<li>Slave多了后占用的资源无法想象，最后不得不给Jenkins独立的Node，打上标签区分</li>
-<li>还有就是构建过程，一个字儿：<strong>超级慢</strong>，很大原因是K8s集群的Ceph文件系统</li>
-<li>Slave镜像维护成本也颇高，尤其是需要版本升级的时候</li>
-<li>…</li>
-</ul>
-<h2 id="3-物理机里的jenkins"><a class="markdownIt-Anchor" href="#3-物理机里的jenkins"></a> 3、物理机里的Jenkins</h2>
-<h3 id="31-选择背景"><a class="markdownIt-Anchor" href="#31-选择背景"></a> 3.1、选择背景</h3>
-<p>我们重新建设了DevOps平台（定位：一站式研发协同平台），对于原有的功能迁移后，发现对于很多<code>核心、根本</code>问题，治标不治本。新平台也迫切需要出成绩，最终开出了 <code>历史的倒车</code>，我们回到了物理机Jenkins。</p>
-<h3 id="32-效果"><a class="markdownIt-Anchor" href="#32-效果"></a> 3.2、效果</h3>
-<p>一个字：<strong>快</strong>，平均提速达到30%+（其中移动端提速了甚至到了50%），且稳定性更高</p>
-<h3 id="33-成本核算"><a class="markdownIt-Anchor" href="#33-成本核算"></a> 3.3、成本核算</h3>
-<p>迁移到物理是不是成本很高啊，那可是物理机啊，然并卵……</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">迁移前</th>
-<th>迁移后</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">K8s独立Node：64c+128G（1），32c+32G（1）</td>
-<td>32c+32G（5）</td>
-</tr>
-</tbody>
-</table>
-]]></content>
-      <categories>
-        <category>Jenkins</category>
-      </categories>
-      <tags>
-        <tag>Jenkins</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Jenkins共享库使用-初级</title>
-    <url>/2021/06/08/Jenkins/Jenkins%E5%85%B1%E4%BA%AB%E5%BA%93%E4%BD%BF%E7%94%A8-%E5%88%9D%E7%BA%A7/</url>
-    <content><![CDATA[<p>在我们实际写Jenkin pipelines脚本中，可能会出现``java.lang.RuntimeException: Method code too large!<code>，这个时候你就要抽象出一些公共的函数类库，</code>避免项目方重复冗余的脚本代码书写`，在此处我也把我经常使用的一些共享函数库（<strong><a href="https://github.com/nengwu765/jenkins-share-library">jenkins-share-library</a></strong>）分享出来，欢迎交流指正哈！</p>
-<span id="more"></span>
-<h2 id="1-如何使用jenkins共享库"><a class="markdownIt-Anchor" href="#1-如何使用jenkins共享库"></a> 1. 如何使用Jenkins共享库</h2>
-<ul>
-<li>在Jenkinsfile的脚本文件第一行引入以下代码</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">library &#x27;jenkins-shared-libraries&#x27;</span><br><span class="line"></span><br><span class="line">pipeline &#123; ... &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ul>
-<li>调用示例</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">stage (&quot;demo&quot;) &#123;</span><br><span class="line">	steps &#123;</span><br><span class="line">		script &#123;</span><br><span class="line">			// 调用：共享方法名+入参</span><br><span class="line">			demoFunction(params1, params2, ...)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="2-支持的共享库方法"><a class="markdownIt-Anchor" href="#2-支持的共享库方法"></a> 2. 支持的共享库方法</h2>
-<h3 id="21-git仓库拉取-gitcodefetch"><a class="markdownIt-Anchor" href="#21-git仓库拉取-gitcodefetch"></a> 2.1 Git仓库拉取 - gitCodeFetch()</h3>
-<p>支持基于分支/标签 和 Submodule子仓库拉取以及基于MR拉取分支，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/gitCodeFetch.groovy">源码参考</a></p>
-<ul>
-<li>入参说明</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Git仓库版本拉取 -- 支持基于分支/标签 和 Submodule子仓库拉取以及基于MR拉取分支</span><br><span class="line"> *</span><br><span class="line"> * @param fetchMode Git代码拉取方式：branch-基于分支; tag-基于标签</span><br><span class="line"> * @param gitBranchOrTag Git仓库分支 或 标签</span><br><span class="line"> * @param gitRepository  Git仓库地址</span><br><span class="line"> * @param gitCredentialsId  Git拉取凭证ID 【若存在Submodule子仓库，则该凭证需要有子仓库拉取权限】</span><br><span class="line"> * @param gitEvent  git拉取事件,基于分支或Tag拉取,则置空; MergeRequest则为:&quot;MR&quot;</span><br><span class="line"> * @param targetBranch 若gitEvent为&quot;MR&quot;,此处为MR目标分支</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">void call(String fetchMode,String gitBranchOrTag, String gitRepository, String gitCredentialsId, String gitEvent = &#x27;&#x27;, String targetBranch = &#x27;&#x27;) </span><br></pre></td></tr></table></figure>
-<h3 id="22-md5值校验-md5check"><a class="markdownIt-Anchor" href="#22-md5值校验-md5check"></a> 2.2 MD5值校验 - md5Check()</h3>
-<p>文件MD5值check，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/md5Check.groovy">源码参考</a></p>
-<ul>
-<li>入参说明</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 文件MD5值check</span><br><span class="line"> *</span><br><span class="line"> * @param filePath 文件路径</span><br><span class="line"> * @param md5 文件md5值</span><br><span class="line"> * @param forceCheck 是强制检查，是-必检，否-md5值非空则进行检查</span><br><span class="line"> */</span><br><span class="line">void md5Check(String filePath, String md5, boolean forceCheck = true)</span><br><span class="line"></span><br><span class="line">注：forceCheck=true时，校验不通过则报错，流水线终止</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="23-sha1值校验-sha1check"><a class="markdownIt-Anchor" href="#23-sha1值校验-sha1check"></a> 2.3 SHA1值校验 - sha1Check()</h3>
-<p>文件SHA1值check，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/sha1Check.groovy">源码参考</a></p>
-<ul>
-<li>入参说明</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 文件SHA1值check</span><br><span class="line"> *</span><br><span class="line"> * @param filePath 文件路径</span><br><span class="line"> * @param sha1 文件md5值</span><br><span class="line"> * @param forceCheck 是强制检查，是-必检，否-md5值非空则进行检查</span><br><span class="line"> */</span><br><span class="line">void sha1Check(String filePath, String sha1, boolean forceCheck = true)</span><br><span class="line"></span><br><span class="line">注：forceCheck=true时，校验不通过则报错，流水线终止</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="24-ftp上传-ftpupload"><a class="markdownIt-Anchor" href="#24-ftp上传-ftpupload"></a> 2.4 FTP上传 - ftpUpload()</h3>
-<p>FTP文件上传  – // 参数参考说明：<a href="https://jenkins.io/doc/pipeline/steps/publish-over-ftp">https://jenkins.io/doc/pipeline/steps/publish-over-ftp</a></p>
-<p><a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/ftpUpload.groovy">源码参考</a></p>
-<ul>
-<li>入参说明</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * FTP文件上传  -- // 参数参考说明：https://jenkins.io/doc/pipeline/steps/publish-over-ftp</span><br><span class="line"> * @param configName  在Jenkins全局设置的FTP Server名称</span><br><span class="line"> * @param sourceFiles  上传源文件，支持正则匹配，如[递归目录层级使用&#x27;**&#x27;]：&#x27;**/*.apk,public/**/*&#x27;</span><br><span class="line"> * @param remoteDir  上传子目录路径，注此路径会追加到全局设置的FTP Server的Remote Directory之后</span><br><span class="line"> * @param excludes  排除上传文件，支持正则匹配，如[递归目录层级使用&#x27;**&#x27;]： &#x27;**/*.log,**/*.tmp,.git/&#x27;</span><br><span class="line"> * @param removePrefix  去除上传文件的路径前缀，避免ftp服务器中生成无用的目录路径,注：所有上传文件必须都有该前缀，否则报错</span><br><span class="line"> */</span><br><span class="line">void ftpUpload(String configName, String sourceFiles, String remoteDir = &#x27;&#x27;, String excludes = &#x27;&#x27;, String removePrefix = &#x27;&#x27;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="25-rsync-module远程同步-rsyncmodule"><a class="markdownIt-Anchor" href="#25-rsync-module远程同步-rsyncmodule"></a> 2.5 Rsync Module远程同步 - rsyncModule()</h3>
-<p>rsync 使用Module远程同步，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/rsyncWithModule.groovy">源码参考</a></p>
-<ul>
-<li>入参说明</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  rsync 使用Module远程同步</span><br><span class="line"> *</span><br><span class="line"> * @param ip rsync服务器IP</span><br><span class="line"> * @param port rsync服务器监听端口</span><br><span class="line"> * @param path rsync本地同步绝对路径</span><br><span class="line"> * @param module rsync同步模块</span><br><span class="line"> * @param user  rsync同步用户，指定传输文件为指定用户</span><br><span class="line"> * @param customParams 定制rsync参数，不允许出现&quot;delete&quot;关键字，如：--exclude=PATTERN --include=PATTERN --exclude-from=FILE --include-from=FILE</span><br><span class="line"> * @param bwlimit</span><br><span class="line"> */</span><br><span class="line">void rsyncModule(String ip, int port, String path, String module, String user = &#x27;&#x27;, String customParams = &#x27;&#x27;, int bwlimit = 8192)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="26-制品上传nexus-uploadartifactstonexus"><a class="markdownIt-Anchor" href="#26-制品上传nexus-uploadartifactstonexus"></a> 2.6 制品上传Nexus - uploadArtifactsToNexus()</h3>
-<p>如果你是以Nexus作为制品库的话，这个可以作为参考，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/uploadArtifactsToNexus.groovy">源码参考</a></p>
-<ul>
-<li>入参说明</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 上传制品至Nexus仓库</span><br><span class="line"> *</span><br><span class="line"> * @param nexusRepository Nexus上传仓库</span><br><span class="line"> * @param dir 检索目录</span><br><span class="line"> * @param fileMatchRegex 文件正则匹配规则， 支持文件类型、文件前缀、文件全名，</span><br><span class="line"> *        如文件：prefix_file.test,</span><br><span class="line"> *        匹配规则：</span><br><span class="line"> *              文件类型： fileMatchRegex = &quot;.test&quot;</span><br><span class="line"> *              文件前缀： fileMatchRegex = &quot;prefix_&quot;</span><br><span class="line"> *              文件全名： fileMatchRegex = &quot;prefix_file.test&quot;</span><br><span class="line"> * @param uploadSubPath 制品上传路经</span><br><span class="line"> * @param isRecursion 是否递归检索子目录,默认：否【注：同名文件会被覆盖】</span><br><span class="line"> * @param artifacts 制品存储数据，Map结构，默认：空Map</span><br><span class="line"> * @return Map 返回上传制品数据</span><br><span class="line"> *         eg: [</span><br><span class="line"> *              &#x27;file1&#x27;:[</span><br><span class="line"> *                  &#x27;url&#x27;:&#x27;https://nexus.demo.com/.../file1&#x27;  // 文件在nexus中的上传路径【即下载路径】</span><br><span class="line"> *                  &#x27;md5&#x27;:&#x27;xxxx&#x27; // 文件md5值</span><br><span class="line"> *                  &#x27;sha1&#x27;:&#x27;xxxx&#x27;   // 文件sha1值</span><br><span class="line"> *               ],</span><br><span class="line"> *         ]</span><br><span class="line"> */</span><br><span class="line">def uploadArtifactsToNexus(String nexusRepository, String dir, String fileMatchRegex, String uploadPath, boolean isRecursion = false, Map artifacts = [:])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ul>
-<li>Android制品上传Nexus - uploadAndroidArtifacts()</li>
-</ul>
-<p><strong><code>针对Android制品上传，做了一层外围封装，防止不同业务上传仓库紊乱</code></strong>，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/uploadAndroidArtifacts.groovy">源码参考</a></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 上传制品至Nexus仓库</span><br><span class="line"> *</span><br><span class="line"> * @param dir 检索目录</span><br><span class="line"> * @param fileMatchRegex 文件正则匹配规则， 支持文件类型、文件前缀、文件全名，</span><br><span class="line"> *        如文件：prefix_file.test,</span><br><span class="line"> *        匹配规则：</span><br><span class="line"> *              文件类型： fileMatchRegex = &quot;.test&quot;</span><br><span class="line"> *              文件前缀： fileMatchRegex = &quot;prefix_&quot;</span><br><span class="line"> *              文件全名： fileMatchRegex = &quot;prefix_file.test&quot;</span><br><span class="line"> * @param uploadSubPath 制品上传路经</span><br><span class="line"> * @param isRecursion 是否递归检索子目录,默认：否【注：同名文件会被覆盖】</span><br><span class="line"> * @param artifacts 制品存储数据，Map结构，默认：空Map</span><br><span class="line"> * @return Map 返回上传制品数据</span><br><span class="line"> *         eg: [</span><br><span class="line"> *              &#x27;file1&#x27;:[</span><br><span class="line"> *                  &#x27;url&#x27;:&#x27;https://nexus.demo.com/.../file1&#x27;  // 文件在nexus中的上传路径【即下载路径】</span><br><span class="line"> *                  &#x27;md5&#x27;:&#x27;xxxx&#x27; // 文件md5值</span><br><span class="line"> *                  &#x27;sha1&#x27;:&#x27;xxxx&#x27;   // 文件sha1值</span><br><span class="line"> *               ],</span><br><span class="line"> *         ]</span><br><span class="line"> */</span><br><span class="line">def uploadAndroidArtifacts(String dir, String fileMatchRegex, String uploadPath, boolean isRecursion = false, Map artifacts = [:])</span><br></pre></td></tr></table></figure>
-<h3 id="27-流水线结果回调-callbackaction"><a class="markdownIt-Anchor" href="#27-流水线结果回调-callbackaction"></a> 2.7 流水线结果回调 - callBackAction()</h3>
-<p>Jenkins pipeline结果回调通知（这个其实有个Plugin支持，Job Notification，但是我觉得不够灵活），这边我自定义了一个通用回调，可以防止在任何位置，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/callBackAction.groovy">源码参考</a></p>
-<ul>
-<li>入参说明</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 流水线执行结果回调操作</span><br><span class="line"> *</span><br><span class="line"> * @param callBackUrlsJson 回调Url地址Json数据</span><br><span class="line"> * @param artifacts 制品存储数据</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">void callBackAction(String callBackUrlsJson, Map artifacts = [:])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ul>
-<li>使用示例</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">	agent any</span><br><span class="line"></span><br><span class="line">	stages &#123;...&#125;</span><br><span class="line">    </span><br><span class="line">	post &#123;</span><br><span class="line">        always &#123;</span><br><span class="line">            // 回调Api通知对接JOB执行结果</span><br><span class="line">            script &#123;</span><br><span class="line">                if (!binding.variables.containsKey(&quot;ARTIFACTS&quot;)) &#123;</span><br><span class="line">                    ARTIFACTS = [:]</span><br><span class="line">                &#125;</span><br><span class="line">                callBackAction(params.CALLBACK_URLS_JSON, ARTIFACTS)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            echo &quot;I will be executed while failed or succeed&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="5-引用"><a class="markdownIt-Anchor" href="#5-引用"></a> 5 引用</h2>
-<p><a href="https://www.jenkins.io/doc/book/pipeline/shared-libraries/">官方参考，Extending with Shared Libraries</a></p>
-]]></content>
-      <categories>
-        <category>Jenkins</category>
-      </categories>
-      <tags>
-        <tag>Jenkins</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JenkinsK8s集群部署AndroidSDK安装</title>
     <url>/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<p>如过你的Jenkins是部署在K8s集群中的，那需要支持Android打包的情况。Android SDK安装与更新怎么做呢？<br>
@@ -312,6 +312,79 @@
       <tags>
         <tag>Jenkins</tag>
         <tag>移动CICD</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代码扫描(三)-Sonar+Jenkins+Gitlab集成</title>
+    <url>/2021/05/31/SonarQube/%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F(%E4%B8%89)-Sonar+Jenkins+Gitlab/</url>
+    <content><![CDATA[<p>目前我们使用CI工具主要是Jenkins，所以此相互选择了jenkins进行集成。根据实际情况，也可选择GitlabCI等工具。</p>
+<p>实施代码检测，Gitlab 代码变更（Push/Merge），触发Jenkins Job执行SonarScanner扫描代码，SonarServer通过Gitlab插件，将代码扫描完的结果回写至Gitlab，GitLab即可查看到对应Sonar检测的结果代码注释，方便开发人员代码排查</p>
+<span id="more"></span>
+<h2 id="实现目的"><a class="markdownIt-Anchor" href="#实现目的"></a> 实现目的</h2>
+<ul>
+<li>1、研发过程，Jenkins在构建过程，加入SonarQube的代码质量门，检测本次构建增量代码质量</li>
+<li>2、定期的全量代码质量扫描，在每周定期对公司所有代码进行全量扫描，产出代码质量报告</li>
+</ul>
+<h2 id="集成插件配置"><a class="markdownIt-Anchor" href="#集成插件配置"></a> 集成插件配置</h2>
+<h3 id="1-jenkins插件配置"><a class="markdownIt-Anchor" href="#1-jenkins插件配置"></a> 1、Jenkins插件&amp;配置</h3>
+<p><strong>插件：</strong></p>
+<ul>
+<li>SonarQubeScannerForJenkins</li>
+</ul>
+<p><strong>配置：</strong></p>
+<ul>
+<li>SonarServer配置：Manage Jenkins – &gt; Configure System – &gt; SonarQube servers<br>
+需要SonarQube基于高权限账号生成的 授权token （SonarQube：Administration – &gt; Security – &gt; Users）</li>
+<li>SonarScanner配置：Manage Jenkins – &gt; Global Tool Configuration – &gt; SonarQube Scanner<br>
+备注：<strong>这里安装多个SonarQube Scanner，为多项目并行代码扫描做准备</strong></li>
+</ul>
+<h3 id="2-sonarqube配置"><a class="markdownIt-Anchor" href="#2-sonarqube配置"></a> 2、SonarQube配置</h3>
+<p><strong>插件：</strong></p>
+<p>实现gitlab打通，<strong>同时实现gitlab auth授权登陆</strong>。</p>
+<ul>
+<li>sonar-gitlab-plugin：<a href="https://github.com/javamachr/sonar-gitlab-plugin">https://github.com/javamachr/sonar-gitlab-plugin</a></li>
+<li>**sonar-auth-gitlab-plugin：**<a href="https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin">https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin</a></li>
+</ul>
+<p>**Sonar Serverbase Url设置：**Administration &gt; Configuration &gt; General&gt; Server base URL</p>
+<p><strong>Webhook配置：（实操，不配置，JEnkins在获取质量门结果时会无限等待）</strong></p>
+<p>Administration &gt; Configuration &gt; Webhooks. The URL should point to your Jenkins server： <code>http://&#123;JENKINS_HOST&#125;/sonarqube-webhook/</code></p>
+<p>具体说明：参考Jenkins官方文档说明（<a href="https://www.jenkins.io/doc/pipeline/steps/sonar/#waitforqualitygate-wait-for-sonarqube-analysis-to-be-completed-and-return-quality-gate-status">Configure a webhook in your SonarQube server pointing</a> … ）</p>
+<p><strong>Gitlab授权登陆：</strong></p>
+<p>Administration &gt; Configuration &gt; GitLab &gt; Authentication ：设置对应的 Application ID + Secret</p>
+<p>(设置参数说明，参考对应的插件说明：<a href="https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin">sonar-auth-gitlab-plugin</a>)</p>
+<p><strong>Gitlab Reporting配置：</strong></p>
+<ul>
+<li>
+<p>作用：可以将检测结果报告已comment的形式回写至Gitlab的Commit中（注：目前版本不支持inline comment in commit，现在只有global comment，具体看附属问题记录说明）</p>
+</li>
+<li>
+<p>配置：Administration &gt; Configuration &gt; GitLab &gt; Reporting</p>
+</li>
+<li>
+<p>参数：扫描时需要配置参数：sonar.gitlab.project_id</p>
+</li>
+</ul>
+<p>说明：这个可以根据实际需求配置说明，此处可根据需求配置将检测的结果是否以comment回写。此处暂时不配置。</p>
+<h3 id="3-gitlab配置"><a class="markdownIt-Anchor" href="#3-gitlab配置"></a> 3、Gitlab配置</h3>
+<p><strong>授权登陆设置：</strong><br>
+Admin Settings -&gt; Application：设置对应的回调：https://<your sonar domain>/oauth2/callback/gitlab (备注：sonar的domain不可为IP+Port形式，经测试http目前也是支持)</your></p>
+<h2 id="问题记录"><a class="markdownIt-Anchor" href="#问题记录"></a> 问题记录</h2>
+<ul>
+<li>SonarCloud + GitHub + Pull Request Analysis = No Inline Comments：<a href="https://community.sonarsource.com/t/sonarcloud-github-pull-request-analysis-no-inline-comments/7371/2">https://community.sonarsource.com/t/sonarcloud-github-pull-request-analysis-no-inline-comments/7371/2</a><br>
+目前最后支持的版本：sonarqube v7.6</li>
+<li>新扫描项目（新sonar project key） No branches currently exist in this project. Please scan the main branch without passing any branch parameters<br>
+注：新项目必须先扫描 master（稳定）分支，才可以进行其他分支的扫描</li>
+<li>不建议写入sonar.language扫描参数： <a href="https://community.sonarsource.com/t/what-is-the-alternative-to-the-sonar-language-property-in-the-current-version-of-sonarqube/3993">https://community.sonarsource.com/t/what-is-the-alternative-to-the-sonar-language-property-in-the-current-version-of-sonarqube/3993</a></li>
+<li>SonarQube插件矩阵（可查看相关产检兼容情况）：<a href="https://docs.sonarqube.org/latest/instance-administration/plugin-version-matrix/">https://docs.sonarqube.org/latest/instance-administration/plugin-version-matrix/</a></li>
+</ul>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//TODO</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>SonarQube</category>
+      </categories>
+      <tags>
+        <tag>SonarQube</tag>
+        <tag>代码扫描</tag>
       </tags>
   </entry>
   <entry>
@@ -423,79 +496,6 @@
 </tbody>
 </table>
 ]]></content>
-      <categories>
-        <category>SonarQube</category>
-      </categories>
-      <tags>
-        <tag>SonarQube</tag>
-        <tag>代码扫描</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>代码扫描(三)-Sonar+Jenkins+Gitlab集成</title>
-    <url>/2021/05/31/SonarQube/%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F(%E4%B8%89)-Sonar+Jenkins+Gitlab/</url>
-    <content><![CDATA[<p>目前我们使用CI工具主要是Jenkins，所以此相互选择了jenkins进行集成。根据实际情况，也可选择GitlabCI等工具。</p>
-<p>实施代码检测，Gitlab 代码变更（Push/Merge），触发Jenkins Job执行SonarScanner扫描代码，SonarServer通过Gitlab插件，将代码扫描完的结果回写至Gitlab，GitLab即可查看到对应Sonar检测的结果代码注释，方便开发人员代码排查</p>
-<span id="more"></span>
-<h2 id="实现目的"><a class="markdownIt-Anchor" href="#实现目的"></a> 实现目的</h2>
-<ul>
-<li>1、研发过程，Jenkins在构建过程，加入SonarQube的代码质量门，检测本次构建增量代码质量</li>
-<li>2、定期的全量代码质量扫描，在每周定期对公司所有代码进行全量扫描，产出代码质量报告</li>
-</ul>
-<h2 id="集成插件配置"><a class="markdownIt-Anchor" href="#集成插件配置"></a> 集成插件配置</h2>
-<h3 id="1-jenkins插件配置"><a class="markdownIt-Anchor" href="#1-jenkins插件配置"></a> 1、Jenkins插件&amp;配置</h3>
-<p><strong>插件：</strong></p>
-<ul>
-<li>SonarQubeScannerForJenkins</li>
-</ul>
-<p><strong>配置：</strong></p>
-<ul>
-<li>SonarServer配置：Manage Jenkins – &gt; Configure System – &gt; SonarQube servers<br>
-需要SonarQube基于高权限账号生成的 授权token （SonarQube：Administration – &gt; Security – &gt; Users）</li>
-<li>SonarScanner配置：Manage Jenkins – &gt; Global Tool Configuration – &gt; SonarQube Scanner<br>
-备注：<strong>这里安装多个SonarQube Scanner，为多项目并行代码扫描做准备</strong></li>
-</ul>
-<h3 id="2-sonarqube配置"><a class="markdownIt-Anchor" href="#2-sonarqube配置"></a> 2、SonarQube配置</h3>
-<p><strong>插件：</strong></p>
-<p>实现gitlab打通，<strong>同时实现gitlab auth授权登陆</strong>。</p>
-<ul>
-<li>sonar-gitlab-plugin：<a href="https://github.com/javamachr/sonar-gitlab-plugin">https://github.com/javamachr/sonar-gitlab-plugin</a></li>
-<li>**sonar-auth-gitlab-plugin：**<a href="https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin">https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin</a></li>
-</ul>
-<p>**Sonar Serverbase Url设置：**Administration &gt; Configuration &gt; General&gt; Server base URL</p>
-<p><strong>Webhook配置：（实操，不配置，JEnkins在获取质量门结果时会无限等待）</strong></p>
-<p>Administration &gt; Configuration &gt; Webhooks. The URL should point to your Jenkins server： <code>http://&#123;JENKINS_HOST&#125;/sonarqube-webhook/</code></p>
-<p>具体说明：参考Jenkins官方文档说明（<a href="https://www.jenkins.io/doc/pipeline/steps/sonar/#waitforqualitygate-wait-for-sonarqube-analysis-to-be-completed-and-return-quality-gate-status">Configure a webhook in your SonarQube server pointing</a> … ）</p>
-<p><strong>Gitlab授权登陆：</strong></p>
-<p>Administration &gt; Configuration &gt; GitLab &gt; Authentication ：设置对应的 Application ID + Secret</p>
-<p>(设置参数说明，参考对应的插件说明：<a href="https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin">sonar-auth-gitlab-plugin</a>)</p>
-<p><strong>Gitlab Reporting配置：</strong></p>
-<ul>
-<li>
-<p>作用：可以将检测结果报告已comment的形式回写至Gitlab的Commit中（注：目前版本不支持inline comment in commit，现在只有global comment，具体看附属问题记录说明）</p>
-</li>
-<li>
-<p>配置：Administration &gt; Configuration &gt; GitLab &gt; Reporting</p>
-</li>
-<li>
-<p>参数：扫描时需要配置参数：sonar.gitlab.project_id</p>
-</li>
-</ul>
-<p>说明：这个可以根据实际需求配置说明，此处可根据需求配置将检测的结果是否以comment回写。此处暂时不配置。</p>
-<h3 id="3-gitlab配置"><a class="markdownIt-Anchor" href="#3-gitlab配置"></a> 3、Gitlab配置</h3>
-<p><strong>授权登陆设置：</strong><br>
-Admin Settings -&gt; Application：设置对应的回调：https://<your sonar domain>/oauth2/callback/gitlab (备注：sonar的domain不可为IP+Port形式，经测试http目前也是支持)</your></p>
-<h2 id="问题记录"><a class="markdownIt-Anchor" href="#问题记录"></a> 问题记录</h2>
-<ul>
-<li>SonarCloud + GitHub + Pull Request Analysis = No Inline Comments：<a href="https://community.sonarsource.com/t/sonarcloud-github-pull-request-analysis-no-inline-comments/7371/2">https://community.sonarsource.com/t/sonarcloud-github-pull-request-analysis-no-inline-comments/7371/2</a><br>
-目前最后支持的版本：sonarqube v7.6</li>
-<li>新扫描项目（新sonar project key） No branches currently exist in this project. Please scan the main branch without passing any branch parameters<br>
-注：新项目必须先扫描 master（稳定）分支，才可以进行其他分支的扫描</li>
-<li>不建议写入sonar.language扫描参数： <a href="https://community.sonarsource.com/t/what-is-the-alternative-to-the-sonar-language-property-in-the-current-version-of-sonarqube/3993">https://community.sonarsource.com/t/what-is-the-alternative-to-the-sonar-language-property-in-the-current-version-of-sonarqube/3993</a></li>
-<li>SonarQube插件矩阵（可查看相关产检兼容情况）：<a href="https://docs.sonarqube.org/latest/instance-administration/plugin-version-matrix/">https://docs.sonarqube.org/latest/instance-administration/plugin-version-matrix/</a></li>
-</ul>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//TODO</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>SonarQube</category>
       </categories>
