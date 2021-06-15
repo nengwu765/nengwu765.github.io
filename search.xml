@@ -1,6 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Jenkins部署-K8s OR 物理机</title>
+    <url>/2021/06/10/Jenkins/Jenkins%E9%83%A8%E7%BD%B2-K8sOR%E7%89%A9%E7%90%86%E6%9C%BA/</url>
+    <content><![CDATA[<p>如果你开始使用Jenkins作为你的CI工具，刚好也在使用K8s集群做CD，那你一定很纠结我的Jenkins到底用什么方式进行部署管理呢？<br>
+这里我将我们遇到的实际经验分享给各位参考，希望能给到你一些帮助吧，😄</p>
+<span id="more"></span>
+<h2 id="1-结论"><a class="markdownIt-Anchor" href="#1-结论"></a> 1、结论</h2>
+<p>不拖沓，直接上结论：</p>
+<p><strong>轻易不要上K8s</strong>，启动速度和Slave镜像管理以及构建缓存等会比较<code>耗精力</code>；在CICD起步，日构建在500次左右，特别是含Android的gradle构建时，建议直接上物理机，绝对<code>真香</code>。</p>
+<blockquote>
+<p>选择适合的，并不是技术领先的，当然能Hold住的大佬，请随意哈😁</p>
+</blockquote>
+<hr>
+<p>备注说明下目前我遇到的构建量级吧，相对大厂是小儿科了点，勿喷哈。</p>
+<ul>
+<li>Web应用构建，约日均构建在400-500次/日</li>
+<li>移动端构建（Android为主），约日均构建在30-50次/日，偶尔会有批量的渠道打包量比较大（渠道量1K+）</li>
+</ul>
+<h2 id="2-k8s集群里的jenkins"><a class="markdownIt-Anchor" href="#2-k8s集群里的jenkins"></a> 2、K8s集群里的Jenkins</h2>
+<h3 id="21-选择背景"><a class="markdownIt-Anchor" href="#21-选择背景"></a> 2.1、选择背景</h3>
+<p>公司开始做中台了，其中包括建设CICD系统，基本是从 O 起步吧，当初直接选型了：java spring微服务 + K8s作为接下来的技术发展方向。作为<code>打辅助</code>的持续交付系统也就那个时候定型的，选型CI工具为Jenkins（当然还有很多的周边的工具链选型），部署原则：<strong>Everything in docker</strong></p>
+<h3 id="22-遇到问题"><a class="markdownIt-Anchor" href="#22-遇到问题"></a> 2.2、遇到问题</h3>
+<ul>
+<li>K8s集群稳定性是第一大考验</li>
+<li>动态的Slave启动慢，修改长时间存活，莫名会出现心跳终端，SalvePod假死</li>
+<li>各Slave节点构建依赖的缓存共享设置，尤其是移动端的Gradle的缓存（谁用谁知道！参考：<a href="https://blog.dreamtobe.cn/lls_ci/">流利说客户端持续交付工程实践</a>……）</li>
+<li>Slave多了后占用的资源无法想象，最后不得不给Jenkins独立的Node，打上标签区分</li>
+<li>还有就是构建过程，一个字儿：<strong>超级慢</strong>，很大原因是K8s集群的Ceph文件系统</li>
+<li>Slave镜像维护成本也颇高，尤其是需要版本升级的时候</li>
+<li>…</li>
+</ul>
+<h2 id="3-物理机里的jenkins"><a class="markdownIt-Anchor" href="#3-物理机里的jenkins"></a> 3、物理机里的Jenkins</h2>
+<h3 id="31-选择背景"><a class="markdownIt-Anchor" href="#31-选择背景"></a> 3.1、选择背景</h3>
+<p>我们重新建设了DevOps平台（定位：一站式研发协同平台），对于原有的功能迁移后，发现对于很多<code>核心、根本</code>问题，治标不治本。新平台也迫切需要出成绩，最终开出了 <code>历史的倒车</code>，我们回到了物理机Jenkins。</p>
+<h3 id="32-效果"><a class="markdownIt-Anchor" href="#32-效果"></a> 3.2、效果</h3>
+<p>一个字：<strong>快</strong>，平均提速达到30%+（其中移动端提速了甚至到了50%），且稳定性更高</p>
+<h3 id="33-成本核算"><a class="markdownIt-Anchor" href="#33-成本核算"></a> 3.3、成本核算</h3>
+<p>迁移到物理是不是成本很高啊，那可是物理机啊，然并卵……</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">迁移前</th>
+<th>迁移后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">K8s独立Node：64c+128G（1），32c+32G（1）</td>
+<td>32c+32G（5）</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>Jenkins</category>
+      </categories>
+      <tags>
+        <tag>Jenkins</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Jenkins共享库使用-初阶</title>
+    <url>/2021/06/08/Jenkins/Jenkins%E5%85%B1%E4%BA%AB%E5%BA%93%E4%BD%BF%E7%94%A8-%E5%88%9D%E9%98%B6/</url>
+    <content><![CDATA[<p>在我们实际写Jenkin pipelines脚本中，可能会出现``java.lang.RuntimeException: Method code too large!<code>，这个时候你就要抽象出一些公共的函数类库，</code>避免项目方重复冗余的脚本代码书写`，在此处我也把我经常使用的一些共享函数库（<strong><a href="https://github.com/nengwu765/jenkins-share-library">jenkins-share-library</a></strong>）分享出来，欢迎交流指正哈！</p>
+<span id="more"></span>
+<h2 id="1-如何使用jenkins共享库"><a class="markdownIt-Anchor" href="#1-如何使用jenkins共享库"></a> 1. 如何使用Jenkins共享库</h2>
+<ul>
+<li>在Jenkinsfile的脚本文件第一行引入以下代码</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">library &#x27;jenkins-shared-libraries&#x27;</span><br><span class="line"></span><br><span class="line">pipeline &#123; ... &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>调用示例</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">stage (&quot;demo&quot;) &#123;</span><br><span class="line">	steps &#123;</span><br><span class="line">		script &#123;</span><br><span class="line">			// 调用：共享方法名+入参</span><br><span class="line">			demoFunction(params1, params2, ...)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-支持的共享库方法"><a class="markdownIt-Anchor" href="#2-支持的共享库方法"></a> 2. 支持的共享库方法</h2>
+<h3 id="21-git仓库拉取-gitcodefetch"><a class="markdownIt-Anchor" href="#21-git仓库拉取-gitcodefetch"></a> 2.1 Git仓库拉取 - gitCodeFetch()</h3>
+<p>支持基于分支/标签 和 Submodule子仓库拉取以及基于MR拉取分支，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/gitCodeFetch.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Git仓库版本拉取 -- 支持基于分支/标签 和 Submodule子仓库拉取以及基于MR拉取分支</span><br><span class="line"> *</span><br><span class="line"> * @param fetchMode Git代码拉取方式：branch-基于分支; tag-基于标签</span><br><span class="line"> * @param gitBranchOrTag Git仓库分支 或 标签</span><br><span class="line"> * @param gitRepository  Git仓库地址</span><br><span class="line"> * @param gitCredentialsId  Git拉取凭证ID 【若存在Submodule子仓库，则该凭证需要有子仓库拉取权限】</span><br><span class="line"> * @param gitEvent  git拉取事件,基于分支或Tag拉取,则置空; MergeRequest则为:&quot;MR&quot;</span><br><span class="line"> * @param targetBranch 若gitEvent为&quot;MR&quot;,此处为MR目标分支</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">void call(String fetchMode,String gitBranchOrTag, String gitRepository, String gitCredentialsId, String gitEvent = &#x27;&#x27;, String targetBranch = &#x27;&#x27;) </span><br></pre></td></tr></table></figure>
+<h3 id="22-md5值校验-md5check"><a class="markdownIt-Anchor" href="#22-md5值校验-md5check"></a> 2.2 MD5值校验 - md5Check()</h3>
+<p>文件MD5值check，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/md5Check.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 文件MD5值check</span><br><span class="line"> *</span><br><span class="line"> * @param filePath 文件路径</span><br><span class="line"> * @param md5 文件md5值</span><br><span class="line"> * @param forceCheck 是强制检查，是-必检，否-md5值非空则进行检查</span><br><span class="line"> */</span><br><span class="line">void md5Check(String filePath, String md5, boolean forceCheck = true)</span><br><span class="line"></span><br><span class="line">注：forceCheck=true时，校验不通过则报错，流水线终止</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="23-sha1值校验-sha1check"><a class="markdownIt-Anchor" href="#23-sha1值校验-sha1check"></a> 2.3 SHA1值校验 - sha1Check()</h3>
+<p>文件SHA1值check，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/sha1Check.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 文件SHA1值check</span><br><span class="line"> *</span><br><span class="line"> * @param filePath 文件路径</span><br><span class="line"> * @param sha1 文件md5值</span><br><span class="line"> * @param forceCheck 是强制检查，是-必检，否-md5值非空则进行检查</span><br><span class="line"> */</span><br><span class="line">void sha1Check(String filePath, String sha1, boolean forceCheck = true)</span><br><span class="line"></span><br><span class="line">注：forceCheck=true时，校验不通过则报错，流水线终止</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="24-ftp上传-ftpupload"><a class="markdownIt-Anchor" href="#24-ftp上传-ftpupload"></a> 2.4 FTP上传 - ftpUpload()</h3>
+<p>FTP文件上传  – // 参数参考说明：<a href="https://jenkins.io/doc/pipeline/steps/publish-over-ftp">https://jenkins.io/doc/pipeline/steps/publish-over-ftp</a></p>
+<p><a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/ftpUpload.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * FTP文件上传  -- // 参数参考说明：https://jenkins.io/doc/pipeline/steps/publish-over-ftp</span><br><span class="line"> * @param configName  在Jenkins全局设置的FTP Server名称</span><br><span class="line"> * @param sourceFiles  上传源文件，支持正则匹配，如[递归目录层级使用&#x27;**&#x27;]：&#x27;**/*.apk,public/**/*&#x27;</span><br><span class="line"> * @param remoteDir  上传子目录路径，注此路径会追加到全局设置的FTP Server的Remote Directory之后</span><br><span class="line"> * @param excludes  排除上传文件，支持正则匹配，如[递归目录层级使用&#x27;**&#x27;]： &#x27;**/*.log,**/*.tmp,.git/&#x27;</span><br><span class="line"> * @param removePrefix  去除上传文件的路径前缀，避免ftp服务器中生成无用的目录路径,注：所有上传文件必须都有该前缀，否则报错</span><br><span class="line"> */</span><br><span class="line">void ftpUpload(String configName, String sourceFiles, String remoteDir = &#x27;&#x27;, String excludes = &#x27;&#x27;, String removePrefix = &#x27;&#x27;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="25-rsync-module远程同步-rsyncmodule"><a class="markdownIt-Anchor" href="#25-rsync-module远程同步-rsyncmodule"></a> 2.5 Rsync Module远程同步 - rsyncModule()</h3>
+<p>rsync 使用Module远程同步，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/rsyncWithModule.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  rsync 使用Module远程同步</span><br><span class="line"> *</span><br><span class="line"> * @param ip rsync服务器IP</span><br><span class="line"> * @param port rsync服务器监听端口</span><br><span class="line"> * @param path rsync本地同步绝对路径</span><br><span class="line"> * @param module rsync同步模块</span><br><span class="line"> * @param user  rsync同步用户，指定传输文件为指定用户</span><br><span class="line"> * @param customParams 定制rsync参数，不允许出现&quot;delete&quot;关键字，如：--exclude=PATTERN --include=PATTERN --exclude-from=FILE --include-from=FILE</span><br><span class="line"> * @param bwlimit</span><br><span class="line"> */</span><br><span class="line">void rsyncModule(String ip, int port, String path, String module, String user = &#x27;&#x27;, String customParams = &#x27;&#x27;, int bwlimit = 8192)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="26-制品上传nexus-uploadartifactstonexus"><a class="markdownIt-Anchor" href="#26-制品上传nexus-uploadartifactstonexus"></a> 2.6 制品上传Nexus - uploadArtifactsToNexus()</h3>
+<p>如果你是以Nexus作为制品库的话，这个可以作为参考，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/uploadArtifactsToNexus.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 上传制品至Nexus仓库</span><br><span class="line"> *</span><br><span class="line"> * @param nexusRepository Nexus上传仓库</span><br><span class="line"> * @param dir 检索目录</span><br><span class="line"> * @param fileMatchRegex 文件正则匹配规则， 支持文件类型、文件前缀、文件全名，</span><br><span class="line"> *        如文件：prefix_file.test,</span><br><span class="line"> *        匹配规则：</span><br><span class="line"> *              文件类型： fileMatchRegex = &quot;.test&quot;</span><br><span class="line"> *              文件前缀： fileMatchRegex = &quot;prefix_&quot;</span><br><span class="line"> *              文件全名： fileMatchRegex = &quot;prefix_file.test&quot;</span><br><span class="line"> * @param uploadSubPath 制品上传路经</span><br><span class="line"> * @param isRecursion 是否递归检索子目录,默认：否【注：同名文件会被覆盖】</span><br><span class="line"> * @param artifacts 制品存储数据，Map结构，默认：空Map</span><br><span class="line"> * @return Map 返回上传制品数据</span><br><span class="line"> *         eg: [</span><br><span class="line"> *              &#x27;file1&#x27;:[</span><br><span class="line"> *                  &#x27;url&#x27;:&#x27;https://nexus.demo.com/.../file1&#x27;  // 文件在nexus中的上传路径【即下载路径】</span><br><span class="line"> *                  &#x27;md5&#x27;:&#x27;xxxx&#x27; // 文件md5值</span><br><span class="line"> *                  &#x27;sha1&#x27;:&#x27;xxxx&#x27;   // 文件sha1值</span><br><span class="line"> *               ],</span><br><span class="line"> *         ]</span><br><span class="line"> */</span><br><span class="line">def uploadArtifactsToNexus(String nexusRepository, String dir, String fileMatchRegex, String uploadPath, boolean isRecursion = false, Map artifacts = [:])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Android制品上传Nexus - uploadAndroidArtifacts()</li>
+</ul>
+<p><strong><code>针对Android制品上传，做了一层外围封装，防止不同业务上传仓库紊乱</code></strong>，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/uploadAndroidArtifacts.groovy">源码参考</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 上传制品至Nexus仓库</span><br><span class="line"> *</span><br><span class="line"> * @param dir 检索目录</span><br><span class="line"> * @param fileMatchRegex 文件正则匹配规则， 支持文件类型、文件前缀、文件全名，</span><br><span class="line"> *        如文件：prefix_file.test,</span><br><span class="line"> *        匹配规则：</span><br><span class="line"> *              文件类型： fileMatchRegex = &quot;.test&quot;</span><br><span class="line"> *              文件前缀： fileMatchRegex = &quot;prefix_&quot;</span><br><span class="line"> *              文件全名： fileMatchRegex = &quot;prefix_file.test&quot;</span><br><span class="line"> * @param uploadSubPath 制品上传路经</span><br><span class="line"> * @param isRecursion 是否递归检索子目录,默认：否【注：同名文件会被覆盖】</span><br><span class="line"> * @param artifacts 制品存储数据，Map结构，默认：空Map</span><br><span class="line"> * @return Map 返回上传制品数据</span><br><span class="line"> *         eg: [</span><br><span class="line"> *              &#x27;file1&#x27;:[</span><br><span class="line"> *                  &#x27;url&#x27;:&#x27;https://nexus.demo.com/.../file1&#x27;  // 文件在nexus中的上传路径【即下载路径】</span><br><span class="line"> *                  &#x27;md5&#x27;:&#x27;xxxx&#x27; // 文件md5值</span><br><span class="line"> *                  &#x27;sha1&#x27;:&#x27;xxxx&#x27;   // 文件sha1值</span><br><span class="line"> *               ],</span><br><span class="line"> *         ]</span><br><span class="line"> */</span><br><span class="line">def uploadAndroidArtifacts(String dir, String fileMatchRegex, String uploadPath, boolean isRecursion = false, Map artifacts = [:])</span><br></pre></td></tr></table></figure>
+<h3 id="27-流水线结果回调-callbackaction"><a class="markdownIt-Anchor" href="#27-流水线结果回调-callbackaction"></a> 2.7 流水线结果回调 - callBackAction()</h3>
+<p>Jenkins pipeline结果回调通知（这个其实有个Plugin支持，Job Notification，但是我觉得不够灵活），这边我自定义了一个通用回调，可以防止在任何位置，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/callBackAction.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 流水线执行结果回调操作</span><br><span class="line"> *</span><br><span class="line"> * @param callBackUrlsJson 回调Url地址Json数据</span><br><span class="line"> * @param artifacts 制品存储数据</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">void callBackAction(String callBackUrlsJson, Map artifacts = [:])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用示例</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">	agent any</span><br><span class="line"></span><br><span class="line">	stages &#123;...&#125;</span><br><span class="line">    </span><br><span class="line">	post &#123;</span><br><span class="line">        always &#123;</span><br><span class="line">            // 回调Api通知对接JOB执行结果</span><br><span class="line">            script &#123;</span><br><span class="line">                if (!binding.variables.containsKey(&quot;ARTIFACTS&quot;)) &#123;</span><br><span class="line">                    ARTIFACTS = [:]</span><br><span class="line">                &#125;</span><br><span class="line">                callBackAction(params.CALLBACK_URLS_JSON, ARTIFACTS)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            echo &quot;I will be executed while failed or succeed&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5-引用"><a class="markdownIt-Anchor" href="#5-引用"></a> 5 引用</h2>
+<p><a href="https://www.jenkins.io/doc/book/pipeline/shared-libraries/">官方参考，Extending with Shared Libraries</a></p>
+]]></content>
+      <categories>
+        <category>Jenkins</category>
+      </categories>
+      <tags>
+        <tag>Jenkins</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>DevOps启蒙-开发测试管理系统</title>
     <url>/2019/09/01/Iflow2345/%E5%BC%80%E5%8F%91%E6%B5%8B%E8%AF%95%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/</url>
     <content><![CDATA[<p>这个算是个回顾吧，自己再2019年进入X公司，发现开发测试流程耦合严重，没有独立的测试环境管理平台，所以参照自己的前东家（👉iflow系统）实现了一个<code>简单</code>的开发测试流程管理系统，当时的<code>思想还很稚嫩，观点粗浅</code>（算是自己DevOps启蒙篇吧），仅供参考哈。</p>
@@ -116,80 +253,66 @@
       </tags>
   </entry>
   <entry>
-    <title>Jenkins共享库使用-初阶</title>
-    <url>/2021/06/08/Jenkins/Jenkins%E5%85%B1%E4%BA%AB%E5%BA%93%E4%BD%BF%E7%94%A8-%E5%88%9D%E9%98%B6/</url>
-    <content><![CDATA[<p>在我们实际写Jenkin pipelines脚本中，可能会出现``java.lang.RuntimeException: Method code too large!<code>，这个时候你就要抽象出一些公共的函数类库，</code>避免项目方重复冗余的脚本代码书写`，在此处我也把我经常使用的一些共享函数库（<strong><a href="https://github.com/nengwu765/jenkins-share-library">jenkins-share-library</a></strong>）分享出来，欢迎交流指正哈！</p>
+    <title>JenkinsK8s集群部署AndroidSDK安装</title>
+    <url>/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<p>如过你的Jenkins是部署在K8s集群中的，那需要支持Android打包的情况。Android SDK安装与更新怎么做呢？<br>
+<strong>本文将介绍在<code>K8s集群</code>中如何安装和更新 Android SDK</strong></p>
 <span id="more"></span>
-<h2 id="1-如何使用jenkins共享库"><a class="markdownIt-Anchor" href="#1-如何使用jenkins共享库"></a> 1. 如何使用Jenkins共享库</h2>
+<h2 id="1-k8s集群中android-sdk安装与更新方案设计"><a class="markdownIt-Anchor" href="#1-k8s集群中android-sdk安装与更新方案设计"></a> 1. K8s集群中Android SDK安装与更新方案设计</h2>
+<h3 id="11-android-sdk-tools镜像制作"><a class="markdownIt-Anchor" href="#11-android-sdk-tools镜像制作"></a> 1.1 Android SDK Tools镜像制作</h3>
 <ul>
-<li>在Jenkinsfile的脚本文件第一行引入以下代码</li>
+<li>使用Android SDK Tools</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">library &#x27;jenkins-shared-libraries&#x27;</span><br><span class="line"></span><br><span class="line">pipeline &#123; ... &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Android在Jenkins中构建打包，只需要命令行工具即可（Command line tools only）。</p>
+<p>只需安装Android SDK Tools，这是 Android SDK 的一个组件。它包含了 Android 的全套开发和调试工具，<a href="https://developer.android.google.cn/studio">在Android studios首页即可下载（位置：Command line tools only），点击进入</a>。</p>
 <ul>
-<li>调用示例</li>
+<li>使用<code>sdkmanager</code>进行工具管理</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">stage (&quot;demo&quot;) &#123;</span><br><span class="line">	steps &#123;</span><br><span class="line">		script &#123;</span><br><span class="line">			// 调用：共享方法名+入参</span><br><span class="line">			demoFunction(params1, params2, ...)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="2-支持的共享库方法"><a class="markdownIt-Anchor" href="#2-支持的共享库方法"></a> 2. 支持的共享库方法</h2>
-<h3 id="21-git仓库拉取-gitcodefetch"><a class="markdownIt-Anchor" href="#21-git仓库拉取-gitcodefetch"></a> 2.1 Git仓库拉取 - gitCodeFetch()</h3>
-<p>支持基于分支/标签 和 Submodule子仓库拉取以及基于MR拉取分支，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/gitCodeFetch.groovy">源码参考</a></p>
+<p>使用 Android 的 <code>sdkmanager</code> 命令行工具进行查看、安装、更新和卸载 Android SDK 的软件包，<a href="https://developer.android.google.cn/studio/command-line/sdkmanager">sdkmanager工具介绍说明，点击进入</a></p>
+<blockquote>
+<p>注：<code>sdkmanager</code>工具在 Android SDK Tools 软件包（25.2.3 及更高版本）中提供，并位于 android_sdk/tools/bin/ 目录下，无需独立安装。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// Android SDK Tools Dockerfile</span><br><span class="line">FROM harbor.demo.com/base/jre_centos:8u202_7.8</span><br><span class="line">USER root</span><br><span class="line"></span><br><span class="line">ENV SDK_TOOLS_URL=&quot;https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip&quot; \</span><br><span class="line">    ANDROID_HOME=&quot;/opt/app/android-sdk&quot;</span><br><span class="line"></span><br><span class="line">RUN yum install -y zip unzip</span><br><span class="line">RUN mkdir -p &quot;$ANDROID_HOME&quot; .android \</span><br><span class="line">    &amp;&amp; cd &quot;$ANDROID_HOME&quot; \</span><br><span class="line">    &amp;&amp; curl -o sdk-tools.zip $SDK_TOOLS_URL \</span><br><span class="line">    &amp;&amp; unzip sdk-tools.zip \</span><br><span class="line">    &amp;&amp; rm sdk-tools.zip</span><br><span class="line">RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses \</span><br><span class="line">    &amp;&amp; $ANDROID_HOME/tools/bin/sdkmanager --update</span><br><span class="line"></span><br><span class="line">#RUN $ANDROID_HOME/tools/bin/sdkmanager --install &quot;build-tools;29.0.1&quot; &quot;platforms;android-29&quot;</span><br><span class="line"></span><br><span class="line">CMD [&quot;/bin/bash&quot;]</span><br></pre></td></tr></table></figure>
+<h3 id="12-将android-sdk作为pvc挂载出来"><a class="markdownIt-Anchor" href="#12-将android-sdk作为pvc挂载出来"></a> 1.2 将Android sdk作为PVC挂载出来</h3>
 <ul>
-<li>入参说明</li>
+<li>
+<p>k8s中申请50G的pvc挂载点</p>
+</li>
+<li>
+<p>Android SDK Tools镜像挂载PVC</p>
+</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Git仓库版本拉取 -- 支持基于分支/标签 和 Submodule子仓库拉取以及基于MR拉取分支</span><br><span class="line"> *</span><br><span class="line"> * @param fetchMode Git代码拉取方式：branch-基于分支; tag-基于标签</span><br><span class="line"> * @param gitBranchOrTag Git仓库分支 或 标签</span><br><span class="line"> * @param gitRepository  Git仓库地址</span><br><span class="line"> * @param gitCredentialsId  Git拉取凭证ID 【若存在Submodule子仓库，则该凭证需要有子仓库拉取权限】</span><br><span class="line"> * @param gitEvent  git拉取事件,基于分支或Tag拉取,则置空; MergeRequest则为:&quot;MR&quot;</span><br><span class="line"> * @param targetBranch 若gitEvent为&quot;MR&quot;,此处为MR目标分支</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">void call(String fetchMode,String gitBranchOrTag, String gitRepository, String gitCredentialsId, String gitEvent = &#x27;&#x27;, String targetBranch = &#x27;&#x27;) </span><br></pre></td></tr></table></figure>
-<h3 id="22-md5值校验-md5check"><a class="markdownIt-Anchor" href="#22-md5值校验-md5check"></a> 2.2 MD5值校验 - md5Check()</h3>
-<p>文件MD5值check，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/md5Check.groovy">源码参考</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 安装Android sdk工具</span><br><span class="line">sdkmanager --install XXX</span><br></pre></td></tr></table></figure>
+<h3 id="13-android-sdk更新"><a class="markdownIt-Anchor" href="#13-android-sdk更新"></a> 1.3 Android SDK更新</h3>
 <ul>
-<li>入参说明</li>
+<li>使用cronjob重新发布一次即可</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 文件MD5值check</span><br><span class="line"> *</span><br><span class="line"> * @param filePath 文件路径</span><br><span class="line"> * @param md5 文件md5值</span><br><span class="line"> * @param forceCheck 是强制检查，是-必检，否-md5值非空则进行检查</span><br><span class="line"> */</span><br><span class="line">void md5Check(String filePath, String md5, boolean forceCheck = true)</span><br><span class="line"></span><br><span class="line">注：forceCheck=true时，校验不通过则报错，流水线终止</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="23-sha1值校验-sha1check"><a class="markdownIt-Anchor" href="#23-sha1值校验-sha1check"></a> 2.3 SHA1值校验 - sha1Check()</h3>
-<p>文件SHA1值check，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/sha1Check.groovy">源码参考</a></p>
+<p><strong><code>Cronjob更新稳定性不是很好，如果没有成功安装SDK工具，则可进入容器中，直接执行sdkmanager更新命令（cluster: cluster_pro 内网正式, namespace：jenkins，pod：androidsdk-xxxxx）</code></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// cronjob的部署示例：</span><br><span class="line">jobs:</span><br><span class="line">- name: androidsdk-job</span><br><span class="line">  # job运行环境集群，和 global.env 的值对应</span><br><span class="line">  runEnv:</span><br><span class="line">  - dev</span><br><span class="line">  - test</span><br><span class="line">  - pdt</span><br><span class="line">  image:</span><br><span class="line">     repository: harbor.demo.com/cicd/android-sdk-tools</span><br><span class="line">     tag: v0.0.1</span><br><span class="line">     pullPolicy: Always</span><br><span class="line">  command:</span><br><span class="line">  - &quot;/opt/app/android-sdk-v/tools/bin/sdkmanager&quot;</span><br><span class="line">  - &quot;--install&quot;</span><br><span class="line">  args:</span><br><span class="line">#### ./sdkmanager --list sdk包 ####</span><br><span class="line">#  - &quot;build-tools;19.1.0&quot;</span><br><span class="line">#  - &quot;build-tools;20.0.0&quot;</span><br><span class="line">#  - &quot;build-tools;21.1.2&quot;</span><br><span class="line">#  - &quot;build-tools;22.0.1&quot;</span><br><span class="line">#  - &quot;build-tools;23.0.1&quot;</span><br><span class="line">#  - &quot;build-tools;23.0.2&quot;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h3 id="14-k8s集群中android-sdk安装与更新"><a class="markdownIt-Anchor" href="#14-k8s集群中android-sdk安装与更新"></a> 1.4 K8s集群中Android SDK安装与更新</h3>
 <ul>
-<li>入参说明</li>
+<li>使用Helm进行部署和更新，此处我们使用的是Helm方式部署的（有关Helm的部署，将后续分享……）</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 文件SHA1值check</span><br><span class="line"> *</span><br><span class="line"> * @param filePath 文件路径</span><br><span class="line"> * @param sha1 文件md5值</span><br><span class="line"> * @param forceCheck 是强制检查，是-必检，否-md5值非空则进行检查</span><br><span class="line"> */</span><br><span class="line">void sha1Check(String filePath, String sha1, boolean forceCheck = true)</span><br><span class="line"></span><br><span class="line">注：forceCheck=true时，校验不通过则报错，流水线终止</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="24-ftp上传-ftpupload"><a class="markdownIt-Anchor" href="#24-ftp上传-ftpupload"></a> 2.4 FTP上传 - ftpUpload()</h3>
-<p>FTP文件上传  – // 参数参考说明：<a href="https://jenkins.io/doc/pipeline/steps/publish-over-ftp">https://jenkins.io/doc/pipeline/steps/publish-over-ftp</a></p>
-<p><a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/ftpUpload.groovy">源码参考</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TODO chart部署仓库</span><br></pre></td></tr></table></figure>
+<h2 id="2-jenkins-slave节点使用android-sdk工具"><a class="markdownIt-Anchor" href="#2-jenkins-slave节点使用android-sdk工具"></a> 2 Jenkins slave节点使用Android SDK工具</h2>
 <ul>
-<li>入参说明</li>
+<li>配置Jenkins slave节点</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * FTP文件上传  -- // 参数参考说明：https://jenkins.io/doc/pipeline/steps/publish-over-ftp</span><br><span class="line"> * @param configName  在Jenkins全局设置的FTP Server名称</span><br><span class="line"> * @param sourceFiles  上传源文件，支持正则匹配，如[递归目录层级使用&#x27;**&#x27;]：&#x27;**/*.apk,public/**/*&#x27;</span><br><span class="line"> * @param remoteDir  上传子目录路径，注此路径会追加到全局设置的FTP Server的Remote Directory之后</span><br><span class="line"> * @param excludes  排除上传文件，支持正则匹配，如[递归目录层级使用&#x27;**&#x27;]： &#x27;**/*.log,**/*.tmp,.git/&#x27;</span><br><span class="line"> * @param removePrefix  去除上传文件的路径前缀，避免ftp服务器中生成无用的目录路径,注：所有上传文件必须都有该前缀，否则报错</span><br><span class="line"> */</span><br><span class="line">void ftpUpload(String configName, String sourceFiles, String remoteDir = &#x27;&#x27;, String excludes = &#x27;&#x27;, String removePrefix = &#x27;&#x27;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="25-rsync-module远程同步-rsyncmodule"><a class="markdownIt-Anchor" href="#25-rsync-module远程同步-rsyncmodule"></a> 2.5 Rsync Module远程同步 - rsyncModule()</h3>
-<p>rsync 使用Module远程同步，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/rsyncWithModule.groovy">源码参考</a></p>
+<p>添加一个环境变量和挂载卷</p>
+<p><img src="/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/jenkins%E9%85%8D%E7%BD%AE.png" alt="Jenkins配置"></p>
 <ul>
-<li>入参说明</li>
+<li>Jenkinsfile中使用</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  rsync 使用Module远程同步</span><br><span class="line"> *</span><br><span class="line"> * @param ip rsync服务器IP</span><br><span class="line"> * @param port rsync服务器监听端口</span><br><span class="line"> * @param path rsync本地同步绝对路径</span><br><span class="line"> * @param module rsync同步模块</span><br><span class="line"> * @param user  rsync同步用户，指定传输文件为指定用户</span><br><span class="line"> * @param customParams 定制rsync参数，不允许出现&quot;delete&quot;关键字，如：--exclude=PATTERN --include=PATTERN --exclude-from=FILE --include-from=FILE</span><br><span class="line"> * @param bwlimit</span><br><span class="line"> */</span><br><span class="line">void rsyncModule(String ip, int port, String path, String module, String user = &#x27;&#x27;, String customParams = &#x27;&#x27;, int bwlimit = 8192)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="26-制品上传nexus-uploadartifactstonexus"><a class="markdownIt-Anchor" href="#26-制品上传nexus-uploadartifactstonexus"></a> 2.6 制品上传Nexus - uploadArtifactsToNexus()</h3>
-<p>如果你是以Nexus作为制品库的话，这个可以作为参考，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/uploadArtifactsToNexus.groovy">源码参考</a></p>
-<ul>
-<li>入参说明</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 上传制品至Nexus仓库</span><br><span class="line"> *</span><br><span class="line"> * @param nexusRepository Nexus上传仓库</span><br><span class="line"> * @param dir 检索目录</span><br><span class="line"> * @param fileMatchRegex 文件正则匹配规则， 支持文件类型、文件前缀、文件全名，</span><br><span class="line"> *        如文件：prefix_file.test,</span><br><span class="line"> *        匹配规则：</span><br><span class="line"> *              文件类型： fileMatchRegex = &quot;.test&quot;</span><br><span class="line"> *              文件前缀： fileMatchRegex = &quot;prefix_&quot;</span><br><span class="line"> *              文件全名： fileMatchRegex = &quot;prefix_file.test&quot;</span><br><span class="line"> * @param uploadSubPath 制品上传路经</span><br><span class="line"> * @param isRecursion 是否递归检索子目录,默认：否【注：同名文件会被覆盖】</span><br><span class="line"> * @param artifacts 制品存储数据，Map结构，默认：空Map</span><br><span class="line"> * @return Map 返回上传制品数据</span><br><span class="line"> *         eg: [</span><br><span class="line"> *              &#x27;file1&#x27;:[</span><br><span class="line"> *                  &#x27;url&#x27;:&#x27;https://nexus.demo.com/.../file1&#x27;  // 文件在nexus中的上传路径【即下载路径】</span><br><span class="line"> *                  &#x27;md5&#x27;:&#x27;xxxx&#x27; // 文件md5值</span><br><span class="line"> *                  &#x27;sha1&#x27;:&#x27;xxxx&#x27;   // 文件sha1值</span><br><span class="line"> *               ],</span><br><span class="line"> *         ]</span><br><span class="line"> */</span><br><span class="line">def uploadArtifactsToNexus(String nexusRepository, String dir, String fileMatchRegex, String uploadPath, boolean isRecursion = false, Map artifacts = [:])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ul>
-<li>Android制品上传Nexus - uploadAndroidArtifacts()</li>
-</ul>
-<p><strong><code>针对Android制品上传，做了一层外围封装，防止不同业务上传仓库紊乱</code></strong>，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/uploadAndroidArtifacts.groovy">源码参考</a></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 上传制品至Nexus仓库</span><br><span class="line"> *</span><br><span class="line"> * @param dir 检索目录</span><br><span class="line"> * @param fileMatchRegex 文件正则匹配规则， 支持文件类型、文件前缀、文件全名，</span><br><span class="line"> *        如文件：prefix_file.test,</span><br><span class="line"> *        匹配规则：</span><br><span class="line"> *              文件类型： fileMatchRegex = &quot;.test&quot;</span><br><span class="line"> *              文件前缀： fileMatchRegex = &quot;prefix_&quot;</span><br><span class="line"> *              文件全名： fileMatchRegex = &quot;prefix_file.test&quot;</span><br><span class="line"> * @param uploadSubPath 制品上传路经</span><br><span class="line"> * @param isRecursion 是否递归检索子目录,默认：否【注：同名文件会被覆盖】</span><br><span class="line"> * @param artifacts 制品存储数据，Map结构，默认：空Map</span><br><span class="line"> * @return Map 返回上传制品数据</span><br><span class="line"> *         eg: [</span><br><span class="line"> *              &#x27;file1&#x27;:[</span><br><span class="line"> *                  &#x27;url&#x27;:&#x27;https://nexus.demo.com/.../file1&#x27;  // 文件在nexus中的上传路径【即下载路径】</span><br><span class="line"> *                  &#x27;md5&#x27;:&#x27;xxxx&#x27; // 文件md5值</span><br><span class="line"> *                  &#x27;sha1&#x27;:&#x27;xxxx&#x27;   // 文件sha1值</span><br><span class="line"> *               ],</span><br><span class="line"> *         ]</span><br><span class="line"> */</span><br><span class="line">def uploadAndroidArtifacts(String dir, String fileMatchRegex, String uploadPath, boolean isRecursion = false, Map artifacts = [:])</span><br></pre></td></tr></table></figure>
-<h3 id="27-流水线结果回调-callbackaction"><a class="markdownIt-Anchor" href="#27-流水线结果回调-callbackaction"></a> 2.7 流水线结果回调 - callBackAction()</h3>
-<p>Jenkins pipeline结果回调通知（这个其实有个Plugin支持，Job Notification，但是我觉得不够灵活），这边我自定义了一个通用回调，可以防止在任何位置，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/callBackAction.groovy">源码参考</a></p>
-<ul>
-<li>入参说明</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 流水线执行结果回调操作</span><br><span class="line"> *</span><br><span class="line"> * @param callBackUrlsJson 回调Url地址Json数据</span><br><span class="line"> * @param artifacts 制品存储数据</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">void callBackAction(String callBackUrlsJson, Map artifacts = [:])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ul>
-<li>使用示例</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">	agent any</span><br><span class="line"></span><br><span class="line">	stages &#123;...&#125;</span><br><span class="line">    </span><br><span class="line">	post &#123;</span><br><span class="line">        always &#123;</span><br><span class="line">            // 回调Api通知对接JOB执行结果</span><br><span class="line">            script &#123;</span><br><span class="line">                if (!binding.variables.containsKey(&quot;ARTIFACTS&quot;)) &#123;</span><br><span class="line">                    ARTIFACTS = [:]</span><br><span class="line">                &#125;</span><br><span class="line">                callBackAction(params.CALLBACK_URLS_JSON, ARTIFACTS)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            echo &quot;I will be executed while failed or succeed&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="5-引用"><a class="markdownIt-Anchor" href="#5-引用"></a> 5 引用</h2>
-<p><a href="https://www.jenkins.io/doc/book/pipeline/shared-libraries/">官方参考，Extending with Shared Libraries</a></p>
+<p>直接使用对应Jenkins slave节点，执行gradle命令即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">    // 全局执行代理</span><br><span class="line">    agent &#123;</span><br><span class="line">        kubernetes &#123;</span><br><span class="line">            cloud &#x27;kubernetes&#x27;</span><br><span class="line">            label &#x27;label-gradle&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	stages &#123;</span><br><span class="line">        stage (&quot;gradle构建&quot;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                sh &quot;./gradlew clean &quot; +</span><br><span class="line">                        &quot;channelRelease --stacktrace &quot; +</span><br><span class="line">                        &quot;-PBUILD_NUMBER=$&#123;env.BUILD_NUMBER&#125;&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>Jenkins</category>
+        <category>移动CICD</category>
       </categories>
       <tags>
         <tag>Jenkins</tag>
+        <tag>移动CICD</tag>
+        <tag>CICD</tag>
       </tags>
   </entry>
   <entry>
@@ -383,66 +506,6 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
       </tags>
   </entry>
   <entry>
-    <title>Jenkins部署-K8s OR 物理机</title>
-    <url>/2021/06/10/Jenkins/Jenkins%E9%83%A8%E7%BD%B2-K8sOR%E7%89%A9%E7%90%86%E6%9C%BA/</url>
-    <content><![CDATA[<p>如果你开始使用Jenkins作为你的CI工具，刚好也在使用K8s集群做CD，那你一定很纠结我的Jenkins到底用什么方式进行部署管理呢？<br>
-这里我将我们遇到的实际经验分享给各位参考，希望能给到你一些帮助吧，😄</p>
-<span id="more"></span>
-<h2 id="1-结论"><a class="markdownIt-Anchor" href="#1-结论"></a> 1、结论</h2>
-<p>不拖沓，直接上结论：</p>
-<p><strong>轻易不要上K8s</strong>，启动速度和Slave镜像管理以及构建缓存等会比较<code>耗精力</code>；在CICD起步，日构建在500次左右，特别是含Android的gradle构建时，建议直接上物理机，绝对<code>真香</code>。</p>
-<blockquote>
-<p>选择适合的，并不是技术领先的，当然能Hold住的大佬，请随意哈😁</p>
-</blockquote>
-<hr>
-<p>备注说明下目前我遇到的构建量级吧，相对大厂是小儿科了点，勿喷哈。</p>
-<ul>
-<li>Web应用构建，约日均构建在400-500次/日</li>
-<li>移动端构建（Android为主），约日均构建在30-50次/日，偶尔会有批量的渠道打包量比较大（渠道量1K+）</li>
-</ul>
-<h2 id="2-k8s集群里的jenkins"><a class="markdownIt-Anchor" href="#2-k8s集群里的jenkins"></a> 2、K8s集群里的Jenkins</h2>
-<h3 id="21-选择背景"><a class="markdownIt-Anchor" href="#21-选择背景"></a> 2.1、选择背景</h3>
-<p>公司开始做中台了，其中包括建设CICD系统，基本是从 O 起步吧，当初直接选型了：java spring微服务 + K8s作为接下来的技术发展方向。作为<code>打辅助</code>的持续交付系统也就那个时候定型的，选型CI工具为Jenkins（当然还有很多的周边的工具链选型），部署原则：<strong>Everything in docker</strong></p>
-<h3 id="22-遇到问题"><a class="markdownIt-Anchor" href="#22-遇到问题"></a> 2.2、遇到问题</h3>
-<ul>
-<li>K8s集群稳定性是第一大考验</li>
-<li>动态的Slave启动慢，修改长时间存活，莫名会出现心跳终端，SalvePod假死</li>
-<li>各Slave节点构建依赖的缓存共享设置，尤其是移动端的Gradle的缓存（谁用谁知道！参考：<a href="https://blog.dreamtobe.cn/lls_ci/">流利说客户端持续交付工程实践</a>……）</li>
-<li>Slave多了后占用的资源无法想象，最后不得不给Jenkins独立的Node，打上标签区分</li>
-<li>还有就是构建过程，一个字儿：<strong>超级慢</strong>，很大原因是K8s集群的Ceph文件系统</li>
-<li>Slave镜像维护成本也颇高，尤其是需要版本升级的时候</li>
-<li>…</li>
-</ul>
-<h2 id="3-物理机里的jenkins"><a class="markdownIt-Anchor" href="#3-物理机里的jenkins"></a> 3、物理机里的Jenkins</h2>
-<h3 id="31-选择背景"><a class="markdownIt-Anchor" href="#31-选择背景"></a> 3.1、选择背景</h3>
-<p>我们重新建设了DevOps平台（定位：一站式研发协同平台），对于原有的功能迁移后，发现对于很多<code>核心、根本</code>问题，治标不治本。新平台也迫切需要出成绩，最终开出了 <code>历史的倒车</code>，我们回到了物理机Jenkins。</p>
-<h3 id="32-效果"><a class="markdownIt-Anchor" href="#32-效果"></a> 3.2、效果</h3>
-<p>一个字：<strong>快</strong>，平均提速达到30%+（其中移动端提速了甚至到了50%），且稳定性更高</p>
-<h3 id="33-成本核算"><a class="markdownIt-Anchor" href="#33-成本核算"></a> 3.3、成本核算</h3>
-<p>迁移到物理是不是成本很高啊，那可是物理机啊，然并卵……</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">迁移前</th>
-<th>迁移后</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">K8s独立Node：64c+128G（1），32c+32G（1）</td>
-<td>32c+32G（5）</td>
-</tr>
-</tbody>
-</table>
-]]></content>
-      <categories>
-        <category>Jenkins</category>
-      </categories>
-      <tags>
-        <tag>Jenkins</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>代码扫描(二)-SonarQube安装</title>
     <url>/2021/05/31/SonarQube/%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F(%E4%BA%8C)-SonarQube%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<p>SonarQube的安装会给予版本有些差异，建议根据你选择的版本结合官方的文档进行安装，中间遇到问题再自行Google一下啦。本文主要是讲解一下版本的安装：SonarQube：7.9 LTS +PostgreSQL 10</p>
@@ -547,7 +610,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
   </entry>
   <entry>
     <title>禅道持续交付(一)-概述及框架</title>
-    <url>/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/</url>
+    <url>/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%80)-%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%A1%86%E6%9E%B6/</url>
     <content><![CDATA[<p>我们基于禅道打造了持续交付系统，整合了多个开源系统（包括禅道zentao、jenkins、gitlab、nexus、harbor、ldap、mysql等等），并进行大量的二次开发，将多个系统功能（项目管理、集成管理、代码仓库管理、编译私服，镜像仓库管理、用户认证等）、多个开发环境（开发环境、测试环境、预发布环境、灰度环境、生产环境等），多种发布流程（代码扫描、版本集成、版本发布等）进行统一整合，提供一套高度集成和高度自动化的项目管理+版本集成发布系统。</p>
 <span id="more"></span>
 <h2 id="1-概述"><a class="markdownIt-Anchor" href="#1-概述"></a> 1、概述</h2>
@@ -569,82 +632,209 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <li>仅使用客户端渠道管理功能（扩展功能）</li>
 </ul>
 <h2 id="2-持续交付系统框架"><a class="markdownIt-Anchor" href="#2-持续交付系统框架"></a> 2、持续交付系统框架</h2>
-<p><img src="/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84-new.png" alt="img"></p>
+<p>这个比较简单吧，其实有关这种分层的DevOps架构，应该都是大同小异，仅供参考哈😉</p>
+<p><img src="/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%80)-%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%A1%86%E6%9E%B6/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84-new.png" alt="img"></p>
 <h2 id="3-持续交付流程"><a class="markdownIt-Anchor" href="#3-持续交付流程"></a> 3、持续交付流程</h2>
 <p>主要是基于Helm进行K8s的容器部署，整个交付流程如下：</p>
-<p><img src="/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E6%B5%81%E7%A8%8B-new.png" alt="img"></p>
+<ul>
+<li>使用Zentao作为项目管理工具：管理基本需求、迭代、缺陷等</li>
+<li>Zentao也作为用户CICD系统平台，用户再禅道上做集成、构建、部署等操作</li>
+<li>CICD的后端集成工具：Jenkins</li>
+<li>部署至K8s集群中，部署主要的使用是Helm进行部署管理（注：当时使用的是Helm2）</li>
+</ul>
+<p>注：我们自己编写了Helm的Template模板工程，基本涵盖了很多的使用场景，这个后续我也会跟进分享给大家，尽情期待……</p>
+<p><img src="/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%80)-%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%A1%86%E6%9E%B6/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E6%B5%81%E7%A8%8B-new.png" alt="img"></p>
 <h2 id="4-工具链选型"><a class="markdownIt-Anchor" href="#4-工具链选型"></a> 4、工具链选型</h2>
-<p><img src="/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/%E5%B7%A5%E5%85%B7%E9%93%BE%E9%80%89%E5%9E%8B-new.png" alt="img"></p>
+<p>其实DevOps工具链产品有很多，大家可以根据自己的实际情况选择，我们基于Zentao打造的持续交付平台选择的是如下工具链。因为当初我们还木有打通持续测试这一环节，所以这个相对有些简陋了，但是还算清晰！</p>
+<p><img src="/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%80)-%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%A1%86%E6%9E%B6/%E5%B7%A5%E5%85%B7%E9%93%BE%E9%80%89%E5%9E%8B-new.png" alt="img"></p>
 ]]></content>
       <categories>
         <category>持续交付</category>
       </categories>
       <tags>
+        <tag>CICD</tag>
         <tag>Zentao</tag>
         <tag>禅道</tag>
+        <tag>持续交付</tag>
       </tags>
   </entry>
   <entry>
-    <title>JenkinsK8s集群部署AndroidSDK安装</title>
-    <url>/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<p>如过你的Jenkins是部署在K8s集群中的，那需要支持Android打包的情况。Android SDK安装与更新怎么做呢？<br>
-<strong>本文将介绍在<code>K8s集群</code>中如何安装和更新 Android SDK</strong></p>
+    <title>禅道持续交付(二)-研发流水线设计</title>
+    <url>/2019/09/29/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%8C)-%E7%A0%94%E5%8F%91%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1/</url>
+    <content><![CDATA[<p>基于禅道设计的研发流水线，实际就是分为了两条流水线：CI和CD，CI流程就是产出最终可交付至线上的版本制品，CD流程就是将CI产出的制品最终交付至线上。在流水线执行过程中，约定了各个版本环境，如：Dev环境、IT环境、ST环境、UAT环境、PVT环境、GVT灰度验证环境、MVT量产环境等。</p>
 <span id="more"></span>
-<h2 id="1-k8s集群中android-sdk安装与更新方案设计"><a class="markdownIt-Anchor" href="#1-k8s集群中android-sdk安装与更新方案设计"></a> 1. K8s集群中Android SDK安装与更新方案设计</h2>
-<h3 id="11-android-sdk-tools镜像制作"><a class="markdownIt-Anchor" href="#11-android-sdk-tools镜像制作"></a> 1.1 Android SDK Tools镜像制作</h3>
-<ul>
-<li>使用Android SDK Tools</li>
-</ul>
-<p>Android在Jenkins中构建打包，只需要命令行工具即可（Command line tools only）。</p>
-<p>只需安装Android SDK Tools，这是 Android SDK 的一个组件。它包含了 Android 的全套开发和调试工具，<a href="https://developer.android.google.cn/studio">在Android studios首页即可下载（位置：Command line tools only），点击进入</a>。</p>
-<ul>
-<li>使用<code>sdkmanager</code>进行工具管理</li>
-</ul>
-<p>使用 Android 的 <code>sdkmanager</code> 命令行工具进行查看、安装、更新和卸载 Android SDK 的软件包，<a href="https://developer.android.google.cn/studio/command-line/sdkmanager">sdkmanager工具介绍说明，点击进入</a></p>
-<blockquote>
-<p>注：<code>sdkmanager</code>工具在 Android SDK Tools 软件包（25.2.3 及更高版本）中提供，并位于 android_sdk/tools/bin/ 目录下，无需独立安装。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// Android SDK Tools Dockerfile</span><br><span class="line">FROM harbor.demo.com/base/jre_centos:8u202_7.8</span><br><span class="line">USER root</span><br><span class="line"></span><br><span class="line">ENV SDK_TOOLS_URL=&quot;https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip&quot; \</span><br><span class="line">    ANDROID_HOME=&quot;/opt/app/android-sdk&quot;</span><br><span class="line"></span><br><span class="line">RUN yum install -y zip unzip</span><br><span class="line">RUN mkdir -p &quot;$ANDROID_HOME&quot; .android \</span><br><span class="line">    &amp;&amp; cd &quot;$ANDROID_HOME&quot; \</span><br><span class="line">    &amp;&amp; curl -o sdk-tools.zip $SDK_TOOLS_URL \</span><br><span class="line">    &amp;&amp; unzip sdk-tools.zip \</span><br><span class="line">    &amp;&amp; rm sdk-tools.zip</span><br><span class="line">RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses \</span><br><span class="line">    &amp;&amp; $ANDROID_HOME/tools/bin/sdkmanager --update</span><br><span class="line"></span><br><span class="line">#RUN $ANDROID_HOME/tools/bin/sdkmanager --install &quot;build-tools;29.0.1&quot; &quot;platforms;android-29&quot;</span><br><span class="line"></span><br><span class="line">CMD [&quot;/bin/bash&quot;]</span><br></pre></td></tr></table></figure>
-<h3 id="12-将android-sdk作为pvc挂载出来"><a class="markdownIt-Anchor" href="#12-将android-sdk作为pvc挂载出来"></a> 1.2 将Android sdk作为PVC挂载出来</h3>
+<h2 id="1-流水线设计"><a class="markdownIt-Anchor" href="#1-流水线设计"></a> 1 流水线设计</h2>
+<p>按照devops理念，整个开发及发布流程被设计为两条流程：持续集成和持续发布。</p>
+<p>在这里持续（continuous）的概念，包含的意义是：<br>
+1、流程可以反复执行；<br>
+2、流程是由多个子流程组成，流程之间都是前后顺序连接，持续执行的。</p>
+<p>由于我们的核心构建系统采用的是jenkins，所有流程的实现是采用的jenkins中的流水线pipeline脚本来实现的。</p>
+<p>最终实现的结果就是持续交付系统主要有两条流水线：</p>
 <ul>
 <li>
-<p>k8s中申请50G的pvc挂载点</p>
+<p>版本持续集成（CI，Continuous Integration）流水线<br>
+就是对源代码进行构建，生成版本制品的过程。</p>
 </li>
 <li>
-<p>Android SDK Tools镜像挂载PVC</p>
+<p>版本持续发布（CD，Continuous Delivery）流水线<br>
+就是将经过测试之后合格的版本制品发布部署到目的地的过程。</p>
 </li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 安装Android sdk工具</span><br><span class="line">sdkmanager --install XXX</span><br></pre></td></tr></table></figure>
-<h3 id="13-android-sdk更新"><a class="markdownIt-Anchor" href="#13-android-sdk更新"></a> 1.3 Android SDK更新</h3>
+<p>我们设计的CI和CD流水线的概图如下：<br>
+<img src="/2019/09/29/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%8C)-%E7%A0%94%E5%8F%91%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1/CICD%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
+<h2 id="2-持续集成流水线ci-continuous-integration"><a class="markdownIt-Anchor" href="#2-持续集成流水线ci-continuous-integration"></a> 2 持续集成流水线（CI, Continuous Integration）</h2>
+<p>下面是一个一般的CI的流程模型：<br>
+<img src="/2019/09/29/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%8C)-%E7%A0%94%E5%8F%91%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1/CI%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
+<h2 id="3-持续发布流水线cdcontinous-delivery"><a class="markdownIt-Anchor" href="#3-持续发布流水线cdcontinous-delivery"></a> 3 持续发布流水线（CD，Continous Delivery）</h2>
+<p>下面是一个一般的CD的流程模型：<br>
+<img src="/2019/09/29/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%8C)-%E7%A0%94%E5%8F%91%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1/CD%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
+<h2 id="4-版本和环境流程图"><a class="markdownIt-Anchor" href="#4-版本和环境流程图"></a> 4、版本和环境流程图</h2>
+<p>在逻辑意义上来说，我们目前做了如下定义：</p>
 <ul>
-<li>使用cronjob重新发布一次即可</li>
-</ul>
-<p><strong><code>Cronjob更新稳定性不是很好，如果没有成功安装SDK工具，则可进入容器中，直接执行sdkmanager更新命令（cluster: cluster_pro 内网正式, namespace：jenkins，pod：androidsdk-xxxxx）</code></strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// cronjob的部署示例：</span><br><span class="line">jobs:</span><br><span class="line">- name: androidsdk-job</span><br><span class="line">  # job运行环境集群，和 global.env 的值对应</span><br><span class="line">  runEnv:</span><br><span class="line">  - dev</span><br><span class="line">  - test</span><br><span class="line">  - pdt</span><br><span class="line">  image:</span><br><span class="line">     repository: harbor.demo.com/cicd/android-sdk-tools</span><br><span class="line">     tag: v0.0.1</span><br><span class="line">     pullPolicy: Always</span><br><span class="line">  command:</span><br><span class="line">  - &quot;/opt/app/android-sdk-v/tools/bin/sdkmanager&quot;</span><br><span class="line">  - &quot;--install&quot;</span><br><span class="line">  args:</span><br><span class="line">#### ./sdkmanager --list sdk包 ####</span><br><span class="line">#  - &quot;build-tools;19.1.0&quot;</span><br><span class="line">#  - &quot;build-tools;20.0.0&quot;</span><br><span class="line">#  - &quot;build-tools;21.1.2&quot;</span><br><span class="line">#  - &quot;build-tools;22.0.1&quot;</span><br><span class="line">#  - &quot;build-tools;23.0.1&quot;</span><br><span class="line">#  - &quot;build-tools;23.0.2&quot;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<h3 id="14-k8s集群中android-sdk安装与更新"><a class="markdownIt-Anchor" href="#14-k8s集群中android-sdk安装与更新"></a> 1.4 K8s集群中Android SDK安装与更新</h3>
+<li>环境是一个逻辑概念，在物理上的实现，它就是从物理集群内启动并运行起来的一个docker容器；</li>
+<li>内网开发集群定义了系统集成测试环境（SIT，System Integration Test environment），支持的环境数量为三个：sit0、sit1、sit2。</li>
+<li>内网测试集群定义了用户验收测试环境（UAT，User Acceptance Test environment），支持的环境数量为三个：uat0、uat1、uat2。</li>
+<li>生产集群，不管是内网还是外网，公有云还是私有云，都定义如下三个环境：
 <ul>
-<li>使用Helm进行部署和更新，此处我们使用的是Helm方式部署的（有关Helm的部署，将后续分享……）</li>
+<li>预发布环境 pre-release</li>
+<li>灰度发布环境 grey verification environment</li>
+<li>正式生产环境 mass production<br>
+<img src="/2019/09/29/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%8C)-%E7%A0%94%E5%8F%91%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1/%E7%89%88%E6%9C%AC%E5%8F%8A%E7%8E%AF%E5%A2%83-new.png" alt></li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TODO chart部署仓库</span><br></pre></td></tr></table></figure>
-<h2 id="2-jenkins-slave节点使用android-sdk工具"><a class="markdownIt-Anchor" href="#2-jenkins-slave节点使用android-sdk工具"></a> 2 Jenkins slave节点使用Android SDK工具</h2>
+</li>
+</ul>
+<h2 id="5-测试环境域名管理方案"><a class="markdownIt-Anchor" href="#5-测试环境域名管理方案"></a> 5、测试环境域名管理方案</h2>
+<p>目前测试环境的访问方式主要有两种，这两种方式可以同时使用：</p>
 <ul>
-<li>配置Jenkins slave节点</li>
+<li>
+<p>1、不同环境不同域名方案</p>
+<p>部署至不同集群环境，生成不同域名方案。</p>
+<p>如：域名为&quot;<a href="http://demo.com">demo.com</a>&quot;，部署至sit0环境，则自动生成域名&quot;<a href="http://sit0-demo.com">sit0-demo.com</a>&quot;</p>
+</li>
+<li>
+<p>2、不同环境同一域名方案</p>
+<p>部署至不同集群环境，访问客户端通过**<code>域名代理</code>**访问同一域名（多环境同域名方案OpenResty方案: Nginx+lua + redis 实现根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理，<a href="../%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%89)-%E5%A4%9A%E7%8E%AF%E5%A2%83%E5%90%8C%E5%9F%9F%E5%90%8D%E8%AE%BE%E8%AE%A1">方案详情参考此文</a>），访问至不同集群环境。</p>
+<p>如：域名为&quot;<a href="http://demo.com">demo.com</a>&quot;，通过域名代理将访问客户端IP与目的访问集群入口域名&quot;<a href="http://sit0-demo.com">sit0-demo.com</a>&quot;绑定即可实现同一域名访问。</p>
+</li>
 </ul>
-<p>添加一个环境变量和挂载卷</p>
-<p><img src="/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/jenkins%E9%85%8D%E7%BD%AE.png" alt="Jenkins配置"></p>
-<ul>
-<li>Jenkinsfile中使用</li>
-</ul>
-<p>直接使用对应Jenkins slave节点，执行gradle命令即可。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">    // 全局执行代理</span><br><span class="line">    agent &#123;</span><br><span class="line">        kubernetes &#123;</span><br><span class="line">            cloud &#x27;kubernetes&#x27;</span><br><span class="line">            label &#x27;label-gradle&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	stages &#123;</span><br><span class="line">        stage (&quot;gradle构建&quot;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                sh &quot;./gradlew clean &quot; +</span><br><span class="line">                        &quot;channelRelease --stacktrace &quot; +</span><br><span class="line">                        &quot;-PBUILD_NUMBER=$&#123;env.BUILD_NUMBER&#125;&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>移动CICD</category>
+        <category>持续交付</category>
       </categories>
       <tags>
-        <tag>Jenkins</tag>
-        <tag>移动CICD</tag>
         <tag>CICD</tag>
+        <tag>Zentao</tag>
+        <tag>禅道</tag>
+        <tag>持续交付</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>禅道持续交付(三)-多环境同域名设计</title>
+    <url>/2019/10/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%89)-%E5%A4%9A%E7%8E%AF%E5%A2%83%E5%90%8C%E5%9F%9F%E5%90%8D%E8%AE%BE%E8%AE%A1/</url>
+    <content><![CDATA[<p>在实际需求中，我们遇到了这样一个需求：在<code>研发环境</code>和<code>测试环境</code>使用相同的域名，期望根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理。基于此我们调研最后实现这个需求。方案核心点：OpenResty方案: Nginx+lua + redis 实现根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理，redis用于管理用户Client IP和环境的绑定关系。</p>
+<span id="more"></span>
+<h2 id="1-需求调研"><a class="markdownIt-Anchor" href="#1-需求调研"></a> 1 需求调研</h2>
+<p>在<code>研发环境</code>和<code>测试环境</code>使用相同的域名，期望根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理。</p>
+<h2 id="2-方案概述"><a class="markdownIt-Anchor" href="#2-方案概述"></a> 2 方案概述</h2>
+<ol>
+<li>使用<code>OpenResty</code>(集成了 Nginx 和 Lua )对用户请求进行转发</li>
+<li>使用<code>Redis</code>来存储用户 IP 与环境的绑定关系数据</li>
+<li>使用禅道操作<code>Redis</code>来管理用户 IP 与环境的绑定关系</li>
+</ol>
+<h2 id="3-部署实践"><a class="markdownIt-Anchor" href="#3-部署实践"></a> 3 部署实践</h2>
+<h3 id="31-openresty-部署"><a class="markdownIt-Anchor" href="#31-openresty-部署"></a> 3.1 OpenResty 部署</h3>
+<p><a href="https://openresty.org/en/">OpenResty官方介绍</a></p>
+<h4 id="311-openresty-安装"><a class="markdownIt-Anchor" href="#311-openresty-安装"></a> 3.1.1 OpenResty 安装</h4>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install -y yum-utils</span><br><span class="line">sudo yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo</span><br><span class="line">sudo yum install -y openresty</span><br><span class="line">sudo yum install -y openresty-resty</span><br></pre></td></tr></table></figure>
+<h4 id="312-openresty-配置"><a class="markdownIt-Anchor" href="#312-openresty-配置"></a> 3.1.2 OpenResty 配置</h4>
+<h5 id="3121-nginx-配置"><a class="markdownIt-Anchor" href="#3121-nginx-配置"></a> 3.1.2.1 nginx 配置</h5>
+<p>路径：/usr/local/openresty/nginx/conf/nginx.conf</p>
+<ul>
+<li>配置文件路径根据 openresty 安装目录变化</li>
+<li>配置文件中<code>lua_package_path</code>字段值也要根据 openresty 安装目录变化</li>
+</ul>
+<p>配置样例：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">user</span>                 root root;</span><br><span class="line"><span class="attribute">worker_processes</span>     auto;</span><br><span class="line"><span class="attribute">worker_cpu_affinity</span>  auto;</span><br><span class="line"><span class="attribute">error_log</span>            logs/error.log <span class="literal">info</span>;</span><br><span class="line"><span class="attribute">pid</span>                  logs/nginx.pid;</span><br><span class="line"><span class="attribute">worker_rlimit_nofile</span> <span class="number">65000</span>;</span><br><span class="line"></span><br><span class="line"><span class="section">events</span> &#123;</span><br><span class="line">    <span class="attribute">use</span>                 <span class="literal">epoll</span>;</span><br><span class="line">    <span class="attribute">accept_mutex</span>        <span class="literal">off</span>;</span><br><span class="line">    <span class="attribute">multi_accept</span>        <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">worker_connections</span>  <span class="number">20480</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">include</span>       mime.types;</span><br><span class="line">    <span class="attribute">default_type</span>  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># lua相关配置</span></span><br><span class="line">    <span class="attribute">lua_package_path</span>                   <span class="string">&#x27;/usr/local/openresty/lualib/?.lua;/usr/local/openresty/nginx/conf/?.lua&#x27;</span>;</span><br><span class="line">    <span class="attribute">lua_shared_dict</span>                    xq_req_limit_cache <span class="number">1m</span>;</span><br><span class="line">    <span class="attribute">lua_need_request_body</span>              <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">include</span> conf.d/<span class="regexp">*.conf</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="3122-代理域名配置"><a class="markdownIt-Anchor" href="#3122-代理域名配置"></a> 3.1.2.2 代理域名配置</h5>
+<p>路径：/usr/local/openresty/nginx/conf/conf.d/domain.conf</p>
+<ul>
+<li>配置文件路径根据 openresty 安装目录变化</li>
+<li>配置文件中<code>access_log、error_log、rewrite_by_lua_file</code>字段值也要根据 openresty 安装目录变化</li>
+</ul>
+<p>配置样例：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> domain.demo.com;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">access_log</span> /usr/local/openresty/nginx/logs/domain.demo.com.access.log;</span><br><span class="line">    <span class="attribute">error_log</span> /usr/local/openresty/nginx/logs/domain.demo.com.<span class="literal">error</span>.log <span class="literal">warn</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">set</span> $target_domain <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        <span class="attribute">set</span> $target_host <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">rewrite_by_lua_file</span> /usr/local/openresty/nginx/conf/proxy.lua;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">proxy_set_header</span> Host $target_domain;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://$target_host;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="3123-lua脚本"><a class="markdownIt-Anchor" href="#3123-lua脚本"></a> 3.1.2.3 Lua脚本</h5>
+<p>路径：/usr/local/openresty/nginx/conf/proxy.lua</p>
+<ul>
+<li>配置文件路径根据 openresty 安装目录变化</li>
+<li>配置文件中<code>file_err</code>字段值也要根据 openresty 安装目录变化</li>
+</ul>
+<p>配置样例：</p>
+<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 日志文件</span></span><br><span class="line"><span class="keyword">local</span> file_err = <span class="string">&quot;/usr/local/openresty/nginx/logs/&quot;</span>..<span class="built_in">os</span>.<span class="built_in">date</span>(<span class="string">&quot;%Y-%m-%d&quot;</span>, <span class="built_in">os</span>.<span class="built_in">time</span>())..<span class="string">&quot;-proxy-lua.log&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- json模块</span></span><br><span class="line"><span class="keyword">local</span> cjson = <span class="built_in">require</span> <span class="string">&quot;cjson&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 写日志函数</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">log</span><span class="params">(type, msg)</span></span></span><br><span class="line">    <span class="built_in">type</span> = <span class="built_in">type</span> <span class="keyword">or</span> <span class="string">&quot;INFO&quot;</span></span><br><span class="line">    files = <span class="built_in">assert</span>(<span class="built_in">io</span>.<span class="built_in">open</span>(file_err, <span class="string">&quot;a+&quot;</span>))</span><br><span class="line">    files:<span class="built_in">write</span>(<span class="built_in">os</span>.<span class="built_in">date</span>(<span class="string">&quot;%Y-%m-%d %X&quot;</span>, <span class="built_in">os</span>.<span class="built_in">time</span>())..<span class="string">&quot; &quot;</span>..<span class="built_in">type</span>..<span class="string">&quot; &quot;</span>..cjson.encode(msg)..<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">    files:<span class="built_in">close</span>()</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取客户端IP</span></span><br><span class="line"><span class="keyword">local</span> client_ip = ngx.req.get_headers()[<span class="string">&quot;X-Real-IP&quot;</span>]</span><br><span class="line"><span class="keyword">if</span> client_ip == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">    client_ip = ngx.req.get_headers()[<span class="string">&quot;x_forwarded_for&quot;</span>]</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> client_ip == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">    client_ip = ngx.var.remote_addr</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- redis模块</span></span><br><span class="line"><span class="keyword">local</span> redis = <span class="built_in">require</span> <span class="string">&quot;resty.redis&quot;</span> </span><br><span class="line"><span class="keyword">local</span> red = redis.new()</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 设置超时</span></span><br><span class="line">red:set_timeouts(<span class="number">1000</span>, <span class="number">1000</span>, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 连接</span></span><br><span class="line"><span class="keyword">local</span> ok, err = red:connect(<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">6379</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> ok <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">log</span>(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to connect: &quot;</span>..err)</span><br><span class="line">    ngx.say(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to connect: &quot;</span>..err)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 令牌</span></span><br><span class="line"><span class="keyword">local</span> ok, err = red:auth(<span class="string">&quot;rc_redis&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> ok <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">log</span>(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to authenticate: &quot;</span>..err)</span><br><span class="line">    ngx.say(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to authenticate: &quot;</span>..err)</span><br><span class="line">    red:<span class="built_in">close</span>()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 选择redis db</span></span><br><span class="line">red:<span class="built_in">select</span>(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取要转发的域名</span></span><br><span class="line"><span class="keyword">local</span> redis_key_domain = <span class="string">&quot;domain:&quot;</span>..ngx.var.server_name..<span class="string">&quot;:clientip:&quot;</span>..client_ip..<span class="string">&quot;:domain&quot;</span></span><br><span class="line"><span class="keyword">local</span> domain, err = red:get(redis_key_domain)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> domain <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">log</span>(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to get &quot;</span>..redis_key_domain..<span class="string">&quot; :&quot;</span>, err)</span><br><span class="line">    ngx.say(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to get &quot;</span>..redis_key_domain..<span class="string">&quot; :&quot;</span>, err)</span><br><span class="line">    red:<span class="built_in">close</span>()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> domain == ngx.null <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">log</span>(<span class="string">&quot;ERROR&quot;</span>, redis_key_domain..<span class="string">&quot; not found.&quot;</span>)</span><br><span class="line">    ngx.say(<span class="string">&quot;ERROR&quot;</span>, redis_key_domain..<span class="string">&quot; not found.&quot;</span>)</span><br><span class="line">    red:<span class="built_in">close</span>()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">log</span>(<span class="string">&quot;DEBUG&quot;</span>, redis_key_domain..<span class="string">&quot; =&gt; &quot;</span>..domain)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取要转发的host</span></span><br><span class="line"><span class="keyword">local</span> redis_key_host = <span class="string">&quot;domain:&quot;</span>..ngx.var.server_name..<span class="string">&quot;:clientip:&quot;</span>..client_ip..<span class="string">&quot;:host&quot;</span></span><br><span class="line"><span class="keyword">local</span> host, err = red:get(redis_key_host)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> host <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">log</span>(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to get &quot;</span>..redis_key_host..<span class="string">&quot; :&quot;</span>, err)</span><br><span class="line">    ngx.say(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to get &quot;</span>..redis_key_host..<span class="string">&quot; :&quot;</span>, err)</span><br><span class="line">    red:<span class="built_in">close</span>()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> host == ngx.null <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">log</span>(<span class="string">&quot;ERROR&quot;</span>, redis_key_host..<span class="string">&quot; not found.&quot;</span>)</span><br><span class="line">    ngx.say(<span class="string">&quot;ERROR&quot;</span>, redis_key_host..<span class="string">&quot; not found.&quot;</span>)</span><br><span class="line">    red:<span class="built_in">close</span>()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">log</span>(<span class="string">&quot;DEBUG&quot;</span>, redis_key_host..<span class="string">&quot; =&gt; &quot;</span>..host)</span><br><span class="line"></span><br><span class="line">ngx.var.target_domain = domain</span><br><span class="line">ngx.var.target_host = host</span><br><span class="line">red:<span class="built_in">close</span>()</span><br></pre></td></tr></table></figure>
+<p>注意事项：</p>
+<ul>
+<li>redis connect</li>
+<li>redis auth</li>
+<li>redis db</li>
+</ul>
+<h3 id="32-redis-数据结构"><a class="markdownIt-Anchor" href="#32-redis-数据结构"></a> 3.2 Redis 数据结构</h3>
+<table>
+<thead>
+<tr>
+<th>键</th>
+<th style="text-align:left">键备注</th>
+<th>值</th>
+<th>值备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>domain:&lt;request_domain&gt;:clientip:&lt;client_ip&gt;:domain</td>
+<td style="text-align:left">字符串类型<br>&lt;request_domain&gt;为客户端请求的域名<br>&lt;client_ip&gt;为客户端IP<br>示例：domain:demo.com:clientip:172.17.18.237:domain</td>
+<td>&lt;target_domain&gt;</td>
+<td>字符串类型<br>&lt;target_domain&gt;为绑定的目标域名<br>示例：<a href="http://st2-demo.com">st2-demo.com</a></td>
+</tr>
+<tr>
+<td>domain:&lt;request_domain&gt;:clientip:&lt;client_ip&gt;:host</td>
+<td style="text-align:left">字符串类型<br>&lt;request_domain&gt;为客户端请求的域名<br>&lt;client_ip&gt;为客户端IP<br>示例：domain:demo:clientip:172.17.18.237:host</td>
+<td>&lt;target_host&gt;:&lt;target_port&gt;</td>
+<td>字符串类型<br>&lt;target_host&gt;为绑定的目标服务器IP<br>&lt;target_port&gt;为绑定的目标服务器端口<br>示例：172.16.0.221:80</td>
+</tr>
+</tbody>
+</table>
+<h3 id="33-禅道操作"><a class="markdownIt-Anchor" href="#33-禅道操作"></a> 3.3 禅道操作</h3>
+<h4 id="331-新增代理域名"><a class="markdownIt-Anchor" href="#331-新增代理域名"></a> 3.3.1 新增代理域名</h4>
+<ol>
+<li>新增一份该域名的代理域名配置到对应目录
+<ul>
+<li>禅道生成文件到指定目录下</li>
+<li>通过rsync同步改目录到OpenResty的对应目录</li>
+</ul>
+</li>
+<li>重现加载 OpenResty Nginx模块
+<ul>
+<li>openresty/nginx/sbin/nginx -s reload</li>
+<li>在Redis中设置一个键值，作为重新加载的标志</li>
+<li>OpenResty部署服务器设置一个定时任务，检测Redis中的标志，决定是否重新加载启动Nginx</li>
+</ul>
+</li>
+</ol>
+<h4 id="332-修改用户绑定"><a class="markdownIt-Anchor" href="#332-修改用户绑定"></a> 3.3.2 修改用户绑定</h4>
+<ol>
+<li>按照 Redis 数据结构，修改上述2个键对应的值（新增、更新、删除）</li>
+</ol>
+]]></content>
+      <categories>
+        <category>持续交付</category>
+      </categories>
+      <tags>
+        <tag>CICD</tag>
+        <tag>Zentao</tag>
+        <tag>禅道</tag>
+        <tag>持续交付</tag>
+        <tag>OpenResty</tag>
+        <tag>Nginx</tag>
+        <tag>Lua</tag>
       </tags>
   </entry>
   <entry>

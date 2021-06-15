@@ -20,24 +20,27 @@
     var CONFIG = {"hostname":"doublejia.site","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="如过你的Jenkins是部署在K8s集群中的，那需要支持Android打包的情况。Android SDK安装与更新怎么做呢？ 本文将介绍在K8s集群中如何安装和更新 Android SDK">
+  <meta name="description" content="我们基于禅道打造了持续交付系统，整合了多个开源系统（包括禅道zentao、jenkins、gitlab、nexus、harbor、ldap、mysql等等），并进行大量的二次开发，将多个系统功能（项目管理、集成管理、代码仓库管理、编译私服，镜像仓库管理、用户认证等）、多个开发环境（开发环境、测试环境、预发布环境、灰度环境、生产环境等），多种发布流程（代码扫描、版本集成、版本发布等）进行统一整合，提">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JenkinsK8s集群部署AndroidSDK安装">
-<meta property="og:url" content="https://doublejia.site/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:title" content="禅道持续交付(一)-概述及框架">
+<meta property="og:url" content="https://doublejia.site/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%80)-%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%A1%86%E6%9E%B6/index.html">
 <meta property="og:site_name" content="765DevOps">
-<meta property="og:description" content="如过你的Jenkins是部署在K8s集群中的，那需要支持Android打包的情况。Android SDK安装与更新怎么做呢？ 本文将介绍在K8s集群中如何安装和更新 Android SDK">
+<meta property="og:description" content="我们基于禅道打造了持续交付系统，整合了多个开源系统（包括禅道zentao、jenkins、gitlab、nexus、harbor、ldap、mysql等等），并进行大量的二次开发，将多个系统功能（项目管理、集成管理、代码仓库管理、编译私服，镜像仓库管理、用户认证等）、多个开发环境（开发环境、测试环境、预发布环境、灰度环境、生产环境等），多种发布流程（代码扫描、版本集成、版本发布等）进行统一整合，提">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://doublejia.site/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/jenkins%E9%85%8D%E7%BD%AE.png">
-<meta property="article:published_time" content="2019-10-25T04:12:57.000Z">
-<meta property="article:modified_time" content="2021-06-11T09:20:00.302Z">
+<meta property="og:image" content="https://doublejia.site/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%80)-%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%A1%86%E6%9E%B6/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84-new.png">
+<meta property="og:image" content="https://doublejia.site/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%80)-%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%A1%86%E6%9E%B6/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E6%B5%81%E7%A8%8B-new.png">
+<meta property="og:image" content="https://doublejia.site/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%80)-%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%A1%86%E6%9E%B6/%E5%B7%A5%E5%85%B7%E9%93%BE%E9%80%89%E5%9E%8B-new.png">
+<meta property="article:published_time" content="2019-09-25T04:12:57.000Z">
+<meta property="article:modified_time" content="2021-06-15T10:08:48.495Z">
 <meta property="article:author" content="765">
-<meta property="article:tag" content="Jenkins">
-<meta property="article:tag" content="移动CICD">
 <meta property="article:tag" content="CICD">
+<meta property="article:tag" content="Zentao">
+<meta property="article:tag" content="禅道">
+<meta property="article:tag" content="持续交付">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://doublejia.site/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/jenkins%E9%85%8D%E7%BD%AE.png">
+<meta name="twitter:image" content="https://doublejia.site/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%80)-%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%A1%86%E6%9E%B6/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84-new.png">
 
-<link rel="canonical" href="https://doublejia.site/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/">
+<link rel="canonical" href="https://doublejia.site/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%80)-%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%A1%86%E6%9E%B6/">
 
 
 <script id="page-configurations">
@@ -50,7 +53,7 @@
   };
 </script>
 
-  <title>JenkinsK8s集群部署AndroidSDK安装 | 765DevOps</title>
+  <title>禅道持续交付(一)-概述及框架 | 765DevOps</title>
   
 
 
@@ -201,7 +204,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://doublejia.site/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/">
+    <link itemprop="mainEntityOfPage" href="https://doublejia.site/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%80)-%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%A1%86%E6%9E%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/765-log-s.png">
@@ -214,7 +217,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          JenkinsK8s集群部署AndroidSDK安装
+          禅道持续交付(一)-概述及框架
         </h1>
 
         <div class="post-meta">
@@ -224,14 +227,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-10-25 12:12:57" itemprop="dateCreated datePublished" datetime="2019-10-25T12:12:57+08:00">2019-10-25</time>
+              <time title="创建时间：2019-09-25 12:12:57" itemprop="dateCreated datePublished" datetime="2019-09-25T12:12:57+08:00">2019-09-25</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-11 17:20:00" itemprop="dateModified" datetime="2021-06-11T17:20:00+08:00">2021-06-11</time>
+                <time title="修改时间：2021-06-15 18:08:48" itemprop="dateModified" datetime="2021-06-15T18:08:48+08:00">2021-06-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -239,7 +242,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A7%BB%E5%8A%A8CICD/" itemprop="url" rel="index"><span itemprop="name">移动CICD</span></a>
+                  <a href="/categories/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/" itemprop="url" rel="index"><span itemprop="name">持续交付</span></a>
                 </span>
             </span>
 
@@ -249,14 +252,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.5k</span>
+              <span>869</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -268,56 +271,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>如过你的Jenkins是部署在K8s集群中的，那需要支持Android打包的情况。Android SDK安装与更新怎么做呢？<br>
-<strong>本文将介绍在<code>K8s集群</code>中如何安装和更新 Android SDK</strong></p>
+        <p>我们基于禅道打造了持续交付系统，整合了多个开源系统（包括禅道zentao、jenkins、gitlab、nexus、harbor、ldap、mysql等等），并进行大量的二次开发，将多个系统功能（项目管理、集成管理、代码仓库管理、编译私服，镜像仓库管理、用户认证等）、多个开发环境（开发环境、测试环境、预发布环境、灰度环境、生产环境等），多种发布流程（代码扫描、版本集成、版本发布等）进行统一整合，提供一套高度集成和高度自动化的项目管理+版本集成发布系统。</p>
 <span id="more"></span>
-<h2 id="1-k8s集群中android-sdk安装与更新方案设计"><a class="markdownIt-Anchor" href="#1-k8s集群中android-sdk安装与更新方案设计"></a> 1. K8s集群中Android SDK安装与更新方案设计</h2>
-<h3 id="11-android-sdk-tools镜像制作"><a class="markdownIt-Anchor" href="#11-android-sdk-tools镜像制作"></a> 1.1 Android SDK Tools镜像制作</h3>
+<h2 id="1-概述"><a class="markdownIt-Anchor" href="#1-概述"></a> 1、概述</h2>
+<p>因为公司大部门在使用禅道进行项目管理、缺陷管理等，所以我们希望基于此对于禅道做二开扩展，支持到CICD，最终将禅道打造成一个DevOps平台。</p>
+<p>选择禅道主要原因：</p>
 <ul>
-<li>使用Android SDK Tools</li>
+<li>有使用历史，符合大多数业务项目的操作习惯</li>
+<li>敏捷管理，基于Scrum的角色且相关流程和功能完善</li>
+<li>社区版开源，可以基于源码进行修改</li>
 </ul>
-<p>Android在Jenkins中构建打包，只需要命令行工具即可（Command line tools only）。</p>
-<p>只需安装Android SDK Tools，这是 Android SDK 的一个组件。它包含了 Android 的全套开发和调试工具，<a target="_blank" rel="noopener" href="https://developer.android.google.cn/studio">在Android studios首页即可下载（位置：Command line tools only），点击进入</a>。</p>
+<p><strong>拓展后禅道能力</strong></p>
 <ul>
-<li>使用<code>sdkmanager</code>进行工具管理</li>
+<li><a target="_blank" rel="noopener" href="https://www.zentao.net/book/zentaopmshelp/49.html">使用禅道来进行项目任务管理</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.zentao.net/book/zentaopmshelp/64.html">只使用禅道来做bug管理</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.zentao.net/book/zentaopmshelp/77.html">只使用禅道来进行产品管理</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.zentao.net/book/zentaopmshelp/91.html">个人使用禅道来做事务跟踪管理</a></li>
+<li>仅使用版本集成流程（扩展功能）</li>
+<li>仅使用上线流程审批功能（扩展功能）</li>
+<li>仅使用客户端渠道管理功能（扩展功能）</li>
 </ul>
-<p>使用 Android 的 <code>sdkmanager</code> 命令行工具进行查看、安装、更新和卸载 Android SDK 的软件包，<a target="_blank" rel="noopener" href="https://developer.android.google.cn/studio/command-line/sdkmanager">sdkmanager工具介绍说明，点击进入</a></p>
-<blockquote>
-<p>注：<code>sdkmanager</code>工具在 Android SDK Tools 软件包（25.2.3 及更高版本）中提供，并位于 android_sdk/tools/bin/ 目录下，无需独立安装。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// Android SDK Tools Dockerfile</span><br><span class="line">FROM harbor.demo.com/base/jre_centos:8u202_7.8</span><br><span class="line">USER root</span><br><span class="line"></span><br><span class="line">ENV SDK_TOOLS_URL=&quot;https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip&quot; \</span><br><span class="line">    ANDROID_HOME=&quot;/opt/app/android-sdk&quot;</span><br><span class="line"></span><br><span class="line">RUN yum install -y zip unzip</span><br><span class="line">RUN mkdir -p &quot;$ANDROID_HOME&quot; .android \</span><br><span class="line">    &amp;&amp; cd &quot;$ANDROID_HOME&quot; \</span><br><span class="line">    &amp;&amp; curl -o sdk-tools.zip $SDK_TOOLS_URL \</span><br><span class="line">    &amp;&amp; unzip sdk-tools.zip \</span><br><span class="line">    &amp;&amp; rm sdk-tools.zip</span><br><span class="line">RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses \</span><br><span class="line">    &amp;&amp; $ANDROID_HOME/tools/bin/sdkmanager --update</span><br><span class="line"></span><br><span class="line">#RUN $ANDROID_HOME/tools/bin/sdkmanager --install &quot;build-tools;29.0.1&quot; &quot;platforms;android-29&quot;</span><br><span class="line"></span><br><span class="line">CMD [&quot;/bin/bash&quot;]</span><br></pre></td></tr></table></figure>
-<h3 id="12-将android-sdk作为pvc挂载出来"><a class="markdownIt-Anchor" href="#12-将android-sdk作为pvc挂载出来"></a> 1.2 将Android sdk作为PVC挂载出来</h3>
+<h2 id="2-持续交付系统框架"><a class="markdownIt-Anchor" href="#2-持续交付系统框架"></a> 2、持续交付系统框架</h2>
+<p>这个比较简单吧，其实有关这种分层的DevOps架构，应该都是大同小异，仅供参考哈😉</p>
+<p><img src="/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%80)-%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%A1%86%E6%9E%B6/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84-new.png" alt="img"></p>
+<h2 id="3-持续交付流程"><a class="markdownIt-Anchor" href="#3-持续交付流程"></a> 3、持续交付流程</h2>
+<p>主要是基于Helm进行K8s的容器部署，整个交付流程如下：</p>
 <ul>
-<li>
-<p>k8s中申请50G的pvc挂载点</p>
-</li>
-<li>
-<p>Android SDK Tools镜像挂载PVC</p>
-</li>
+<li>使用Zentao作为项目管理工具：管理基本需求、迭代、缺陷等</li>
+<li>Zentao也作为用户CICD系统平台，用户再禅道上做集成、构建、部署等操作</li>
+<li>CICD的后端集成工具：Jenkins</li>
+<li>部署至K8s集群中，部署主要的使用是Helm进行部署管理（注：当时使用的是Helm2）</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 安装Android sdk工具</span><br><span class="line">sdkmanager --install XXX</span><br></pre></td></tr></table></figure>
-<h3 id="13-android-sdk更新"><a class="markdownIt-Anchor" href="#13-android-sdk更新"></a> 1.3 Android SDK更新</h3>
-<ul>
-<li>使用cronjob重新发布一次即可</li>
-</ul>
-<p><strong><code>Cronjob更新稳定性不是很好，如果没有成功安装SDK工具，则可进入容器中，直接执行sdkmanager更新命令（cluster: cluster_pro 内网正式, namespace：jenkins，pod：androidsdk-xxxxx）</code></strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// cronjob的部署示例：</span><br><span class="line">jobs:</span><br><span class="line">- name: androidsdk-job</span><br><span class="line">  # job运行环境集群，和 global.env 的值对应</span><br><span class="line">  runEnv:</span><br><span class="line">  - dev</span><br><span class="line">  - test</span><br><span class="line">  - pdt</span><br><span class="line">  image:</span><br><span class="line">     repository: harbor.demo.com/cicd/android-sdk-tools</span><br><span class="line">     tag: v0.0.1</span><br><span class="line">     pullPolicy: Always</span><br><span class="line">  command:</span><br><span class="line">  - &quot;/opt/app/android-sdk-v/tools/bin/sdkmanager&quot;</span><br><span class="line">  - &quot;--install&quot;</span><br><span class="line">  args:</span><br><span class="line">#### ./sdkmanager --list sdk包 ####</span><br><span class="line">#  - &quot;build-tools;19.1.0&quot;</span><br><span class="line">#  - &quot;build-tools;20.0.0&quot;</span><br><span class="line">#  - &quot;build-tools;21.1.2&quot;</span><br><span class="line">#  - &quot;build-tools;22.0.1&quot;</span><br><span class="line">#  - &quot;build-tools;23.0.1&quot;</span><br><span class="line">#  - &quot;build-tools;23.0.2&quot;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<h3 id="14-k8s集群中android-sdk安装与更新"><a class="markdownIt-Anchor" href="#14-k8s集群中android-sdk安装与更新"></a> 1.4 K8s集群中Android SDK安装与更新</h3>
-<ul>
-<li>使用Helm进行部署和更新，此处我们使用的是Helm方式部署的（有关Helm的部署，将后续分享……）</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// TODO chart部署仓库</span><br></pre></td></tr></table></figure>
-<h2 id="2-jenkins-slave节点使用android-sdk工具"><a class="markdownIt-Anchor" href="#2-jenkins-slave节点使用android-sdk工具"></a> 2 Jenkins slave节点使用Android SDK工具</h2>
-<ul>
-<li>配置Jenkins slave节点</li>
-</ul>
-<p>添加一个环境变量和挂载卷</p>
-<p><img src="/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/jenkins%E9%85%8D%E7%BD%AE.png" alt="Jenkins配置"></p>
-<ul>
-<li>Jenkinsfile中使用</li>
-</ul>
-<p>直接使用对应Jenkins slave节点，执行gradle命令即可。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">    // 全局执行代理</span><br><span class="line">    agent &#123;</span><br><span class="line">        kubernetes &#123;</span><br><span class="line">            cloud &#x27;kubernetes&#x27;</span><br><span class="line">            label &#x27;label-gradle&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	stages &#123;</span><br><span class="line">        stage (&quot;gradle构建&quot;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                sh &quot;./gradlew clean &quot; +</span><br><span class="line">                        &quot;channelRelease --stacktrace &quot; +</span><br><span class="line">                        &quot;-PBUILD_NUMBER=$&#123;env.BUILD_NUMBER&#125;&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>注：我们自己编写了Helm的Template模板工程，基本涵盖了很多的使用场景，这个后续我也会跟进分享给大家，尽情期待……</p>
+<p><img src="/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%80)-%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%A1%86%E6%9E%B6/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E6%B5%81%E7%A8%8B-new.png" alt="img"></p>
+<h2 id="4-工具链选型"><a class="markdownIt-Anchor" href="#4-工具链选型"></a> 4、工具链选型</h2>
+<p>其实DevOps工具链产品有很多，大家可以根据自己的实际情况选择，我们基于Zentao打造的持续交付平台选择的是如下工具链。因为当初我们还木有打通持续测试这一环节，所以这个相对有些简陋了，但是还算清晰！</p>
+<p><img src="/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%80)-%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%A1%86%E6%9E%B6/%E5%B7%A5%E5%85%B7%E9%93%BE%E9%80%89%E5%9E%8B-new.png" alt="img"></p>
 
     </div>
 
@@ -328,9 +317,10 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/Jenkins/" rel="tag"><i class="fa fa-tag"></i> Jenkins</a>
-              <a href="/tags/%E7%A7%BB%E5%8A%A8CICD/" rel="tag"><i class="fa fa-tag"></i> 移动CICD</a>
               <a href="/tags/CICD/" rel="tag"><i class="fa fa-tag"></i> CICD</a>
+              <a href="/tags/Zentao/" rel="tag"><i class="fa fa-tag"></i> Zentao</a>
+              <a href="/tags/%E7%A6%85%E9%81%93/" rel="tag"><i class="fa fa-tag"></i> 禅道</a>
+              <a href="/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/" rel="tag"><i class="fa fa-tag"></i> 持续交付</a>
           </div>
 
         
@@ -339,12 +329,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/10/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%89)-%E5%A4%9A%E7%8E%AF%E5%A2%83%E5%90%8C%E5%9F%9F%E5%90%8D%E8%AE%BE%E8%AE%A1/" rel="prev" title="禅道持续交付(三)-多环境同域名设计">
-      <i class="fa fa-chevron-left"></i> 禅道持续交付(三)-多环境同域名设计
+    <a href="/2019/09/01/Iflow2345/%E5%BC%80%E5%8F%91%E6%B5%8B%E8%AF%95%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="prev" title="DevOps启蒙-开发测试管理系统">
+      <i class="fa fa-chevron-left"></i> DevOps启蒙-开发测试管理系统
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/05/27/Jenkins/Jenkins%20Pipeline%E8%AF%AD%E6%B3%95%E8%AF%A6%E8%A7%A3/" rel="next" title="Jenkins Pipeline语法详解">
-      Jenkins Pipeline语法详解 <i class="fa fa-chevron-right"></i>
+    <a href="/2019/09/29/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%8C)-%E7%A0%94%E5%8F%91%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1/" rel="next" title="禅道持续交付(二)-研发流水线设计">
+      禅道持续交付(二)-研发流水线设计 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -405,7 +395,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-k8s%E9%9B%86%E7%BE%A4%E4%B8%ADandroid-sdk%E5%AE%89%E8%A3%85%E4%B8%8E%E6%9B%B4%E6%96%B0%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text"> 1. K8s集群中Android SDK安装与更新方案设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-android-sdk-tools%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C"><span class="nav-number">1.1.</span> <span class="nav-text"> 1.1 Android SDK Tools镜像制作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-%E5%B0%86android-sdk%E4%BD%9C%E4%B8%BApvc%E6%8C%82%E8%BD%BD%E5%87%BA%E6%9D%A5"><span class="nav-number">1.2.</span> <span class="nav-text"> 1.2 将Android sdk作为PVC挂载出来</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-android-sdk%E6%9B%B4%E6%96%B0"><span class="nav-number">1.3.</span> <span class="nav-text"> 1.3 Android SDK更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-k8s%E9%9B%86%E7%BE%A4%E4%B8%ADandroid-sdk%E5%AE%89%E8%A3%85%E4%B8%8E%E6%9B%B4%E6%96%B0"><span class="nav-number">1.4.</span> <span class="nav-text"> 1.4 K8s集群中Android SDK安装与更新</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-jenkins-slave%E8%8A%82%E7%82%B9%E4%BD%BF%E7%94%A8android-sdk%E5%B7%A5%E5%85%B7"><span class="nav-number">2.</span> <span class="nav-text"> 2 Jenkins slave节点使用Android SDK工具</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text"> 1、概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%A1%86%E6%9E%B6"><span class="nav-number">2.</span> <span class="nav-text"> 2、持续交付系统框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E6%B5%81%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text"> 3、持续交付流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%B7%A5%E5%85%B7%E9%93%BE%E9%80%89%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text"> 4、工具链选型</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -550,7 +540,7 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
       repo        : 'nengwu765.github.io',
       owner       : 'nengwu765',
       admin       : ['nengwu765'],
-      id          : '7d18d366a3d4f1896a9a400d7c804c13',
+      id          : '476eba3def673fbc0856ebe73c07e69f',
         language: '',
       distractionFreeMode: true
     });
