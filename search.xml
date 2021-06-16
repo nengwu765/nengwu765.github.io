@@ -1,143 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Jenkins部署-K8s OR 物理机</title>
-    <url>/2021/06/10/Jenkins/Jenkins%E9%83%A8%E7%BD%B2-K8sOR%E7%89%A9%E7%90%86%E6%9C%BA/</url>
-    <content><![CDATA[<p>如果你开始使用Jenkins作为你的CI工具，刚好也在使用K8s集群做CD，那你一定很纠结我的Jenkins到底用什么方式进行部署管理呢？<br>
-这里我将我们遇到的实际经验分享给各位参考，希望能给到你一些帮助吧，😄</p>
-<span id="more"></span>
-<h2 id="1-结论"><a class="markdownIt-Anchor" href="#1-结论"></a> 1、结论</h2>
-<p>不拖沓，直接上结论：</p>
-<p><strong>轻易不要上K8s</strong>，启动速度和Slave镜像管理以及构建缓存等会比较<code>耗精力</code>；在CICD起步，日构建在500次左右，特别是含Android的gradle构建时，建议直接上物理机，绝对<code>真香</code>。</p>
-<blockquote>
-<p>选择适合的，并不是技术领先的，当然能Hold住的大佬，请随意哈😁</p>
-</blockquote>
-<hr>
-<p>备注说明下目前我遇到的构建量级吧，相对大厂是小儿科了点，勿喷哈。</p>
-<ul>
-<li>Web应用构建，约日均构建在400-500次/日</li>
-<li>移动端构建（Android为主），约日均构建在30-50次/日，偶尔会有批量的渠道打包量比较大（渠道量1K+）</li>
-</ul>
-<h2 id="2-k8s集群里的jenkins"><a class="markdownIt-Anchor" href="#2-k8s集群里的jenkins"></a> 2、K8s集群里的Jenkins</h2>
-<h3 id="21-选择背景"><a class="markdownIt-Anchor" href="#21-选择背景"></a> 2.1、选择背景</h3>
-<p>公司开始做中台了，其中包括建设CICD系统，基本是从 O 起步吧，当初直接选型了：java spring微服务 + K8s作为接下来的技术发展方向。作为<code>打辅助</code>的持续交付系统也就那个时候定型的，选型CI工具为Jenkins（当然还有很多的周边的工具链选型），部署原则：<strong>Everything in docker</strong></p>
-<h3 id="22-遇到问题"><a class="markdownIt-Anchor" href="#22-遇到问题"></a> 2.2、遇到问题</h3>
-<ul>
-<li>K8s集群稳定性是第一大考验</li>
-<li>动态的Slave启动慢，修改长时间存活，莫名会出现心跳终端，SalvePod假死</li>
-<li>各Slave节点构建依赖的缓存共享设置，尤其是移动端的Gradle的缓存（谁用谁知道！参考：<a href="https://blog.dreamtobe.cn/lls_ci/">流利说客户端持续交付工程实践</a>……）</li>
-<li>Slave多了后占用的资源无法想象，最后不得不给Jenkins独立的Node，打上标签区分</li>
-<li>还有就是构建过程，一个字儿：<strong>超级慢</strong>，很大原因是K8s集群的Ceph文件系统</li>
-<li>Slave镜像维护成本也颇高，尤其是需要版本升级的时候</li>
-<li>…</li>
-</ul>
-<h2 id="3-物理机里的jenkins"><a class="markdownIt-Anchor" href="#3-物理机里的jenkins"></a> 3、物理机里的Jenkins</h2>
-<h3 id="31-选择背景"><a class="markdownIt-Anchor" href="#31-选择背景"></a> 3.1、选择背景</h3>
-<p>我们重新建设了DevOps平台（定位：一站式研发协同平台），对于原有的功能迁移后，发现对于很多<code>核心、根本</code>问题，治标不治本。新平台也迫切需要出成绩，最终开出了 <code>历史的倒车</code>，我们回到了物理机Jenkins。</p>
-<h3 id="32-效果"><a class="markdownIt-Anchor" href="#32-效果"></a> 3.2、效果</h3>
-<p>一个字：<strong>快</strong>，平均提速达到30%+（其中移动端提速了甚至到了50%），且稳定性更高</p>
-<h3 id="33-成本核算"><a class="markdownIt-Anchor" href="#33-成本核算"></a> 3.3、成本核算</h3>
-<p>迁移到物理是不是成本很高啊，那可是物理机啊，然并卵……</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">迁移前</th>
-<th>迁移后</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">K8s独立Node：64c+128G（1），32c+32G（1）</td>
-<td>32c+32G（5）</td>
-</tr>
-</tbody>
-</table>
-]]></content>
-      <categories>
-        <category>Jenkins</category>
-      </categories>
-      <tags>
-        <tag>Jenkins</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Jenkins共享库使用-初阶</title>
-    <url>/2021/06/08/Jenkins/Jenkins%E5%85%B1%E4%BA%AB%E5%BA%93%E4%BD%BF%E7%94%A8-%E5%88%9D%E9%98%B6/</url>
-    <content><![CDATA[<p>在我们实际写Jenkin pipelines脚本中，可能会出现``java.lang.RuntimeException: Method code too large!<code>，这个时候你就要抽象出一些公共的函数类库，</code>避免项目方重复冗余的脚本代码书写`，在此处我也把我经常使用的一些共享函数库（<strong><a href="https://github.com/nengwu765/jenkins-share-library">jenkins-share-library</a></strong>）分享出来，欢迎交流指正哈！</p>
-<span id="more"></span>
-<h2 id="1-如何使用jenkins共享库"><a class="markdownIt-Anchor" href="#1-如何使用jenkins共享库"></a> 1. 如何使用Jenkins共享库</h2>
-<ul>
-<li>在Jenkinsfile的脚本文件第一行引入以下代码</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">library &#x27;jenkins-shared-libraries&#x27;</span><br><span class="line"></span><br><span class="line">pipeline &#123; ... &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ul>
-<li>调用示例</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">stage (&quot;demo&quot;) &#123;</span><br><span class="line">	steps &#123;</span><br><span class="line">		script &#123;</span><br><span class="line">			// 调用：共享方法名+入参</span><br><span class="line">			demoFunction(params1, params2, ...)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="2-支持的共享库方法"><a class="markdownIt-Anchor" href="#2-支持的共享库方法"></a> 2. 支持的共享库方法</h2>
-<h3 id="21-git仓库拉取-gitcodefetch"><a class="markdownIt-Anchor" href="#21-git仓库拉取-gitcodefetch"></a> 2.1 Git仓库拉取 - gitCodeFetch()</h3>
-<p>支持基于分支/标签 和 Submodule子仓库拉取以及基于MR拉取分支，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/gitCodeFetch.groovy">源码参考</a></p>
-<ul>
-<li>入参说明</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Git仓库版本拉取 -- 支持基于分支/标签 和 Submodule子仓库拉取以及基于MR拉取分支</span><br><span class="line"> *</span><br><span class="line"> * @param fetchMode Git代码拉取方式：branch-基于分支; tag-基于标签</span><br><span class="line"> * @param gitBranchOrTag Git仓库分支 或 标签</span><br><span class="line"> * @param gitRepository  Git仓库地址</span><br><span class="line"> * @param gitCredentialsId  Git拉取凭证ID 【若存在Submodule子仓库，则该凭证需要有子仓库拉取权限】</span><br><span class="line"> * @param gitEvent  git拉取事件,基于分支或Tag拉取,则置空; MergeRequest则为:&quot;MR&quot;</span><br><span class="line"> * @param targetBranch 若gitEvent为&quot;MR&quot;,此处为MR目标分支</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">void call(String fetchMode,String gitBranchOrTag, String gitRepository, String gitCredentialsId, String gitEvent = &#x27;&#x27;, String targetBranch = &#x27;&#x27;) </span><br></pre></td></tr></table></figure>
-<h3 id="22-md5值校验-md5check"><a class="markdownIt-Anchor" href="#22-md5值校验-md5check"></a> 2.2 MD5值校验 - md5Check()</h3>
-<p>文件MD5值check，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/md5Check.groovy">源码参考</a></p>
-<ul>
-<li>入参说明</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 文件MD5值check</span><br><span class="line"> *</span><br><span class="line"> * @param filePath 文件路径</span><br><span class="line"> * @param md5 文件md5值</span><br><span class="line"> * @param forceCheck 是强制检查，是-必检，否-md5值非空则进行检查</span><br><span class="line"> */</span><br><span class="line">void md5Check(String filePath, String md5, boolean forceCheck = true)</span><br><span class="line"></span><br><span class="line">注：forceCheck=true时，校验不通过则报错，流水线终止</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="23-sha1值校验-sha1check"><a class="markdownIt-Anchor" href="#23-sha1值校验-sha1check"></a> 2.3 SHA1值校验 - sha1Check()</h3>
-<p>文件SHA1值check，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/sha1Check.groovy">源码参考</a></p>
-<ul>
-<li>入参说明</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 文件SHA1值check</span><br><span class="line"> *</span><br><span class="line"> * @param filePath 文件路径</span><br><span class="line"> * @param sha1 文件md5值</span><br><span class="line"> * @param forceCheck 是强制检查，是-必检，否-md5值非空则进行检查</span><br><span class="line"> */</span><br><span class="line">void sha1Check(String filePath, String sha1, boolean forceCheck = true)</span><br><span class="line"></span><br><span class="line">注：forceCheck=true时，校验不通过则报错，流水线终止</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="24-ftp上传-ftpupload"><a class="markdownIt-Anchor" href="#24-ftp上传-ftpupload"></a> 2.4 FTP上传 - ftpUpload()</h3>
-<p>FTP文件上传  – // 参数参考说明：<a href="https://jenkins.io/doc/pipeline/steps/publish-over-ftp">https://jenkins.io/doc/pipeline/steps/publish-over-ftp</a></p>
-<p><a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/ftpUpload.groovy">源码参考</a></p>
-<ul>
-<li>入参说明</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * FTP文件上传  -- // 参数参考说明：https://jenkins.io/doc/pipeline/steps/publish-over-ftp</span><br><span class="line"> * @param configName  在Jenkins全局设置的FTP Server名称</span><br><span class="line"> * @param sourceFiles  上传源文件，支持正则匹配，如[递归目录层级使用&#x27;**&#x27;]：&#x27;**/*.apk,public/**/*&#x27;</span><br><span class="line"> * @param remoteDir  上传子目录路径，注此路径会追加到全局设置的FTP Server的Remote Directory之后</span><br><span class="line"> * @param excludes  排除上传文件，支持正则匹配，如[递归目录层级使用&#x27;**&#x27;]： &#x27;**/*.log,**/*.tmp,.git/&#x27;</span><br><span class="line"> * @param removePrefix  去除上传文件的路径前缀，避免ftp服务器中生成无用的目录路径,注：所有上传文件必须都有该前缀，否则报错</span><br><span class="line"> */</span><br><span class="line">void ftpUpload(String configName, String sourceFiles, String remoteDir = &#x27;&#x27;, String excludes = &#x27;&#x27;, String removePrefix = &#x27;&#x27;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="25-rsync-module远程同步-rsyncmodule"><a class="markdownIt-Anchor" href="#25-rsync-module远程同步-rsyncmodule"></a> 2.5 Rsync Module远程同步 - rsyncModule()</h3>
-<p>rsync 使用Module远程同步，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/rsyncWithModule.groovy">源码参考</a></p>
-<ul>
-<li>入参说明</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  rsync 使用Module远程同步</span><br><span class="line"> *</span><br><span class="line"> * @param ip rsync服务器IP</span><br><span class="line"> * @param port rsync服务器监听端口</span><br><span class="line"> * @param path rsync本地同步绝对路径</span><br><span class="line"> * @param module rsync同步模块</span><br><span class="line"> * @param user  rsync同步用户，指定传输文件为指定用户</span><br><span class="line"> * @param customParams 定制rsync参数，不允许出现&quot;delete&quot;关键字，如：--exclude=PATTERN --include=PATTERN --exclude-from=FILE --include-from=FILE</span><br><span class="line"> * @param bwlimit</span><br><span class="line"> */</span><br><span class="line">void rsyncModule(String ip, int port, String path, String module, String user = &#x27;&#x27;, String customParams = &#x27;&#x27;, int bwlimit = 8192)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="26-制品上传nexus-uploadartifactstonexus"><a class="markdownIt-Anchor" href="#26-制品上传nexus-uploadartifactstonexus"></a> 2.6 制品上传Nexus - uploadArtifactsToNexus()</h3>
-<p>如果你是以Nexus作为制品库的话，这个可以作为参考，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/uploadArtifactsToNexus.groovy">源码参考</a></p>
-<ul>
-<li>入参说明</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 上传制品至Nexus仓库</span><br><span class="line"> *</span><br><span class="line"> * @param nexusRepository Nexus上传仓库</span><br><span class="line"> * @param dir 检索目录</span><br><span class="line"> * @param fileMatchRegex 文件正则匹配规则， 支持文件类型、文件前缀、文件全名，</span><br><span class="line"> *        如文件：prefix_file.test,</span><br><span class="line"> *        匹配规则：</span><br><span class="line"> *              文件类型： fileMatchRegex = &quot;.test&quot;</span><br><span class="line"> *              文件前缀： fileMatchRegex = &quot;prefix_&quot;</span><br><span class="line"> *              文件全名： fileMatchRegex = &quot;prefix_file.test&quot;</span><br><span class="line"> * @param uploadSubPath 制品上传路经</span><br><span class="line"> * @param isRecursion 是否递归检索子目录,默认：否【注：同名文件会被覆盖】</span><br><span class="line"> * @param artifacts 制品存储数据，Map结构，默认：空Map</span><br><span class="line"> * @return Map 返回上传制品数据</span><br><span class="line"> *         eg: [</span><br><span class="line"> *              &#x27;file1&#x27;:[</span><br><span class="line"> *                  &#x27;url&#x27;:&#x27;https://nexus.demo.com/.../file1&#x27;  // 文件在nexus中的上传路径【即下载路径】</span><br><span class="line"> *                  &#x27;md5&#x27;:&#x27;xxxx&#x27; // 文件md5值</span><br><span class="line"> *                  &#x27;sha1&#x27;:&#x27;xxxx&#x27;   // 文件sha1值</span><br><span class="line"> *               ],</span><br><span class="line"> *         ]</span><br><span class="line"> */</span><br><span class="line">def uploadArtifactsToNexus(String nexusRepository, String dir, String fileMatchRegex, String uploadPath, boolean isRecursion = false, Map artifacts = [:])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ul>
-<li>Android制品上传Nexus - uploadAndroidArtifacts()</li>
-</ul>
-<p><strong><code>针对Android制品上传，做了一层外围封装，防止不同业务上传仓库紊乱</code></strong>，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/uploadAndroidArtifacts.groovy">源码参考</a></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 上传制品至Nexus仓库</span><br><span class="line"> *</span><br><span class="line"> * @param dir 检索目录</span><br><span class="line"> * @param fileMatchRegex 文件正则匹配规则， 支持文件类型、文件前缀、文件全名，</span><br><span class="line"> *        如文件：prefix_file.test,</span><br><span class="line"> *        匹配规则：</span><br><span class="line"> *              文件类型： fileMatchRegex = &quot;.test&quot;</span><br><span class="line"> *              文件前缀： fileMatchRegex = &quot;prefix_&quot;</span><br><span class="line"> *              文件全名： fileMatchRegex = &quot;prefix_file.test&quot;</span><br><span class="line"> * @param uploadSubPath 制品上传路经</span><br><span class="line"> * @param isRecursion 是否递归检索子目录,默认：否【注：同名文件会被覆盖】</span><br><span class="line"> * @param artifacts 制品存储数据，Map结构，默认：空Map</span><br><span class="line"> * @return Map 返回上传制品数据</span><br><span class="line"> *         eg: [</span><br><span class="line"> *              &#x27;file1&#x27;:[</span><br><span class="line"> *                  &#x27;url&#x27;:&#x27;https://nexus.demo.com/.../file1&#x27;  // 文件在nexus中的上传路径【即下载路径】</span><br><span class="line"> *                  &#x27;md5&#x27;:&#x27;xxxx&#x27; // 文件md5值</span><br><span class="line"> *                  &#x27;sha1&#x27;:&#x27;xxxx&#x27;   // 文件sha1值</span><br><span class="line"> *               ],</span><br><span class="line"> *         ]</span><br><span class="line"> */</span><br><span class="line">def uploadAndroidArtifacts(String dir, String fileMatchRegex, String uploadPath, boolean isRecursion = false, Map artifacts = [:])</span><br></pre></td></tr></table></figure>
-<h3 id="27-流水线结果回调-callbackaction"><a class="markdownIt-Anchor" href="#27-流水线结果回调-callbackaction"></a> 2.7 流水线结果回调 - callBackAction()</h3>
-<p>Jenkins pipeline结果回调通知（这个其实有个Plugin支持，Job Notification，但是我觉得不够灵活），这边我自定义了一个通用回调，可以防止在任何位置，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/callBackAction.groovy">源码参考</a></p>
-<ul>
-<li>入参说明</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 流水线执行结果回调操作</span><br><span class="line"> *</span><br><span class="line"> * @param callBackUrlsJson 回调Url地址Json数据</span><br><span class="line"> * @param artifacts 制品存储数据</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">void callBackAction(String callBackUrlsJson, Map artifacts = [:])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ul>
-<li>使用示例</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">	agent any</span><br><span class="line"></span><br><span class="line">	stages &#123;...&#125;</span><br><span class="line">    </span><br><span class="line">	post &#123;</span><br><span class="line">        always &#123;</span><br><span class="line">            // 回调Api通知对接JOB执行结果</span><br><span class="line">            script &#123;</span><br><span class="line">                if (!binding.variables.containsKey(&quot;ARTIFACTS&quot;)) &#123;</span><br><span class="line">                    ARTIFACTS = [:]</span><br><span class="line">                &#125;</span><br><span class="line">                callBackAction(params.CALLBACK_URLS_JSON, ARTIFACTS)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            echo &quot;I will be executed while failed or succeed&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="5-引用"><a class="markdownIt-Anchor" href="#5-引用"></a> 5 引用</h2>
-<p><a href="https://www.jenkins.io/doc/book/pipeline/shared-libraries/">官方参考，Extending with Shared Libraries</a></p>
-]]></content>
-      <categories>
-        <category>Jenkins</category>
-      </categories>
-      <tags>
-        <tag>Jenkins</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>DevOps启蒙-开发测试管理系统</title>
     <url>/2019/09/01/Iflow2345/%E5%BC%80%E5%8F%91%E6%B5%8B%E8%AF%95%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/</url>
     <content><![CDATA[<p>这个算是个回顾吧，自己再2019年进入X公司，发现开发测试流程耦合严重，没有独立的测试环境管理平台，所以参照自己的前东家（👉iflow系统）实现了一个<code>简单</code>的开发测试流程管理系统，当时的<code>思想还很稚嫩，观点粗浅</code>（算是自己DevOps启蒙篇吧），仅供参考哈。</p>
@@ -250,6 +113,143 @@
       </categories>
       <tags>
         <tag>Iflow</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Jenkins共享库使用-初阶</title>
+    <url>/2021/06/08/Jenkins/Jenkins%E5%85%B1%E4%BA%AB%E5%BA%93%E4%BD%BF%E7%94%A8-%E5%88%9D%E9%98%B6/</url>
+    <content><![CDATA[<p>在我们实际写Jenkin pipelines脚本中，可能会出现``java.lang.RuntimeException: Method code too large!<code>，这个时候你就要抽象出一些公共的函数类库，</code>避免项目方重复冗余的脚本代码书写`，在此处我也把我经常使用的一些共享函数库（<strong><a href="https://github.com/nengwu765/jenkins-share-library">jenkins-share-library</a></strong>）分享出来，欢迎交流指正哈！</p>
+<span id="more"></span>
+<h2 id="1-如何使用jenkins共享库"><a class="markdownIt-Anchor" href="#1-如何使用jenkins共享库"></a> 1. 如何使用Jenkins共享库</h2>
+<ul>
+<li>在Jenkinsfile的脚本文件第一行引入以下代码</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">library &#x27;jenkins-shared-libraries&#x27;</span><br><span class="line"></span><br><span class="line">pipeline &#123; ... &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>调用示例</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">stage (&quot;demo&quot;) &#123;</span><br><span class="line">	steps &#123;</span><br><span class="line">		script &#123;</span><br><span class="line">			// 调用：共享方法名+入参</span><br><span class="line">			demoFunction(params1, params2, ...)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-支持的共享库方法"><a class="markdownIt-Anchor" href="#2-支持的共享库方法"></a> 2. 支持的共享库方法</h2>
+<h3 id="21-git仓库拉取-gitcodefetch"><a class="markdownIt-Anchor" href="#21-git仓库拉取-gitcodefetch"></a> 2.1 Git仓库拉取 - gitCodeFetch()</h3>
+<p>支持基于分支/标签 和 Submodule子仓库拉取以及基于MR拉取分支，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/gitCodeFetch.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Git仓库版本拉取 -- 支持基于分支/标签 和 Submodule子仓库拉取以及基于MR拉取分支</span><br><span class="line"> *</span><br><span class="line"> * @param fetchMode Git代码拉取方式：branch-基于分支; tag-基于标签</span><br><span class="line"> * @param gitBranchOrTag Git仓库分支 或 标签</span><br><span class="line"> * @param gitRepository  Git仓库地址</span><br><span class="line"> * @param gitCredentialsId  Git拉取凭证ID 【若存在Submodule子仓库，则该凭证需要有子仓库拉取权限】</span><br><span class="line"> * @param gitEvent  git拉取事件,基于分支或Tag拉取,则置空; MergeRequest则为:&quot;MR&quot;</span><br><span class="line"> * @param targetBranch 若gitEvent为&quot;MR&quot;,此处为MR目标分支</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">void call(String fetchMode,String gitBranchOrTag, String gitRepository, String gitCredentialsId, String gitEvent = &#x27;&#x27;, String targetBranch = &#x27;&#x27;) </span><br></pre></td></tr></table></figure>
+<h3 id="22-md5值校验-md5check"><a class="markdownIt-Anchor" href="#22-md5值校验-md5check"></a> 2.2 MD5值校验 - md5Check()</h3>
+<p>文件MD5值check，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/md5Check.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 文件MD5值check</span><br><span class="line"> *</span><br><span class="line"> * @param filePath 文件路径</span><br><span class="line"> * @param md5 文件md5值</span><br><span class="line"> * @param forceCheck 是强制检查，是-必检，否-md5值非空则进行检查</span><br><span class="line"> */</span><br><span class="line">void md5Check(String filePath, String md5, boolean forceCheck = true)</span><br><span class="line"></span><br><span class="line">注：forceCheck=true时，校验不通过则报错，流水线终止</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="23-sha1值校验-sha1check"><a class="markdownIt-Anchor" href="#23-sha1值校验-sha1check"></a> 2.3 SHA1值校验 - sha1Check()</h3>
+<p>文件SHA1值check，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/sha1Check.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 文件SHA1值check</span><br><span class="line"> *</span><br><span class="line"> * @param filePath 文件路径</span><br><span class="line"> * @param sha1 文件md5值</span><br><span class="line"> * @param forceCheck 是强制检查，是-必检，否-md5值非空则进行检查</span><br><span class="line"> */</span><br><span class="line">void sha1Check(String filePath, String sha1, boolean forceCheck = true)</span><br><span class="line"></span><br><span class="line">注：forceCheck=true时，校验不通过则报错，流水线终止</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="24-ftp上传-ftpupload"><a class="markdownIt-Anchor" href="#24-ftp上传-ftpupload"></a> 2.4 FTP上传 - ftpUpload()</h3>
+<p>FTP文件上传  – // 参数参考说明：<a href="https://jenkins.io/doc/pipeline/steps/publish-over-ftp">https://jenkins.io/doc/pipeline/steps/publish-over-ftp</a></p>
+<p><a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/ftpUpload.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * FTP文件上传  -- // 参数参考说明：https://jenkins.io/doc/pipeline/steps/publish-over-ftp</span><br><span class="line"> * @param configName  在Jenkins全局设置的FTP Server名称</span><br><span class="line"> * @param sourceFiles  上传源文件，支持正则匹配，如[递归目录层级使用&#x27;**&#x27;]：&#x27;**/*.apk,public/**/*&#x27;</span><br><span class="line"> * @param remoteDir  上传子目录路径，注此路径会追加到全局设置的FTP Server的Remote Directory之后</span><br><span class="line"> * @param excludes  排除上传文件，支持正则匹配，如[递归目录层级使用&#x27;**&#x27;]： &#x27;**/*.log,**/*.tmp,.git/&#x27;</span><br><span class="line"> * @param removePrefix  去除上传文件的路径前缀，避免ftp服务器中生成无用的目录路径,注：所有上传文件必须都有该前缀，否则报错</span><br><span class="line"> */</span><br><span class="line">void ftpUpload(String configName, String sourceFiles, String remoteDir = &#x27;&#x27;, String excludes = &#x27;&#x27;, String removePrefix = &#x27;&#x27;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="25-rsync-module远程同步-rsyncmodule"><a class="markdownIt-Anchor" href="#25-rsync-module远程同步-rsyncmodule"></a> 2.5 Rsync Module远程同步 - rsyncModule()</h3>
+<p>rsync 使用Module远程同步，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/rsyncWithModule.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  rsync 使用Module远程同步</span><br><span class="line"> *</span><br><span class="line"> * @param ip rsync服务器IP</span><br><span class="line"> * @param port rsync服务器监听端口</span><br><span class="line"> * @param path rsync本地同步绝对路径</span><br><span class="line"> * @param module rsync同步模块</span><br><span class="line"> * @param user  rsync同步用户，指定传输文件为指定用户</span><br><span class="line"> * @param customParams 定制rsync参数，不允许出现&quot;delete&quot;关键字，如：--exclude=PATTERN --include=PATTERN --exclude-from=FILE --include-from=FILE</span><br><span class="line"> * @param bwlimit</span><br><span class="line"> */</span><br><span class="line">void rsyncModule(String ip, int port, String path, String module, String user = &#x27;&#x27;, String customParams = &#x27;&#x27;, int bwlimit = 8192)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="26-制品上传nexus-uploadartifactstonexus"><a class="markdownIt-Anchor" href="#26-制品上传nexus-uploadartifactstonexus"></a> 2.6 制品上传Nexus - uploadArtifactsToNexus()</h3>
+<p>如果你是以Nexus作为制品库的话，这个可以作为参考，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/uploadArtifactsToNexus.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 上传制品至Nexus仓库</span><br><span class="line"> *</span><br><span class="line"> * @param nexusRepository Nexus上传仓库</span><br><span class="line"> * @param dir 检索目录</span><br><span class="line"> * @param fileMatchRegex 文件正则匹配规则， 支持文件类型、文件前缀、文件全名，</span><br><span class="line"> *        如文件：prefix_file.test,</span><br><span class="line"> *        匹配规则：</span><br><span class="line"> *              文件类型： fileMatchRegex = &quot;.test&quot;</span><br><span class="line"> *              文件前缀： fileMatchRegex = &quot;prefix_&quot;</span><br><span class="line"> *              文件全名： fileMatchRegex = &quot;prefix_file.test&quot;</span><br><span class="line"> * @param uploadSubPath 制品上传路经</span><br><span class="line"> * @param isRecursion 是否递归检索子目录,默认：否【注：同名文件会被覆盖】</span><br><span class="line"> * @param artifacts 制品存储数据，Map结构，默认：空Map</span><br><span class="line"> * @return Map 返回上传制品数据</span><br><span class="line"> *         eg: [</span><br><span class="line"> *              &#x27;file1&#x27;:[</span><br><span class="line"> *                  &#x27;url&#x27;:&#x27;https://nexus.demo.com/.../file1&#x27;  // 文件在nexus中的上传路径【即下载路径】</span><br><span class="line"> *                  &#x27;md5&#x27;:&#x27;xxxx&#x27; // 文件md5值</span><br><span class="line"> *                  &#x27;sha1&#x27;:&#x27;xxxx&#x27;   // 文件sha1值</span><br><span class="line"> *               ],</span><br><span class="line"> *         ]</span><br><span class="line"> */</span><br><span class="line">def uploadArtifactsToNexus(String nexusRepository, String dir, String fileMatchRegex, String uploadPath, boolean isRecursion = false, Map artifacts = [:])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Android制品上传Nexus - uploadAndroidArtifacts()</li>
+</ul>
+<p><strong><code>针对Android制品上传，做了一层外围封装，防止不同业务上传仓库紊乱</code></strong>，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/uploadAndroidArtifacts.groovy">源码参考</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 上传制品至Nexus仓库</span><br><span class="line"> *</span><br><span class="line"> * @param dir 检索目录</span><br><span class="line"> * @param fileMatchRegex 文件正则匹配规则， 支持文件类型、文件前缀、文件全名，</span><br><span class="line"> *        如文件：prefix_file.test,</span><br><span class="line"> *        匹配规则：</span><br><span class="line"> *              文件类型： fileMatchRegex = &quot;.test&quot;</span><br><span class="line"> *              文件前缀： fileMatchRegex = &quot;prefix_&quot;</span><br><span class="line"> *              文件全名： fileMatchRegex = &quot;prefix_file.test&quot;</span><br><span class="line"> * @param uploadSubPath 制品上传路经</span><br><span class="line"> * @param isRecursion 是否递归检索子目录,默认：否【注：同名文件会被覆盖】</span><br><span class="line"> * @param artifacts 制品存储数据，Map结构，默认：空Map</span><br><span class="line"> * @return Map 返回上传制品数据</span><br><span class="line"> *         eg: [</span><br><span class="line"> *              &#x27;file1&#x27;:[</span><br><span class="line"> *                  &#x27;url&#x27;:&#x27;https://nexus.demo.com/.../file1&#x27;  // 文件在nexus中的上传路径【即下载路径】</span><br><span class="line"> *                  &#x27;md5&#x27;:&#x27;xxxx&#x27; // 文件md5值</span><br><span class="line"> *                  &#x27;sha1&#x27;:&#x27;xxxx&#x27;   // 文件sha1值</span><br><span class="line"> *               ],</span><br><span class="line"> *         ]</span><br><span class="line"> */</span><br><span class="line">def uploadAndroidArtifacts(String dir, String fileMatchRegex, String uploadPath, boolean isRecursion = false, Map artifacts = [:])</span><br></pre></td></tr></table></figure>
+<h3 id="27-流水线结果回调-callbackaction"><a class="markdownIt-Anchor" href="#27-流水线结果回调-callbackaction"></a> 2.7 流水线结果回调 - callBackAction()</h3>
+<p>Jenkins pipeline结果回调通知（这个其实有个Plugin支持，Job Notification，但是我觉得不够灵活），这边我自定义了一个通用回调，可以防止在任何位置，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/callBackAction.groovy">源码参考</a></p>
+<ul>
+<li>入参说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 流水线执行结果回调操作</span><br><span class="line"> *</span><br><span class="line"> * @param callBackUrlsJson 回调Url地址Json数据</span><br><span class="line"> * @param artifacts 制品存储数据</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">void callBackAction(String callBackUrlsJson, Map artifacts = [:])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用示例</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">	agent any</span><br><span class="line"></span><br><span class="line">	stages &#123;...&#125;</span><br><span class="line">    </span><br><span class="line">	post &#123;</span><br><span class="line">        always &#123;</span><br><span class="line">            // 回调Api通知对接JOB执行结果</span><br><span class="line">            script &#123;</span><br><span class="line">                if (!binding.variables.containsKey(&quot;ARTIFACTS&quot;)) &#123;</span><br><span class="line">                    ARTIFACTS = [:]</span><br><span class="line">                &#125;</span><br><span class="line">                callBackAction(params.CALLBACK_URLS_JSON, ARTIFACTS)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            echo &quot;I will be executed while failed or succeed&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5-引用"><a class="markdownIt-Anchor" href="#5-引用"></a> 5 引用</h2>
+<p><a href="https://www.jenkins.io/doc/book/pipeline/shared-libraries/">官方参考，Extending with Shared Libraries</a></p>
+]]></content>
+      <categories>
+        <category>Jenkins</category>
+      </categories>
+      <tags>
+        <tag>Jenkins</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Jenkins部署-K8s OR 物理机</title>
+    <url>/2021/06/10/Jenkins/Jenkins%E9%83%A8%E7%BD%B2-K8sOR%E7%89%A9%E7%90%86%E6%9C%BA/</url>
+    <content><![CDATA[<p>如果你开始使用Jenkins作为你的CI工具，刚好也在使用K8s集群做CD，那你一定很纠结我的Jenkins到底用什么方式进行部署管理呢？<br>
+这里我将我们遇到的实际经验分享给各位参考，希望能给到你一些帮助吧，😄</p>
+<span id="more"></span>
+<h2 id="1-结论"><a class="markdownIt-Anchor" href="#1-结论"></a> 1、结论</h2>
+<p>不拖沓，直接上结论：</p>
+<p><strong>轻易不要上K8s</strong>，启动速度和Slave镜像管理以及构建缓存等会比较<code>耗精力</code>；在CICD起步，日构建在500次左右，特别是含Android的gradle构建时，建议直接上物理机，绝对<code>真香</code>。</p>
+<blockquote>
+<p>选择适合的，并不是技术领先的，当然能Hold住的大佬，请随意哈😁</p>
+</blockquote>
+<hr>
+<p>备注说明下目前我遇到的构建量级吧，相对大厂是小儿科了点，勿喷哈。</p>
+<ul>
+<li>Web应用构建，约日均构建在400-500次/日</li>
+<li>移动端构建（Android为主），约日均构建在30-50次/日，偶尔会有批量的渠道打包量比较大（渠道量1K+）</li>
+</ul>
+<h2 id="2-k8s集群里的jenkins"><a class="markdownIt-Anchor" href="#2-k8s集群里的jenkins"></a> 2、K8s集群里的Jenkins</h2>
+<h3 id="21-选择背景"><a class="markdownIt-Anchor" href="#21-选择背景"></a> 2.1、选择背景</h3>
+<p>公司开始做中台了，其中包括建设CICD系统，基本是从 O 起步吧，当初直接选型了：java spring微服务 + K8s作为接下来的技术发展方向。作为<code>打辅助</code>的持续交付系统也就那个时候定型的，选型CI工具为Jenkins（当然还有很多的周边的工具链选型），部署原则：<strong>Everything in docker</strong></p>
+<h3 id="22-遇到问题"><a class="markdownIt-Anchor" href="#22-遇到问题"></a> 2.2、遇到问题</h3>
+<ul>
+<li>K8s集群稳定性是第一大考验</li>
+<li>动态的Slave启动慢，修改长时间存活，莫名会出现心跳终端，SalvePod假死</li>
+<li>各Slave节点构建依赖的缓存共享设置，尤其是移动端的Gradle的缓存（谁用谁知道！参考：<a href="https://blog.dreamtobe.cn/lls_ci/">流利说客户端持续交付工程实践</a>……）</li>
+<li>Slave多了后占用的资源无法想象，最后不得不给Jenkins独立的Node，打上标签区分</li>
+<li>还有就是构建过程，一个字儿：<strong>超级慢</strong>，很大原因是K8s集群的Ceph文件系统</li>
+<li>Slave镜像维护成本也颇高，尤其是需要版本升级的时候</li>
+<li>…</li>
+</ul>
+<h2 id="3-物理机里的jenkins"><a class="markdownIt-Anchor" href="#3-物理机里的jenkins"></a> 3、物理机里的Jenkins</h2>
+<h3 id="31-选择背景"><a class="markdownIt-Anchor" href="#31-选择背景"></a> 3.1、选择背景</h3>
+<p>我们重新建设了DevOps平台（定位：一站式研发协同平台），对于原有的功能迁移后，发现对于很多<code>核心、根本</code>问题，治标不治本。新平台也迫切需要出成绩，最终开出了 <code>历史的倒车</code>，我们回到了物理机Jenkins。</p>
+<h3 id="32-效果"><a class="markdownIt-Anchor" href="#32-效果"></a> 3.2、效果</h3>
+<p>一个字：<strong>快</strong>，平均提速达到30%+（其中移动端提速了甚至到了50%），且稳定性更高</p>
+<h3 id="33-成本核算"><a class="markdownIt-Anchor" href="#33-成本核算"></a> 3.3、成本核算</h3>
+<p>迁移到物理是不是成本很高啊，那可是物理机啊，然并卵……</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">迁移前</th>
+<th>迁移后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">K8s独立Node：64c+128G（1），32c+32G（1）</td>
+<td>32c+32G（5）</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>Jenkins</category>
+      </categories>
+      <tags>
+        <tag>Jenkins</tag>
       </tags>
   </entry>
   <entry>
@@ -609,6 +609,181 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
       </tags>
   </entry>
   <entry>
+    <title>代码扫描(二)-SonarQube简介</title>
+    <url>/2021/05/31/SonarQube/%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F(%E4%BA%8C)-SonarQube%E7%AE%80%E4%BB%8B/</url>
+    <content><![CDATA[<p>SonarQube一个基本的使用说明吧，后续会补充详细的安装部署以及相关工具集成方案。</p>
+<span id="more"></span>
+<h2 id="一-静态代码分析"><a class="markdownIt-Anchor" href="#一-静态代码分析"></a> 一、静态代码分析</h2>
+<p><strong>Why</strong>：在软件开发过程中，开发团队往往要花费大量的时间和精力发现并修改代码缺陷。而</p>
+<ul>
+<li>发现BUG越晚，修复的成本越大</li>
+<li>缺陷引入的大部分是在编码阶段，但发现更多的是在单元测试、集成测试、功能测试阶段</li>
+<li>30% 至 70% 的代码逻辑设计和编码缺陷是可以通过静态代码分析来发现和修复的</li>
+</ul>
+<p><strong>How</strong>：在编码阶段，可以通过以下手段发现源代码问题，从源头及时规避，保证代码质量</p>
+<ul>
+<li>静态代码扫描工具</li>
+<li>Code Review</li>
+</ul>
+<p><strong>What</strong>：<code>Code Review</code>往往要求大量的时间消耗和相关知识的积累，因此对于软件开发团队来说，使用静态代码分析工具自动化执行代码检查和分析，能够极大地提高软件可靠性并节省软件开发和测试成本。</p>
+<ul>
+<li>帮助程序开发人员自动执行静态代码分析，快速定位代码隐藏错误和缺陷。</li>
+<li>助代码设计人员更专注于分析和解决代码设计缺陷。</li>
+<li>显著减少在代码逐行检查上花费的时间，提高软件可靠性并节省软件开发和测试成本。</li>
+</ul>
+<p>现有主流的静态分析工具</p>
+<ul>
+<li><strong>Checkstyle</strong>：SourceForge 的开源项目，通过检查对代码编码格式，命名约定，Javadoc，类设计等方面进行代码规范和风格的检查，从而有效约束开发人员更好地遵循代码编写规范。</li>
+<li><strong>FindBugs</strong>：由马里兰大学提供的一款开源 Java 静态代码分析工具。FindBugs 通过检查类文件或 JAR 文件，将字节码与一组缺陷模式进行对比从而发现代码缺陷，完成静态代码分析</li>
+<li><strong>PMD</strong>：由 DARPA 在 SourceForge 上发布的开源 Java 代码静态分析工具。PMD 通过其内置的编码规则对 Java 代码进行静态检查，主要包括对潜在的 bug，未使用的代码，重复的代码，循环体创建新对象等问题的检验</li>
+</ul>
+<h1 id="二-sonar简介"><a class="markdownIt-Anchor" href="#二-sonar简介"></a> 二、Sonar简介</h1>
+<ul>
+<li>
+<p>Sonar是一个用于代码质量管理的开源平台，可以从七个维度检测代码质量</p>
+</li>
+<li>
+<p>Sonar可以通过PMD、CheckStyle、Findbugs等代码规则检测工具来检测你的代码，帮助你发现代码的漏洞，Bug，异味等信息。</p>
+</li>
+<li>
+<p>Sonar最大的特点就是插件化，可以根据不同的场景需求进行插件化安装，以Java代码检测为，但同时可以检测Python、C++等多种语言。</p>
+</li>
+<li>
+<p>Sonar客户端可以采用<code>IDE插件</code>、<code>Sonar-Scanner插件</code>、<code>Ant插件</code>和<code>Maven插件</code>等多种方式，并通过各种不同的分析机制对项目源代码进行分析和扫描，并把分析扫描后的结果上传到sonar的数据库，通过sonar web界面对分析结果进行管理</p>
+</li>
+</ul>
+<p><strong>SonarQube的体系架构</strong></p>
+<p><img src="/uploadfile/images/20190926/1569491764371.png" alt></p>
+<h1 id="三-自动化代码扫描流程"><a class="markdownIt-Anchor" href="#三-自动化代码扫描流程"></a> 三、自动化代码扫描流程</h1>
+<h2 id="官方推荐的自动化扫描流程"><a class="markdownIt-Anchor" href="#官方推荐的自动化扫描流程"></a> 官方推荐的自动化扫描流程</h2>
+<p><img src="/uploadfile/images/20190926/1569491702682.png" alt></p>
+<h2 id="中台目前的自动化静态代码扫描流程"><a class="markdownIt-Anchor" href="#中台目前的自动化静态代码扫描流程"></a> 中台目前的自动化静态代码扫描流程</h2>
+<p><img src="/uploadfile/images/20190926/1569491730831.png" alt></p>
+<h1 id="四-在sonarqube上分析管理代码扫描的结果"><a class="markdownIt-Anchor" href="#四-在sonarqube上分析管理代码扫描的结果"></a> 四、在SonarQube上分析管理代码扫描的结果</h1>
+<h2 id="1-配置代码规则插件"><a class="markdownIt-Anchor" href="#1-配置代码规则插件"></a> 1、配置代码规则插件</h2>
+<h2 id="2-管理扫描结果"><a class="markdownIt-Anchor" href="#2-管理扫描结果"></a> 2、管理扫描结果</h2>
+<h2 id="3-质量门禁"><a class="markdownIt-Anchor" href="#3-质量门禁"></a> 3、质量门禁</h2>
+<h1 id="五-sonar体系中的配置参数生效优先级"><a class="markdownIt-Anchor" href="#五-sonar体系中的配置参数生效优先级"></a> 五、Sonar体系中的配置参数生效优先级</h1>
+<ol>
+<li><strong>UI界面中的全局参数配置</strong></li>
+<li><strong>项目UI界面中的参数配置</strong></li>
+<li><strong>项目分析客户端全局配置文件中的参数</strong>
+<ul>
+<li>例如sonar scanner的全局配置文件/opt/sonarscanner/conf/sonar.properties中的参数</li>
+<li>例如sonar scanner Maven插件在settings.xml中配置的参数</li>
+</ul>
+</li>
+<li><strong>项目分析客户端命令行运行时配置的参数，例如sonar-scanner二进制命令行运行时以“-D”开头的配置参数</strong></li>
+</ol>
+<h1 id="六-扫描器sonarscanner"><a class="markdownIt-Anchor" href="#六-扫描器sonarscanner"></a> 六、扫描器SonarScanner</h1>
+<p>当SonarQube服务端搭建配置好了，Sonar提供了各种插件形式的Sonar Scanner扫描器供你选择来扫描你的源代码。</p>
+<ul>
+<li><strong>SonarScanner</strong>：下载二进制客户端进行扫描</li>
+<li><strong>SonarScanner for Maven</strong>：以Maven插件的形式扫描代码</li>
+<li><strong>SonarScanner for Jenkins</strong>：以Jenkins插件的形式配置扫描代码</li>
+<li><strong>SonarScanner for Gradle</strong>：以Gradle插件的形式配置扫描代码</li>
+<li><strong>SonarScanner for Ant</strong>：以Ant插件的形式配置扫描代码</li>
+</ul>
+<h2 id="sonarscanner项目扫描参数"><a class="markdownIt-Anchor" href="#sonarscanner项目扫描参数"></a> SonarScanner项目扫描参数</h2>
+<p><a href="https://docs.sonarqube.org/latest/analysis/analysis-parameters/">官方文档说明</a></p>
+<h2 id="1-sonarscanner"><a class="markdownIt-Anchor" href="#1-sonarscanner"></a> 1. SonarScanner</h2>
+<p>下载地址：<a href="https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/">https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/</a></p>
+<h3 id="配置文件"><a class="markdownIt-Anchor" href="#配置文件"></a> 配置文件</h3>
+<ul>
+<li>全局配置文件路径：<code>$安装目录/conf/sonar-scanner.properties</code></li>
+<li>项目配置文件路径：<code>$项目根目录/sonar-project.properties</code></li>
+</ul>
+<h3 id="cli命令参数"><a class="markdownIt-Anchor" href="#cli命令参数"></a> CLI命令参数</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sonar-scanner</span><br><span class="line">usage: sonar-scanner [options]</span><br><span class="line"></span><br><span class="line">参数:</span><br><span class="line"> -D,--define &lt;arg&gt;     Define property</span><br><span class="line"> -h,--help             Display help information</span><br><span class="line"> -v,--version          Display version information</span><br><span class="line"> -X,--debug            Produce execution debug output</span><br><span class="line"> </span><br><span class="line">If you need more debug information you can add one of the following to your command line: -X, --verbose, or -Dsonar.verbose=true.</span><br></pre></td></tr></table></figure>
+<h2 id="2-sonarscanner-for-maven"><a class="markdownIt-Anchor" href="#2-sonarscanner-for-maven"></a> 2. SonarScanner for Maven</h2>
+<p>官方文档：<a href="https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-maven/">https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-maven/</a></p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>从maven-sonar-plugin 3.4.0.905开始，不再支持SonarQube &lt;5.6。如果使用5.6之前的SonarQube实例，则应该使用maven-sonar-plugin 3.3.0.603。</li>
+<li>从maven-sonar-plugin 3.1开始，不再支持Maven ❤️.0。如果在3.0之前使用Maven，你应该使用maven-sonar-plugin 3.0.2。</li>
+</ul>
+<p><strong>全局参数</strong></p>
+<p>详见[SonarQube服务端配置](#1. 配置全局参数)</p>
+<p><strong>配置Maven的setting.xml</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;settings&gt;</span><br><span class="line">  &lt;!-- ....上文省略.... --&gt;</span><br><span class="line">  &lt;pluginGroups&gt;</span><br><span class="line">      &lt;pluginGroup&gt;org.sonarsource.scanner.maven&lt;/pluginGroup&gt;</span><br><span class="line">  &lt;/pluginGroups&gt;</span><br><span class="line">  &lt;profiles&gt;</span><br><span class="line">      &lt;profile&gt;</span><br><span class="line">          &lt;id&gt;sonar&lt;/id&gt;</span><br><span class="line">          &lt;activation&gt;</span><br><span class="line">              &lt;activeByDefault&gt;<span class="literal">true</span>&lt;/activeByDefault&gt;</span><br><span class="line">          &lt;/activation&gt;</span><br><span class="line">          &lt;properties&gt;</span><br><span class="line">              &lt;!-- 配置SonarQube服务端地址 --&gt;</span><br><span class="line">              &lt;sonar.host.url&gt;http://myserver:9000&lt;/sonar.host.url&gt;</span><br><span class="line">              &lt;!-- 配置SonarQube服务端认证Token --&gt;</span><br><span class="line">              &lt;sonar.login&gt;f6eedc3d8bfa850a15f2ffcd&lt;/sonar.login&gt;</span><br><span class="line">          &lt;/properties&gt;</span><br><span class="line">      &lt;/profile&gt;</span><br><span class="line">   &lt;/profiles&gt;</span><br><span class="line">   &lt;!-- ....下文省略.... --&gt;</span><br><span class="line">&lt;/settings&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>在项目pom.xml中配置项目扫描参数</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;project&gt;</span><br><span class="line">....上文省略....</span><br><span class="line"></span><br><span class="line">  &lt;groupId&gt;com.curiosuer&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;springboot2&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;0.0.1&lt;/version&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  &lt;!-- 用于在SonarQube服务端Web UI界面显示的一些链接 --&gt;</span><br><span class="line">    </span><br><span class="line">  &lt;description&gt;用于演示Spring Boot2的一些功能&lt;/description&gt;</span><br><span class="line">  &lt;name&gt;Curiouser-Demo-SpringBoot2&lt;/name&gt;</span><br><span class="line">  &lt;url&gt;http://springboot2-demo.apps.okd311.curiouser.com/swagger-ui.html&lt;/url&gt;</span><br><span class="line">  &lt;scm&gt;</span><br><span class="line">      &lt;url&gt;http://gitlab.apps.okd311.curiouser.com/Demo/springboot2/commit/<span class="variable">$&#123;GIT_COMMIT&#125;</span>&lt;/url&gt;</span><br><span class="line">  &lt;/scm&gt;</span><br><span class="line">  &lt;issueManagement&gt;</span><br><span class="line">      &lt;url&gt;http://gitlab.apps.okd311.curiouser.com/Demo/springboot2/issues&lt;/url&gt;</span><br><span class="line">  &lt;/issueManagement&gt;</span><br><span class="line">  &lt;ciManagement&gt;</span><br><span class="line">      &lt;url&gt;https://jenkins.apps.okd311.curiouser.com/job/Demo-springboot2-Pipeline/<span class="variable">$&#123;BUILD_NUMBER&#125;</span>&lt;/url&gt;</span><br><span class="line">  &lt;/ciManagement&gt;</span><br><span class="line"></span><br><span class="line">  &lt;properties&gt;</span><br><span class="line">        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span><br><span class="line">        &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;</span><br><span class="line">        &lt;java.version&gt;1.8&lt;/java.version&gt;</span><br><span class="line">        &lt;!--  使用配置SonarScanner Maven插件  --&gt;</span><br><span class="line">        &lt;sonar.projectVersion&gt;<span class="variable">$&#123;env.gitlabMergeRequestLastCommit&#125;</span>&lt;/sonar.projectVersion&gt;</span><br><span class="line">        &lt;sonar.gitlab.project_id&gt;1&lt;/sonar.gitlab.project_id&gt;</span><br><span class="line">        &lt;sonar.gitlab.commit_sha&gt;<span class="variable">$&#123;GIT_COMMIT&#125;</span>&lt;/sonar.gitlab.commit_sha&gt;</span><br><span class="line">        &lt;sonar.gitlab.ref_name&gt;<span class="variable">$&#123;GIT_BRANCH&#125;</span>&lt;/sonar.gitlab.ref_name&gt;</span><br><span class="line">        &lt;sonar.java.coveragePlugin&gt;jacoco&lt;/sonar.java.coveragePlugin&gt;</span><br><span class="line">        &lt;sonar.dynamicAnalysis&gt;reuseReports&lt;/sonar.dynamicAnalysis&gt;</span><br><span class="line">        &lt;sonar.projectVersion&gt;<span class="variable">$&#123;GIT_COMMIT&#125;</span>&lt;/sonar.projectVersion&gt;</span><br><span class="line">  &lt;/properties&gt;</span><br><span class="line">....下文省略....</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>执行扫描命令</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mvn <span class="built_in">test</span> sonar:sonar -Dspring.profiles.active=<span class="built_in">local</span></span><br></pre></td></tr></table></figure>
+<p><strong>默认参数</strong></p>
+<ul>
+<li><code>sonar.projectKey</code> ==&gt; POM中的<code>&lt;groupId&gt;:&lt;artifactId&gt;</code></li>
+<li><code>sonar.projectName</code>  ==&gt; POM中的<code>&lt;name&gt;</code></li>
+<li><code>sonar.projectVersion</code> ==&gt; POM中的<code>&lt;version&gt;</code></li>
+<li><code>sonar.projectDescription</code> ==&gt; POM中的<code>&lt;description&gt;</code></li>
+<li><code>sonar.links.homepage</code> ==&gt; POM中的<code>&lt;url&gt;</code></li>
+<li><code>sonar.links.ci</code> ==&gt; POM中的<code>&lt;ciManagement&gt;&lt;url&gt;</code></li>
+<li><code>sonar.links.issue</code> ==&gt; POM中的<code>&lt;issueManagement&gt;&lt;url&gt;</code></li>
+<li><code>sonar.links.scm</code> ==&gt; POM中的<code>&lt;scm&gt;&lt;url&gt;</code></li>
+</ul>
+<h1 id="附录"><a class="markdownIt-Anchor" href="#附录"></a> 附录</h1>
+<h2 id="1-sonar检查代码质量的七个维度"><a class="markdownIt-Anchor" href="#1-sonar检查代码质量的七个维度"></a> 1、Sonar检查代码质量的七个维度</h2>
+<ul>
+<li>复杂度分布（complexity）：代码复杂度过高将难以理解、难以维护</li>
+<li>重复代码（duplications）：程序中包含大量复制粘度的代码是质量低下的表现</li>
+<li>单元测试（unit tests）：统计并展示单元测试覆盖率</li>
+<li>编码规范（coding rules）：通过Findbugs、PMD、CheckStyle等规范代码编写</li>
+<li>注释（commments）：少了可读性差，多了看起来费劲</li>
+<li>潜在的Bug（potential bugs）：通过Findbugs、PMD、CheckStyle等检测潜在bug</li>
+<li>结构与设计（architecture &amp; design）：依赖i、耦合等</li>
+</ul>
+<h2 id="2-常见检查工具的内置规范"><a class="markdownIt-Anchor" href="#2-常见检查工具的内置规范"></a> 2、常见检查工具的内置规范</h2>
+<p><strong>Checkstyle</strong>：分析源代码文件</p>
+<ul>
+<li>Javadoc 注释：检查类及方法的 Javadoc 注释</li>
+<li>命名约定：检查命名是否符合命名规范</li>
+<li>标题：检查文件是否以某些行开头</li>
+<li>Import 语句：检查 Import 语句是否符合定义规范</li>
+<li>代码块大小，即检查类、方法等代码块的行数</li>
+<li>空白：检查空白符，如 tab，回车符等</li>
+<li>修饰符：修饰符号的检查，如修饰符的定义顺序</li>
+<li>块：检查是否有空块或无效块</li>
+<li>代码问题：检查重复代码，条件判断，魔数等问题</li>
+<li>类设计：检查类的定义是否符合规范，如构造函数的定义等问题</li>
+</ul>
+<p><strong>FindBugs</strong>：分析字节码文件</p>
+<ul>
+<li>Bad practice 坏的实践：常见代码错误，用于静态代码检查时进行缺陷模式匹配</li>
+<li>Correctness 可能导致错误的代码，如空指针引用等</li>
+<li>国际化相关问题：如错误的字符串转换</li>
+<li>可能受到的恶意攻击，如访问权限修饰符的定义等</li>
+<li>多线程的正确性：如多线程编程时常见的同步，线程调度问题。</li>
+<li>运行时性能问题：如由变量定义，方法调用导致的代码低效问题。</li>
+</ul>
+<p><strong>PMD</strong>：：分析源代码文件</p>
+<ul>
+<li>可能的 Bugs：检查潜在代码错误，如空 try/catch/finally/switch 语句</li>
+<li>未使用代码（Dead code）：检查未使用的变量，参数，方法</li>
+<li>复杂的表达式：检查不必要的 if 语句，可被 while 替代的 for 循环</li>
+<li>重复的代码：检查重复的代码</li>
+<li>循环体创建新对象：检查在循环体内实例化新对象</li>
+<li>资源关闭：检查 Connect，Result，Statement 等资源使用之后是否被关闭掉</li>
+</ul>
+<p><strong>Jtest</strong></p>
+<ul>
+<li>可能的错误：如内存破坏、内存泄露、指针错误、库错误、逻辑错误和算法错误等</li>
+<li>未使用代码：检查未使用的变量，参数，方法</li>
+<li>初始化错误：内存分配错、变量初始化错误、变量定义冲突</li>
+<li>命名约定：检查命名是否符合命名规范</li>
+<li>Javadoc 注释：检查类及方法的 Javadoc 注释</li>
+<li>线程和同步：检验多线程编程时常见的同步，线程调度问题</li>
+<li>国际化问题：</li>
+</ul>
+]]></content>
+      <categories>
+        <category>SonarQube</category>
+      </categories>
+      <tags>
+        <tag>SonarQube</tag>
+        <tag>代码扫描</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>禅道持续交付(一)-概述及框架</title>
     <url>/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%80)-%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%A1%86%E6%9E%B6/</url>
     <content><![CDATA[<p>我们基于禅道打造了持续交付系统，整合了多个开源系统（包括禅道zentao、jenkins、gitlab、nexus、harbor、ldap、mysql等等），并进行大量的二次开发，将多个系统功能（项目管理、集成管理、代码仓库管理、编译私服，镜像仓库管理、用户认证等）、多个开发环境（开发环境、测试环境、预发布环境、灰度环境、生产环境等），多种发布流程（代码扫描、版本集成、版本发布等）进行统一整合，提供一套高度集成和高度自动化的项目管理+版本集成发布系统。</p>
@@ -647,76 +822,6 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <h2 id="4-工具链选型"><a class="markdownIt-Anchor" href="#4-工具链选型"></a> 4、工具链选型</h2>
 <p>其实DevOps工具链产品有很多，大家可以根据自己的实际情况选择，我们基于Zentao打造的持续交付平台选择的是如下工具链。因为当初我们还木有打通持续测试这一环节，所以这个相对有些简陋了，但是还算清晰！</p>
 <p><img src="/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%80)-%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%A1%86%E6%9E%B6/%E5%B7%A5%E5%85%B7%E9%93%BE%E9%80%89%E5%9E%8B-new.png" alt="img"></p>
-]]></content>
-      <categories>
-        <category>持续交付</category>
-      </categories>
-      <tags>
-        <tag>CICD</tag>
-        <tag>Zentao</tag>
-        <tag>禅道</tag>
-        <tag>持续交付</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>禅道持续交付(二)-研发流水线设计</title>
-    <url>/2019/09/29/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%8C)-%E7%A0%94%E5%8F%91%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1/</url>
-    <content><![CDATA[<p>基于禅道设计的研发流水线，实际就是分为了两条流水线：CI和CD，CI流程就是产出最终可交付至线上的版本制品，CD流程就是将CI产出的制品最终交付至线上。在流水线执行过程中，约定了各个版本环境，如：Dev环境、IT环境、ST环境、UAT环境、PVT环境、GVT灰度验证环境、MVT量产环境等。</p>
-<span id="more"></span>
-<h2 id="1-流水线设计"><a class="markdownIt-Anchor" href="#1-流水线设计"></a> 1 流水线设计</h2>
-<p>按照devops理念，整个开发及发布流程被设计为两条流程：持续集成和持续发布。</p>
-<p>在这里持续（continuous）的概念，包含的意义是：<br>
-1、流程可以反复执行；<br>
-2、流程是由多个子流程组成，流程之间都是前后顺序连接，持续执行的。</p>
-<p>由于我们的核心构建系统采用的是jenkins，所有流程的实现是采用的jenkins中的流水线pipeline脚本来实现的。</p>
-<p>最终实现的结果就是持续交付系统主要有两条流水线：</p>
-<ul>
-<li>
-<p>版本持续集成（CI，Continuous Integration）流水线<br>
-就是对源代码进行构建，生成版本制品的过程。</p>
-</li>
-<li>
-<p>版本持续发布（CD，Continuous Delivery）流水线<br>
-就是将经过测试之后合格的版本制品发布部署到目的地的过程。</p>
-</li>
-</ul>
-<p>我们设计的CI和CD流水线的概图如下：<br>
-<img src="/2019/09/29/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%8C)-%E7%A0%94%E5%8F%91%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1/CICD%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
-<h2 id="2-持续集成流水线ci-continuous-integration"><a class="markdownIt-Anchor" href="#2-持续集成流水线ci-continuous-integration"></a> 2 持续集成流水线（CI, Continuous Integration）</h2>
-<p>下面是一个一般的CI的流程模型：<br>
-<img src="/2019/09/29/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%8C)-%E7%A0%94%E5%8F%91%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1/CI%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
-<h2 id="3-持续发布流水线cdcontinous-delivery"><a class="markdownIt-Anchor" href="#3-持续发布流水线cdcontinous-delivery"></a> 3 持续发布流水线（CD，Continous Delivery）</h2>
-<p>下面是一个一般的CD的流程模型：<br>
-<img src="/2019/09/29/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%8C)-%E7%A0%94%E5%8F%91%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1/CD%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
-<h2 id="4-版本和环境流程图"><a class="markdownIt-Anchor" href="#4-版本和环境流程图"></a> 4、版本和环境流程图</h2>
-<p>在逻辑意义上来说，我们目前做了如下定义：</p>
-<ul>
-<li>环境是一个逻辑概念，在物理上的实现，它就是从物理集群内启动并运行起来的一个docker容器；</li>
-<li>内网开发集群定义了系统集成测试环境（SIT，System Integration Test environment），支持的环境数量为三个：sit0、sit1、sit2。</li>
-<li>内网测试集群定义了用户验收测试环境（UAT，User Acceptance Test environment），支持的环境数量为三个：uat0、uat1、uat2。</li>
-<li>生产集群，不管是内网还是外网，公有云还是私有云，都定义如下三个环境：
-<ul>
-<li>预发布环境 pre-release</li>
-<li>灰度发布环境 grey verification environment</li>
-<li>正式生产环境 mass production<br>
-<img src="/2019/09/29/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%8C)-%E7%A0%94%E5%8F%91%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1/%E7%89%88%E6%9C%AC%E5%8F%8A%E7%8E%AF%E5%A2%83-new.png" alt></li>
-</ul>
-</li>
-</ul>
-<h2 id="5-测试环境域名管理方案"><a class="markdownIt-Anchor" href="#5-测试环境域名管理方案"></a> 5、测试环境域名管理方案</h2>
-<p>目前测试环境的访问方式主要有两种，这两种方式可以同时使用：</p>
-<ul>
-<li>
-<p>1、不同环境不同域名方案</p>
-<p>部署至不同集群环境，生成不同域名方案。</p>
-<p>如：域名为&quot;<a href="http://demo.com">demo.com</a>&quot;，部署至sit0环境，则自动生成域名&quot;<a href="http://sit0-demo.com">sit0-demo.com</a>&quot;</p>
-</li>
-<li>
-<p>2、不同环境同一域名方案</p>
-<p>部署至不同集群环境，访问客户端通过**<code>域名代理</code>**访问同一域名（多环境同域名方案OpenResty方案: Nginx+lua + redis 实现根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理，<a href="../%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%89)-%E5%A4%9A%E7%8E%AF%E5%A2%83%E5%90%8C%E5%9F%9F%E5%90%8D%E8%AE%BE%E8%AE%A1">方案详情参考此文</a>），访问至不同集群环境。</p>
-<p>如：域名为&quot;<a href="http://demo.com">demo.com</a>&quot;，通过域名代理将访问客户端IP与目的访问集群入口域名&quot;<a href="http://sit0-demo.com">sit0-demo.com</a>&quot;绑定即可实现同一域名访问。</p>
-</li>
-</ul>
 ]]></content>
       <categories>
         <category>持续交付</category>
@@ -835,6 +940,199 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
         <tag>OpenResty</tag>
         <tag>Nginx</tag>
         <tag>Lua</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>禅道持续交付(二)-研发流水线设计</title>
+    <url>/2019/09/29/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%8C)-%E7%A0%94%E5%8F%91%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1/</url>
+    <content><![CDATA[<p>基于禅道设计的研发流水线，实际就是分为了两条流水线：CI和CD，CI流程就是产出最终可交付至线上的版本制品，CD流程就是将CI产出的制品最终交付至线上。在流水线执行过程中，约定了各个版本环境，如：Dev环境、IT环境、ST环境、UAT环境、PVT环境、GVT灰度验证环境、MVT量产环境等。</p>
+<span id="more"></span>
+<h2 id="1-流水线设计"><a class="markdownIt-Anchor" href="#1-流水线设计"></a> 1 流水线设计</h2>
+<p>按照devops理念，整个开发及发布流程被设计为两条流程：持续集成和持续发布。</p>
+<p>在这里持续（continuous）的概念，包含的意义是：<br>
+1、流程可以反复执行；<br>
+2、流程是由多个子流程组成，流程之间都是前后顺序连接，持续执行的。</p>
+<p>由于我们的核心构建系统采用的是jenkins，所有流程的实现是采用的jenkins中的流水线pipeline脚本来实现的。</p>
+<p>最终实现的结果就是持续交付系统主要有两条流水线：</p>
+<ul>
+<li>
+<p>版本持续集成（CI，Continuous Integration）流水线<br>
+就是对源代码进行构建，生成版本制品的过程。</p>
+</li>
+<li>
+<p>版本持续发布（CD，Continuous Delivery）流水线<br>
+就是将经过测试之后合格的版本制品发布部署到目的地的过程。</p>
+</li>
+</ul>
+<p>我们设计的CI和CD流水线的概图如下：<br>
+<img src="/2019/09/29/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%8C)-%E7%A0%94%E5%8F%91%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1/CICD%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
+<h2 id="2-持续集成流水线ci-continuous-integration"><a class="markdownIt-Anchor" href="#2-持续集成流水线ci-continuous-integration"></a> 2 持续集成流水线（CI, Continuous Integration）</h2>
+<p>下面是一个一般的CI的流程模型：<br>
+<img src="/2019/09/29/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%8C)-%E7%A0%94%E5%8F%91%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1/CI%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
+<h2 id="3-持续发布流水线cdcontinous-delivery"><a class="markdownIt-Anchor" href="#3-持续发布流水线cdcontinous-delivery"></a> 3 持续发布流水线（CD，Continous Delivery）</h2>
+<p>下面是一个一般的CD的流程模型：<br>
+<img src="/2019/09/29/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%8C)-%E7%A0%94%E5%8F%91%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1/CD%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
+<h2 id="4-版本和环境流程图"><a class="markdownIt-Anchor" href="#4-版本和环境流程图"></a> 4、版本和环境流程图</h2>
+<p>在逻辑意义上来说，我们目前做了如下定义：</p>
+<ul>
+<li>环境是一个逻辑概念，在物理上的实现，它就是从物理集群内启动并运行起来的一个docker容器；</li>
+<li>内网开发集群定义了系统集成测试环境（SIT，System Integration Test environment），支持的环境数量为三个：sit0、sit1、sit2。</li>
+<li>内网测试集群定义了用户验收测试环境（UAT，User Acceptance Test environment），支持的环境数量为三个：uat0、uat1、uat2。</li>
+<li>生产集群，不管是内网还是外网，公有云还是私有云，都定义如下三个环境：
+<ul>
+<li>预发布环境 pre-release</li>
+<li>灰度发布环境 grey verification environment</li>
+<li>正式生产环境 mass production<br>
+<img src="/2019/09/29/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%8C)-%E7%A0%94%E5%8F%91%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1/%E7%89%88%E6%9C%AC%E5%8F%8A%E7%8E%AF%E5%A2%83-new.png" alt></li>
+</ul>
+</li>
+</ul>
+<h2 id="5-测试环境域名管理方案"><a class="markdownIt-Anchor" href="#5-测试环境域名管理方案"></a> 5、测试环境域名管理方案</h2>
+<p>目前测试环境的访问方式主要有两种，这两种方式可以同时使用：</p>
+<ul>
+<li>
+<p>1、不同环境不同域名方案</p>
+<p>部署至不同集群环境，生成不同域名方案。</p>
+<p>如：域名为&quot;<a href="http://demo.com">demo.com</a>&quot;，部署至sit0环境，则自动生成域名&quot;<a href="http://sit0-demo.com">sit0-demo.com</a>&quot;</p>
+</li>
+<li>
+<p>2、不同环境同一域名方案</p>
+<p>部署至不同集群环境，访问客户端通过**<code>域名代理</code>**访问同一域名（多环境同域名方案OpenResty方案: Nginx+lua + redis 实现根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理，<a href="../%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%89)-%E5%A4%9A%E7%8E%AF%E5%A2%83%E5%90%8C%E5%9F%9F%E5%90%8D%E8%AE%BE%E8%AE%A1">方案详情参考此文</a>），访问至不同集群环境。</p>
+<p>如：域名为&quot;<a href="http://demo.com">demo.com</a>&quot;，通过域名代理将访问客户端IP与目的访问集群入口域名&quot;<a href="http://sit0-demo.com">sit0-demo.com</a>&quot;绑定即可实现同一域名访问。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>持续交付</category>
+      </categories>
+      <tags>
+        <tag>CICD</tag>
+        <tag>Zentao</tag>
+        <tag>禅道</tag>
+        <tag>持续交付</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>禅道持续交付(五)-版本构建发布演示</title>
+    <url>/2019/10/26/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%94)-%E7%89%88%E6%9C%AC%E6%9E%84%E5%BB%BA%E5%8F%91%E5%B8%83%E6%BC%94%E7%A4%BA/</url>
+    <content><![CDATA[<p>这里只是基本的版本构建和发布页面的简单展示，这里我们版本构建支持Spring cloud微服务多组件的方式，其中各个流程进度节点的状态和日志可以清晰查看。</p>
+<span id="more"></span>
+<h2 id="1-版本构建"><a class="markdownIt-Anchor" href="#1-版本构建"></a> 1、版本构建</h2>
+<ul>
+<li>一键集成、一键发布</li>
+<li>不同角色负责对应流程节点的启动和确认（构建结果、开发自测、系统测试状态）</li>
+<li>整个版本的进度、状态清晰明了</li>
+</ul>
+<p><img src="/2019/10/26/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%94)-%E7%89%88%E6%9C%AC%E6%9E%84%E5%BB%BA%E5%8F%91%E5%B8%83%E6%BC%94%E7%A4%BA/%E7%89%88%E6%9C%AC%E6%9E%84%E5%BB%BA-new.jpg" alt></p>
+<h2 id="2-版本发布"><a class="markdownIt-Anchor" href="#2-版本发布"></a> 2、版本发布</h2>
+<ul>
+<li>选择测试通过的版本</li>
+<li>版本可以是多组件的版本，一次性部署发布</li>
+<li>部署支持灰度切量部署</li>
+</ul>
+<p><img src="/2019/10/26/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%94)-%E7%89%88%E6%9C%AC%E6%9E%84%E5%BB%BA%E5%8F%91%E5%B8%83%E6%BC%94%E7%A4%BA/%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83-new.jpg" alt></p>
+<h2 id="3-流程节点进度"><a class="markdownIt-Anchor" href="#3-流程节点进度"></a> 3、流程节点进度</h2>
+<ul>
+<li>支持流程节点进度查看</li>
+<li>每个进度节点的状态和日志清晰查看</li>
+</ul>
+<p><img src="/2019/10/26/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%94)-%E7%89%88%E6%9C%AC%E6%9E%84%E5%BB%BA%E5%8F%91%E5%B8%83%E6%BC%94%E7%A4%BA/%E6%B5%81%E7%A8%8B%E8%8A%82%E7%82%B9%E8%BF%9B%E5%BA%A6-new.jpg" alt></p>
+<h2 id="4-版本效能数据"><a class="markdownIt-Anchor" href="#4-版本效能数据"></a> 4、版本效能数据</h2>
+<ul>
+<li>每个流程节点操作者和操作时间被记录</li>
+<li>每个流程消耗时间统计计算</li>
+<li>整个流程效率展示在每个版本上</li>
+</ul>
+<p>基于此，可以统计效能指标数据</p>
+<p>– 交付效率：版本构建到上线耗时</p>
+<p>– 稳定性：单位时间内失败次数</p>
+<p>– 吞吐量：单位时间内构建次数</p>
+<p><img src="/2019/10/26/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%94)-%E7%89%88%E6%9C%AC%E6%9E%84%E5%BB%BA%E5%8F%91%E5%B8%83%E6%BC%94%E7%A4%BA/%E7%89%88%E6%9C%AC%E6%95%88%E8%83%BD%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1-new.jpg" alt></p>
+]]></content>
+      <categories>
+        <category>持续交付</category>
+      </categories>
+      <tags>
+        <tag>CICD</tag>
+        <tag>Zentao</tag>
+        <tag>禅道</tag>
+        <tag>持续交付</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>禅道持续交付(六)-失败总结</title>
+    <url>/2019/10/26/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E5%85%AD)-%E5%A4%B1%E8%B4%A5%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>哈哈，想不到吧，虽然经过小伙伴的很长时间的努力，我们最终落地的效果是不理想。最终项目被”砍“掉了。不过很值得和大家分享下，感觉这篇应该是这个系列最<code>值钱</code>的一篇啦，不容错过！</p>
+<span id="more"></span>
+<p>// TODO</p>
+]]></content>
+      <categories>
+        <category>持续交付</category>
+      </categories>
+      <tags>
+        <tag>CICD</tag>
+        <tag>Zentao</tag>
+        <tag>禅道</tag>
+        <tag>持续交付</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>禅道持续交付(四)-使用流程模型</title>
+    <url>/2019/10/26/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E5%9B%9B)-%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<p>在基于禅道打造的持续交付系统，主要使用的流程以及各个角色在各个环节所起的作用，本文将会做一个详细的介绍说明。另外为了更好的使用，正确搭配使用禅道中的相关概念及操作，实现项目团队的项目管理和开发流程，我们把这种概念搭配和具体操作，抽象成项目管理流程模型。</p>
+<span id="more"></span>
+<h2 id="1-使用流程"><a class="markdownIt-Anchor" href="#1-使用流程"></a> 1、使用流程</h2>
+<p>大概来说，禅道的完整使用有四个流程：<br>
+1、项目创建流程（红色部分）<br>
+这个流程是禅道原生的功能流程，但是optimus二次开发后做了流程定制，跟原生的使用方式有细微的差别。</p>
+<p>2、迭代开发流程（蓝色部分）<br>
+这个流程是原生的禅道流程，optimus只做了bug修复，没有改变现有的流程和使用方式。</p>
+<p>3、版本集成流程（绿色部分）<br>
+这个流程是optimus新增流程。用来支持持续交付的版本集成部分。</p>
+<p>4、版本上线流程（黄色部分）<br>
+这个流程是optimus新增流程。用来支持持续交付的版本发布部署和上线审批流程。</p>
+<p><img src="/2019/10/26/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E5%9B%9B)-%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B%E6%A8%A1%E5%9E%8B/%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B-new.png" alt></p>
+<h2 id="2-管理流程模型"><a class="markdownIt-Anchor" href="#2-管理流程模型"></a> 2、管理流程模型</h2>
+<p>项目团队在使用禅道的时候，如何正确搭配使用禅道中的相关概念及操作，实现项目团队的项目管理和开发流程，我们把这种概念搭配和具体操作，抽象成项目管理流程模型，提供给业务团队理解和正确使用。</p>
+<p>根据我们对业务各种项目团队管理模式和流程的初步调研，基于禅道的scrum敏捷开发模式，我们一般会有这几种团队开发协作模式：<br>
+1、基本团队模式：单个产品团队 - 单个开发团队 - 单个测试团队<br>
+这种模式下，一般是一个独立的产品-需求-项目-测试等是一条完整的开发流程线，跟其他项目没有关联耦合。</p>
+<p>2、并行团队模式：单个产品团队 - 多个并行的开发团队 - 单个测试团队<br>
+这种模式的特点：</p>
+<ul>
+<li>
+<p>（1）开发团队有多个，开发出来的子系统或者模块是整个产品系统的组成部分，它们之间存在一定的耦合关系。</p>
+</li>
+<li>
+<p>（2）开发团队各自的的迭代开发、发布上线等流程是一条完整的流程线，各团队流程线之间没有耦合关系。</p>
+</li>
+<li>
+<p>（3）各开发团队由统一的项目经理进行组织协作开发，共享同一个项目开发计划，同一份需求，任务统一分配管理，测试由同一个团队负责。</p>
+</li>
+</ul>
+<p><img src="/2019/10/26/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E5%9B%9B)-%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B%E6%A8%A1%E5%9E%8B/%E9%A1%B9%E7%9B%AE%E6%B5%81%E7%A8%8B%E6%A8%A1%E5%9E%8B-new.png" alt></p>
+<font color="red">
+（非常重要）基本模型的一些注意事项：
+<p>1、产品线下可以有多个互不相关的产品；<br>
+2、一个产品，必须建立至少一个计划。计划，就是一个时间段，一般不建议超过4个周。建议每个月作为一个计划，进行逐步迭代演进。<br>
+3、产品必须指定项目/迭代负责人；<br>
+4、每一个需求必须关联到某一个计划上；计划跟需求是一对多的关系。<br>
+5、迭代必须关联至少一个产品；<br>
+6、迭代必须关联至少一个计划；建议迭代跟计划是一对一的对应关系。<br>
+7、迭代可以按照计划关联需求，也可以关联某一项需求，甚至可以自建需求。<br>
+8、只有项目经理可以添加迭代，并管理迭代团队，添加成员。<br>
+9、不在迭代团队里的人，看不见该产品的需求，也看不见该迭代相关的任务BUG等信息，邮件抄送也不会出现在列表中。<br>
+10、版本由开发主管创建并启动构建，发布由项目经理负责创建并启动部署。<br>
+</p></font><p></p>
+]]></content>
+      <categories>
+        <category>持续交付</category>
+      </categories>
+      <tags>
+        <tag>CICD</tag>
+        <tag>Zentao</tag>
+        <tag>禅道</tag>
+        <tag>持续交付</tag>
       </tags>
   </entry>
   <entry>

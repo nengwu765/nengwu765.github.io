@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/765-log222.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/765_32favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/765_16favicon.ico">
+  <link rel="mask-icon" href="/images/765-logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"doublejia.site","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="SonarQube一个基本的使用说明吧，后续会补充详细的安装部署以及相关工具集成方案。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码扫描(二)-SonarQube简介">
+<meta property="og:url" content="https://doublejia.site/2021/05/31/SonarQube/%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F(%E4%BA%8C)-SonarQube%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:site_name" content="765DevOps">
+<meta property="og:description" content="SonarQube一个基本的使用说明吧，后续会补充详细的安装部署以及相关工具集成方案。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://doublejia.site/uploadfile/images/20190926/1569491764371.png">
+<meta property="og:image" content="https://doublejia.site/uploadfile/images/20190926/1569491702682.png">
+<meta property="og:image" content="https://doublejia.site/uploadfile/images/20190926/1569491730831.png">
+<meta property="article:published_time" content="2021-05-31T04:12:57.000Z">
+<meta property="article:modified_time" content="2021-06-16T07:23:44.739Z">
+<meta property="article:author" content="765">
+<meta property="article:tag" content="SonarQube">
+<meta property="article:tag" content="代码扫描">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://doublejia.site/uploadfile/images/20190926/1569491764371.png">
+
+<link rel="canonical" href="https://doublejia.site/2021/05/31/SonarQube/%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F(%E4%BA%8C)-SonarQube%E7%AE%80%E4%BB%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>代码扫描(二)-SonarQube简介 | 765DevOps</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+      <a target="_blank" rel="noopener" href="https://github.com/nengwu765" class="github-corner" aria-label="View source on GitHub">
+      <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+      <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">765DevOps</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Thinking is the problem, Doing is the answer !</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://doublejia.site/2021/05/31/SonarQube/%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F(%E4%BA%8C)-SonarQube%E7%AE%80%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/765-log-s.png">
+      <meta itemprop="name" content="765">
+      <meta itemprop="description" content="本站是个人的DevOps实践成长笔记，中间也会包含个人的一些心得体会。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="765DevOps">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          代码扫描(二)-SonarQube简介
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-31 12:12:57" itemprop="dateCreated datePublished" datetime="2021-05-31T12:12:57+08:00">2021-05-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-16 15:23:44" itemprop="dateModified" datetime="2021-06-16T15:23:44+08:00">2021-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SonarQube/" itemprop="url" rel="index"><span itemprop="name">SonarQube</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>SonarQube一个基本的使用说明吧，后续会补充详细的安装部署以及相关工具集成方案。</p>
+<span id="more"></span>
+<h2 id="一-静态代码分析"><a class="markdownIt-Anchor" href="#一-静态代码分析"></a> 一、静态代码分析</h2>
+<p><strong>Why</strong>：在软件开发过程中，开发团队往往要花费大量的时间和精力发现并修改代码缺陷。而</p>
+<ul>
+<li>发现BUG越晚，修复的成本越大</li>
+<li>缺陷引入的大部分是在编码阶段，但发现更多的是在单元测试、集成测试、功能测试阶段</li>
+<li>30% 至 70% 的代码逻辑设计和编码缺陷是可以通过静态代码分析来发现和修复的</li>
+</ul>
+<p><strong>How</strong>：在编码阶段，可以通过以下手段发现源代码问题，从源头及时规避，保证代码质量</p>
+<ul>
+<li>静态代码扫描工具</li>
+<li>Code Review</li>
+</ul>
+<p><strong>What</strong>：<code>Code Review</code>往往要求大量的时间消耗和相关知识的积累，因此对于软件开发团队来说，使用静态代码分析工具自动化执行代码检查和分析，能够极大地提高软件可靠性并节省软件开发和测试成本。</p>
+<ul>
+<li>帮助程序开发人员自动执行静态代码分析，快速定位代码隐藏错误和缺陷。</li>
+<li>助代码设计人员更专注于分析和解决代码设计缺陷。</li>
+<li>显著减少在代码逐行检查上花费的时间，提高软件可靠性并节省软件开发和测试成本。</li>
+</ul>
+<p>现有主流的静态分析工具</p>
+<ul>
+<li><strong>Checkstyle</strong>：SourceForge 的开源项目，通过检查对代码编码格式，命名约定，Javadoc，类设计等方面进行代码规范和风格的检查，从而有效约束开发人员更好地遵循代码编写规范。</li>
+<li><strong>FindBugs</strong>：由马里兰大学提供的一款开源 Java 静态代码分析工具。FindBugs 通过检查类文件或 JAR 文件，将字节码与一组缺陷模式进行对比从而发现代码缺陷，完成静态代码分析</li>
+<li><strong>PMD</strong>：由 DARPA 在 SourceForge 上发布的开源 Java 代码静态分析工具。PMD 通过其内置的编码规则对 Java 代码进行静态检查，主要包括对潜在的 bug，未使用的代码，重复的代码，循环体创建新对象等问题的检验</li>
+</ul>
+<h1 id="二-sonar简介"><a class="markdownIt-Anchor" href="#二-sonar简介"></a> 二、Sonar简介</h1>
+<ul>
+<li>
+<p>Sonar是一个用于代码质量管理的开源平台，可以从七个维度检测代码质量</p>
+</li>
+<li>
+<p>Sonar可以通过PMD、CheckStyle、Findbugs等代码规则检测工具来检测你的代码，帮助你发现代码的漏洞，Bug，异味等信息。</p>
+</li>
+<li>
+<p>Sonar最大的特点就是插件化，可以根据不同的场景需求进行插件化安装，以Java代码检测为，但同时可以检测Python、C++等多种语言。</p>
+</li>
+<li>
+<p>Sonar客户端可以采用<code>IDE插件</code>、<code>Sonar-Scanner插件</code>、<code>Ant插件</code>和<code>Maven插件</code>等多种方式，并通过各种不同的分析机制对项目源代码进行分析和扫描，并把分析扫描后的结果上传到sonar的数据库，通过sonar web界面对分析结果进行管理</p>
+</li>
+</ul>
+<p><strong>SonarQube的体系架构</strong></p>
+<p><img src="/uploadfile/images/20190926/1569491764371.png" alt></p>
+<h1 id="三-自动化代码扫描流程"><a class="markdownIt-Anchor" href="#三-自动化代码扫描流程"></a> 三、自动化代码扫描流程</h1>
+<h2 id="官方推荐的自动化扫描流程"><a class="markdownIt-Anchor" href="#官方推荐的自动化扫描流程"></a> 官方推荐的自动化扫描流程</h2>
+<p><img src="/uploadfile/images/20190926/1569491702682.png" alt></p>
+<h2 id="中台目前的自动化静态代码扫描流程"><a class="markdownIt-Anchor" href="#中台目前的自动化静态代码扫描流程"></a> 中台目前的自动化静态代码扫描流程</h2>
+<p><img src="/uploadfile/images/20190926/1569491730831.png" alt></p>
+<h1 id="四-在sonarqube上分析管理代码扫描的结果"><a class="markdownIt-Anchor" href="#四-在sonarqube上分析管理代码扫描的结果"></a> 四、在SonarQube上分析管理代码扫描的结果</h1>
+<h2 id="1-配置代码规则插件"><a class="markdownIt-Anchor" href="#1-配置代码规则插件"></a> 1、配置代码规则插件</h2>
+<h2 id="2-管理扫描结果"><a class="markdownIt-Anchor" href="#2-管理扫描结果"></a> 2、管理扫描结果</h2>
+<h2 id="3-质量门禁"><a class="markdownIt-Anchor" href="#3-质量门禁"></a> 3、质量门禁</h2>
+<h1 id="五-sonar体系中的配置参数生效优先级"><a class="markdownIt-Anchor" href="#五-sonar体系中的配置参数生效优先级"></a> 五、Sonar体系中的配置参数生效优先级</h1>
+<ol>
+<li><strong>UI界面中的全局参数配置</strong></li>
+<li><strong>项目UI界面中的参数配置</strong></li>
+<li><strong>项目分析客户端全局配置文件中的参数</strong>
+<ul>
+<li>例如sonar scanner的全局配置文件/opt/sonarscanner/conf/sonar.properties中的参数</li>
+<li>例如sonar scanner Maven插件在settings.xml中配置的参数</li>
+</ul>
+</li>
+<li><strong>项目分析客户端命令行运行时配置的参数，例如sonar-scanner二进制命令行运行时以“-D”开头的配置参数</strong></li>
+</ol>
+<h1 id="六-扫描器sonarscanner"><a class="markdownIt-Anchor" href="#六-扫描器sonarscanner"></a> 六、扫描器SonarScanner</h1>
+<p>当SonarQube服务端搭建配置好了，Sonar提供了各种插件形式的Sonar Scanner扫描器供你选择来扫描你的源代码。</p>
+<ul>
+<li><strong>SonarScanner</strong>：下载二进制客户端进行扫描</li>
+<li><strong>SonarScanner for Maven</strong>：以Maven插件的形式扫描代码</li>
+<li><strong>SonarScanner for Jenkins</strong>：以Jenkins插件的形式配置扫描代码</li>
+<li><strong>SonarScanner for Gradle</strong>：以Gradle插件的形式配置扫描代码</li>
+<li><strong>SonarScanner for Ant</strong>：以Ant插件的形式配置扫描代码</li>
+</ul>
+<h2 id="sonarscanner项目扫描参数"><a class="markdownIt-Anchor" href="#sonarscanner项目扫描参数"></a> SonarScanner项目扫描参数</h2>
+<p><a target="_blank" rel="noopener" href="https://docs.sonarqube.org/latest/analysis/analysis-parameters/">官方文档说明</a></p>
+<h2 id="1-sonarscanner"><a class="markdownIt-Anchor" href="#1-sonarscanner"></a> 1. SonarScanner</h2>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/">https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/</a></p>
+<h3 id="配置文件"><a class="markdownIt-Anchor" href="#配置文件"></a> 配置文件</h3>
+<ul>
+<li>全局配置文件路径：<code>$安装目录/conf/sonar-scanner.properties</code></li>
+<li>项目配置文件路径：<code>$项目根目录/sonar-project.properties</code></li>
+</ul>
+<h3 id="cli命令参数"><a class="markdownIt-Anchor" href="#cli命令参数"></a> CLI命令参数</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ sonar-scanner</span><br><span class="line">usage: sonar-scanner [options]</span><br><span class="line"></span><br><span class="line">参数:</span><br><span class="line"> -D,--define &lt;arg&gt;     Define property</span><br><span class="line"> -h,--help             Display help information</span><br><span class="line"> -v,--version          Display version information</span><br><span class="line"> -X,--debug            Produce execution debug output</span><br><span class="line"> </span><br><span class="line">If you need more debug information you can add one of the following to your command line: -X, --verbose, or -Dsonar.verbose=true.</span><br></pre></td></tr></table></figure>
+<h2 id="2-sonarscanner-for-maven"><a class="markdownIt-Anchor" href="#2-sonarscanner-for-maven"></a> 2. SonarScanner for Maven</h2>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-maven/">https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-maven/</a></p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>从maven-sonar-plugin 3.4.0.905开始，不再支持SonarQube &lt;5.6。如果使用5.6之前的SonarQube实例，则应该使用maven-sonar-plugin 3.3.0.603。</li>
+<li>从maven-sonar-plugin 3.1开始，不再支持Maven ❤️.0。如果在3.0之前使用Maven，你应该使用maven-sonar-plugin 3.0.2。</li>
+</ul>
+<p><strong>全局参数</strong></p>
+<p>详见[SonarQube服务端配置](#1. 配置全局参数)</p>
+<p><strong>配置Maven的setting.xml</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;settings&gt;</span><br><span class="line">  &lt;!-- ....上文省略.... --&gt;</span><br><span class="line">  &lt;pluginGroups&gt;</span><br><span class="line">      &lt;pluginGroup&gt;org.sonarsource.scanner.maven&lt;/pluginGroup&gt;</span><br><span class="line">  &lt;/pluginGroups&gt;</span><br><span class="line">  &lt;profiles&gt;</span><br><span class="line">      &lt;profile&gt;</span><br><span class="line">          &lt;id&gt;sonar&lt;/id&gt;</span><br><span class="line">          &lt;activation&gt;</span><br><span class="line">              &lt;activeByDefault&gt;<span class="literal">true</span>&lt;/activeByDefault&gt;</span><br><span class="line">          &lt;/activation&gt;</span><br><span class="line">          &lt;properties&gt;</span><br><span class="line">              &lt;!-- 配置SonarQube服务端地址 --&gt;</span><br><span class="line">              &lt;sonar.host.url&gt;http://myserver:9000&lt;/sonar.host.url&gt;</span><br><span class="line">              &lt;!-- 配置SonarQube服务端认证Token --&gt;</span><br><span class="line">              &lt;sonar.login&gt;f6eedc3d8bfa850a15f2ffcd&lt;/sonar.login&gt;</span><br><span class="line">          &lt;/properties&gt;</span><br><span class="line">      &lt;/profile&gt;</span><br><span class="line">   &lt;/profiles&gt;</span><br><span class="line">   &lt;!-- ....下文省略.... --&gt;</span><br><span class="line">&lt;/settings&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>在项目pom.xml中配置项目扫描参数</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;project&gt;</span><br><span class="line">....上文省略....</span><br><span class="line"></span><br><span class="line">  &lt;groupId&gt;com.curiosuer&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;springboot2&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;0.0.1&lt;/version&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  &lt;!-- 用于在SonarQube服务端Web UI界面显示的一些链接 --&gt;</span><br><span class="line">    </span><br><span class="line">  &lt;description&gt;用于演示Spring Boot2的一些功能&lt;/description&gt;</span><br><span class="line">  &lt;name&gt;Curiouser-Demo-SpringBoot2&lt;/name&gt;</span><br><span class="line">  &lt;url&gt;http://springboot2-demo.apps.okd311.curiouser.com/swagger-ui.html&lt;/url&gt;</span><br><span class="line">  &lt;scm&gt;</span><br><span class="line">      &lt;url&gt;http://gitlab.apps.okd311.curiouser.com/Demo/springboot2/commit/<span class="variable">$&#123;GIT_COMMIT&#125;</span>&lt;/url&gt;</span><br><span class="line">  &lt;/scm&gt;</span><br><span class="line">  &lt;issueManagement&gt;</span><br><span class="line">      &lt;url&gt;http://gitlab.apps.okd311.curiouser.com/Demo/springboot2/issues&lt;/url&gt;</span><br><span class="line">  &lt;/issueManagement&gt;</span><br><span class="line">  &lt;ciManagement&gt;</span><br><span class="line">      &lt;url&gt;https://jenkins.apps.okd311.curiouser.com/job/Demo-springboot2-Pipeline/<span class="variable">$&#123;BUILD_NUMBER&#125;</span>&lt;/url&gt;</span><br><span class="line">  &lt;/ciManagement&gt;</span><br><span class="line"></span><br><span class="line">  &lt;properties&gt;</span><br><span class="line">        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span><br><span class="line">        &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;</span><br><span class="line">        &lt;java.version&gt;1.8&lt;/java.version&gt;</span><br><span class="line">        &lt;!--  使用配置SonarScanner Maven插件  --&gt;</span><br><span class="line">        &lt;sonar.projectVersion&gt;<span class="variable">$&#123;env.gitlabMergeRequestLastCommit&#125;</span>&lt;/sonar.projectVersion&gt;</span><br><span class="line">        &lt;sonar.gitlab.project_id&gt;1&lt;/sonar.gitlab.project_id&gt;</span><br><span class="line">        &lt;sonar.gitlab.commit_sha&gt;<span class="variable">$&#123;GIT_COMMIT&#125;</span>&lt;/sonar.gitlab.commit_sha&gt;</span><br><span class="line">        &lt;sonar.gitlab.ref_name&gt;<span class="variable">$&#123;GIT_BRANCH&#125;</span>&lt;/sonar.gitlab.ref_name&gt;</span><br><span class="line">        &lt;sonar.java.coveragePlugin&gt;jacoco&lt;/sonar.java.coveragePlugin&gt;</span><br><span class="line">        &lt;sonar.dynamicAnalysis&gt;reuseReports&lt;/sonar.dynamicAnalysis&gt;</span><br><span class="line">        &lt;sonar.projectVersion&gt;<span class="variable">$&#123;GIT_COMMIT&#125;</span>&lt;/sonar.projectVersion&gt;</span><br><span class="line">  &lt;/properties&gt;</span><br><span class="line">....下文省略....</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>执行扫描命令</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn <span class="built_in">test</span> sonar:sonar -Dspring.profiles.active=<span class="built_in">local</span></span><br></pre></td></tr></table></figure>
+<p><strong>默认参数</strong></p>
+<ul>
+<li><code>sonar.projectKey</code> ==&gt; POM中的<code>&lt;groupId&gt;:&lt;artifactId&gt;</code></li>
+<li><code>sonar.projectName</code>  ==&gt; POM中的<code>&lt;name&gt;</code></li>
+<li><code>sonar.projectVersion</code> ==&gt; POM中的<code>&lt;version&gt;</code></li>
+<li><code>sonar.projectDescription</code> ==&gt; POM中的<code>&lt;description&gt;</code></li>
+<li><code>sonar.links.homepage</code> ==&gt; POM中的<code>&lt;url&gt;</code></li>
+<li><code>sonar.links.ci</code> ==&gt; POM中的<code>&lt;ciManagement&gt;&lt;url&gt;</code></li>
+<li><code>sonar.links.issue</code> ==&gt; POM中的<code>&lt;issueManagement&gt;&lt;url&gt;</code></li>
+<li><code>sonar.links.scm</code> ==&gt; POM中的<code>&lt;scm&gt;&lt;url&gt;</code></li>
+</ul>
+<h1 id="附录"><a class="markdownIt-Anchor" href="#附录"></a> 附录</h1>
+<h2 id="1-sonar检查代码质量的七个维度"><a class="markdownIt-Anchor" href="#1-sonar检查代码质量的七个维度"></a> 1、Sonar检查代码质量的七个维度</h2>
+<ul>
+<li>复杂度分布（complexity）：代码复杂度过高将难以理解、难以维护</li>
+<li>重复代码（duplications）：程序中包含大量复制粘度的代码是质量低下的表现</li>
+<li>单元测试（unit tests）：统计并展示单元测试覆盖率</li>
+<li>编码规范（coding rules）：通过Findbugs、PMD、CheckStyle等规范代码编写</li>
+<li>注释（commments）：少了可读性差，多了看起来费劲</li>
+<li>潜在的Bug（potential bugs）：通过Findbugs、PMD、CheckStyle等检测潜在bug</li>
+<li>结构与设计（architecture &amp; design）：依赖i、耦合等</li>
+</ul>
+<h2 id="2-常见检查工具的内置规范"><a class="markdownIt-Anchor" href="#2-常见检查工具的内置规范"></a> 2、常见检查工具的内置规范</h2>
+<p><strong>Checkstyle</strong>：分析源代码文件</p>
+<ul>
+<li>Javadoc 注释：检查类及方法的 Javadoc 注释</li>
+<li>命名约定：检查命名是否符合命名规范</li>
+<li>标题：检查文件是否以某些行开头</li>
+<li>Import 语句：检查 Import 语句是否符合定义规范</li>
+<li>代码块大小，即检查类、方法等代码块的行数</li>
+<li>空白：检查空白符，如 tab，回车符等</li>
+<li>修饰符：修饰符号的检查，如修饰符的定义顺序</li>
+<li>块：检查是否有空块或无效块</li>
+<li>代码问题：检查重复代码，条件判断，魔数等问题</li>
+<li>类设计：检查类的定义是否符合规范，如构造函数的定义等问题</li>
+</ul>
+<p><strong>FindBugs</strong>：分析字节码文件</p>
+<ul>
+<li>Bad practice 坏的实践：常见代码错误，用于静态代码检查时进行缺陷模式匹配</li>
+<li>Correctness 可能导致错误的代码，如空指针引用等</li>
+<li>国际化相关问题：如错误的字符串转换</li>
+<li>可能受到的恶意攻击，如访问权限修饰符的定义等</li>
+<li>多线程的正确性：如多线程编程时常见的同步，线程调度问题。</li>
+<li>运行时性能问题：如由变量定义，方法调用导致的代码低效问题。</li>
+</ul>
+<p><strong>PMD</strong>：：分析源代码文件</p>
+<ul>
+<li>可能的 Bugs：检查潜在代码错误，如空 try/catch/finally/switch 语句</li>
+<li>未使用代码（Dead code）：检查未使用的变量，参数，方法</li>
+<li>复杂的表达式：检查不必要的 if 语句，可被 while 替代的 for 循环</li>
+<li>重复的代码：检查重复的代码</li>
+<li>循环体创建新对象：检查在循环体内实例化新对象</li>
+<li>资源关闭：检查 Connect，Result，Statement 等资源使用之后是否被关闭掉</li>
+</ul>
+<p><strong>Jtest</strong></p>
+<ul>
+<li>可能的错误：如内存破坏、内存泄露、指针错误、库错误、逻辑错误和算法错误等</li>
+<li>未使用代码：检查未使用的变量，参数，方法</li>
+<li>初始化错误：内存分配错、变量初始化错误、变量定义冲突</li>
+<li>命名约定：检查命名是否符合命名规范</li>
+<li>Javadoc 注释：检查类及方法的 Javadoc 注释</li>
+<li>线程和同步：检验多线程编程时常见的同步，线程调度问题</li>
+<li>国际化问题：</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/SonarQube/" rel="tag"><i class="fa fa-tag"></i> SonarQube</a>
+              <a href="/tags/%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F/" rel="tag"><i class="fa fa-tag"></i> 代码扫描</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/27/SonarQube/%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F(%E4%B8%80)-%E5%B7%A5%E5%85%B7%E9%80%89%E5%9E%8B/" rel="prev" title="代码扫描(一)-工具选型">
+      <i class="fa fa-chevron-left"></i> 代码扫描(一)-工具选型
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/31/SonarQube/%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F(%E4%BA%8C)-SonarQube%E5%AE%89%E8%A3%85/" rel="next" title="代码扫描(二)-SonarQube安装">
+      代码扫描(二)-SonarQube安装 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text"> 一、静态代码分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C-sonar%E7%AE%80%E4%BB%8B"><span class="nav-number"></span> <span class="nav-text"> 二、Sonar简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89-%E8%87%AA%E5%8A%A8%E5%8C%96%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F%E6%B5%81%E7%A8%8B"><span class="nav-number"></span> <span class="nav-text"> 三、自动化代码扫描流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E6%8E%A8%E8%8D%90%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%89%AB%E6%8F%8F%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text"> 官方推荐的自动化扫描流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E5%8F%B0%E7%9B%AE%E5%89%8D%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text"> 中台目前的自动化静态代码扫描流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B-%E5%9C%A8sonarqube%E4%B8%8A%E5%88%86%E6%9E%90%E7%AE%A1%E7%90%86%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F%E7%9A%84%E7%BB%93%E6%9E%9C"><span class="nav-number"></span> <span class="nav-text"> 四、在SonarQube上分析管理代码扫描的结果</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%A0%81%E8%A7%84%E5%88%99%E6%8F%92%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text"> 1、配置代码规则插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%AE%A1%E7%90%86%E6%89%AB%E6%8F%8F%E7%BB%93%E6%9E%9C"><span class="nav-number">2.</span> <span class="nav-text"> 2、管理扫描结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%B4%A8%E9%87%8F%E9%97%A8%E7%A6%81"><span class="nav-number">3.</span> <span class="nav-text"> 3、质量门禁</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94-sonar%E4%BD%93%E7%B3%BB%E4%B8%AD%E7%9A%84%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E7%94%9F%E6%95%88%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number"></span> <span class="nav-text"> 五、Sonar体系中的配置参数生效优先级</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AD-%E6%89%AB%E6%8F%8F%E5%99%A8sonarscanner"><span class="nav-number"></span> <span class="nav-text"> 六、扫描器SonarScanner</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sonarscanner%E9%A1%B9%E7%9B%AE%E6%89%AB%E6%8F%8F%E5%8F%82%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text"> SonarScanner项目扫描参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-sonarscanner"><span class="nav-number">2.</span> <span class="nav-text"> 1. SonarScanner</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text"> 配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cli%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0"><span class="nav-number">2.2.</span> <span class="nav-text"> CLI命令参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-sonarscanner-for-maven"><span class="nav-number">3.</span> <span class="nav-text"> 2. SonarScanner for Maven</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number"></span> <span class="nav-text"> 附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-sonar%E6%A3%80%E6%9F%A5%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F%E7%9A%84%E4%B8%83%E4%B8%AA%E7%BB%B4%E5%BA%A6"><span class="nav-number">1.</span> <span class="nav-text"> 1、Sonar检查代码质量的七个维度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%B8%B8%E8%A7%81%E6%A3%80%E6%9F%A5%E5%B7%A5%E5%85%B7%E7%9A%84%E5%86%85%E7%BD%AE%E8%A7%84%E8%8C%83"><span class="nav-number">2.</span> <span class="nav-text"> 2、常见检查工具的内置规范</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="765"
+      src="/images/765-log-s.png">
+  <p class="site-author-name" itemprop="name">765</p>
+  <div class="site-description" itemprop="description">本站是个人的DevOps实践成长笔记，中间也会包含个人的一些心得体会。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">765</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">46k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">42 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '43cff51069589e0c2466',
+      clientSecret: 'f58ea59aa5ee91ed225f56371f535a3e268267be',
+      repo        : 'nengwu765.github.io',
+      owner       : 'nengwu765',
+      admin       : ['nengwu765'],
+      id          : '65f59d86f019e444184a7f7498c537f5',
+        language: '',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

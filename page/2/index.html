@@ -193,6 +193,387 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://doublejia.site/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/765-log-s.png">
+      <meta itemprop="name" content="765">
+      <meta itemprop="description" content="本站是个人的DevOps实践成长笔记，中间也会包含个人的一些心得体会。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="765DevOps">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">JenkinsK8s集群部署AndroidSDK安装</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-10-25 12:12:57" itemprop="dateCreated datePublished" datetime="2019-10-25T12:12:57+08:00">2019-10-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-11 17:20:00" itemprop="dateModified" datetime="2021-06-11T17:20:00+08:00">2021-06-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A7%BB%E5%8A%A8CICD/" itemprop="url" rel="index"><span itemprop="name">移动CICD</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>如过你的Jenkins是部署在K8s集群中的，那需要支持Android打包的情况。Android SDK安装与更新怎么做呢？<br>
+<strong>本文将介绍在<code>K8s集群</code>中如何安装和更新 Android SDK</strong></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://doublejia.site/2019/10/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%89)-%E5%A4%9A%E7%8E%AF%E5%A2%83%E5%90%8C%E5%9F%9F%E5%90%8D%E8%AE%BE%E8%AE%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/765-log-s.png">
+      <meta itemprop="name" content="765">
+      <meta itemprop="description" content="本站是个人的DevOps实践成长笔记，中间也会包含个人的一些心得体会。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="765DevOps">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/10/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%89)-%E5%A4%9A%E7%8E%AF%E5%A2%83%E5%90%8C%E5%9F%9F%E5%90%8D%E8%AE%BE%E8%AE%A1/" class="post-title-link" itemprop="url">禅道持续交付(三)-多环境同域名设计</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-10-25 12:12:57" itemprop="dateCreated datePublished" datetime="2019-10-25T12:12:57+08:00">2019-10-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-16 15:07:09" itemprop="dateModified" datetime="2021-06-16T15:07:09+08:00">2021-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/" itemprop="url" rel="index"><span itemprop="name">持续交付</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在实际需求中，我们遇到了这样一个需求：在<code>研发环境</code>和<code>测试环境</code>使用相同的域名，期望根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理。基于此我们调研最后实现这个需求。方案核心点：OpenResty方案: Nginx+lua + redis 实现根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理，redis用于管理用户Client IP和环境的绑定关系。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/10/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%89)-%E5%A4%9A%E7%8E%AF%E5%A2%83%E5%90%8C%E5%9F%9F%E5%90%8D%E8%AE%BE%E8%AE%A1/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://doublejia.site/2019/09/29/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%8C)-%E7%A0%94%E5%8F%91%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/765-log-s.png">
+      <meta itemprop="name" content="765">
+      <meta itemprop="description" content="本站是个人的DevOps实践成长笔记，中间也会包含个人的一些心得体会。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="765DevOps">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/29/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%8C)-%E7%A0%94%E5%8F%91%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1/" class="post-title-link" itemprop="url">禅道持续交付(二)-研发流水线设计</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-29 12:12:57" itemprop="dateCreated datePublished" datetime="2019-09-29T12:12:57+08:00">2019-09-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-15 18:08:43" itemprop="dateModified" datetime="2021-06-15T18:08:43+08:00">2021-06-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/" itemprop="url" rel="index"><span itemprop="name">持续交付</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>基于禅道设计的研发流水线，实际就是分为了两条流水线：CI和CD，CI流程就是产出最终可交付至线上的版本制品，CD流程就是将CI产出的制品最终交付至线上。在流水线执行过程中，约定了各个版本环境，如：Dev环境、IT环境、ST环境、UAT环境、PVT环境、GVT灰度验证环境、MVT量产环境等。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/09/29/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%BA%8C)-%E7%A0%94%E5%8F%91%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://doublejia.site/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%80)-%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%A1%86%E6%9E%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/765-log-s.png">
+      <meta itemprop="name" content="765">
+      <meta itemprop="description" content="本站是个人的DevOps实践成长笔记，中间也会包含个人的一些心得体会。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="765DevOps">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%80)-%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%A1%86%E6%9E%B6/" class="post-title-link" itemprop="url">禅道持续交付(一)-概述及框架</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-25 12:12:57" itemprop="dateCreated datePublished" datetime="2019-09-25T12:12:57+08:00">2019-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-15 18:08:48" itemprop="dateModified" datetime="2021-06-15T18:08:48+08:00">2021-06-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/" itemprop="url" rel="index"><span itemprop="name">持续交付</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>869</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>我们基于禅道打造了持续交付系统，整合了多个开源系统（包括禅道zentao、jenkins、gitlab、nexus、harbor、ldap、mysql等等），并进行大量的二次开发，将多个系统功能（项目管理、集成管理、代码仓库管理、编译私服，镜像仓库管理、用户认证等）、多个开发环境（开发环境、测试环境、预发布环境、灰度环境、生产环境等），多种发布流程（代码扫描、版本集成、版本发布等）进行统一整合，提供一套高度集成和高度自动化的项目管理+版本集成发布系统。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/09/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%80)-%E6%A6%82%E8%BF%B0%E5%8F%8A%E6%A1%86%E6%9E%B6/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://doublejia.site/2019/09/01/Iflow2345/%E5%BC%80%E5%8F%91%E6%B5%8B%E8%AF%95%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -355,7 +736,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -405,13 +786,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">38k</span>
+    <span title="站点总字数">46k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">35 分钟</span>
+    <span title="站点阅读时长">42 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
