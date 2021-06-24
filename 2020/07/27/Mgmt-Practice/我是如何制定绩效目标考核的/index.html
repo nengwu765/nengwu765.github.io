@@ -20,24 +20,21 @@
     var CONFIG = {"hostname":"doublejia.site","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="如过你的Jenkins是部署在K8s集群中的，那需要支持Android打包的情况。Android SDK安装与更新怎么做呢？ 本文将介绍在K8s集群中如何安装和更新 Android SDK">
+  <meta name="description" content="每个公司到了一定阶段，一定会出现绩效考核，至于为什么会有**”绩效考核“**，大家自己估狗 一下，本初不予置评。但是如何使用好绩效考核，打造一个富有创新活力的团队，我个人有些参考，不对之处，求轻踩……">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JenkinsK8s集群部署AndroidSDK安装">
-<meta property="og:url" content="https://doublejia.site/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:title" content="我是如何制定绩效目标考核的">
+<meta property="og:url" content="https://doublejia.site/2020/07/27/Mgmt-Practice/%E6%88%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%B6%E5%AE%9A%E7%BB%A9%E6%95%88%E7%9B%AE%E6%A0%87%E8%80%83%E6%A0%B8%E7%9A%84/index.html">
 <meta property="og:site_name" content="765DevOps">
-<meta property="og:description" content="如过你的Jenkins是部署在K8s集群中的，那需要支持Android打包的情况。Android SDK安装与更新怎么做呢？ 本文将介绍在K8s集群中如何安装和更新 Android SDK">
+<meta property="og:description" content="每个公司到了一定阶段，一定会出现绩效考核，至于为什么会有**”绩效考核“**，大家自己估狗 一下，本初不予置评。但是如何使用好绩效考核，打造一个富有创新活力的团队，我个人有些参考，不对之处，求轻踩……">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://doublejia.site/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/jenkins%E9%85%8D%E7%BD%AE.png">
-<meta property="article:published_time" content="2019-10-25T04:12:57.000Z">
-<meta property="article:modified_time" content="2021-06-11T09:20:00.302Z">
+<meta property="article:published_time" content="2020-07-27T04:12:57.000Z">
+<meta property="article:modified_time" content="2021-06-24T09:27:19.084Z">
 <meta property="article:author" content="765">
-<meta property="article:tag" content="Jenkins">
-<meta property="article:tag" content="移动CICD">
-<meta property="article:tag" content="CICD">
+<meta property="article:tag" content="绩效">
+<meta property="article:tag" content="考核">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://doublejia.site/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/jenkins%E9%85%8D%E7%BD%AE.png">
 
-<link rel="canonical" href="https://doublejia.site/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/">
+<link rel="canonical" href="https://doublejia.site/2020/07/27/Mgmt-Practice/%E6%88%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%B6%E5%AE%9A%E7%BB%A9%E6%95%88%E7%9B%AE%E6%A0%87%E8%80%83%E6%A0%B8%E7%9A%84/">
 
 
 <script id="page-configurations">
@@ -50,7 +47,7 @@
   };
 </script>
 
-  <title>JenkinsK8s集群部署AndroidSDK安装 | 765DevOps</title>
+  <title>我是如何制定绩效目标考核的 | 765DevOps</title>
   
 
 
@@ -201,7 +198,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://doublejia.site/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/">
+    <link itemprop="mainEntityOfPage" href="https://doublejia.site/2020/07/27/Mgmt-Practice/%E6%88%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%B6%E5%AE%9A%E7%BB%A9%E6%95%88%E7%9B%AE%E6%A0%87%E8%80%83%E6%A0%B8%E7%9A%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/765-log-s.png">
@@ -214,7 +211,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          JenkinsK8s集群部署AndroidSDK安装
+          我是如何制定绩效目标考核的
         </h1>
 
         <div class="post-meta">
@@ -224,14 +221,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-10-25 12:12:57" itemprop="dateCreated datePublished" datetime="2019-10-25T12:12:57+08:00">2019-10-25</time>
+              <time title="创建时间：2020-07-27 12:12:57" itemprop="dateCreated datePublished" datetime="2020-07-27T12:12:57+08:00">2020-07-27</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-11 17:20:00" itemprop="dateModified" datetime="2021-06-11T17:20:00+08:00">2021-06-11</time>
+                <time title="修改时间：2021-06-24 17:27:19" itemprop="dateModified" datetime="2021-06-24T17:27:19+08:00">2021-06-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -239,7 +236,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A7%BB%E5%8A%A8CICD/" itemprop="url" rel="index"><span itemprop="name">移动CICD</span></a>
+                  <a href="/categories/%E7%AE%A1%E7%90%86%E5%AE%9E%E8%B7%B5/" itemprop="url" rel="index"><span itemprop="name">管理实践</span></a>
                 </span>
             </span>
 
@@ -249,7 +246,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.5k</span>
+              <span>2.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -268,56 +265,135 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>如过你的Jenkins是部署在K8s集群中的，那需要支持Android打包的情况。Android SDK安装与更新怎么做呢？<br>
-<strong>本文将介绍在<code>K8s集群</code>中如何安装和更新 Android SDK</strong></p>
+        <p>每个公司到了一定阶段，一定会出现绩效考核，至于为什么会有**”绩效考核“**，大家自己估狗 一下，本初不予置评。但是如何使用好绩效考核，打造一个富有创新活力的团队，我个人有些参考，不对之处，求轻踩……</p>
 <span id="more"></span>
-<h2 id="1.-k8s%E9%9B%86%E7%BE%A4%E4%B8%ADandroid-sdk%E5%AE%89%E8%A3%85%E4%B8%8E%E6%9B%B4%E6%96%B0%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1">1. K8s集群中Android SDK安装与更新方案设计</h2>
-<h3 id="1.1-android-sdk-tools%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C">1.1 Android SDK Tools镜像制作</h3>
+<h2 id="1-%E3%80%81%E7%BB%A9%E6%95%88%E5%88%86%E7%B1%BB">1 、绩效分类</h2>
+<p>将绩效归为三类</p>
 <ul>
-<li>使用Android SDK Tools</li>
+<li>T1：重点工作（也可认为组织目标），这也是公司聘用的核心价值所在，一般比重在80%</li>
+<li>T2：产品改进、代码优化或创新实践，对于负责的业务产品有优化改进提升的，一般比重在10%-15%</li>
+<li>T3：学习提升和技术研究分享，这个可以不设限，任何兴趣学习分享都鼓励，一般比重在5%-10%</li>
 </ul>
-<p>Android在Jenkins中构建打包，只需要命令行工具即可（Command line tools only）。</p>
-<p>只需安装Android SDK Tools，这是 Android SDK 的一个组件。它包含了 Android 的全套开发和调试工具，<a target="_blank" rel="noopener" href="https://developer.android.google.cn/studio">在Android studios首页即可下载（位置：Command line tools only），点击进入</a>。</p>
+<h2 id="2%E3%80%81%E5%85%B7%E4%BD%93%E7%BB%86%E5%88%99">2、具体细则</h2>
+<p><strong>绩效制定细则说明：</strong></p>
 <ul>
-<li>使用<code>sdkmanager</code>进行工具管理</li>
+<li>绩效比重分配：T1月度重点工作（80%） + T2产品改进、代码优化和创新实践(10%) + T3专业技能学习和技术研究分享</li>
+<li>绩效计划拆解上，T1、T2、T3都必需有体现，不能只有月度重点工作 （T1、T2、T3会随工作变化可有调整）</li>
+<li>T1、T2、T3目标 可以 分别含多项，（如：T1重点工作有多项） ，且<strong>目标计划 必须 符合Smart原则，一定是可度量</strong></li>
+<li>“吐槽点”就是优化改进点，主动提出并推进解决落地，为自己加分</li>
+<li>想学而没有时间，那就作为KPI给“安排上”，主动学习，持续改进</li>
+<li>基础起点都是70分，鼓励小伙伴自我加分</li>
 </ul>
-<p>使用 Android 的 <code>sdkmanager</code> 命令行工具进行查看、安装、更新和卸载 Android SDK 的软件包，<a target="_blank" rel="noopener" href="https://developer.android.google.cn/studio/command-line/sdkmanager">sdkmanager工具介绍说明，点击进入</a></p>
-<blockquote>
-<p>注：<code>sdkmanager</code>工具在 Android SDK Tools 软件包（25.2.3 及更高版本）中提供，并位于 android_sdk/tools/bin/ 目录下，无需独立安装。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// Android SDK Tools Dockerfile</span><br><span class="line">FROM harbor.demo.com/base/jre_centos:8u202_7.8</span><br><span class="line">USER root</span><br><span class="line"></span><br><span class="line">ENV SDK_TOOLS_URL=&quot;https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip&quot; \</span><br><span class="line">    ANDROID_HOME=&quot;/opt/app/android-sdk&quot;</span><br><span class="line"></span><br><span class="line">RUN yum install -y zip unzip</span><br><span class="line">RUN mkdir -p &quot;$ANDROID_HOME&quot; .android \</span><br><span class="line">    &amp;&amp; cd &quot;$ANDROID_HOME&quot; \</span><br><span class="line">    &amp;&amp; curl -o sdk-tools.zip $SDK_TOOLS_URL \</span><br><span class="line">    &amp;&amp; unzip sdk-tools.zip \</span><br><span class="line">    &amp;&amp; rm sdk-tools.zip</span><br><span class="line">RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses \</span><br><span class="line">    &amp;&amp; $ANDROID_HOME/tools/bin/sdkmanager --update</span><br><span class="line"></span><br><span class="line">#RUN $ANDROID_HOME/tools/bin/sdkmanager --install &quot;build-tools;29.0.1&quot; &quot;platforms;android-29&quot;</span><br><span class="line"></span><br><span class="line">CMD [&quot;/bin/bash&quot;]</span><br></pre></td></tr></table></figure>
-<h3 id="1.2-%E5%B0%86android-sdk%E4%BD%9C%E4%B8%BApvc%E6%8C%82%E8%BD%BD%E5%87%BA%E6%9D%A5">1.2 将Android sdk作为PVC挂载出来</h3>
+<p><strong>绩效回顾细则：</strong></p>
 <ul>
-<li>
-<p>k8s中申请50G的pvc挂载点</p>
-</li>
-<li>
-<p>Android SDK Tools镜像挂载PVC</p>
-</li>
+<li>计划每项 基础分值：100 * 所占比率% * 70% = 基础分值，如：示例第一项基础分值 100 * 40% * 70% = 28 分</li>
+<li>每项的加减分项 必须 明确写明，如：提前 XX 天完成 XX 任务 +1分</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 安装Android sdk工具</span><br><span class="line">sdkmanager --install XXX</span><br></pre></td></tr></table></figure>
-<h3 id="1.3-android-sdk%E6%9B%B4%E6%96%B0">1.3 Android SDK更新</h3>
+<p><strong>绩效考核细则：</strong></p>
 <ul>
-<li>使用cronjob重新发布一次即可</li>
+<li>必须包含每月的好的和待改进</li>
+<li>考分细化分数加减项 必须 明确 说明</li>
 </ul>
-<p><strong><code>Cronjob更新稳定性不是很好，如果没有成功安装SDK工具，则可进入容器中，直接执行sdkmanager更新命令（cluster: cluster_pro 内网正式, namespace：jenkins，pod：androidsdk-xxxxx）</code></strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// cronjob的部署示例：</span><br><span class="line">jobs:</span><br><span class="line">- name: androidsdk-job</span><br><span class="line">  # job运行环境集群，和 global.env 的值对应</span><br><span class="line">  runEnv:</span><br><span class="line">  - dev</span><br><span class="line">  - test</span><br><span class="line">  - pdt</span><br><span class="line">  image:</span><br><span class="line">     repository: harbor.demo.com/cicd/android-sdk-tools</span><br><span class="line">     tag: v0.0.1</span><br><span class="line">     pullPolicy: Always</span><br><span class="line">  command:</span><br><span class="line">  - &quot;/opt/app/android-sdk-v/tools/bin/sdkmanager&quot;</span><br><span class="line">  - &quot;--install&quot;</span><br><span class="line">  args:</span><br><span class="line">#### ./sdkmanager --list sdk包 ####</span><br><span class="line">#  - &quot;build-tools;19.1.0&quot;</span><br><span class="line">#  - &quot;build-tools;20.0.0&quot;</span><br><span class="line">#  - &quot;build-tools;21.1.2&quot;</span><br><span class="line">#  - &quot;build-tools;22.0.1&quot;</span><br><span class="line">#  - &quot;build-tools;23.0.1&quot;</span><br><span class="line">#  - &quot;build-tools;23.0.2&quot;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<h3 id="1.4-k8s%E9%9B%86%E7%BE%A4%E4%B8%ADandroid-sdk%E5%AE%89%E8%A3%85%E4%B8%8E%E6%9B%B4%E6%96%B0">1.4 K8s集群中Android SDK安装与更新</h3>
-<ul>
-<li>使用Helm进行部署和更新，此处我们使用的是Helm方式部署的（有关Helm的部署，将后续分享……）</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// TODO chart部署仓库</span><br></pre></td></tr></table></figure>
-<h2 id="2-jenkins-slave%E8%8A%82%E7%82%B9%E4%BD%BF%E7%94%A8android-sdk%E5%B7%A5%E5%85%B7">2 Jenkins slave节点使用Android SDK工具</h2>
-<ul>
-<li>配置Jenkins slave节点</li>
-</ul>
-<p>添加一个环境变量和挂载卷</p>
-<p><img src="/2019/10/25/Mobile-CICD/JenkinsK8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2AndroidSDK%E5%AE%89%E8%A3%85/jenkins%E9%85%8D%E7%BD%AE.png" alt="Jenkins配置"></p>
-<ul>
-<li>Jenkinsfile中使用</li>
-</ul>
-<p>直接使用对应Jenkins slave节点，执行gradle命令即可。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">    // 全局执行代理</span><br><span class="line">    agent &#123;</span><br><span class="line">        kubernetes &#123;</span><br><span class="line">            cloud &#x27;kubernetes&#x27;</span><br><span class="line">            label &#x27;label-gradle&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	stages &#123;</span><br><span class="line">        stage (&quot;gradle构建&quot;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                sh &quot;./gradlew clean &quot; +</span><br><span class="line">                        &quot;channelRelease --stacktrace &quot; +</span><br><span class="line">                        &quot;-PBUILD_NUMBER=$&#123;env.BUILD_NUMBER&#125;&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3%E3%80%81%E8%80%83%E6%A0%B8%E7%A4%BA%E4%BE%8B%E8%AF%B4%E6%98%8E">3、考核示例说明</h2>
+<h4 id="**%E2%80%9C%E5%88%86%E2%80%9D%E5%B0%B1%E5%9C%A8%E8%BF%99%E9%87%8C%EF%BC%8C%E5%8F%91%E6%8C%A5%E4%BD%A0%E7%9A%84%E6%89%8D%E5%B9%B2%EF%BC%8C%E5%B0%BD%E6%83%85%E7%9A%84%E7%BB%99-%F0%9F%8F%85%F0%9F%8F%85%F0%9F%8F%85">**“分”就在这里，发挥你的才干，尽情的给 🏅🏅🏅</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">考核大类</th>
+<th style="text-align:left">工作占比</th>
+<th style="text-align:left">可归类工作</th>
+<th>加减分（基础：70%）</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>T1: 月度重点工作推进</strong></td>
+<td style="text-align:left"><strong>80%</strong>（组长占比75%） 月度目标按时按量完成 -50%工作质量（文档、Bug率）- 20%工作认可度 - 10%</td>
+<td style="text-align:left">团队每月重点工作协助SA维护Devops子系统</td>
+<td>加分：<br>- 超额完成（时间提前、效果突破、收益突破等）<br>- 工作质量高，被当作案例表扬<br>- 获得公司表彰或协作部门认可等<br><br>减分：<br>- 工作任务、目标未完成（工作调整除外）<br>- 工作质量差，被打回投诉<br>- 获得公司批评或协作部门批评</td>
+<td style="text-align:left">团队重点工作是承接SA相关系统需求，完成对应的系统的开发，同时需要维护好运维自动化需求的正常工作。<br><strong>注意：应有任务规划，明确任务流程 ”需求确认-方案设计评审-开发-自测-上线验收“</strong>** <br><br>提倡：主动跟进，主动Push，进度及时反馈**</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>T2: 产品改进、代码优化和创新实践</strong></td>
+<td style="text-align:left">**10%**可月初规划已有问题，也可为本月工作产生  <br><br>**此处不设限，可以是任何的改进创新！！！ **</td>
+<td style="text-align:left">平台系统的功能优化改进代码架构优化提效应用工具任何合理问题建议和落地方案</td>
+<td>加分：<br>- 主动认领问题并推进解决<br>- 提出合理的改进意见和想法<br>- 给出解决问题的具体方案和落地计划<br>- 将问题最终解决并落地实施<br>减分：<br>- 敢说、敢干、敢执行……，不然只有基础分啦</td>
+<td style="text-align:left">工作中，发现不合理的地方主动提出，并给出解决方案，能主动推动问题解决<br><strong>平时主动记录合理的优化建议，在每月绩效计划中跟进解决并可主动推进落地</strong><br><br><strong>目标：</strong><font color="red">将 “吐槽” 逐一 KILL 掉！！！`</font></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>T3: 学习提升和技术研究分享</strong></td>
+<td style="text-align:left"><strong>10%</strong>（组长占比15% ，含5%的团队管理值）  <br><br><strong>此处不设限，可以是任何的学习分享！！！</strong></td>
+<td style="text-align:left">技术学习业务学习培训分享文档分享</td>
+<td>加分：<br>- 持续改进（技能、知识、个人提升、团队协作等等）<br>- 主动分享，内容有质量、有受众<br>- 竞品调研分析（找思路、寻改进、<strong>做一个具有产品思维的码农</strong>!）<br>- 完善产品体系文档<br><br>减分：<br>- 无持续改进，尤其是绩效面谈说的重点问题，无改进</td>
+<td style="text-align:left">1. 专业技能提升，如学习新的技术（python、go、前端等）<br>2. 个人或团队持续改进的学习，任何学习应用有实际的目标结果<br>3. 工作、学习、生活任何有意义的都可积极分享，记住：<strong>教是最好的学  <br><br>如何木有，那就读一本书吧还好😃</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="%E7%A4%BA%E4%BE%8B%EF%BC%9A">示例：</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">序号</th>
+<th style="text-align:left">工作目标</th>
+<th style="text-align:left">权重</th>
+<th style="text-align:left">工作计划</th>
+<th style="text-align:left">得分</th>
+<th style="text-align:left">备注【示例】</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">序号</td>
+<td style="text-align:left">工作目标</td>
+<td style="text-align:left">权重</td>
+<td style="text-align:left">工作计划</td>
+<td style="text-align:left">得分</td>
+<td style="text-align:left">备注【示例】</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">T1：部署平台交付使用</td>
+<td style="text-align:left">40%</td>
+<td style="text-align:left">第一周：完成方案设计和评审并制定开发计划排期 第三周：通过SA验收，按计划完成功能的上线部署 第四周：完成原容器化项目（PHP、JAVA、前端）分别完成2个全流程接入 第四周：接入3个传统发布项目正常运行</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">提前 XX 天完成 XX 任务 +1分</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">T1：资产平台推动落地</td>
+<td style="text-align:left">20%</td>
+<td style="text-align:left">第一周：全部资产录入完毕，数据准确可靠 第二周：完成业务拓扑对接网格，业务拓扑资产数提供业务方使用 第四周：完成部门内部常用功能使用总结 7/31前：SA及业务方使用问题响应小于1H，重大或阻塞问题当天修复并上线</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">软件交付bug率低，质量受表扬 +1分</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">T1：DB平台推动落地使用</td>
+<td style="text-align:left">20%</td>
+<td style="text-align:left">第一周：完成DB平台线下环境部署和SA需求梳理 第二周：完成DB平台的（6/30）反馈的5个问题修复 第四周：完成部门内部常用功能使用总结 7/31前：SA及业务方使用问题响应小于1H，重大或阻塞问题当天修复并上线</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">获得公司表彰或协作部门认可 + 2分</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">T2：团队协作方式改进，提升团队成员工作的主动性，明确运维系统主要跟进负责人</td>
+<td style="text-align:left">10%</td>
+<td style="text-align:left">7/3前：完成运维开发团队的绩效考核标准制定 7/6前：确定部署、资产、DB平台唯一落地跟进负责人 7/31前：部署、资产、DB平台所有工作计划推进正常，月度目标按时按量达成</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">T2改进目标顺利完成，各系统月度目标顺利达成，并且部署平台超额对接了外部项目 +2分</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">T3：承接CMDB后端需求开发</td>
+<td style="text-align:left">10%</td>
+<td style="text-align:left">7/8前：了解CMDB体系，并完成本地系统的搭建运行 7/27前：完成《Go语言实战》书本学习，可完成基本Go语言开发 7/28前：按要求完成两个CMDB的后端需求任务的开发并上线</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">T3完成了四个CMDB后端需求开发上线 +1分</td>
+</tr>
+</tbody>
+</table>
 
     </div>
 
@@ -328,9 +404,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/Jenkins/" rel="tag"><i class="fa fa-tag"></i> Jenkins</a>
-              <a href="/tags/%E7%A7%BB%E5%8A%A8CICD/" rel="tag"><i class="fa fa-tag"></i> 移动CICD</a>
-              <a href="/tags/CICD/" rel="tag"><i class="fa fa-tag"></i> CICD</a>
+              <a href="/tags/%E7%BB%A9%E6%95%88/" rel="tag"><i class="fa fa-tag"></i> 绩效</a>
+              <a href="/tags/%E8%80%83%E6%A0%B8/" rel="tag"><i class="fa fa-tag"></i> 考核</a>
           </div>
 
         
@@ -339,12 +414,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/10/25/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%89)-%E5%A4%9A%E7%8E%AF%E5%A2%83%E5%90%8C%E5%9F%9F%E5%90%8D%E8%AE%BE%E8%AE%A1/" rel="prev" title="禅道持续交付(三)-多环境同域名设计">
-      <i class="fa fa-chevron-left"></i> 禅道持续交付(三)-多环境同域名设计
+    <a href="/2020/06/27/Mgmt-Practice/OKR%E5%AE%9E%E8%B7%B5-%E5%88%9D%E9%98%B6/" rel="prev" title="OKR实践-初阶">
+      <i class="fa fa-chevron-left"></i> OKR实践-初阶
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/10/26/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E5%9B%9B)-%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B%E6%A8%A1%E5%9E%8B/" rel="next" title="禅道持续交付(四)-使用流程模型">
-      禅道持续交付(四)-使用流程模型 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/05/27/Jenkins/Jenkins%20Pipeline%E8%AF%AD%E6%B3%95%E8%AF%A6%E8%A7%A3/" rel="next" title="Jenkins Pipeline语法详解">
+      Jenkins Pipeline语法详解 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -405,7 +480,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1.-k8s%E9%9B%86%E7%BE%A4%E4%B8%ADandroid-sdk%E5%AE%89%E8%A3%85%E4%B8%8E%E6%9B%B4%E6%96%B0%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">1. K8s集群中Android SDK安装与更新方案设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1.1-android-sdk-tools%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Android SDK Tools镜像制作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1.2-%E5%B0%86android-sdk%E4%BD%9C%E4%B8%BApvc%E6%8C%82%E8%BD%BD%E5%87%BA%E6%9D%A5"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 将Android sdk作为PVC挂载出来</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1.3-android-sdk%E6%9B%B4%E6%96%B0"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 Android SDK更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1.4-k8s%E9%9B%86%E7%BE%A4%E4%B8%ADandroid-sdk%E5%AE%89%E8%A3%85%E4%B8%8E%E6%9B%B4%E6%96%B0"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 K8s集群中Android SDK安装与更新</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-jenkins-slave%E8%8A%82%E7%82%B9%E4%BD%BF%E7%94%A8android-sdk%E5%B7%A5%E5%85%B7"><span class="nav-number">2.</span> <span class="nav-text">2 Jenkins slave节点使用Android SDK工具</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E3%80%81%E7%BB%A9%E6%95%88%E5%88%86%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">1 、绩效分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E5%85%B7%E4%BD%93%E7%BB%86%E5%88%99"><span class="nav-number">2.</span> <span class="nav-text">2、具体细则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E8%80%83%E6%A0%B8%E7%A4%BA%E4%BE%8B%E8%AF%B4%E6%98%8E"><span class="nav-number">3.</span> <span class="nav-text">3、考核示例说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">示例：</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -550,7 +625,7 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
       repo        : 'nengwu765.github.io',
       owner       : 'nengwu765',
       admin       : ['nengwu765'],
-      id          : '7d18d366a3d4f1896a9a400d7c804c13',
+      id          : '41c0e0f3b21e0ed5a05adef34617fcff',
         language: '',
       distractionFreeMode: true
     });
