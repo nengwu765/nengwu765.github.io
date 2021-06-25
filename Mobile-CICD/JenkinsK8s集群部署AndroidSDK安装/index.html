@@ -271,8 +271,8 @@
         <p>如过你的Jenkins是部署在K8s集群中的，那需要支持Android打包的情况。Android SDK安装与更新怎么做呢？<br>
 <strong>本文将介绍在<code>K8s集群</code>中如何安装和更新 Android SDK</strong></p>
 <span id="more"></span>
-<h2 id="1.-k8s%E9%9B%86%E7%BE%A4%E4%B8%ADandroid-sdk%E5%AE%89%E8%A3%85%E4%B8%8E%E6%9B%B4%E6%96%B0%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1">1. K8s集群中Android SDK安装与更新方案设计</h2>
-<h3 id="1.1-android-sdk-tools%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C">1.1 Android SDK Tools镜像制作</h3>
+<h2 id="1-k8s集群中android-sdk安装与更新方案设计"><a class="markdownIt-Anchor" href="#1-k8s集群中android-sdk安装与更新方案设计"></a> 1. K8s集群中Android SDK安装与更新方案设计</h2>
+<h3 id="11-android-sdk-tools镜像制作"><a class="markdownIt-Anchor" href="#11-android-sdk-tools镜像制作"></a> 1.1 Android SDK Tools镜像制作</h3>
 <ul>
 <li>使用Android SDK Tools</li>
 </ul>
@@ -286,7 +286,7 @@
 <p>注：<code>sdkmanager</code>工具在 Android SDK Tools 软件包（25.2.3 及更高版本）中提供，并位于 android_sdk/tools/bin/ 目录下，无需独立安装。</p>
 </blockquote>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// Android SDK Tools Dockerfile</span><br><span class="line">FROM harbor.demo.com/base/jre_centos:8u202_7.8</span><br><span class="line">USER root</span><br><span class="line"></span><br><span class="line">ENV SDK_TOOLS_URL=&quot;https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip&quot; \</span><br><span class="line">    ANDROID_HOME=&quot;/opt/app/android-sdk&quot;</span><br><span class="line"></span><br><span class="line">RUN yum install -y zip unzip</span><br><span class="line">RUN mkdir -p &quot;$ANDROID_HOME&quot; .android \</span><br><span class="line">    &amp;&amp; cd &quot;$ANDROID_HOME&quot; \</span><br><span class="line">    &amp;&amp; curl -o sdk-tools.zip $SDK_TOOLS_URL \</span><br><span class="line">    &amp;&amp; unzip sdk-tools.zip \</span><br><span class="line">    &amp;&amp; rm sdk-tools.zip</span><br><span class="line">RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses \</span><br><span class="line">    &amp;&amp; $ANDROID_HOME/tools/bin/sdkmanager --update</span><br><span class="line"></span><br><span class="line">#RUN $ANDROID_HOME/tools/bin/sdkmanager --install &quot;build-tools;29.0.1&quot; &quot;platforms;android-29&quot;</span><br><span class="line"></span><br><span class="line">CMD [&quot;/bin/bash&quot;]</span><br></pre></td></tr></table></figure>
-<h3 id="1.2-%E5%B0%86android-sdk%E4%BD%9C%E4%B8%BApvc%E6%8C%82%E8%BD%BD%E5%87%BA%E6%9D%A5">1.2 将Android sdk作为PVC挂载出来</h3>
+<h3 id="12-将android-sdk作为pvc挂载出来"><a class="markdownIt-Anchor" href="#12-将android-sdk作为pvc挂载出来"></a> 1.2 将Android sdk作为PVC挂载出来</h3>
 <ul>
 <li>
 <p>k8s中申请50G的pvc挂载点</p>
@@ -296,18 +296,18 @@
 </li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 安装Android sdk工具</span><br><span class="line">sdkmanager --install XXX</span><br></pre></td></tr></table></figure>
-<h3 id="1.3-android-sdk%E6%9B%B4%E6%96%B0">1.3 Android SDK更新</h3>
+<h3 id="13-android-sdk更新"><a class="markdownIt-Anchor" href="#13-android-sdk更新"></a> 1.3 Android SDK更新</h3>
 <ul>
 <li>使用cronjob重新发布一次即可</li>
 </ul>
 <p><strong><code>Cronjob更新稳定性不是很好，如果没有成功安装SDK工具，则可进入容器中，直接执行sdkmanager更新命令（cluster: cluster_pro 内网正式, namespace：jenkins，pod：androidsdk-xxxxx）</code></strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// cronjob的部署示例：</span><br><span class="line">jobs:</span><br><span class="line">- name: androidsdk-job</span><br><span class="line">  # job运行环境集群，和 global.env 的值对应</span><br><span class="line">  runEnv:</span><br><span class="line">  - dev</span><br><span class="line">  - test</span><br><span class="line">  - pdt</span><br><span class="line">  image:</span><br><span class="line">     repository: harbor.demo.com/cicd/android-sdk-tools</span><br><span class="line">     tag: v0.0.1</span><br><span class="line">     pullPolicy: Always</span><br><span class="line">  command:</span><br><span class="line">  - &quot;/opt/app/android-sdk-v/tools/bin/sdkmanager&quot;</span><br><span class="line">  - &quot;--install&quot;</span><br><span class="line">  args:</span><br><span class="line">#### ./sdkmanager --list sdk包 ####</span><br><span class="line">#  - &quot;build-tools;19.1.0&quot;</span><br><span class="line">#  - &quot;build-tools;20.0.0&quot;</span><br><span class="line">#  - &quot;build-tools;21.1.2&quot;</span><br><span class="line">#  - &quot;build-tools;22.0.1&quot;</span><br><span class="line">#  - &quot;build-tools;23.0.1&quot;</span><br><span class="line">#  - &quot;build-tools;23.0.2&quot;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<h3 id="1.4-k8s%E9%9B%86%E7%BE%A4%E4%B8%ADandroid-sdk%E5%AE%89%E8%A3%85%E4%B8%8E%E6%9B%B4%E6%96%B0">1.4 K8s集群中Android SDK安装与更新</h3>
+<h3 id="14-k8s集群中android-sdk安装与更新"><a class="markdownIt-Anchor" href="#14-k8s集群中android-sdk安装与更新"></a> 1.4 K8s集群中Android SDK安装与更新</h3>
 <ul>
 <li>使用Helm进行部署和更新，此处我们使用的是Helm方式部署的（有关Helm的部署，将后续分享……）</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// TODO chart部署仓库</span><br></pre></td></tr></table></figure>
-<h2 id="2-jenkins-slave%E8%8A%82%E7%82%B9%E4%BD%BF%E7%94%A8android-sdk%E5%B7%A5%E5%85%B7">2 Jenkins slave节点使用Android SDK工具</h2>
+<h2 id="2-jenkins-slave节点使用android-sdk工具"><a class="markdownIt-Anchor" href="#2-jenkins-slave节点使用android-sdk工具"></a> 2 Jenkins slave节点使用Android SDK工具</h2>
 <ul>
 <li>配置Jenkins slave节点</li>
 </ul>
@@ -405,7 +405,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1.-k8s%E9%9B%86%E7%BE%A4%E4%B8%ADandroid-sdk%E5%AE%89%E8%A3%85%E4%B8%8E%E6%9B%B4%E6%96%B0%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">1. K8s集群中Android SDK安装与更新方案设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1.1-android-sdk-tools%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Android SDK Tools镜像制作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1.2-%E5%B0%86android-sdk%E4%BD%9C%E4%B8%BApvc%E6%8C%82%E8%BD%BD%E5%87%BA%E6%9D%A5"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 将Android sdk作为PVC挂载出来</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1.3-android-sdk%E6%9B%B4%E6%96%B0"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 Android SDK更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1.4-k8s%E9%9B%86%E7%BE%A4%E4%B8%ADandroid-sdk%E5%AE%89%E8%A3%85%E4%B8%8E%E6%9B%B4%E6%96%B0"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 K8s集群中Android SDK安装与更新</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-jenkins-slave%E8%8A%82%E7%82%B9%E4%BD%BF%E7%94%A8android-sdk%E5%B7%A5%E5%85%B7"><span class="nav-number">2.</span> <span class="nav-text">2 Jenkins slave节点使用Android SDK工具</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-k8s%E9%9B%86%E7%BE%A4%E4%B8%ADandroid-sdk%E5%AE%89%E8%A3%85%E4%B8%8E%E6%9B%B4%E6%96%B0%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text"> 1. K8s集群中Android SDK安装与更新方案设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-android-sdk-tools%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C"><span class="nav-number">1.1.</span> <span class="nav-text"> 1.1 Android SDK Tools镜像制作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-%E5%B0%86android-sdk%E4%BD%9C%E4%B8%BApvc%E6%8C%82%E8%BD%BD%E5%87%BA%E6%9D%A5"><span class="nav-number">1.2.</span> <span class="nav-text"> 1.2 将Android sdk作为PVC挂载出来</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-android-sdk%E6%9B%B4%E6%96%B0"><span class="nav-number">1.3.</span> <span class="nav-text"> 1.3 Android SDK更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-k8s%E9%9B%86%E7%BE%A4%E4%B8%ADandroid-sdk%E5%AE%89%E8%A3%85%E4%B8%8E%E6%9B%B4%E6%96%B0"><span class="nav-number">1.4.</span> <span class="nav-text"> 1.4 K8s集群中Android SDK安装与更新</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-jenkins-slave%E8%8A%82%E7%82%B9%E4%BD%BF%E7%94%A8android-sdk%E5%B7%A5%E5%85%B7"><span class="nav-number">2.</span> <span class="nav-text"> 2 Jenkins slave节点使用Android SDK工具</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -514,6 +514,31 @@
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
 
 
 

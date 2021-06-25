@@ -275,8 +275,8 @@
         <p>我们其实有很多移动端的产品，所以在做完web端容器相关持续交付后，我们开始关注移动端相关的应用场景，这里我们重点切入的移动安卓打包及相关打渠道包和最终的市场投放环节，这里也和大家做个简单的分享。</p>
 <p>在移动端母包构建和渠道打包上线后，给业务提效十分明显，尤其是渠道打包，基本能节省30-40%的时间，且自动化不易出错。</p>
 <span id="more"></span>
-<h2 id="1%E3%80%81%E7%A7%BB%E5%8A%A8%E7%AB%AFcicd%E8%AE%BE%E8%AE%A1">1、移动端CICD设计</h2>
-<h3 id="1.1%E3%80%81%E5%8E%9F%E6%B5%81%E7%A8%8B%E8%B0%83%E7%A0%94">1.1、原流程调研</h3>
+<h2 id="1-移动端cicd设计"><a class="markdownIt-Anchor" href="#1-移动端cicd设计"></a> 1、移动端CICD设计</h2>
+<h3 id="11-原流程调研"><a class="markdownIt-Anchor" href="#11-原流程调研"></a> 1.1、原流程调研</h3>
 <p>其实持续交付的核心就是建立一个可靠的交付流水线，将软件交付整个周期进行串联起来，通过这条流水线，将交付过程标准化、自动化、可视化，同时实现关键流程和节点管控。基于此，我们分析目前移动端整体现状或者工作流程，</p>
 <ul>
 <li>项目管理使用禅道</li>
@@ -285,17 +285,17 @@
 <li>包管理暂时是Jenkins打包后通过下载手动传送，或者上传至禅道附件保存</li>
 <li>渠道通过平台打包，手动下载、手动重命名、手动FTP投放、手动邮件通知等</li>
 </ul>
-<h3 id="1.2%E3%80%81%E6%96%B0%E6%B5%81%E7%A8%8B%E8%AE%BE%E8%AE%A1">1.2、新流程设计</h3>
+<h3 id="12-新流程设计"><a class="markdownIt-Anchor" href="#12-新流程设计"></a> 1.2、新流程设计</h3>
 <p>针对原有流程，项目/需求管理还是使用禅道原有功能，将版本母包的功能集成到禅道的版本中，同时禅道支持渠道打包和市场投放功能。</p>
 <p><img src="/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E5%85%AD)-%E7%A7%BB%E5%8A%A8%E7%AB%AFCICD/%E6%96%B0%E6%B5%81%E7%A8%8B-new.jpg" alt></p>
-<h4 id="%E7%89%88%E6%9C%AC%E6%AF%8D%E5%8C%85">版本母包</h4>
+<h4 id="版本母包"><a class="markdownIt-Anchor" href="#版本母包"></a> 版本母包</h4>
 <ul>
-<li>版本母包管理（支持自测--&gt;系统测试--&gt;母包同步等）</li>
+<li>版本母包管理（支持自测–&gt;系统测试–&gt;母包同步等）</li>
 <li>统一母包构建入口，支持定制化打包参数设置</li>
 <li>构建构成可视化</li>
 </ul>
 <p><img src="/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E5%85%AD)-%E7%A7%BB%E5%8A%A8%E7%AB%AFCICD/%E7%89%88%E6%9C%AC%E6%9E%84%E5%BB%BA-new.jpg" alt></p>
-<h4 id="%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85">渠道打包</h4>
+<h4 id="渠道打包"><a class="markdownIt-Anchor" href="#渠道打包"></a> 渠道打包</h4>
 <ul>
 <li>批量打包管理（批量下载、自动重命名、二维码下载等）</li>
 <li>渠道包自动化抽签</li>
@@ -303,10 +303,10 @@
 <li>渠道打包投放过程可视化</li>
 </ul>
 <p><img src="/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E5%85%AD)-%E7%A7%BB%E5%8A%A8%E7%AB%AFCICD/%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85-new.jpg" alt></p>
-<h2 id="2%E3%80%81%E5%A4%9Aapp%E7%BB%9F%E4%B8%80%E9%A1%B5%E9%9D%A2%E5%AE%9E%E7%8E%B0%E5%AE%9A%E5%88%B6%E5%8C%96%E6%9E%84%E5%BB%BA%E6%AF%8D%E5%8C%85">2、多APP统一页面实现定制化构建母包</h2>
-<h3 id="2.1%E3%80%81%E6%AF%8D%E5%8C%85%E6%9E%84%E5%BB%BA%E9%A1%B5%E9%9D%A2">2.1、母包构建页面</h3>
+<h2 id="2-多app统一页面实现定制化构建母包"><a class="markdownIt-Anchor" href="#2-多app统一页面实现定制化构建母包"></a> 2、多APP统一页面实现定制化构建母包</h2>
+<h3 id="21-母包构建页面"><a class="markdownIt-Anchor" href="#21-母包构建页面"></a> 2.1、母包构建页面</h3>
 <p><img src="/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E5%85%AD)-%E7%A7%BB%E5%8A%A8%E7%AB%AFCICD/%E5%AE%9A%E5%88%B6%E5%8C%96%E6%89%93%E5%8C%85-new.jpg" alt></p>
-<h3 id="2.2%E3%80%81%E5%AE%9A%E5%88%B6%E5%8F%82%E6%95%B0%E8%AE%BE%E8%AE%A1">2.2、定制参数设计</h3>
+<h3 id="22-定制参数设计"><a class="markdownIt-Anchor" href="#22-定制参数设计"></a> 2.2、定制参数设计</h3>
 <p><strong>通过业务项目代码的仓库的gradle.properties文件添加约定注解实现</strong></p>
 <ul>
 <li>普通注解示例</li>
@@ -317,8 +317,8 @@
 </ul>
 <p><strong><code>安卓项目有附件资源依赖，附件资源以注解形式给出，通过定制参数传入</code></strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#@name:桌面Icon压缩包@show:true@enableModify:true@type:uploadfile@fileType:zip@description:桌面Icon，必须是压缩包，目录结构符合要求，文件名为 ICON_RES.zip</span><br><span class="line">ICON_RES=</span><br><span class="line"></span><br><span class="line">#@name:启动页图片压缩包@show:true@enableModify:true@type:uploadfile@fileType:zip@description:启动页图片，必须是压缩包，目录结构符合要求，文件名为 SPLASH_RES.zip</span><br><span class="line">SPLASH_RES=</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="2.3%E3%80%81%E6%9E%84%E5%BB%BA%E6%89%93%E5%8C%85jenkins-job%E8%AE%BE%E8%AE%A1">2.3、构建打包Jenkins Job设计</h3>
-<h4 id="%E5%85%A5%E5%8F%82%E8%AF%B4%E6%98%8E">入参说明</h4>
+<h3 id="23-构建打包jenkins-job设计"><a class="markdownIt-Anchor" href="#23-构建打包jenkins-job设计"></a> 2.3、构建打包Jenkins Job设计</h3>
+<h4 id="入参说明"><a class="markdownIt-Anchor" href="#入参说明"></a> 入参说明</h4>
 <ul>
 <li>Jenkins主要入参</li>
 </ul>
@@ -533,7 +533,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E7%A7%BB%E5%8A%A8%E7%AB%AFcicd%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">1、移动端CICD设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1.1%E3%80%81%E5%8E%9F%E6%B5%81%E7%A8%8B%E8%B0%83%E7%A0%94"><span class="nav-number">1.1.</span> <span class="nav-text">1.1、原流程调研</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1.2%E3%80%81%E6%96%B0%E6%B5%81%E7%A8%8B%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.2.</span> <span class="nav-text">1.2、新流程设计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E5%A4%9Aapp%E7%BB%9F%E4%B8%80%E9%A1%B5%E9%9D%A2%E5%AE%9E%E7%8E%B0%E5%AE%9A%E5%88%B6%E5%8C%96%E6%9E%84%E5%BB%BA%E6%AF%8D%E5%8C%85"><span class="nav-number">2.</span> <span class="nav-text">2、多APP统一页面实现定制化构建母包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2.1%E3%80%81%E6%AF%8D%E5%8C%85%E6%9E%84%E5%BB%BA%E9%A1%B5%E9%9D%A2"><span class="nav-number">2.1.</span> <span class="nav-text">2.1、母包构建页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2.2%E3%80%81%E5%AE%9A%E5%88%B6%E5%8F%82%E6%95%B0%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.2.</span> <span class="nav-text">2.2、定制参数设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2.3%E3%80%81%E6%9E%84%E5%BB%BA%E6%89%93%E5%8C%85jenkins-job%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.3.</span> <span class="nav-text">2.3、构建打包Jenkins Job设计</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%A7%BB%E5%8A%A8%E7%AB%AFcicd%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text"> 1、移动端CICD设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-%E5%8E%9F%E6%B5%81%E7%A8%8B%E8%B0%83%E7%A0%94"><span class="nav-number">1.1.</span> <span class="nav-text"> 1.1、原流程调研</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-%E6%96%B0%E6%B5%81%E7%A8%8B%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.2.</span> <span class="nav-text"> 1.2、新流程设计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%A4%9Aapp%E7%BB%9F%E4%B8%80%E9%A1%B5%E9%9D%A2%E5%AE%9E%E7%8E%B0%E5%AE%9A%E5%88%B6%E5%8C%96%E6%9E%84%E5%BB%BA%E6%AF%8D%E5%8C%85"><span class="nav-number">2.</span> <span class="nav-text"> 2、多APP统一页面实现定制化构建母包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-%E6%AF%8D%E5%8C%85%E6%9E%84%E5%BB%BA%E9%A1%B5%E9%9D%A2"><span class="nav-number">2.1.</span> <span class="nav-text"> 2.1、母包构建页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-%E5%AE%9A%E5%88%B6%E5%8F%82%E6%95%B0%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.2.</span> <span class="nav-text"> 2.2、定制参数设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-%E6%9E%84%E5%BB%BA%E6%89%93%E5%8C%85jenkins-job%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.3.</span> <span class="nav-text"> 2.3、构建打包Jenkins Job设计</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -642,6 +642,31 @@
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
 
 
 
