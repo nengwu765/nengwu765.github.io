@@ -267,7 +267,7 @@
         <p>如果你开始使用Jenkins作为你的CI工具，刚好也在使用K8s集群做CD，那你一定很纠结我的Jenkins到底用什么方式进行部署管理呢？<br>
 这里我将我们遇到的实际经验分享给各位参考，希望能给到你一些帮助吧，😄</p>
 <span id="more"></span>
-<h2 id="1%E3%80%81%E7%BB%93%E8%AE%BA">1、结论</h2>
+<h2 id="1-结论"><a class="markdownIt-Anchor" href="#1-结论"></a> 1、结论</h2>
 <p>不拖沓，直接上结论：</p>
 <p><strong>轻易不要上K8s</strong>，启动速度和Slave镜像管理以及构建缓存等会比较<code>耗精力</code>；在CICD起步，日构建在500次左右，特别是含Android的gradle构建时，建议直接上物理机，绝对<code>真香</code>。</p>
 <blockquote>
@@ -279,10 +279,10 @@
 <li>Web应用构建，约日均构建在400-500次/日</li>
 <li>移动端构建（Android为主），约日均构建在30-50次/日，偶尔会有批量的渠道打包量比较大（渠道量1K+）</li>
 </ul>
-<h2 id="2%E3%80%81k8s%E9%9B%86%E7%BE%A4%E9%87%8C%E7%9A%84jenkins">2、K8s集群里的Jenkins</h2>
-<h3 id="2.1%E3%80%81%E9%80%89%E6%8B%A9%E8%83%8C%E6%99%AF">2.1、选择背景</h3>
+<h2 id="2-k8s集群里的jenkins"><a class="markdownIt-Anchor" href="#2-k8s集群里的jenkins"></a> 2、K8s集群里的Jenkins</h2>
+<h3 id="21-选择背景"><a class="markdownIt-Anchor" href="#21-选择背景"></a> 2.1、选择背景</h3>
 <p>公司开始做中台了，其中包括建设CICD系统，基本是从 O 起步吧，当初直接选型了：java spring微服务 + K8s作为接下来的技术发展方向。作为<code>打辅助</code>的持续交付系统也就那个时候定型的，选型CI工具为Jenkins（当然还有很多的周边的工具链选型），部署原则：<strong>Everything in docker</strong></p>
-<h3 id="2.2%E3%80%81%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98">2.2、遇到问题</h3>
+<h3 id="22-遇到问题"><a class="markdownIt-Anchor" href="#22-遇到问题"></a> 2.2、遇到问题</h3>
 <ul>
 <li>K8s集群稳定性是第一大考验</li>
 <li>动态的Slave启动慢，修改长时间存活，莫名会出现心跳终端，SalvePod假死</li>
@@ -290,14 +290,14 @@
 <li>Slave多了后占用的资源无法想象，最后不得不给Jenkins独立的Node，打上标签区分</li>
 <li>还有就是构建过程，一个字儿：<strong>超级慢</strong>，很大原因是K8s集群的Ceph文件系统</li>
 <li>Slave镜像维护成本也颇高，尤其是需要版本升级的时候</li>
-<li>....</li>
+<li>…</li>
 </ul>
-<h2 id="3%E3%80%81%E7%89%A9%E7%90%86%E6%9C%BA%E9%87%8C%E7%9A%84jenkins">3、物理机里的Jenkins</h2>
-<h3 id="3.1%E3%80%81%E9%80%89%E6%8B%A9%E8%83%8C%E6%99%AF">3.1、选择背景</h3>
+<h2 id="3-物理机里的jenkins"><a class="markdownIt-Anchor" href="#3-物理机里的jenkins"></a> 3、物理机里的Jenkins</h2>
+<h3 id="31-选择背景"><a class="markdownIt-Anchor" href="#31-选择背景"></a> 3.1、选择背景</h3>
 <p>我们重新建设了DevOps平台（定位：一站式研发协同平台），对于原有的功能迁移后，发现对于很多<code>核心、根本</code>问题，治标不治本。新平台也迫切需要出成绩，最终开出了 <code>历史的倒车</code>，我们回到了物理机Jenkins。</p>
-<h3 id="3.2%E3%80%81%E6%95%88%E6%9E%9C">3.2、效果</h3>
+<h3 id="32-效果"><a class="markdownIt-Anchor" href="#32-效果"></a> 3.2、效果</h3>
 <p>一个字：<strong>快</strong>，平均提速达到30%+（其中移动端提速了甚至到了50%），且稳定性更高</p>
-<h3 id="3.3%E3%80%81%E6%88%90%E6%9C%AC%E6%A0%B8%E7%AE%97">3.3、成本核算</h3>
+<h3 id="33-成本核算"><a class="markdownIt-Anchor" href="#33-成本核算"></a> 3.3、成本核算</h3>
 <p>迁移到物理是不是成本很高啊，那可是物理机啊，然并卵……</p>
 <table>
 <thead>
@@ -398,7 +398,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E7%BB%93%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text">1、结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81k8s%E9%9B%86%E7%BE%A4%E9%87%8C%E7%9A%84jenkins"><span class="nav-number">2.</span> <span class="nav-text">2、K8s集群里的Jenkins</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2.1%E3%80%81%E9%80%89%E6%8B%A9%E8%83%8C%E6%99%AF"><span class="nav-number">2.1.</span> <span class="nav-text">2.1、选择背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2.2%E3%80%81%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98"><span class="nav-number">2.2.</span> <span class="nav-text">2.2、遇到问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E7%89%A9%E7%90%86%E6%9C%BA%E9%87%8C%E7%9A%84jenkins"><span class="nav-number">3.</span> <span class="nav-text">3、物理机里的Jenkins</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3.1%E3%80%81%E9%80%89%E6%8B%A9%E8%83%8C%E6%99%AF"><span class="nav-number">3.1.</span> <span class="nav-text">3.1、选择背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3.2%E3%80%81%E6%95%88%E6%9E%9C"><span class="nav-number">3.2.</span> <span class="nav-text">3.2、效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3.3%E3%80%81%E6%88%90%E6%9C%AC%E6%A0%B8%E7%AE%97"><span class="nav-number">3.3.</span> <span class="nav-text">3.3、成本核算</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%BB%93%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text"> 1、结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-k8s%E9%9B%86%E7%BE%A4%E9%87%8C%E7%9A%84jenkins"><span class="nav-number">2.</span> <span class="nav-text"> 2、K8s集群里的Jenkins</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-%E9%80%89%E6%8B%A9%E8%83%8C%E6%99%AF"><span class="nav-number">2.1.</span> <span class="nav-text"> 2.1、选择背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98"><span class="nav-number">2.2.</span> <span class="nav-text"> 2.2、遇到问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%89%A9%E7%90%86%E6%9C%BA%E9%87%8C%E7%9A%84jenkins"><span class="nav-number">3.</span> <span class="nav-text"> 3、物理机里的Jenkins</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-%E9%80%89%E6%8B%A9%E8%83%8C%E6%99%AF"><span class="nav-number">3.1.</span> <span class="nav-text"> 3.1、选择背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-%E6%95%88%E6%9E%9C"><span class="nav-number">3.2.</span> <span class="nav-text"> 3.2、效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-%E6%88%90%E6%9C%AC%E6%A0%B8%E7%AE%97"><span class="nav-number">3.3.</span> <span class="nav-text"> 3.3、成本核算</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -414,7 +414,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -427,7 +427,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -464,13 +464,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">57k</span>
+    <span title="站点总字数">60k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">52 分钟</span>
+    <span title="站点阅读时长">55 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

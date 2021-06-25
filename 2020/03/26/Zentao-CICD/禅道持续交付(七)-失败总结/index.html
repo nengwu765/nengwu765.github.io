@@ -250,7 +250,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>944</span>
+              <span>941</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -271,30 +271,30 @@
       
         <p>哈哈，想不到吧，虽然经过小伙伴的很长时间的努力，我们最终落地的效果是不理想。最终项目被”砍“掉了。不过很值得和大家分享下，感觉这篇应该是这个系列最<code>值钱</code>的一篇啦，不容错过！</p>
 <span id="more"></span>
-<h2 id="1%E3%80%81%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E6%9C%80%E7%BB%88%E7%BB%93%E6%9E%9C">1、持续交付最终结果</h2>
+<h2 id="1-持续交付最终结果"><a class="markdownIt-Anchor" href="#1-持续交付最终结果"></a> 1、持续交付最终结果</h2>
 <p>在完成试点后，整体落地推进整体结果不是很好，总结两句话</p>
 <ul>
 <li>Web端使用体验很操作</li>
 <li>移动端整体尚可</li>
 </ul>
 <p>最终由于**”领导层“**的决定，禅道<code>寿终正寝</code>了 😢😢😢</p>
-<h2 id="2%E3%80%81%E5%A4%B1%E8%B4%A5%E5%8E%9F%E5%9B%A0">2、失败原因</h2>
+<h2 id="2-失败原因"><a class="markdownIt-Anchor" href="#2-失败原因"></a> 2、失败原因</h2>
 <p>其实在禅道命运的变更和我司上层调整是一个重合的时间节点，当初我一度很”郁闷“，想不通这个是一个正确的事儿，K8s也是前沿趋势，我门打造的可是我司第一个统一产研研发大平台……</p>
 <p>但是随着时间推移和经历更多的DevOps的实践，发现禅道的”死亡“一定程度上是必然的，我会逐步给到各位解释哈。</p>
-<h3 id="2.1%E3%80%81%E7%A9%BA%E4%B8%AD%E6%A5%BC%E9%98%81%EF%BC%88%E6%A0%B8%E5%BF%83%E5%8E%9F%E5%9B%A0%EF%BC%89">2.1、空中楼阁（核心原因）</h3>
+<h3 id="21-空中楼阁核心原因"><a class="markdownIt-Anchor" href="#21-空中楼阁核心原因"></a> 2.1、空中楼阁（核心原因）</h3>
 <p>我们打造的持续交付系统可能先对于公司当时的现状来说太”高、大、尚“了，因为技术层面整体 <strong>底层建设不牢</strong></p>
 <ul>
-<li>软件版本和架构未标准化  --  容器化改造能定制化到你怀疑人生</li>
-<li>运维自动化程度低（基本处于脚本时代吧） -- 配置改造、域名标准</li>
-<li>无标准化测试环境 -- 大家各自的测试环境基本各成体系</li>
+<li>软件版本和架构未标准化  –  容器化改造能定制化到你怀疑人生</li>
+<li>运维自动化程度低（基本处于脚本时代吧） – 配置改造、域名标准</li>
+<li>无标准化测试环境 – 大家各自的测试环境基本各成体系</li>
 <li>自身建设的K8s集群先对稳定性不足</li>
 <li>大部分小伙伴其实都没有准备好</li>
 </ul>
 <p>基建其实是一个很庞大的工程，不是一个持续交付系统所能撑起来的，我基于个人的理解把它们理解成一套房子，而持续交付属于Roof一环，如果Foundation和House都没有建设好的化，直接盖”屋顶“，这将是一个很艰难的过程。</p>
 <p><img src="/2020/03/26/Zentao-CICD/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98(%E4%B8%83)-%E5%A4%B1%E8%B4%A5%E6%80%BB%E7%BB%93/%E7%A9%BA%E4%B8%AD%E6%A5%BC%E9%98%81-new.jpg" alt></p>
-<h3 id="2.2%E3%80%81%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B">2.2、技术选型</h3>
+<h3 id="22-技术选型"><a class="markdownIt-Anchor" href="#22-技术选型"></a> 2.2、技术选型</h3>
 <p><strong><code>并不是最新、先进就是合适的</code></strong>，我觉得当时起步选择了Helm并不是一个明知的决定，学习成本太高，专业技术方向人员还Ok，当时需要推向多有业务小伙伴使用，这个成本可想而知，入门成本同时带来的问题就是维护起来也是一个浩大的工程。</p>
-<h3 id="2.3%E3%80%81%E8%87%AA%E8%BA%AB%E6%98%93%E7%94%A8%E6%80%A7">2.3、自身易用性</h3>
+<h3 id="23-自身易用性"><a class="markdownIt-Anchor" href="#23-自身易用性"></a> 2.3、自身易用性</h3>
 <p>我们基于禅道自身Scrum框架，做了很多流程、角色限制，最终的结果感觉就是<strong>作茧自缚</strong>。说实话这个就是机械的贯彻了标准的软件生命周期流程（也可以理解为瀑布式），然而他并不”敏捷“。</p>
 <p>流程过度的自由，会引发不可预知的问题，但流程机械化的强制管控，会引起生产效率的降低以及<code>怨声载道</code>。在流程和效率中间找到一个平衡，或者说DevOps落地的不同阶段我们可以逐步规范，这估计也是 <strong>敏捷思想</strong> 想引导的，可惜的是：<strong>当时的我们并不知道这些（认知局限）</strong></p>
 
@@ -385,7 +385,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E6%9C%80%E7%BB%88%E7%BB%93%E6%9E%9C"><span class="nav-number">1.</span> <span class="nav-text">1、持续交付最终结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E5%A4%B1%E8%B4%A5%E5%8E%9F%E5%9B%A0"><span class="nav-number">2.</span> <span class="nav-text">2、失败原因</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2.1%E3%80%81%E7%A9%BA%E4%B8%AD%E6%A5%BC%E9%98%81%EF%BC%88%E6%A0%B8%E5%BF%83%E5%8E%9F%E5%9B%A0%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">2.1、空中楼阁（核心原因）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2.2%E3%80%81%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">2.2、技术选型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2.3%E3%80%81%E8%87%AA%E8%BA%AB%E6%98%93%E7%94%A8%E6%80%A7"><span class="nav-number">2.3.</span> <span class="nav-text">2.3、自身易用性</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E6%9C%80%E7%BB%88%E7%BB%93%E6%9E%9C"><span class="nav-number">1.</span> <span class="nav-text"> 1、持续交付最终结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%A4%B1%E8%B4%A5%E5%8E%9F%E5%9B%A0"><span class="nav-number">2.</span> <span class="nav-text"> 2、失败原因</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-%E7%A9%BA%E4%B8%AD%E6%A5%BC%E9%98%81%E6%A0%B8%E5%BF%83%E5%8E%9F%E5%9B%A0"><span class="nav-number">2.1.</span> <span class="nav-text"> 2.1、空中楼阁（核心原因）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text"> 2.2、技术选型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-%E8%87%AA%E8%BA%AB%E6%98%93%E7%94%A8%E6%80%A7"><span class="nav-number">2.3.</span> <span class="nav-text"> 2.3、自身易用性</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -401,7 +401,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -414,7 +414,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -451,13 +451,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">57k</span>
+    <span title="站点总字数">60k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">52 分钟</span>
+    <span title="站点阅读时长">55 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
