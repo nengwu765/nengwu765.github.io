@@ -164,6 +164,66 @@
       </tags>
   </entry>
   <entry>
+    <title>Jenkins部署-K8s OR 物理机</title>
+    <url>/jenkins-deploy-select/</url>
+    <content><![CDATA[<p>如果你开始使用Jenkins作为你的CI工具，刚好也在使用K8s集群做CD，那你一定很纠结我的Jenkins到底用什么方式进行部署管理呢？<br>
+这里我将我们遇到的实际经验分享给各位参考，希望能给到你一些帮助吧，😄</p>
+<span id="more"></span>
+<h2 id="1-结论"><a class="markdownIt-Anchor" href="#1-结论"></a> 1、结论</h2>
+<p>不拖沓，直接上结论：</p>
+<p><strong>轻易不要上K8s</strong>，启动速度和Slave镜像管理以及构建缓存等会比较<code>耗精力</code>；在CICD起步，日构建在500次左右，特别是含Android的gradle构建时，建议直接上物理机，绝对<code>真香</code>。</p>
+<blockquote>
+<p>选择适合的，并不是技术领先的，当然能Hold住的大佬，请随意哈😁</p>
+</blockquote>
+<hr>
+<p>备注说明下目前我遇到的构建量级吧，相对大厂是小儿科了点，勿喷哈。</p>
+<ul>
+<li>Web应用构建，约日均构建在400-500次/日</li>
+<li>移动端构建（Android为主），约日均构建在30-50次/日，偶尔会有批量的渠道打包量比较大（渠道量1K+）</li>
+</ul>
+<h2 id="2-k8s集群里的jenkins"><a class="markdownIt-Anchor" href="#2-k8s集群里的jenkins"></a> 2、K8s集群里的Jenkins</h2>
+<h3 id="21-选择背景"><a class="markdownIt-Anchor" href="#21-选择背景"></a> 2.1、选择背景</h3>
+<p>公司开始做中台了，其中包括建设CICD系统，基本是从 O 起步吧，当初直接选型了：java spring微服务 + K8s作为接下来的技术发展方向。作为<code>打辅助</code>的持续交付系统也就那个时候定型的，选型CI工具为Jenkins（当然还有很多的周边的工具链选型），部署原则：<strong>Everything in docker</strong></p>
+<h3 id="22-遇到问题"><a class="markdownIt-Anchor" href="#22-遇到问题"></a> 2.2、遇到问题</h3>
+<ul>
+<li>K8s集群稳定性是第一大考验</li>
+<li>动态的Slave启动慢，修改长时间存活，莫名会出现心跳终端，SalvePod假死</li>
+<li>各Slave节点构建依赖的缓存共享设置，尤其是移动端的Gradle的缓存（谁用谁知道！参考：<a href="https://blog.dreamtobe.cn/lls_ci/">流利说客户端持续交付工程实践</a>……）</li>
+<li>Slave多了后占用的资源无法想象，最后不得不给Jenkins独立的Node，打上标签区分</li>
+<li>还有就是构建过程，一个字儿：<strong>超级慢</strong>，很大原因是K8s集群的Ceph文件系统</li>
+<li>Slave镜像维护成本也颇高，尤其是需要版本升级的时候</li>
+<li>…</li>
+</ul>
+<h2 id="3-物理机里的jenkins"><a class="markdownIt-Anchor" href="#3-物理机里的jenkins"></a> 3、物理机里的Jenkins</h2>
+<h3 id="31-选择背景"><a class="markdownIt-Anchor" href="#31-选择背景"></a> 3.1、选择背景</h3>
+<p>我们重新建设了DevOps平台（定位：一站式研发协同平台），对于原有的功能迁移后，发现对于很多<code>核心、根本</code>问题，治标不治本。新平台也迫切需要出成绩，最终开出了 <code>历史的倒车</code>，我们回到了物理机Jenkins。</p>
+<h3 id="32-效果"><a class="markdownIt-Anchor" href="#32-效果"></a> 3.2、效果</h3>
+<p>一个字：<strong>快</strong>，平均提速达到30%+（其中移动端提速了甚至到了50%），且稳定性更高</p>
+<h3 id="33-成本核算"><a class="markdownIt-Anchor" href="#33-成本核算"></a> 3.3、成本核算</h3>
+<p>迁移到物理是不是成本很高啊，那可是物理机啊，然并卵……</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">迁移前</th>
+<th>迁移后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">K8s独立Node：64c+128G（1），32c+32G（1）</td>
+<td>32c+32G（5）</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>Jenkins</category>
+      </categories>
+      <tags>
+        <tag>Jenkins</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Jenkins共享库使用-初阶</title>
     <url>/jenkins-sharelib-primary/</url>
     <content><![CDATA[<p>在我们实际写Jenkin pipelines脚本中，可能会出现``java.lang.RuntimeException: Method code too large!<code>，这个时候你就要抽象出一些公共的函数类库，</code>避免项目方重复冗余的脚本代码书写`，在此处我也把我经常使用的一些共享函数库（<strong><a href="https://github.com/nengwu765/jenkins-share-library">jenkins-share-library</a></strong>）分享出来，欢迎交流指正哈！</p>
@@ -232,66 +292,6 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">	agent any</span><br><span class="line"></span><br><span class="line">	stages &#123;...&#125;</span><br><span class="line">    </span><br><span class="line">	post &#123;</span><br><span class="line">        always &#123;</span><br><span class="line">            // 回调Api通知对接JOB执行结果</span><br><span class="line">            script &#123;</span><br><span class="line">                if (!binding.variables.containsKey(&quot;ARTIFACTS&quot;)) &#123;</span><br><span class="line">                    ARTIFACTS = [:]</span><br><span class="line">                &#125;</span><br><span class="line">                callBackAction(params.CALLBACK_URLS_JSON, ARTIFACTS)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            echo &quot;I will be executed while failed or succeed&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="5-引用"><a class="markdownIt-Anchor" href="#5-引用"></a> 5 引用</h2>
 <p><a href="https://www.jenkins.io/doc/book/pipeline/shared-libraries/">官方参考，Extending with Shared Libraries</a></p>
-]]></content>
-      <categories>
-        <category>Jenkins</category>
-      </categories>
-      <tags>
-        <tag>Jenkins</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Jenkins部署-K8s OR 物理机</title>
-    <url>/jenkins-deploy-select/</url>
-    <content><![CDATA[<p>如果你开始使用Jenkins作为你的CI工具，刚好也在使用K8s集群做CD，那你一定很纠结我的Jenkins到底用什么方式进行部署管理呢？<br>
-这里我将我们遇到的实际经验分享给各位参考，希望能给到你一些帮助吧，😄</p>
-<span id="more"></span>
-<h2 id="1-结论"><a class="markdownIt-Anchor" href="#1-结论"></a> 1、结论</h2>
-<p>不拖沓，直接上结论：</p>
-<p><strong>轻易不要上K8s</strong>，启动速度和Slave镜像管理以及构建缓存等会比较<code>耗精力</code>；在CICD起步，日构建在500次左右，特别是含Android的gradle构建时，建议直接上物理机，绝对<code>真香</code>。</p>
-<blockquote>
-<p>选择适合的，并不是技术领先的，当然能Hold住的大佬，请随意哈😁</p>
-</blockquote>
-<hr>
-<p>备注说明下目前我遇到的构建量级吧，相对大厂是小儿科了点，勿喷哈。</p>
-<ul>
-<li>Web应用构建，约日均构建在400-500次/日</li>
-<li>移动端构建（Android为主），约日均构建在30-50次/日，偶尔会有批量的渠道打包量比较大（渠道量1K+）</li>
-</ul>
-<h2 id="2-k8s集群里的jenkins"><a class="markdownIt-Anchor" href="#2-k8s集群里的jenkins"></a> 2、K8s集群里的Jenkins</h2>
-<h3 id="21-选择背景"><a class="markdownIt-Anchor" href="#21-选择背景"></a> 2.1、选择背景</h3>
-<p>公司开始做中台了，其中包括建设CICD系统，基本是从 O 起步吧，当初直接选型了：java spring微服务 + K8s作为接下来的技术发展方向。作为<code>打辅助</code>的持续交付系统也就那个时候定型的，选型CI工具为Jenkins（当然还有很多的周边的工具链选型），部署原则：<strong>Everything in docker</strong></p>
-<h3 id="22-遇到问题"><a class="markdownIt-Anchor" href="#22-遇到问题"></a> 2.2、遇到问题</h3>
-<ul>
-<li>K8s集群稳定性是第一大考验</li>
-<li>动态的Slave启动慢，修改长时间存活，莫名会出现心跳终端，SalvePod假死</li>
-<li>各Slave节点构建依赖的缓存共享设置，尤其是移动端的Gradle的缓存（谁用谁知道！参考：<a href="https://blog.dreamtobe.cn/lls_ci/">流利说客户端持续交付工程实践</a>……）</li>
-<li>Slave多了后占用的资源无法想象，最后不得不给Jenkins独立的Node，打上标签区分</li>
-<li>还有就是构建过程，一个字儿：<strong>超级慢</strong>，很大原因是K8s集群的Ceph文件系统</li>
-<li>Slave镜像维护成本也颇高，尤其是需要版本升级的时候</li>
-<li>…</li>
-</ul>
-<h2 id="3-物理机里的jenkins"><a class="markdownIt-Anchor" href="#3-物理机里的jenkins"></a> 3、物理机里的Jenkins</h2>
-<h3 id="31-选择背景"><a class="markdownIt-Anchor" href="#31-选择背景"></a> 3.1、选择背景</h3>
-<p>我们重新建设了DevOps平台（定位：一站式研发协同平台），对于原有的功能迁移后，发现对于很多<code>核心、根本</code>问题，治标不治本。新平台也迫切需要出成绩，最终开出了 <code>历史的倒车</code>，我们回到了物理机Jenkins。</p>
-<h3 id="32-效果"><a class="markdownIt-Anchor" href="#32-效果"></a> 3.2、效果</h3>
-<p>一个字：<strong>快</strong>，平均提速达到30%+（其中移动端提速了甚至到了50%），且稳定性更高</p>
-<h3 id="33-成本核算"><a class="markdownIt-Anchor" href="#33-成本核算"></a> 3.3、成本核算</h3>
-<p>迁移到物理是不是成本很高啊，那可是物理机啊，然并卵……</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">迁移前</th>
-<th>迁移后</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">K8s独立Node：64c+128G（1），32c+32G（1）</td>
-<td>32c+32G（5）</td>
-</tr>
-</tbody>
-</table>
 ]]></content>
       <categories>
         <category>Jenkins</category>
@@ -987,48 +987,6 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
       </tags>
   </entry>
   <entry>
-    <title>禅道持续交付(七)-失败总结</title>
-    <url>/zentao-failure-summary/</url>
-    <content><![CDATA[<p>哈哈，想不到吧，虽然经过小伙伴的很长时间的努力，我们最终落地的效果是不理想。最终项目被”砍“掉了。不过很值得和大家分享下，感觉这篇应该是这个系列最<code>值钱</code>的一篇啦，不容错过！</p>
-<span id="more"></span>
-<h2 id="1-持续交付最终结果"><a class="markdownIt-Anchor" href="#1-持续交付最终结果"></a> 1、持续交付最终结果</h2>
-<p>在完成试点后，整体落地推进整体结果不是很好，总结两句话</p>
-<ul>
-<li>Web端使用体验很操作</li>
-<li>移动端整体尚可</li>
-</ul>
-<p>最终由于**”领导层“**的决定，禅道<code>寿终正寝</code>了 😢😢😢</p>
-<h2 id="2-失败原因"><a class="markdownIt-Anchor" href="#2-失败原因"></a> 2、失败原因</h2>
-<p>其实在禅道命运的变更和我司上层调整是一个重合的时间节点，当初我一度很”郁闷“，想不通这个是一个正确的事儿，K8s也是前沿趋势，我门打造的可是我司第一个统一产研研发大平台……</p>
-<p>但是随着时间推移和经历更多的DevOps的实践，发现禅道的”死亡“一定程度上是必然的，我会逐步给到各位解释哈。</p>
-<h3 id="21-空中楼阁核心原因"><a class="markdownIt-Anchor" href="#21-空中楼阁核心原因"></a> 2.1、空中楼阁（核心原因）</h3>
-<p>我们打造的持续交付系统可能先对于公司当时的现状来说太”高、大、尚“了，因为技术层面整体 <strong>底层建设不牢</strong></p>
-<ul>
-<li>软件版本和架构未标准化  –  容器化改造能定制化到你怀疑人生</li>
-<li>运维自动化程度低（基本处于脚本时代吧） – 配置改造、域名标准</li>
-<li>无标准化测试环境 – 大家各自的测试环境基本各成体系</li>
-<li>自身建设的K8s集群先对稳定性不足</li>
-<li>大部分小伙伴其实都没有准备好</li>
-</ul>
-<p>基建其实是一个很庞大的工程，不是一个持续交付系统所能撑起来的，我基于个人的理解把它们理解成一套房子，而持续交付属于Roof一环，如果Foundation和House都没有建设好的化，直接盖”屋顶“，这将是一个很艰难的过程。</p>
-<p><img src="/zentao-failure-summary/%E7%A9%BA%E4%B8%AD%E6%A5%BC%E9%98%81-new.jpg" alt></p>
-<h3 id="22-技术选型"><a class="markdownIt-Anchor" href="#22-技术选型"></a> 2.2、技术选型</h3>
-<p><strong><code>并不是最新、先进就是合适的</code></strong>，我觉得当时起步选择了Helm并不是一个明知的决定，学习成本太高，专业技术方向人员还Ok，当时需要推向多有业务小伙伴使用，这个成本可想而知，入门成本同时带来的问题就是维护起来也是一个浩大的工程。</p>
-<h3 id="23-自身易用性"><a class="markdownIt-Anchor" href="#23-自身易用性"></a> 2.3、自身易用性</h3>
-<p>我们基于禅道自身Scrum框架，做了很多流程、角色限制，最终的结果感觉就是<strong>作茧自缚</strong>。说实话这个就是机械的贯彻了标准的软件生命周期流程（也可以理解为瀑布式），然而他并不”敏捷“。</p>
-<p>流程过度的自由，会引发不可预知的问题，但流程机械化的强制管控，会引起生产效率的降低以及<code>怨声载道</code>。在流程和效率中间找到一个平衡，或者说DevOps落地的不同阶段我们可以逐步规范，这估计也是 <strong>敏捷思想</strong> 想引导的，可惜的是：<strong>当时的我们并不知道这些（认知局限）</strong></p>
-]]></content>
-      <categories>
-        <category>持续交付</category>
-      </categories>
-      <tags>
-        <tag>CICD</tag>
-        <tag>Zentao</tag>
-        <tag>禅道</tag>
-        <tag>持续交付</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>禅道持续交付(三)-多环境同域名设计</title>
     <url>/zentao-one-domain-multiEnv/</url>
     <content><![CDATA[<p>在实际需求中，我们遇到了这样一个需求：在<code>研发环境</code>和<code>测试环境</code>使用相同的域名，期望根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理。基于此我们调研最后实现这个需求。方案核心点：OpenResty方案: Nginx+lua + redis 实现根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理，redis用于管理用户Client IP和环境的绑定关系。</p>
@@ -1135,6 +1093,48 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
         <tag>OpenResty</tag>
         <tag>Nginx</tag>
         <tag>Lua</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>禅道持续交付(七)-失败总结</title>
+    <url>/zentao-failure-summary/</url>
+    <content><![CDATA[<p>哈哈，想不到吧，虽然经过小伙伴的很长时间的努力，我们最终落地的效果是不理想。最终项目被”砍“掉了。不过很值得和大家分享下，感觉这篇应该是这个系列最<code>值钱</code>的一篇啦，不容错过！</p>
+<span id="more"></span>
+<h2 id="1-持续交付最终结果"><a class="markdownIt-Anchor" href="#1-持续交付最终结果"></a> 1、持续交付最终结果</h2>
+<p>在完成试点后，整体落地推进整体结果不是很好，总结两句话</p>
+<ul>
+<li>Web端使用体验很操作</li>
+<li>移动端整体尚可</li>
+</ul>
+<p>最终由于**”领导层“**的决定，禅道<code>寿终正寝</code>了 😢😢😢</p>
+<h2 id="2-失败原因"><a class="markdownIt-Anchor" href="#2-失败原因"></a> 2、失败原因</h2>
+<p>其实在禅道命运的变更和我司上层调整是一个重合的时间节点，当初我一度很”郁闷“，想不通这个是一个正确的事儿，K8s也是前沿趋势，我门打造的可是我司第一个统一产研研发大平台……</p>
+<p>但是随着时间推移和经历更多的DevOps的实践，发现禅道的”死亡“一定程度上是必然的，我会逐步给到各位解释哈。</p>
+<h3 id="21-空中楼阁核心原因"><a class="markdownIt-Anchor" href="#21-空中楼阁核心原因"></a> 2.1、空中楼阁（核心原因）</h3>
+<p>我们打造的持续交付系统可能先对于公司当时的现状来说太”高、大、尚“了，因为技术层面整体 <strong>底层建设不牢</strong></p>
+<ul>
+<li>软件版本和架构未标准化  –  容器化改造能定制化到你怀疑人生</li>
+<li>运维自动化程度低（基本处于脚本时代吧） – 配置改造、域名标准</li>
+<li>无标准化测试环境 – 大家各自的测试环境基本各成体系</li>
+<li>自身建设的K8s集群先对稳定性不足</li>
+<li>大部分小伙伴其实都没有准备好</li>
+</ul>
+<p>基建其实是一个很庞大的工程，不是一个持续交付系统所能撑起来的，我基于个人的理解把它们理解成一套房子，而持续交付属于Roof一环，如果Foundation和House都没有建设好的化，直接盖”屋顶“，这将是一个很艰难的过程。</p>
+<p><img src="/zentao-failure-summary/%E7%A9%BA%E4%B8%AD%E6%A5%BC%E9%98%81-new.jpg" alt></p>
+<h3 id="22-技术选型"><a class="markdownIt-Anchor" href="#22-技术选型"></a> 2.2、技术选型</h3>
+<p><strong><code>并不是最新、先进就是合适的</code></strong>，我觉得当时起步选择了Helm并不是一个明知的决定，学习成本太高，专业技术方向人员还Ok，当时需要推向多有业务小伙伴使用，这个成本可想而知，入门成本同时带来的问题就是维护起来也是一个浩大的工程。</p>
+<h3 id="23-自身易用性"><a class="markdownIt-Anchor" href="#23-自身易用性"></a> 2.3、自身易用性</h3>
+<p>我们基于禅道自身Scrum框架，做了很多流程、角色限制，最终的结果感觉就是<strong>作茧自缚</strong>。说实话这个就是机械的贯彻了标准的软件生命周期流程（也可以理解为瀑布式），然而他并不”敏捷“。</p>
+<p>流程过度的自由，会引发不可预知的问题，但流程机械化的强制管控，会引起生产效率的降低以及<code>怨声载道</code>。在流程和效率中间找到一个平衡，或者说DevOps落地的不同阶段我们可以逐步规范，这估计也是 <strong>敏捷思想</strong> 想引导的，可惜的是：<strong>当时的我们并不知道这些（认知局限）</strong></p>
+]]></content>
+      <categories>
+        <category>持续交付</category>
+      </categories>
+      <tags>
+        <tag>CICD</tag>
+        <tag>Zentao</tag>
+        <tag>禅道</tag>
+        <tag>持续交付</tag>
       </tags>
   </entry>
   <entry>
@@ -1498,6 +1498,112 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
         <tag>Zentao</tag>
         <tag>禅道</tag>
         <tag>持续交付</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>分支管理规范</title>
+    <url>/git-branch-strategy/</url>
+    <content><![CDATA[<p>最近有机会体验下阿里的云效产品，感受下&quot;大厂&quot;的DevOps产品。在写这篇Blog时，正正好赶上了《<a href="https://mp.weixin.qq.com/s/3UmieN4cBCzjGVceMn4BlQ">阿里云效公共云基础版全面免费，不限人数使用</a>》，基本可以白嫖了，<strong>为双十一做的贡献，终于有回报了</strong>。</p>
+<p>估计应该由小伙伴为此纠结过吧，其实吧分支管理规范没有 <strong>”银弹“</strong> ，这里我只是分享我觉得比较简单也是对持续交付较为友好的  <a href="https://guides.github.com/introduction/flow/">GitHubFlow </a>+ Tag 分支模型。</p>
+<span id="more"></span>
+<p>重要的事儿还是需要在说一遍的：<strong>分支管理规范没有 ”银弹“！</strong></p>
+<h2 id="1-分支管理模型"><a class="markdownIt-Anchor" href="#1-分支管理模型"></a> 1、分支管理模型</h2>
+<p>推荐 <a href="https://guides.github.com/introduction/flow/">GitHubFlow </a>+ Tag 分支模型，不推荐GitlabFlow （<a href="https://georgestocker.com/2020/03/04/please-stop-recommending-git-flow/">Please stop recommending Git Flow!</a>）</p>
+<p>GitHub flow，是 GitHub 所推崇的 Workflow，具有很高的通用性，且叫简单快捷，对持续交付较友好。其流程图如下：</p>
+<p><img src="/git-branch-strategy/github%E5%88%86%E6%94%AF%E6%A8%A1%E5%9E%8B.png" alt="img"></p>
+<p><strong>其中的主要流程为：</strong></p>
+<ul>
+<li>第一步：根据需求，从稳定分支master拉出新分支，不区分功能分支或补丁分支。</li>
+<li>第二步：新分支开发完成后，或者需要讨论的时候，就向master发起一个 Pull Request 或 Merge Request（简称PR 或 MR ）。</li>
+<li>第三步：PR 或 MR 既是一个通知，让别人注意到你的请求，又是一种对话机制，大家一起评审和讨论你的代码（CodeReview）。对话过程中，你还可以不断提交代码。</li>
+<li>第四步：你的PR 或 MR 被接受，合并（Merge）进master，重新部署（Deploy）后，原来你拉出来的那个分支就被删除。（备注：其中先部署再合并也可。）</li>
+<li>第五步【打Tag】：在第四步的合并（Merge）后打上 Tag，基于 Tag 进行部署（Deploy）。</li>
+</ul>
+<h2 id="2-分支命名规约"><a class="markdownIt-Anchor" href="#2-分支命名规约"></a> 2、分支命名规约</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">分支</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">master</td>
+<td style="text-align:left">稳定分支，这个分支只能从其他分支合并，不能在这个分支直接修改</td>
+<td style="text-align:left">需要遵循一个基本原则，所有在<code>master</code>分支上的<code>commit</code>应该<code>tag</code></td>
+</tr>
+<tr>
+<td style="text-align:left">feat/*</td>
+<td style="text-align:left">功能特性分支</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">fix/*</td>
+<td style="text-align:left">Bugfix/Hotfix修复分支</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">tag</td>
+<td style="text-align:left">上线发布的Tag号，符合语义化版本约定</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-提交命名规约"><a class="markdownIt-Anchor" href="#3-提交命名规约"></a> 3、提交命名规约</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">任务ID： EE-233   // 对应JIRA Issue编号，可以自动实现Jira与Gitlab的提交关联``提交内容： [feat] 功能特性开发``     ``[fix] 修复Bug``    ``[``rm``] 删除无用文件``    ``[ref] 代码或功能重构 </span><br></pre></td></tr></table></figure>
+<h2 id="4-codereview规约"><a class="markdownIt-Anchor" href="#4-codereview规约"></a> 4、CodeReview规约</h2>
+<h3 id="提交mr"><a class="markdownIt-Anchor" href="#提交mr"></a> 提交MR</h3>
+<p>提交代码后，可以提交<code>mr</code>到<code>master</code>，申请合并代码。（此处可进行自动代码审查）</p>
+<h3 id="合并代码"><a class="markdownIt-Anchor" href="#合并代码"></a> 合并代码</h3>
+<p>研发组长（或结对编程小伙伴），打开MR，Review代码，可以添加相关修改Comment意见。</p>
+<p>开发同学根据建议修复代码，或者线下修改后commit代码。</p>
+<p>研发组长确认没有问题后，可以合并到master，并打上对应的标签。</p>
+<h2 id="5-版本号命名规约"><a class="markdownIt-Anchor" href="#5-版本号命名规约"></a> 5、版本号命名规约</h2>
+<p>参考<a href="https://semver.org/lang/zh-CN/">《语义化版本 2.0.0》</a></p>
+<p>版本格式：主版本号.次版本号.修订号，版本号递增规则如下：</p>
+<ol>
+<li>主版本号：当你做了不兼容的 API 修改，</li>
+<li>次版本号：当你做了向下兼容的功能性新增，</li>
+<li>修订号：当你做了向下兼容的问题修正。</li>
+</ol>
+<p>先行版本号及版本编译元数据可以加到“主版本号.次版本号.修订号”的后面，作为延伸。</p>
+<h2 id="6-上线规范"><a class="markdownIt-Anchor" href="#6-上线规范"></a> 6、上线规范</h2>
+<p>所有上线的制品是基于 Git Tag 构建产出的制品。</p>
+<h2 id="7-commit-message提交规范"><a class="markdownIt-Anchor" href="#7-commit-message提交规范"></a> 7、Commit Message提交规范</h2>
+<p>参考： <a href="https://www.conventionalcommits.org/zh-hans/v1.0.0-beta.4/">约定式提交 1.0.0-beta.4</a></p>
+<p><strong>目前有相应工具做到支持：</strong><a href="https://gist.github.com/redblue9771/5c3cecca694ae396e906bef285b6c19b">commitizen &amp; cz-conventional-changelog</a> 、 git-commit-plugin等</p>
+<h3 id="基本提交格式"><a class="markdownIt-Anchor" href="#基本提交格式"></a> 基本提交格式：</h3>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;类型&gt;([可选的作用域]): &lt;描述&gt;</span><br><span class="line">// 空一行</span><br><span class="line">[可选的正文]</span><br><span class="line">// 空一行</span><br><span class="line">[可选的脚注]</span><br></pre></td></tr></table></figure>
+<h3 id="提交示例"><a class="markdownIt-Anchor" href="#提交示例"></a> 提交示例：</h3>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">feat/fix: 完成一个很牛掰的功能开发/修复一个极度危险的Bug</span><br><span class="line"> </span><br><span class="line">re/fix  #EE-123 #EE-333</span><br></pre></td></tr></table></figure>
+<h3 id="约定说明"><a class="markdownIt-Anchor" href="#约定说明"></a> 约定说明：</h3>
+<hr>
+<h4 id="1-类型-type"><a class="markdownIt-Anchor" href="#1-类型-type"></a> 1. 类型 - type</h4>
+<p>type为必填项，用于指定commit的类型，约定了feat、fix两个主要type，以及docs、style、build、refactor、revert五个特殊type，其余type暂不使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 主要type</span><br><span class="line">feat:     增加新功能</span><br><span class="line">fix:      修复bug</span><br><span class="line"> </span><br><span class="line"># 特殊type</span><br><span class="line">docs:     只改动了文档相关的内容</span><br><span class="line">style:    不影响代码含义的改动，例如去掉空格、改变缩进、增删分号</span><br><span class="line">build:    构造工具的或者外部依赖的改动，例如webpack，npm</span><br><span class="line">refactor: 代码重构时使用</span><br><span class="line">revert:   执行git revert打印的message</span><br><span class="line"> </span><br><span class="line"># 暂不使用type</span><br><span class="line">test:     添加测试或者修改现有测试</span><br><span class="line">perf:     提高性能的改动</span><br><span class="line">ci:       与CI（持续集成服务）有关的改动</span><br><span class="line">chore:    不修改src或者test的其余修改，例如构建过程或辅助工具的变动</span><br></pre></td></tr></table></figure>
+<p>``</p>
+<p>当一次改动包括主要type与特殊type时，统一采用主要type。</p>
+<h4 id="2-作用域-scope"><a class="markdownIt-Anchor" href="#2-作用域-scope"></a> 2. 作用域 - scope</h4>
+<p>scope也为必填项，用于描述改动的范围，格式为项目名/模块名，例如：node-pc/common rrd-h5/activity，而we-sdk不需指定模块名。如果一次commit修改多个模块，建议拆分成多次commit，以便更好追踪和维护。</p>
+<h4 id="3-正文-body"><a class="markdownIt-Anchor" href="#3-正文-body"></a> 3. 正文 - body</h4>
+<p>body填写详细描述，主要描述改动之前的情况及修改动机，对于小的修改不作要求，但是重大需求、更新等必须添加body来作说明。</p>
+<h4 id="4-注脚-affect-issues"><a class="markdownIt-Anchor" href="#4-注脚-affect-issues"></a> 4. 注脚 - affect issues</h4>
+<p>affect issues指明是否影响了某个问题。例如我们使用jira时，我们在commit message中可以填写其影响的JIRA_ID。</p>
+<p>参考：<a href="https://www.cnblogs.com/xiao2shiqi/p/13514548.html">准时下班的秘密：集成 GitLab &amp;&amp; JIRA 实现自动化工作流</a></p>
+<p>填写方式例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">re #JIRA_ID</span><br><span class="line">fix #JIRA_ID</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>DevOps</tag>
+        <tag>git</tag>
+        <tag>代码分支策略</tag>
       </tags>
   </entry>
   <entry>
