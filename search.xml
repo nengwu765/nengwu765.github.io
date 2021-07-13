@@ -164,6 +164,123 @@
       </tags>
   </entry>
   <entry>
+    <title>代码扫描(一)-工具选型</title>
+    <url>/code-analysis-tools-select/</url>
+    <content><![CDATA[<p>DevOps必不可少的一环就是代码扫描了，这里面包含了编码规范、代码缺陷、性能、漏洞的检测。目前也会有很多的开源静态代码扫描工具，如：SonarQube、Infer、PMD、FindBugs、CheckStyle。针对此做了简单的收集对比，各位可以根据自身的需求进行参考。</p>
+<span id="more"></span>
+<h2 id="工具选型调研"><a class="markdownIt-Anchor" href="#工具选型调研"></a> 工具选型调研</h2>
+<h3 id="工具对比说明"><a class="markdownIt-Anchor" href="#工具对比说明"></a> 工具对比说明</h3>
+<p>目前比较流行的开源的静态代码扫描工具：SonarQube、Infer、PMD、FindBugs、CheckStyle。因为后续会有流程定制化等需求，暂不考虑商业化的软件。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">产品</th>
+<th style="text-align:center">定位</th>
+<th style="text-align:left">OpenApi</th>
+<th style="text-align:left">Web项目友好</th>
+<th style="text-align:left">支持代码质量检查</th>
+<th style="text-align:left">支持语言</th>
+<th style="text-align:left">可扩展性/插件支持</th>
+<th style="text-align:left">是否侵入项目</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">SonarQube</td>
+<td style="text-align:center">代码质量平台 <br>通过插件的<br>方式提供对各个<br>语言进行支持，<br>可以和 Checkstyle、PMD、Simian <br>等工具进行集成</td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">常见语言都支持</td>
+<td style="text-align:left">高</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:left">Infer</td>
+<td style="text-align:center">代码分析</td>
+<td style="text-align:left">不支持</td>
+<td style="text-align:left">否（移动端友好）</td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">Android/java</td>
+<td style="text-align:left">中</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">PMD</td>
+<td style="text-align:center">代码分析</td>
+<td style="text-align:left">不支持</td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">java</td>
+<td style="text-align:left">高</td>
+<td style="text-align:left">否</td>
+</tr>
+<tr>
+<td style="text-align:left">FindBugs</td>
+<td style="text-align:center">字节码分析，侧重Bug检测</td>
+<td style="text-align:left">不支持</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">java</td>
+<td style="text-align:left">低</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">CheckStyle</td>
+<td style="text-align:center">语法层面分析</td>
+<td style="text-align:left">不支持</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">支持</td>
+<td style="text-align:left">java</td>
+<td style="text-align:left">低</td>
+<td style="text-align:left">是</td>
+</tr>
+</tbody>
+</table>
+<h3 id="选型"><a class="markdownIt-Anchor" href="#选型"></a> 选型</h3>
+<p>基于上述，<strong>选型SonarQube作为代码扫描工具</strong>，SonarQube 也是是一款目前比较流行的工具，国内很多互联网公司都选择用它来搭建静态检查的平台。</p>
+<p>SonarQube介绍: <a href="https://www.sonarqube.org/">官网</a></p>
+<h2 id="实施计划"><a class="markdownIt-Anchor" href="#实施计划"></a> 实施计划</h2>
+<ul>
+<li>SonarQube的部署使用调研</li>
+<li>代码检测集成方案，（Jenkins、gitlab CI、代码检测时机等）</li>
+<li>考虑代码质量平台管理（原生平台界面不友好、同时展示维度无法做到应用维度）</li>
+</ul>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> <strong>参考资料</strong></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left">资料</th>
+<th style="text-align:left">概述</th>
+<th style="text-align:left">参考价值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left"><a href="https://testerhome.com/articles/24210">酷家乐质量效能 代码度量平台</a></td>
+<td style="text-align:left">引入使用 SQALE 代码质量评估模型的 SonarQube 进行代码静态扫描，辅以 Cobra 的进行代码审计，Synk 进行三方包漏洞扫描，形成一套完整的代码度量工具链</td>
+<td style="text-align:left"><strong>高</strong><br>整合平台页面参考</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left"><a href="https://mp.weixin.qq.com/s/d9RzCFkYrW27m1_LkeA2rw">系列 | 58集团白盒代码审计系统建设实践1：技术选型</a></td>
+<td style="text-align:left">对比了常见的的开源方案和商业方案，同时涉及介绍 SDL 相关检测知识</td>
+<td style="text-align:left"><strong>高</strong><br>选型对比数据参考</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>SonarQube</category>
+      </categories>
+      <tags>
+        <tag>SonarQube</tag>
+        <tag>代码扫描</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Jenkins共享库使用-初阶</title>
     <url>/jenkins-sharelib-primary/</url>
     <content><![CDATA[<p>在我们实际写Jenkin pipelines脚本中，可能会出现``java.lang.RuntimeException: Method code too large!<code>，这个时候你就要抽象出一些公共的函数类库，</code>避免项目方重复冗余的脚本代码书写`，在此处我也把我经常使用的一些共享函数库（<strong><a href="https://github.com/nengwu765/jenkins-share-library">jenkins-share-library</a></strong>）分享出来，欢迎交流指正哈！</p>
@@ -241,64 +358,6 @@
       </tags>
   </entry>
   <entry>
-    <title>OKR实践-初阶</title>
-    <url>/okr-primary/</url>
-    <content><![CDATA[<p>如OKR国内貌似字节“首推”，也一直践行着，至于大家要不要从原有的考核体系切换到比较<code>先进</code>的OKR呢？哈哈，没有答案！大伙儿根据自己的实际遇到的问题 + OKR的理念思想，进行考虑实践。这里只是简单介绍我践行的过程哈。</p>
-<span id="more"></span>
-<h2 id="1-接触okr"><a class="markdownIt-Anchor" href="#1-接触okr"></a> 1 、接触OKR</h2>
-<h3 id="团队遇到的困难"><a class="markdownIt-Anchor" href="#团队遇到的困难"></a> 团队遇到的困难</h3>
-<ul>
-<li>任务管理</li>
-<li>临时工作插入安排</li>
-<li>重点工作目标推进</li>
-</ul>
-<h3 id="寻找方案"><a class="markdownIt-Anchor" href="#寻找方案"></a> 寻找方案</h3>
-<p>偶然看到一个OKR的视频培训，之前有听说过（但是没有实践经验吧），当天看了视频直播，觉得值得一试。</p>
-<p>《<a href="https://www.bilibili.com/video/BV1fk4y1r7oZ">如何应用OKR+敏捷实践驱动团队管理改进 丰之恺 中国DevOps社区第23期线上分享</a>》</p>
-<h2 id="2-团队实践"><a class="markdownIt-Anchor" href="#2-团队实践"></a> 2、团队实践</h2>
-<p><strong>团队宣导：理解目标，理解OKR</strong></p>
-<ul>
-<li>
-<p>团队协商讨论，制定团队OKR，公开分享团队成员绩效计划</p>
-</li>
-<li>
-<p>团队成员针对团队目标，制定个人OKR</p>
-</li>
-<li>
-<p>确保目标达成，成员对OKR做敏捷计划拆解</p>
-</li>
-<li>
-<p>每日站立晨会(10-20min)，对齐目标计划，重点讨论阻塞问题</p>
-</li>
-<li>
-<p>每周回顾总结，对齐目标，有问题及时调整</p>
-</li>
-</ul>
-<h3 id="21-使用工具"><a class="markdownIt-Anchor" href="#21-使用工具"></a> 2.1、使用工具</h3>
-<p><strong>Confluence（共享、开放、透明） + JIRA（敏捷看板、计划跟进）</strong></p>
-<h3 id="22-团队okr"><a class="markdownIt-Anchor" href="#22-团队okr"></a> 2.2、团队OKR</h3>
-<p>针对组织目标（可以理解为领导下达的KPI），结合小伙伴的个人目标，团队共同制定出团队OKR。</p>
-<p><img src="/okr-primary/%E5%9B%A2%E9%98%9FOKR-new.jpg" alt></p>
-<h3 id="23-个人okr"><a class="markdownIt-Anchor" href="#23-个人okr"></a> 2.3、个人OKR</h3>
-<p>小伙伴针对团队OKR进行拆解，为了可以确保目标达成，小伙伴还进行了详细的任务计划。</p>
-<p><strong>每个O的Owner需主动推进该O和KR的达成，需要协助自主协调，对于该O富有绝对主导责任！</strong></p>
-<p><img src="/okr-primary/%E4%B8%AA%E4%BA%BAOKR-new.jpg" alt></p>
-<h2 id="3-实践参考"><a class="markdownIt-Anchor" href="#3-实践参考"></a> 3、实践参考</h2>
-<ul>
-<li><a href="https://blog.worktile.com/okr-okr-template-02-dev/?utm_source=segmentfault&amp;utm_medium=meiyang">技术研发类OKR制定</a></li>
-<li><a href="https://www.atlassian.com/dam/jcr:a8b8a327-abd0-4c78-a493-9ff677efb6d0/OKRs-Blueprint.pdf">OKR模板.PDF - 本文参考使用的</a></li>
-<li><a href="https://www.atlassian.com/software/confluence/templates/okrs">Confluence OKRS Template</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>管理实践</category>
-      </categories>
-      <tags>
-        <tag>管理</tag>
-        <tag>OKR</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Jenkins部署-K8s OR 物理机</title>
     <url>/jenkins-deploy-select/</url>
     <content><![CDATA[<p>如果你开始使用Jenkins作为你的CI工具，刚好也在使用K8s集群做CD，那你一定很纠结我的Jenkins到底用什么方式进行部署管理呢？<br>
@@ -356,6 +415,318 @@
       </categories>
       <tags>
         <tag>Jenkins</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代码扫描(三)-Sonar+Jenkins+Gitlab集成</title>
+    <url>/soanrqube-jenkins-gitlab-integration/</url>
+    <content><![CDATA[<p>目前我们使用CI工具主要是Jenkins，所以此相互选择了jenkins进行集成。根据实际情况，也可选择GitlabCI等工具。</p>
+<p>实施代码检测，Gitlab 代码变更（Push/Merge），触发Jenkins Job执行SonarScanner扫描代码，SonarServer通过Gitlab插件，将代码扫描完的结果回写至Gitlab，GitLab即可查看到对应Sonar检测的结果代码注释，方便开发人员代码排查</p>
+<span id="more"></span>
+<h2 id="实现目的"><a class="markdownIt-Anchor" href="#实现目的"></a> 实现目的</h2>
+<ul>
+<li>1、研发过程，Jenkins在构建过程，加入SonarQube的代码质量门，检测本次构建增量代码质量</li>
+<li>2、定期的全量代码质量扫描，在每周定期对公司所有代码进行全量扫描，产出代码质量报告</li>
+</ul>
+<h2 id="集成插件配置"><a class="markdownIt-Anchor" href="#集成插件配置"></a> 集成插件配置</h2>
+<h3 id="1-jenkins插件配置"><a class="markdownIt-Anchor" href="#1-jenkins插件配置"></a> 1、Jenkins插件&amp;配置</h3>
+<p><strong>插件：</strong></p>
+<ul>
+<li>SonarQubeScannerForJenkins</li>
+</ul>
+<p><strong>配置：</strong></p>
+<ul>
+<li>SonarServer配置：Manage Jenkins – &gt; Configure System – &gt; SonarQube servers<br>
+需要SonarQube基于高权限账号生成的 授权token （SonarQube：Administration – &gt; Security – &gt; Users）</li>
+<li>SonarScanner配置：Manage Jenkins – &gt; Global Tool Configuration – &gt; SonarQube Scanner<br>
+备注：<strong>这里安装多个SonarQube Scanner，为多项目并行代码扫描做准备</strong></li>
+</ul>
+<h3 id="2-sonarqube配置"><a class="markdownIt-Anchor" href="#2-sonarqube配置"></a> 2、SonarQube配置</h3>
+<p><strong>插件：</strong></p>
+<p>实现gitlab打通，<strong>同时实现gitlab auth授权登陆</strong>。</p>
+<ul>
+<li>sonar-gitlab-plugin：<a href="https://github.com/javamachr/sonar-gitlab-plugin">https://github.com/javamachr/sonar-gitlab-plugin</a></li>
+<li>**sonar-auth-gitlab-plugin：**<a href="https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin">https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin</a></li>
+</ul>
+<p>**Sonar Serverbase Url设置：**Administration &gt; Configuration &gt; General&gt; Server base URL</p>
+<p><strong>Webhook配置：（实操，不配置，JEnkins在获取质量门结果时会无限等待）</strong></p>
+<p>Administration &gt; Configuration &gt; Webhooks. The URL should point to your Jenkins server： <code>http://&#123;JENKINS_HOST&#125;/sonarqube-webhook/</code></p>
+<p>具体说明：参考Jenkins官方文档说明（<a href="https://www.jenkins.io/doc/pipeline/steps/sonar/#waitforqualitygate-wait-for-sonarqube-analysis-to-be-completed-and-return-quality-gate-status">Configure a webhook in your SonarQube server pointing</a> … ）</p>
+<p><strong>Gitlab授权登陆：</strong></p>
+<p>Administration &gt; Configuration &gt; GitLab &gt; Authentication ：设置对应的 Application ID + Secret</p>
+<p>(设置参数说明，参考对应的插件说明：<a href="https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin">sonar-auth-gitlab-plugin</a>)</p>
+<p><strong>Gitlab Reporting配置：</strong></p>
+<ul>
+<li>
+<p>作用：可以将检测结果报告已comment的形式回写至Gitlab的Commit中（注：目前版本不支持inline comment in commit，现在只有global comment，具体看附属问题记录说明）</p>
+</li>
+<li>
+<p>配置：Administration &gt; Configuration &gt; GitLab &gt; Reporting</p>
+</li>
+<li>
+<p>参数：扫描时需要配置参数：sonar.gitlab.project_id</p>
+</li>
+</ul>
+<p>说明：这个可以根据实际需求配置说明，此处可根据需求配置将检测的结果是否以comment回写。此处暂时不配置。</p>
+<h3 id="3-gitlab配置"><a class="markdownIt-Anchor" href="#3-gitlab配置"></a> 3、Gitlab配置</h3>
+<p><strong>授权登陆设置：</strong><br>
+Admin Settings -&gt; Application：设置对应的回调：https://<your sonar domain>/oauth2/callback/gitlab (备注：sonar的domain不可为IP+Port形式，经测试http目前也是支持)</your></p>
+<h2 id="问题记录"><a class="markdownIt-Anchor" href="#问题记录"></a> 问题记录</h2>
+<ul>
+<li>SonarCloud + GitHub + Pull Request Analysis = No Inline Comments：<a href="https://community.sonarsource.com/t/sonarcloud-github-pull-request-analysis-no-inline-comments/7371/2">https://community.sonarsource.com/t/sonarcloud-github-pull-request-analysis-no-inline-comments/7371/2</a><br>
+目前最后支持的版本：sonarqube v7.6</li>
+<li>新扫描项目（新sonar project key） No branches currently exist in this project. Please scan the main branch without passing any branch parameters<br>
+注：新项目必须先扫描 master（稳定）分支，才可以进行其他分支的扫描</li>
+<li>不建议写入sonar.language扫描参数： <a href="https://community.sonarsource.com/t/what-is-the-alternative-to-the-sonar-language-property-in-the-current-version-of-sonarqube/3993">https://community.sonarsource.com/t/what-is-the-alternative-to-the-sonar-language-property-in-the-current-version-of-sonarqube/3993</a></li>
+<li>SonarQube插件矩阵（可查看相关产检兼容情况）：<a href="https://docs.sonarqube.org/latest/instance-administration/plugin-version-matrix/">https://docs.sonarqube.org/latest/instance-administration/plugin-version-matrix/</a></li>
+</ul>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<ul>
+<li><a href="https://docs.sonarqube.org/latest/">SonarQube官方文档</a></li>
+<li><a href="https://gitbook.curiouser.top/origin/SonarQube%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F%E5%88%86%E6%9E%90%E7%AE%80%E4%BB%8B.html">SonarQube静态代码扫描分析简介</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>SonarQube</category>
+      </categories>
+      <tags>
+        <tag>SonarQube</tag>
+        <tag>代码扫描</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代码扫描(四)-DevOps平台集成Sonar方案</title>
+    <url>/soanrqube-devOps-platform-integration/</url>
+    <content><![CDATA[<p>SonarQube需要融合到DevOps平台，使其成为CICD的一个环节中来，发挥其更大的价值。我们需要考虑到如何与DevOps平台的集成，并且可以最小限度的对于业务代码的侵入性，这边文档将我的方案做个各详细阐述和大家一起分享。</p>
+<span id="more"></span>
+<h2 id="1-扫描流程"><a class="markdownIt-Anchor" href="#1-扫描流程"></a> 1、扫描流程</h2>
+<p>整个代码扫描涉及工具、系统如下：</p>
+<ul>
+<li>Gitlab</li>
+<li>Jenkins</li>
+<li>SonarQube</li>
+<li>DevOps平台（代码扫描开发应用）</li>
+</ul>
+<p><strong>执行流程如下：</strong></p>
+<p><img src="/soanrqube-devOps-platform-integration/Sonar%E9%9B%86%E6%88%90%E6%B5%81%E7%A8%8B-new.jpg" alt="Jenkins配置"></p>
+<h2 id="2-详细说明"><a class="markdownIt-Anchor" href="#2-详细说明"></a> 2、详细说明</h2>
+<h3 id="21-devops平台代码"><a class="markdownIt-Anchor" href="#21-devops平台代码"></a> 2.1、DevOps平台（代码）</h3>
+<p>代码扫描以一个开放应用的形式接入研发中台，有一个基本Widget页面，展示代码扫描结果概览</p>
+<p>所有的检测结果可以基于研发中台进行处理</p>
+<ul>
+<li>流程中断</li>
+<li>消息告警</li>
+</ul>
+<p><strong>SonarQube开放应用界面</strong></p>
+<p><img src="/soanrqube-devOps-platform-integration/Sonar%E5%BC%80%E6%94%BE%E5%BA%94%E7%94%A8-new.jpg" alt="Jenkins配置"></p>
+<h3 id="22-jenkins扫描job"><a class="markdownIt-Anchor" href="#22-jenkins扫描job"></a> 2.2、Jenkins扫描Job</h3>
+<p>所有触发通过研发中台触发，所以Jenkins只配置一个通用扫描Job即可，使用Pipeline Job编写。</p>
+<p><strong>说明：所以参数拼接可以研发中台传递给 Jenkins，所以业务代码可以不用 sonar-project.properties文件，减少业务代码的侵入性</strong></p>
+<h4 id="jenkins-job入参"><a class="markdownIt-Anchor" href="#jenkins-job入参"></a> Jenkins Job入参</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;commonParams&quot;: &#123;</span><br><span class="line">		&quot;appCode&quot;: &quot;php-demo&quot;,     // 应用编号唯一，对应：sonar.projectkey</span><br><span class="line">		&quot;appLanguage&quot;: &quot;php&quot;,   // 应用语言，针对不同语言设置默认的扫描命令及参数，如：php、go、java、gradle</span><br><span class="line">		&quot;gitRepository&quot;: &quot;git@gitlab.demo.com:demo/php-demo.git&quot;,  // 代码仓库地址</span><br><span class="line">		&quot;gitProjectId&quot;: &quot;&quot;,   // GitLab仓库PojectId，对应：sonar.gitlab.project_id，Comment on Commit需要</span><br><span class="line">		&quot;gitBranch&quot;: &quot;test&quot;,  // 扫描代码分支，对应：sonar.branch.name</span><br><span class="line">		&quot;gitCommit&quot;: &quot;&quot;,  // 代码提交Commit Hash值，对应：sonar.gitlab.commit_sha</span><br><span class="line">		&quot;gitRefName&quot;: &quot;master&quot;  // 扫描参考基准分支或Commit，对应：sonar.gitlab.ref_name</span><br><span class="line">        &quot;gitEvent&quot;: &quot;Merge Request Hook&quot;,   // git触发事件类型，Push Hook、Merge Request Hook、Flow Build、Fast Build等</span><br><span class="line">		&quot;mrKey&quot;: &quot;1&quot;,   // MR Key，对应：sonar.pullrequest.key</span><br><span class="line">		&quot;mrSourceBranch&quot;: &quot;test-mr&quot;,   // MR来源分支，对应：sonar.pullrequest.branch</span><br><span class="line">		&quot;mrTargetBranch&quot;: &quot;master&quot;  // MR目标分支，对应：sonar.pullrequest.base</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;extendParams&quot;: &#123;  // 预留扩展参数，如自定义扫描参数等</span><br><span class="line">		&quot;customAnalysisParams&quot;: &#123;        // 以下会默认覆盖原有既定扫描参数</span><br><span class="line">			&quot;sonar.sourceEncoding&quot;: &quot;GBK&quot;,</span><br><span class="line">			&quot;sonar.projectBaseDir&quot;: &quot;/src/code&quot;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="jenkins-pipeline示例"><a class="markdownIt-Anchor" href="#jenkins-pipeline示例"></a> Jenkins pipeline示例</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line"></span><br><span class="line">    stages &#123;</span><br><span class="line">        stage (&quot;参数解析&quot;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                script &#123;</span><br><span class="line">                    echo params.BUILD_PARAMS_JSON</span><br><span class="line">                    if (params.BUILD_PARAMS_JSON != null &amp;&amp; params.BUILD_PARAMS_JSON != &#x27;&#x27;) &#123;</span><br><span class="line">                        buildParams = readJSON text: params.BUILD_PARAMS_JSON</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        error &quot;BUILD_PARAMS_JSON is required params&quot;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    // 通用参数与定制参数赋值</span><br><span class="line">                    COMMON_PARAMS = buildParams[&#x27;commonParams&#x27;]</span><br><span class="line">                    EXTEND_PARAMS = buildParams[&#x27;extendParams&#x27;]</span><br><span class="line"></span><br><span class="line">                    // 入参json数据校验,通用参数必须包含 appCode + gitRepository</span><br><span class="line">                    if (COMMON_PARAMS[&#x27;appCode&#x27;].isEmpty() || COMMON_PARAMS[&#x27;gitRepository&#x27;].isEmpty() ) &#123;</span><br><span class="line">                        error &quot;buildParams[&#x27;commonParams&#x27;] is error, must have appCode and gitRepository&quot;</span><br><span class="line">                    &#125;</span><br><span class="line">                    // gitBranch不存在则默认为master</span><br><span class="line">                    COMMON_PARAMS[&#x27;gitBranch&#x27;].isEmpty() &amp;&amp; (COMMON_PARAMS[&#x27;gitBranch&#x27;] = &quot;master&quot;)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        stage (&quot;代码拉取&quot;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                // 不同的应用对应不同的工作空间,避免工作空间相互影响覆盖</span><br><span class="line">                dir (&quot;$&#123;COMMON_PARAMS[&#x27;appCode&#x27;]&#125;&quot;) &#123;</span><br><span class="line">                    // 拉取git仓库代码， 默认基于分支拉取</span><br><span class="line">                    script &#123;</span><br><span class="line">                        if (COMMON_PARAMS[&#x27;gitEvent&#x27;] == &quot;Merge Request Hook&quot; || !COMMON_PARAMS[&#x27;mrKey&#x27;].isEmpty()) &#123;</span><br><span class="line">                            // SCM: MR必须使用此进行拉取代码,否则Sonar Scan无法识别此次SCM是基于MR</span><br><span class="line">                            gitCodeFetch(&quot;branch&quot;, COMMON_PARAMS[&#x27;mrSourceBranch&#x27;], COMMON_PARAMS[&#x27;gitRepository&#x27;], params.GITLAB_DEPLOY_CRED, &quot;MR&quot;, COMMON_PARAMS[&#x27;mrTargetBranch&#x27;])</span><br><span class="line">                        &#125; else &#123;</span><br><span class="line">                            gitCodeFetch(&quot;branch&quot;, COMMON_PARAMS[&#x27;gitBranch&#x27;], COMMON_PARAMS[&#x27;gitRepository&#x27;], params.GITLAB_DEPLOY_CRED)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 扫描参数此处组织,则业务代码无需sonar-project.properties文件,不侵入业务代码</span><br><span class="line">        stage (&quot;扫描参数组织&quot;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                script &#123;</span><br><span class="line">                    ANALYSIS_PARAMS = [:]</span><br><span class="line">                    // =================  通用扫描参数 ==========================</span><br><span class="line">                    // 通用扫描参数,其中个别参数存在值才进行赋值,否则空值可能会出现扫描异常情况</span><br><span class="line">                    ANALYSIS_PARAMS[&#x27;sonar.projectKey&#x27;] = COMMON_PARAMS[&#x27;appCode&#x27;]</span><br><span class="line">                    ANALYSIS_PARAMS[&#x27;sonar.projectName&#x27;] = COMMON_PARAMS[&#x27;appCode&#x27;]</span><br><span class="line">                    ...</span><br><span class="line">                    </span><br><span class="line">                    // =================  各语言的约定扫描参数 ======================</span><br><span class="line">                    // 各语言的约定扫描参数,如:sonar.exclusions,sonar.sourceEncoding,默认扫描报告文件位置: .scannerwork/report-task.txt</span><br><span class="line">                    REPORT_FILE_PATH = &quot;.scannerwork/report-task.txt&quot;</span><br><span class="line">                    if (COMMON_PARAMS[&#x27;appLanguage&#x27;] == &quot;php&quot;) &#123;</span><br><span class="line">                        ANALYSIS_PARAMS[&#x27;sonar.exclusions&#x27;] = &quot;vendor/**&quot;</span><br><span class="line">                    &#125; else if (COMMON_PARAMS[&#x27;appLanguage&#x27;] == &quot;go&quot;) &#123;</span><br><span class="line">                        ANALYSIS_PARAMS[&#x27;sonar.exclusions&#x27;] = &quot;vendor/**&quot;</span><br><span class="line">                    &#125; else if (COMMON_PARAMS[&#x27;appLanguage&#x27;] == &quot;java&quot;) &#123;</span><br><span class="line">                        // 以下mvn sonar:sonar 会默认设置,对于multi-module的仓库同样适用</span><br><span class="line">                        //ANALYSIS_PARAMS[&#x27;sonar.sources&#x27;] = &quot;src&quot;</span><br><span class="line">                        //ANALYSIS_PARAMS[&#x27;sonar.java.binaries&#x27;] = &quot;target/classes&quot;</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        // TODO</span><br><span class="line">                        echo &quot;TODO&quot;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    // =================  定制化扫描参数 ======================</span><br><span class="line">                    // 定制化扫描参数(研发中台页面配置), 放置最后,可覆盖之前约定扫描参数</span><br><span class="line">                    if (!EXTEND_PARAMS[&#x27;customAnalysisParams&#x27;].isEmpty()) &#123;</span><br><span class="line">                        EXTEND_PARAMS[&#x27;customAnalysisParams&#x27;].each &#123; key,value -&gt;</span><br><span class="line">                            ANALYSIS_PARAMS[&quot;$&#123;key&#125;&quot;] = value</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        stage (&quot;前置扫描操作&quot;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                dir(&quot;$&#123;COMMON_PARAMS[&#x27;appCode&#x27;]&#125;&quot;) &#123;</span><br><span class="line">                    script &#123;</span><br><span class="line">                        if (COMMON_PARAMS[&#x27;appLanguage&#x27;] == &quot;java&quot;) &#123;</span><br><span class="line">                            // java 语言需前置编译, 下载统一的setting.xml文件</span><br><span class="line">                            sh &quot;wget -O settings.xml http://.../settings-sonar.xml&quot;</span><br><span class="line">                        &#125; else &#123;</span><br><span class="line">                            echo &quot;Do Nothing&quot;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        stage (&quot;代码扫描&quot;) &#123;</span><br><span class="line">            environment &#123;</span><br><span class="line">                GIT_COMMIT = &quot;&quot;  // 此环境变量置空, 否则影响MR检测时的Sonar回写Gitlab,注:取值为jenkins pipeline 仓库的Hash值</span><br><span class="line">            &#125;</span><br><span class="line">            steps &#123;</span><br><span class="line">                dir(&quot;$&#123;COMMON_PARAMS[&#x27;appCode&#x27;]&#125;&quot;) &#123;</span><br><span class="line">                    script &#123;</span><br><span class="line">                        // 扫描参数拼接</span><br><span class="line">                        println(JsonOutput.toJson(ANALYSIS_PARAMS))</span><br><span class="line">                        def analysisParams = &#x27;&#x27;</span><br><span class="line">                        ANALYSIS_PARAMS.each &#123; key,value -&gt;</span><br><span class="line">                            analysisParams += &quot;-D&quot; + key + &quot;=&quot; + value + &quot; &quot;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        def scannerHome = tool &#x27;SonarScanner&#x27;</span><br><span class="line">                        withSonarQubeEnv(&quot;SonarServer&quot;) &#123;</span><br><span class="line">                            if (COMMON_PARAMS[&#x27;appLanguage&#x27;] == &quot;java&quot;) &#123;</span><br><span class="line">                                // 适应multi-module的仓库, 将 sonar:sonar 作为独立的一步执行</span><br><span class="line">                                //sh &quot;mvn -s settings.xml clean install -Dmaven.test.skip=true&quot;</span><br><span class="line">                                sh &quot;mvn -s settings.xml clean install&quot;</span><br><span class="line">                                sh &quot;mvn -s settings.xml sonar:sonar $&#123;analysisParams&#125;&quot;</span><br><span class="line">                            &#125; else &#123;</span><br><span class="line">                                sh &quot;$&#123;scannerHome&#125;/bin/sonar-scanner $&#123;analysisParams&#125;&quot;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        // 扫描质量门结果</span><br><span class="line">                        timeout(time: 1, unit: &#x27;HOURS&#x27;) &#123;</span><br><span class="line">                             // 返回格式Map,示例: &#123;&quot;status&quot;:&quot;OK / ERROR&quot;&#125;, 返回放置在 ARTIFACTS[&#x27;qualityGate&#x27;]</span><br><span class="line">                            ARTIFACTS[&#x27;qualityGate&#x27;] = waitForQualityGate()</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>2.3、SonarQube</p>
+<p>登陆和Gitlab进行打通，实现联动登陆（Gitlab完成登陆了，则SonarQube即自动登陆）</p>
+<p><img src="/soanrqube-devOps-platform-integration/Sonar%E7%99%BB%E9%99%86.png" alt="Jenkins配置"></p>
+<p>2.4、Gitlab</p>
+<p>实现扫描结果 Comment on Commit ，<a href="https://gitlab.2345.cn/qiannw/wg-php-demo/commit/95e08b1428c0d7b1bae90f1d4b8facc136baae97">示例查看</a>（注：会同时给对应的代码提交人发送一封邮件通知 [Gitlab的Commit自带的配置]）</p>
+<p>注：根据实际需求进行，需要传入 <code>sonar.gitlab.project_id 参数</code></p>
+<p><strong>基于MR的Comment</strong></p>
+<p><img src="/soanrqube-devOps-platform-integration/MR-Sonar%E8%B4%A8%E9%87%8F%E9%98%88.png" alt="Jenkins配置"></p>
+<h2 id="问题记录"><a class="markdownIt-Anchor" href="#问题记录"></a> 问题记录</h2>
+<h3 id="1-sonarqube-扫描项目的权限问题"><a class="markdownIt-Anchor" href="#1-sonarqube-扫描项目的权限问题"></a> 1、SonarQube 扫描项目的权限问题</h3>
+<p>默认设置，登陆用户均可以查看，这个会造成源代码泄露风险</p>
+<p><strong>处理方式：</strong></p>
+<ul>
+<li>Default visibility of new projects: <strong>Private</strong> 位置：Administration &gt; Projects &gt; Management 右上角</li>
+<li>修改全局的权限设置模板，位置：Administration &gt; Security &gt; Default template &gt; Edit，设置如下：</li>
+<li><strong>新项目，通过Api接口设置对应的用户，有对应的权限：</strong></li>
+</ul>
+<p><strong>全局权限+新用户权限</strong></p>
+<p><img src="/soanrqube-devOps-platform-integration/%E5%85%A8%E5%B1%80%E6%9D%83%E9%99%90.png" alt="Jenkins配置"></p>
+<p><img src="/soanrqube-devOps-platform-integration/%E4%BA%BA%E5%91%98%E6%9D%83%E9%99%90.png" alt="Jenkins配置"></p>
+<h3 id="2-基于mr扫描状态结果回写gitlab"><a class="markdownIt-Anchor" href="#2-基于mr扫描状态结果回写gitlab"></a> 2、基于MR扫描状态结果回写Gitlab</h3>
+<ul>
+<li>
+<p>**坑1：目前使用7.9.x 对应的 branch plugin-1.3.2需要加入此参数(否则报错),后续针对8.x版本则不再需要<br>
+**参数：sonar.pullrequest.gitlab.repositorySlug的值对应MR的iid值</p>
+</li>
+<li>
+<p>**坑2：使用Jenkins Pipeline SCM模式，默认的变量GIT_COMMIT变量会影响到sonar扫描结果回写<br>
+**此环境变量置空, 否则影响MR检测时的Sonar回写Gitlab,注:取值为jenkins pipeline 仓库的Hash值</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">stage (&quot;代码扫描&quot;) &#123;</span><br><span class="line">    environment &#123;</span><br><span class="line">         GIT_COMMIT = &quot;&quot;  // 此环境变量置空, 否则影响MR检测时的Sonar回写Gitlab,注:取值为jenkins pipeline 仓库的Hash值</span><br><span class="line">       &#125;</span><br><span class="line">    steps &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+]]></content>
+      <categories>
+        <category>SonarQube</category>
+      </categories>
+      <tags>
+        <tag>SonarQube</tag>
+        <tag>代码扫描</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代码扫描(二)-SonarQube安装</title>
+    <url>/soanrqube-install/</url>
+    <content><![CDATA[<p>SonarQube的安装会给予版本有些差异，建议根据你选择的版本结合官方的文档进行安装，中间遇到问题再自行Google一下啦。本文主要是讲解一下版本的安装：SonarQube：7.9 LTS +PostgreSQL 10</p>
+<span id="more"></span>
+<h2 id="版本选择"><a class="markdownIt-Anchor" href="#版本选择"></a> 版本选择</h2>
+<p>不同的版本对应的插件选择和数据库支持不同，同时需要考虑版本的稳定性。考虑稳定性，避免出现问题无法跟进处理解决，生产环境不考虑最新版本。</p>
+<p>SonarQube：7.9 LTS</p>
+<p>SonarQube v7.9 的前置依赖说明（<a href="https://docs.sonarqube.org/7.9/requirements/requirements/%EF%BC%89">https://docs.sonarqube.org/7.9/requirements/requirements/）</a></p>
+<ul>
+<li>数据库：PostgreSQL 10</li>
+<li>Java JDK：OpenJDK 11</li>
+</ul>
+<h2 id="安装说明"><a class="markdownIt-Anchor" href="#安装说明"></a> 安装说明</h2>
+<h3 id="1-openjdk-11安装"><a class="markdownIt-Anchor" href="#1-openjdk-11安装"></a> 1、OpenJDK 11安装</h3>
+<p>官方安装引导：<a href="https://openjdk.java.net/install/">https://openjdk.java.net/install/</a></p>
+<p>安装包（Linux/x64）：（<a href="https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz">官方下载</a> ）</p>
+<p><strong>解压缩</strong></p>
+<p>&gt; tar -zxvf openjdk-11+28_linux-x64_bin.tar.gz</p>
+<p><strong>配置环境变量</strong></p>
+<p>&gt; 末尾增加如下内容(根据自己jdk目录修改)：<br>
+&gt; export JAVA_HOME=/usr/local/jdk-11<br>
+&gt; export CLASSPATH=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>J</mi><mi>A</mi><mi>V</mi><msub><mi>A</mi><mi>H</mi></msub><mi>O</mi><mi>M</mi><mi>E</mi><mi mathvariant="normal">/</mi><mi>l</mi><mi>i</mi><mi>b</mi><mo>:</mo></mrow><annotation encoding="application/x-tex">JAVA_HOME/lib:</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.09618em;">J</span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.08125em;">H</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span></span></span></span>CLASSPATH<br>
+&gt; export PATH=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>J</mi><mi>A</mi><mi>V</mi><msub><mi>A</mi><mi>H</mi></msub><mi>O</mi><mi>M</mi><mi>E</mi><mi mathvariant="normal">/</mi><mi>b</mi><mi>i</mi><mi>n</mi><mo>:</mo></mrow><annotation encoding="application/x-tex">JAVA_HOME/bin:</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.09618em;">J</span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.08125em;">H</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord">/</span><span class="mord mathdefault">b</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span></span></span></span>PATH</p>
+<p><strong>验证</strong></p>
+<p>&gt; java -version</p>
+<h3 id="2-postgresql-10安装"><a class="markdownIt-Anchor" href="#2-postgresql-10安装"></a> 2、PostgreSQL 10安装</h3>
+<p>官方的安装引导：<a href="https://www.postgresql.org/download/linux/redhat/">https://www.postgresql.org/download/linux/redhat/</a></p>
+<ul>
+<li>Select version：10</li>
+<li>Select platform：CentOS 7</li>
+<li>Select architecture: x86_64</li>
+</ul>
+<p>执行安装脚本及初始化启动：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装repo源</span></span><br><span class="line">sudo yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 安装服务端</span></span><br><span class="line">sudo yum install -y postgresql10-server</span><br><span class="line"> </span><br><span class="line"><span class="comment"># PGsql进行初始化</span></span><br><span class="line">sudo /usr/pgsql-10/bin/postgresql-10-setup initdb</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 加入开机启动</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span> postgresql-10</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 启动PGsql</span></span><br><span class="line">stl start postgresql-10</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 查看服务状态</span></span><br><span class="line">systemctl status postgresql-10.service</span><br></pre></td></tr></table></figure>
+<p>初始化SonarQube使用的数据</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 切换到postgres用户</span></span><br><span class="line">su - postgres</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 连接到数据库</span></span><br><span class="line">psql</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 创建数据库</span></span><br><span class="line">CREATE DATABASE sonarqube;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 创建用户</span></span><br><span class="line">CREATE USER sonarqube WITH PASSWORD <span class="string">&#x27;xxxxx&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 设置权限</span></span><br><span class="line">GRANT ALL PRIVILEGES ON DATABASE sonarqube TO sonarqube;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 创建授权（必须）</span></span><br><span class="line">ALTER DATABASE sonarqube owner to sonarqube;</span><br></pre></td></tr></table></figure>
+<p>修改pg数据的pg_hba.conf（<a href="http://www.postgres.cn/docs/10/auth-pg-hba-conf.html"><code>pg_hba.conf</code>文件说明</a>）将认证 ident 改为 md5，</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># TYPE  DATABASE        USER            ADDRESS                 METHOD</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># &quot;local&quot; is for Unix domain socket connections only</span></span><br><span class="line"><span class="built_in">local</span>   all             all                                     peer</span><br><span class="line"><span class="comment"># IPv4 local connections:</span></span><br><span class="line">host    all             all             127.0.0.1/32            md5</span><br><span class="line"><span class="comment"># IPv6 local connections:</span></span><br><span class="line">host    all             all             ::1/128                 md5</span><br><span class="line"><span class="comment"># Allow replication connections from localhost, by a user with the</span></span><br><span class="line"><span class="comment"># replication privilege.</span></span><br><span class="line"><span class="comment">#local   replication     postgres                                peer</span></span><br><span class="line"><span class="comment">#host    replication     postgres        127.0.0.1/32            ident</span></span><br><span class="line"><span class="comment">#host    replication     postgres        ::1/128                 ident</span></span><br><span class="line"><span class="comment">#host    replication     sonar           127.0.0.1/32            ident</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-sonarqube-79安装"><a class="markdownIt-Anchor" href="#3-sonarqube-79安装"></a> 3、SonarQube 7.9安装</h3>
+<p>官方的安装引导：<a href="https://docs.sonarqube.org/7.9/setup/install-server/">https://docs.sonarqube.org/7.9/setup/install-server/</a></p>
+<p>安装包：（<a href="https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.9.6.zip">官方下载</a>）</p>
+<p><strong>创建sonar用户</strong></p>
+<p>&gt; sudo useradd sonar</p>
+<p>&gt; passwd sonar (密码：xxxx)</p>
+<p>linux平台文件数限制</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置系统最大文件数</span></span><br><span class="line">sysctl -w vm.max_map_count=262144</span><br><span class="line">sysctl -w fs.file-max=65536</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 设置sonar用户再打文件数 文件：/etc/security/limits.d/99-sonarqube.conf (or /etc/security/limits.conf as you wish)，注：终端需退出重登生效或source后生效？</span></span><br><span class="line">sonar -   nofile   65536</span><br><span class="line">sonar -   nproc    4096</span><br></pre></td></tr></table></figure>
+<p><strong>安装配置</strong></p>
+<ul>
+<li>数据库链接</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt; sonar.jdbc.username=sonarqube</span><br><span class="line">&gt; sonar.jdbc.password=mypassword</span><br><span class="line">&gt; sonar.jdbc.url=jdbc:postgresql://localhost/sonarqube</span><br></pre></td></tr></table></figure>
+<ul>
+<li>ES存储</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt; sonar.path.data=/opt/data/sonarqube/data</span><br><span class="line">&gt; sonar.path.temp=/opt/data/sonarqube/temp</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Web Server配置</li>
+</ul>
+<p>自己设定启动端口配置即可</p>
+<p><strong>脚本启动</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; <span class="variable">$&#123;sonar_home&#125;</span>/bin/linux-x86-64/sonar.sh start</span><br></pre></td></tr></table></figure>
+<p>服务器部署，注意加入到开机启动项中,，此处我是加入 rc.local 文件中</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># sonarqube server</span></span><br><span class="line">su - sonar -c <span class="string">&quot;/opt/app/sonarqube/sonarqube-7.9.6/bin/linux-x86-64/sonar.sh start&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-sonarqube-scanner"><a class="markdownIt-Anchor" href="#4-sonarqube-scanner"></a> 4、SonarQube Scanner</h3>
+<p>官方的安装引导：<a href="https://docs.sonarqube.org/7.9/analysis/scan/sonarscanner/">https://docs.sonarqube.org/7.9/analysis/scan/sonarscanner/</a></p>
+<p>安装包：（<a href="https://docs.sonarqube.org/7.9/analysis/scan/sonarscanner/">官方下载</a>）</p>
+<p>安装：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置SonarQube Server，位置：$install_directory/conf/sonar-scanner.properties</span></span><br><span class="line"><span class="comment">#----- Default SonarQube server</span></span><br><span class="line">sonar.host.url=http://localhost:9000</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 将$install_directory/bin，加入到环境变量PATH</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 使用 sonar-scanner -h ，做验证</span></span><br></pre></td></tr></table></figure>
+<p>**每个扫描项目的根目录加入：**sonar-project.properties</p>
+<p>sonar-project.properties示例： <a href="https://github.com/SonarSource/sonar-scanning-examples">browsed</a> or <a href="https://github.com/SonarSource/sonar-scanning-examples/archive/master.zip">downloaded</a></p>
+<h3 id="5-sonarqube-plugin"><a class="markdownIt-Anchor" href="#5-sonarqube-plugin"></a> 5、SonarQube Plugin</h3>
+<ul>
+<li>社区版支持多分支检测： <a href="https://github.com/mc1arke/sonarqube-community-branch-plugin">sonarqube-community-branch-plugin</a>（1.3.2老版本，安装<a href="https://github.com/mc1arke/sonarqube-community-branch-plugin/commit/a6b6db3f30e1ebba7183825542d1f5363b66a831#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5">区别现说明</a>：Copy the plugin JAR file to the <code>extensions/plugins/</code> <strong>and</strong> the <code>lib/common/</code> directories of your SonarQube instance and restart SonarQube）</li>
+<li>汉化包（不建议，总觉得怪怪的）：直接在应用市场检索按照对应的版本即可（jar插件下载：<a href="https://github.com/xuhuisheng/sonar-l10n-zh">sonar-l10n-zh</a>）</li>
+</ul>
+<h3 id="6-相关配置"><a class="markdownIt-Anchor" href="#6-相关配置"></a> 6、相关配置</h3>
+<ul>
+<li><strong>解决增量代码小于20行，QG不生效情况：</strong></li>
+</ul>
+<p>&gt; 配置：sonarqube → quality gates → create/copy a new QG , set :Lines to Cover on New Code to 0</p>
+<h2 id="问题记录"><a class="markdownIt-Anchor" href="#问题记录"></a> 问题记录</h2>
+<p><strong>1、Some Quality Gate conditions on New Code were ignored because of the small number of New Lines</strong></p>
+<p>但分支模式增量代码扫描，少于20行时，代码坏味道无法检测到，可以参考：<a href="https://jira.sonarsource.com/browse/SONAR-9352">SONAR-9352</a> 或 <a href="https://groups.google.com/g/sonarqube/c/qxQLr7OAioA/m/Dk9J7Ji8BgAJ?pli=1">论坛讨论</a></p>
+<p>解决：解决方案说明参考 <a href="https://groups.google.com/g/sonarqube/c/qxQLr7OAioA/m/Dk9J7Ji8BgAJ?pli=1">论坛讨论</a>，</p>
+<p>步骤：sonarqube → quality gates → create/copy a new QG , set :Lines to Cover on New Code to 0</p>
+<p><strong>2、the main branch has no lines of code</strong></p>
+<p>扫描php，遇到的错误，主要原因是唯一的php的文件在解析阶段就出现错误，无法正常解析，也就没有扫描文件，更没有扫描结果了。</p>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<ol>
+<li><a href="https://bbs.huaweicloud.com/blogs/159762">SonarQube安装及踩坑体验</a></li>
+<li><a href="https://blog.csdn.net/CN_TangZheng/article/details/109244806">调研sonarqube版本区别</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1732805">从零开始针对 .NET 应用的 DevOps 运营实践 - Jenkins &amp; SonarQube 安装配置</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>SonarQube</category>
+      </categories>
+      <tags>
+        <tag>SonarQube</tag>
+        <tag>代码扫描</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>OKR实践-初阶</title>
+    <url>/okr-primary/</url>
+    <content><![CDATA[<p>如OKR国内貌似字节“首推”，也一直践行着，至于大家要不要从原有的考核体系切换到比较<code>先进</code>的OKR呢？哈哈，没有答案！大伙儿根据自己的实际遇到的问题 + OKR的理念思想，进行考虑实践。这里只是简单介绍我践行的过程哈。</p>
+<span id="more"></span>
+<h2 id="1-接触okr"><a class="markdownIt-Anchor" href="#1-接触okr"></a> 1 、接触OKR</h2>
+<h3 id="团队遇到的困难"><a class="markdownIt-Anchor" href="#团队遇到的困难"></a> 团队遇到的困难</h3>
+<ul>
+<li>任务管理</li>
+<li>临时工作插入安排</li>
+<li>重点工作目标推进</li>
+</ul>
+<h3 id="寻找方案"><a class="markdownIt-Anchor" href="#寻找方案"></a> 寻找方案</h3>
+<p>偶然看到一个OKR的视频培训，之前有听说过（但是没有实践经验吧），当天看了视频直播，觉得值得一试。</p>
+<p>《<a href="https://www.bilibili.com/video/BV1fk4y1r7oZ">如何应用OKR+敏捷实践驱动团队管理改进 丰之恺 中国DevOps社区第23期线上分享</a>》</p>
+<h2 id="2-团队实践"><a class="markdownIt-Anchor" href="#2-团队实践"></a> 2、团队实践</h2>
+<p><strong>团队宣导：理解目标，理解OKR</strong></p>
+<ul>
+<li>
+<p>团队协商讨论，制定团队OKR，公开分享团队成员绩效计划</p>
+</li>
+<li>
+<p>团队成员针对团队目标，制定个人OKR</p>
+</li>
+<li>
+<p>确保目标达成，成员对OKR做敏捷计划拆解</p>
+</li>
+<li>
+<p>每日站立晨会(10-20min)，对齐目标计划，重点讨论阻塞问题</p>
+</li>
+<li>
+<p>每周回顾总结，对齐目标，有问题及时调整</p>
+</li>
+</ul>
+<h3 id="21-使用工具"><a class="markdownIt-Anchor" href="#21-使用工具"></a> 2.1、使用工具</h3>
+<p><strong>Confluence（共享、开放、透明） + JIRA（敏捷看板、计划跟进）</strong></p>
+<h3 id="22-团队okr"><a class="markdownIt-Anchor" href="#22-团队okr"></a> 2.2、团队OKR</h3>
+<p>针对组织目标（可以理解为领导下达的KPI），结合小伙伴的个人目标，团队共同制定出团队OKR。</p>
+<p><img src="/okr-primary/%E5%9B%A2%E9%98%9FOKR-new.jpg" alt></p>
+<h3 id="23-个人okr"><a class="markdownIt-Anchor" href="#23-个人okr"></a> 2.3、个人OKR</h3>
+<p>小伙伴针对团队OKR进行拆解，为了可以确保目标达成，小伙伴还进行了详细的任务计划。</p>
+<p><strong>每个O的Owner需主动推进该O和KR的达成，需要协助自主协调，对于该O富有绝对主导责任！</strong></p>
+<p><img src="/okr-primary/%E4%B8%AA%E4%BA%BAOKR-new.jpg" alt></p>
+<h2 id="3-实践参考"><a class="markdownIt-Anchor" href="#3-实践参考"></a> 3、实践参考</h2>
+<ul>
+<li><a href="https://blog.worktile.com/okr-okr-template-02-dev/?utm_source=segmentfault&amp;utm_medium=meiyang">技术研发类OKR制定</a></li>
+<li><a href="https://www.atlassian.com/dam/jcr:a8b8a327-abd0-4c78-a493-9ff677efb6d0/OKRs-Blueprint.pdf">OKR模板.PDF - 本文参考使用的</a></li>
+<li><a href="https://www.atlassian.com/software/confluence/templates/okrs">Confluence OKRS Template</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>管理实践</category>
+      </categories>
+      <tags>
+        <tag>管理</tag>
+        <tag>OKR</tag>
       </tags>
   </entry>
   <entry>
@@ -563,419 +934,6 @@
       </tags>
   </entry>
   <entry>
-    <title>代码扫描(三)-Sonar+Jenkins+Gitlab集成</title>
-    <url>/soanrqube-jenkins-gitlab-integration/</url>
-    <content><![CDATA[<p>目前我们使用CI工具主要是Jenkins，所以此相互选择了jenkins进行集成。根据实际情况，也可选择GitlabCI等工具。</p>
-<p>实施代码检测，Gitlab 代码变更（Push/Merge），触发Jenkins Job执行SonarScanner扫描代码，SonarServer通过Gitlab插件，将代码扫描完的结果回写至Gitlab，GitLab即可查看到对应Sonar检测的结果代码注释，方便开发人员代码排查</p>
-<span id="more"></span>
-<h2 id="实现目的"><a class="markdownIt-Anchor" href="#实现目的"></a> 实现目的</h2>
-<ul>
-<li>1、研发过程，Jenkins在构建过程，加入SonarQube的代码质量门，检测本次构建增量代码质量</li>
-<li>2、定期的全量代码质量扫描，在每周定期对公司所有代码进行全量扫描，产出代码质量报告</li>
-</ul>
-<h2 id="集成插件配置"><a class="markdownIt-Anchor" href="#集成插件配置"></a> 集成插件配置</h2>
-<h3 id="1-jenkins插件配置"><a class="markdownIt-Anchor" href="#1-jenkins插件配置"></a> 1、Jenkins插件&amp;配置</h3>
-<p><strong>插件：</strong></p>
-<ul>
-<li>SonarQubeScannerForJenkins</li>
-</ul>
-<p><strong>配置：</strong></p>
-<ul>
-<li>SonarServer配置：Manage Jenkins – &gt; Configure System – &gt; SonarQube servers<br>
-需要SonarQube基于高权限账号生成的 授权token （SonarQube：Administration – &gt; Security – &gt; Users）</li>
-<li>SonarScanner配置：Manage Jenkins – &gt; Global Tool Configuration – &gt; SonarQube Scanner<br>
-备注：<strong>这里安装多个SonarQube Scanner，为多项目并行代码扫描做准备</strong></li>
-</ul>
-<h3 id="2-sonarqube配置"><a class="markdownIt-Anchor" href="#2-sonarqube配置"></a> 2、SonarQube配置</h3>
-<p><strong>插件：</strong></p>
-<p>实现gitlab打通，<strong>同时实现gitlab auth授权登陆</strong>。</p>
-<ul>
-<li>sonar-gitlab-plugin：<a href="https://github.com/javamachr/sonar-gitlab-plugin">https://github.com/javamachr/sonar-gitlab-plugin</a></li>
-<li>**sonar-auth-gitlab-plugin：**<a href="https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin">https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin</a></li>
-</ul>
-<p>**Sonar Serverbase Url设置：**Administration &gt; Configuration &gt; General&gt; Server base URL</p>
-<p><strong>Webhook配置：（实操，不配置，JEnkins在获取质量门结果时会无限等待）</strong></p>
-<p>Administration &gt; Configuration &gt; Webhooks. The URL should point to your Jenkins server： <code>http://&#123;JENKINS_HOST&#125;/sonarqube-webhook/</code></p>
-<p>具体说明：参考Jenkins官方文档说明（<a href="https://www.jenkins.io/doc/pipeline/steps/sonar/#waitforqualitygate-wait-for-sonarqube-analysis-to-be-completed-and-return-quality-gate-status">Configure a webhook in your SonarQube server pointing</a> … ）</p>
-<p><strong>Gitlab授权登陆：</strong></p>
-<p>Administration &gt; Configuration &gt; GitLab &gt; Authentication ：设置对应的 Application ID + Secret</p>
-<p>(设置参数说明，参考对应的插件说明：<a href="https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin">sonar-auth-gitlab-plugin</a>)</p>
-<p><strong>Gitlab Reporting配置：</strong></p>
-<ul>
-<li>
-<p>作用：可以将检测结果报告已comment的形式回写至Gitlab的Commit中（注：目前版本不支持inline comment in commit，现在只有global comment，具体看附属问题记录说明）</p>
-</li>
-<li>
-<p>配置：Administration &gt; Configuration &gt; GitLab &gt; Reporting</p>
-</li>
-<li>
-<p>参数：扫描时需要配置参数：sonar.gitlab.project_id</p>
-</li>
-</ul>
-<p>说明：这个可以根据实际需求配置说明，此处可根据需求配置将检测的结果是否以comment回写。此处暂时不配置。</p>
-<h3 id="3-gitlab配置"><a class="markdownIt-Anchor" href="#3-gitlab配置"></a> 3、Gitlab配置</h3>
-<p><strong>授权登陆设置：</strong><br>
-Admin Settings -&gt; Application：设置对应的回调：https://<your sonar domain>/oauth2/callback/gitlab (备注：sonar的domain不可为IP+Port形式，经测试http目前也是支持)</your></p>
-<h2 id="问题记录"><a class="markdownIt-Anchor" href="#问题记录"></a> 问题记录</h2>
-<ul>
-<li>SonarCloud + GitHub + Pull Request Analysis = No Inline Comments：<a href="https://community.sonarsource.com/t/sonarcloud-github-pull-request-analysis-no-inline-comments/7371/2">https://community.sonarsource.com/t/sonarcloud-github-pull-request-analysis-no-inline-comments/7371/2</a><br>
-目前最后支持的版本：sonarqube v7.6</li>
-<li>新扫描项目（新sonar project key） No branches currently exist in this project. Please scan the main branch without passing any branch parameters<br>
-注：新项目必须先扫描 master（稳定）分支，才可以进行其他分支的扫描</li>
-<li>不建议写入sonar.language扫描参数： <a href="https://community.sonarsource.com/t/what-is-the-alternative-to-the-sonar-language-property-in-the-current-version-of-sonarqube/3993">https://community.sonarsource.com/t/what-is-the-alternative-to-the-sonar-language-property-in-the-current-version-of-sonarqube/3993</a></li>
-<li>SonarQube插件矩阵（可查看相关产检兼容情况）：<a href="https://docs.sonarqube.org/latest/instance-administration/plugin-version-matrix/">https://docs.sonarqube.org/latest/instance-administration/plugin-version-matrix/</a></li>
-</ul>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
-<ul>
-<li><a href="https://docs.sonarqube.org/latest/">SonarQube官方文档</a></li>
-<li><a href="https://gitbook.curiouser.top/origin/SonarQube%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F%E5%88%86%E6%9E%90%E7%AE%80%E4%BB%8B.html">SonarQube静态代码扫描分析简介</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>SonarQube</category>
-      </categories>
-      <tags>
-        <tag>SonarQube</tag>
-        <tag>代码扫描</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>代码扫描(一)-工具选型</title>
-    <url>/code-analysis-tools-select/</url>
-    <content><![CDATA[<p>DevOps必不可少的一环就是代码扫描了，这里面包含了编码规范、代码缺陷、性能、漏洞的检测。目前也会有很多的开源静态代码扫描工具，如：SonarQube、Infer、PMD、FindBugs、CheckStyle。针对此做了简单的收集对比，各位可以根据自身的需求进行参考。</p>
-<span id="more"></span>
-<h2 id="工具选型调研"><a class="markdownIt-Anchor" href="#工具选型调研"></a> 工具选型调研</h2>
-<h3 id="工具对比说明"><a class="markdownIt-Anchor" href="#工具对比说明"></a> 工具对比说明</h3>
-<p>目前比较流行的开源的静态代码扫描工具：SonarQube、Infer、PMD、FindBugs、CheckStyle。因为后续会有流程定制化等需求，暂不考虑商业化的软件。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">产品</th>
-<th style="text-align:center">定位</th>
-<th style="text-align:left">OpenApi</th>
-<th style="text-align:left">Web项目友好</th>
-<th style="text-align:left">支持代码质量检查</th>
-<th style="text-align:left">支持语言</th>
-<th style="text-align:left">可扩展性/插件支持</th>
-<th style="text-align:left">是否侵入项目</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">SonarQube</td>
-<td style="text-align:center">代码质量平台 <br>通过插件的<br>方式提供对各个<br>语言进行支持，<br>可以和 Checkstyle、PMD、Simian <br>等工具进行集成</td>
-<td style="text-align:left">支持</td>
-<td style="text-align:left">是</td>
-<td style="text-align:left">支持</td>
-<td style="text-align:left">常见语言都支持</td>
-<td style="text-align:left">高</td>
-<td style="text-align:left">否</td>
-</tr>
-<tr>
-<td style="text-align:left">Infer</td>
-<td style="text-align:center">代码分析</td>
-<td style="text-align:left">不支持</td>
-<td style="text-align:left">否（移动端友好）</td>
-<td style="text-align:left">支持</td>
-<td style="text-align:left">Android/java</td>
-<td style="text-align:left">中</td>
-<td style="text-align:left">是</td>
-</tr>
-<tr>
-<td style="text-align:left">PMD</td>
-<td style="text-align:center">代码分析</td>
-<td style="text-align:left">不支持</td>
-<td style="text-align:left">是</td>
-<td style="text-align:left">支持</td>
-<td style="text-align:left">java</td>
-<td style="text-align:left">高</td>
-<td style="text-align:left">否</td>
-</tr>
-<tr>
-<td style="text-align:left">FindBugs</td>
-<td style="text-align:center">字节码分析，侧重Bug检测</td>
-<td style="text-align:left">不支持</td>
-<td style="text-align:left"></td>
-<td style="text-align:left">支持</td>
-<td style="text-align:left">java</td>
-<td style="text-align:left">低</td>
-<td style="text-align:left">是</td>
-</tr>
-<tr>
-<td style="text-align:left">CheckStyle</td>
-<td style="text-align:center">语法层面分析</td>
-<td style="text-align:left">不支持</td>
-<td style="text-align:left"></td>
-<td style="text-align:left">支持</td>
-<td style="text-align:left">java</td>
-<td style="text-align:left">低</td>
-<td style="text-align:left">是</td>
-</tr>
-</tbody>
-</table>
-<h3 id="选型"><a class="markdownIt-Anchor" href="#选型"></a> 选型</h3>
-<p>基于上述，<strong>选型SonarQube作为代码扫描工具</strong>，SonarQube 也是是一款目前比较流行的工具，国内很多互联网公司都选择用它来搭建静态检查的平台。</p>
-<p>SonarQube介绍: <a href="https://www.sonarqube.org/">官网</a></p>
-<h2 id="实施计划"><a class="markdownIt-Anchor" href="#实施计划"></a> 实施计划</h2>
-<ul>
-<li>SonarQube的部署使用调研</li>
-<li>代码检测集成方案，（Jenkins、gitlab CI、代码检测时机等）</li>
-<li>考虑代码质量平台管理（原生平台界面不友好、同时展示维度无法做到应用维度）</li>
-</ul>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> <strong>参考资料</strong></h2>
-<table>
-<thead>
-<tr>
-<th style="text-align:left"></th>
-<th style="text-align:left">资料</th>
-<th style="text-align:left">概述</th>
-<th style="text-align:left">参考价值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">1</td>
-<td style="text-align:left"><a href="https://testerhome.com/articles/24210">酷家乐质量效能 代码度量平台</a></td>
-<td style="text-align:left">引入使用 SQALE 代码质量评估模型的 SonarQube 进行代码静态扫描，辅以 Cobra 的进行代码审计，Synk 进行三方包漏洞扫描，形成一套完整的代码度量工具链</td>
-<td style="text-align:left"><strong>高</strong><br>整合平台页面参考</td>
-</tr>
-<tr>
-<td style="text-align:left">2</td>
-<td style="text-align:left"><a href="https://mp.weixin.qq.com/s/d9RzCFkYrW27m1_LkeA2rw">系列 | 58集团白盒代码审计系统建设实践1：技术选型</a></td>
-<td style="text-align:left">对比了常见的的开源方案和商业方案，同时涉及介绍 SDL 相关检测知识</td>
-<td style="text-align:left"><strong>高</strong><br>选型对比数据参考</td>
-</tr>
-</tbody>
-</table>
-]]></content>
-      <categories>
-        <category>SonarQube</category>
-      </categories>
-      <tags>
-        <tag>SonarQube</tag>
-        <tag>代码扫描</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>代码扫描(二)-SonarQube安装</title>
-    <url>/soanrqube-install/</url>
-    <content><![CDATA[<p>SonarQube的安装会给予版本有些差异，建议根据你选择的版本结合官方的文档进行安装，中间遇到问题再自行Google一下啦。本文主要是讲解一下版本的安装：SonarQube：7.9 LTS +PostgreSQL 10</p>
-<span id="more"></span>
-<h2 id="版本选择"><a class="markdownIt-Anchor" href="#版本选择"></a> 版本选择</h2>
-<p>不同的版本对应的插件选择和数据库支持不同，同时需要考虑版本的稳定性。考虑稳定性，避免出现问题无法跟进处理解决，生产环境不考虑最新版本。</p>
-<p>SonarQube：7.9 LTS</p>
-<p>SonarQube v7.9 的前置依赖说明（<a href="https://docs.sonarqube.org/7.9/requirements/requirements/%EF%BC%89">https://docs.sonarqube.org/7.9/requirements/requirements/）</a></p>
-<ul>
-<li>数据库：PostgreSQL 10</li>
-<li>Java JDK：OpenJDK 11</li>
-</ul>
-<h2 id="安装说明"><a class="markdownIt-Anchor" href="#安装说明"></a> 安装说明</h2>
-<h3 id="1-openjdk-11安装"><a class="markdownIt-Anchor" href="#1-openjdk-11安装"></a> 1、OpenJDK 11安装</h3>
-<p>官方安装引导：<a href="https://openjdk.java.net/install/">https://openjdk.java.net/install/</a></p>
-<p>安装包（Linux/x64）：（<a href="https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz">官方下载</a> ）</p>
-<p><strong>解压缩</strong></p>
-<p>&gt; tar -zxvf openjdk-11+28_linux-x64_bin.tar.gz</p>
-<p><strong>配置环境变量</strong></p>
-<p>&gt; 末尾增加如下内容(根据自己jdk目录修改)：<br>
-&gt; export JAVA_HOME=/usr/local/jdk-11<br>
-&gt; export CLASSPATH=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>J</mi><mi>A</mi><mi>V</mi><msub><mi>A</mi><mi>H</mi></msub><mi>O</mi><mi>M</mi><mi>E</mi><mi mathvariant="normal">/</mi><mi>l</mi><mi>i</mi><mi>b</mi><mo>:</mo></mrow><annotation encoding="application/x-tex">JAVA_HOME/lib:</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.09618em;">J</span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.08125em;">H</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span></span></span></span>CLASSPATH<br>
-&gt; export PATH=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>J</mi><mi>A</mi><mi>V</mi><msub><mi>A</mi><mi>H</mi></msub><mi>O</mi><mi>M</mi><mi>E</mi><mi mathvariant="normal">/</mi><mi>b</mi><mi>i</mi><mi>n</mi><mo>:</mo></mrow><annotation encoding="application/x-tex">JAVA_HOME/bin:</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.09618em;">J</span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.08125em;">H</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord">/</span><span class="mord mathdefault">b</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span></span></span></span>PATH</p>
-<p><strong>验证</strong></p>
-<p>&gt; java -version</p>
-<h3 id="2-postgresql-10安装"><a class="markdownIt-Anchor" href="#2-postgresql-10安装"></a> 2、PostgreSQL 10安装</h3>
-<p>官方的安装引导：<a href="https://www.postgresql.org/download/linux/redhat/">https://www.postgresql.org/download/linux/redhat/</a></p>
-<ul>
-<li>Select version：10</li>
-<li>Select platform：CentOS 7</li>
-<li>Select architecture: x86_64</li>
-</ul>
-<p>执行安装脚本及初始化启动：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装repo源</span></span><br><span class="line">sudo yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 安装服务端</span></span><br><span class="line">sudo yum install -y postgresql10-server</span><br><span class="line"> </span><br><span class="line"><span class="comment"># PGsql进行初始化</span></span><br><span class="line">sudo /usr/pgsql-10/bin/postgresql-10-setup initdb</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 加入开机启动</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span> postgresql-10</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 启动PGsql</span></span><br><span class="line">stl start postgresql-10</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 查看服务状态</span></span><br><span class="line">systemctl status postgresql-10.service</span><br></pre></td></tr></table></figure>
-<p>初始化SonarQube使用的数据</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 切换到postgres用户</span></span><br><span class="line">su - postgres</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 连接到数据库</span></span><br><span class="line">psql</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 创建数据库</span></span><br><span class="line">CREATE DATABASE sonarqube;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 创建用户</span></span><br><span class="line">CREATE USER sonarqube WITH PASSWORD <span class="string">&#x27;xxxxx&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 设置权限</span></span><br><span class="line">GRANT ALL PRIVILEGES ON DATABASE sonarqube TO sonarqube;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 创建授权（必须）</span></span><br><span class="line">ALTER DATABASE sonarqube owner to sonarqube;</span><br></pre></td></tr></table></figure>
-<p>修改pg数据的pg_hba.conf（<a href="http://www.postgres.cn/docs/10/auth-pg-hba-conf.html"><code>pg_hba.conf</code>文件说明</a>）将认证 ident 改为 md5，</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># TYPE  DATABASE        USER            ADDRESS                 METHOD</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># &quot;local&quot; is for Unix domain socket connections only</span></span><br><span class="line"><span class="built_in">local</span>   all             all                                     peer</span><br><span class="line"><span class="comment"># IPv4 local connections:</span></span><br><span class="line">host    all             all             127.0.0.1/32            md5</span><br><span class="line"><span class="comment"># IPv6 local connections:</span></span><br><span class="line">host    all             all             ::1/128                 md5</span><br><span class="line"><span class="comment"># Allow replication connections from localhost, by a user with the</span></span><br><span class="line"><span class="comment"># replication privilege.</span></span><br><span class="line"><span class="comment">#local   replication     postgres                                peer</span></span><br><span class="line"><span class="comment">#host    replication     postgres        127.0.0.1/32            ident</span></span><br><span class="line"><span class="comment">#host    replication     postgres        ::1/128                 ident</span></span><br><span class="line"><span class="comment">#host    replication     sonar           127.0.0.1/32            ident</span></span><br></pre></td></tr></table></figure>
-<h3 id="3-sonarqube-79安装"><a class="markdownIt-Anchor" href="#3-sonarqube-79安装"></a> 3、SonarQube 7.9安装</h3>
-<p>官方的安装引导：<a href="https://docs.sonarqube.org/7.9/setup/install-server/">https://docs.sonarqube.org/7.9/setup/install-server/</a></p>
-<p>安装包：（<a href="https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.9.6.zip">官方下载</a>）</p>
-<p><strong>创建sonar用户</strong></p>
-<p>&gt; sudo useradd sonar</p>
-<p>&gt; passwd sonar (密码：xxxx)</p>
-<p>linux平台文件数限制</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置系统最大文件数</span></span><br><span class="line">sysctl -w vm.max_map_count=262144</span><br><span class="line">sysctl -w fs.file-max=65536</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 设置sonar用户再打文件数 文件：/etc/security/limits.d/99-sonarqube.conf (or /etc/security/limits.conf as you wish)，注：终端需退出重登生效或source后生效？</span></span><br><span class="line">sonar -   nofile   65536</span><br><span class="line">sonar -   nproc    4096</span><br></pre></td></tr></table></figure>
-<p><strong>安装配置</strong></p>
-<ul>
-<li>数据库链接</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt; sonar.jdbc.username=sonarqube</span><br><span class="line">&gt; sonar.jdbc.password=mypassword</span><br><span class="line">&gt; sonar.jdbc.url=jdbc:postgresql://localhost/sonarqube</span><br></pre></td></tr></table></figure>
-<ul>
-<li>ES存储</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt; sonar.path.data=/opt/data/sonarqube/data</span><br><span class="line">&gt; sonar.path.temp=/opt/data/sonarqube/temp</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Web Server配置</li>
-</ul>
-<p>自己设定启动端口配置即可</p>
-<p><strong>脚本启动</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; <span class="variable">$&#123;sonar_home&#125;</span>/bin/linux-x86-64/sonar.sh start</span><br></pre></td></tr></table></figure>
-<p>服务器部署，注意加入到开机启动项中,，此处我是加入 rc.local 文件中</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># sonarqube server</span></span><br><span class="line">su - sonar -c <span class="string">&quot;/opt/app/sonarqube/sonarqube-7.9.6/bin/linux-x86-64/sonar.sh start&quot;</span></span><br></pre></td></tr></table></figure>
-<h3 id="4-sonarqube-scanner"><a class="markdownIt-Anchor" href="#4-sonarqube-scanner"></a> 4、SonarQube Scanner</h3>
-<p>官方的安装引导：<a href="https://docs.sonarqube.org/7.9/analysis/scan/sonarscanner/">https://docs.sonarqube.org/7.9/analysis/scan/sonarscanner/</a></p>
-<p>安装包：（<a href="https://docs.sonarqube.org/7.9/analysis/scan/sonarscanner/">官方下载</a>）</p>
-<p>安装：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置SonarQube Server，位置：$install_directory/conf/sonar-scanner.properties</span></span><br><span class="line"><span class="comment">#----- Default SonarQube server</span></span><br><span class="line">sonar.host.url=http://localhost:9000</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 将$install_directory/bin，加入到环境变量PATH</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 使用 sonar-scanner -h ，做验证</span></span><br></pre></td></tr></table></figure>
-<p>**每个扫描项目的根目录加入：**sonar-project.properties</p>
-<p>sonar-project.properties示例： <a href="https://github.com/SonarSource/sonar-scanning-examples">browsed</a> or <a href="https://github.com/SonarSource/sonar-scanning-examples/archive/master.zip">downloaded</a></p>
-<h3 id="5-sonarqube-plugin"><a class="markdownIt-Anchor" href="#5-sonarqube-plugin"></a> 5、SonarQube Plugin</h3>
-<ul>
-<li>社区版支持多分支检测： <a href="https://github.com/mc1arke/sonarqube-community-branch-plugin">sonarqube-community-branch-plugin</a>（1.3.2老版本，安装<a href="https://github.com/mc1arke/sonarqube-community-branch-plugin/commit/a6b6db3f30e1ebba7183825542d1f5363b66a831#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5">区别现说明</a>：Copy the plugin JAR file to the <code>extensions/plugins/</code> <strong>and</strong> the <code>lib/common/</code> directories of your SonarQube instance and restart SonarQube）</li>
-<li>汉化包（不建议，总觉得怪怪的）：直接在应用市场检索按照对应的版本即可（jar插件下载：<a href="https://github.com/xuhuisheng/sonar-l10n-zh">sonar-l10n-zh</a>）</li>
-</ul>
-<h3 id="6-相关配置"><a class="markdownIt-Anchor" href="#6-相关配置"></a> 6、相关配置</h3>
-<ul>
-<li><strong>解决增量代码小于20行，QG不生效情况：</strong></li>
-</ul>
-<p>&gt; 配置：sonarqube → quality gates → create/copy a new QG , set :Lines to Cover on New Code to 0</p>
-<h2 id="问题记录"><a class="markdownIt-Anchor" href="#问题记录"></a> 问题记录</h2>
-<p><strong>1、Some Quality Gate conditions on New Code were ignored because of the small number of New Lines</strong></p>
-<p>但分支模式增量代码扫描，少于20行时，代码坏味道无法检测到，可以参考：<a href="https://jira.sonarsource.com/browse/SONAR-9352">SONAR-9352</a> 或 <a href="https://groups.google.com/g/sonarqube/c/qxQLr7OAioA/m/Dk9J7Ji8BgAJ?pli=1">论坛讨论</a></p>
-<p>解决：解决方案说明参考 <a href="https://groups.google.com/g/sonarqube/c/qxQLr7OAioA/m/Dk9J7Ji8BgAJ?pli=1">论坛讨论</a>，</p>
-<p>步骤：sonarqube → quality gates → create/copy a new QG , set :Lines to Cover on New Code to 0</p>
-<p><strong>2、the main branch has no lines of code</strong></p>
-<p>扫描php，遇到的错误，主要原因是唯一的php的文件在解析阶段就出现错误，无法正常解析，也就没有扫描文件，更没有扫描结果了。</p>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
-<ol>
-<li><a href="https://bbs.huaweicloud.com/blogs/159762">SonarQube安装及踩坑体验</a></li>
-<li><a href="https://blog.csdn.net/CN_TangZheng/article/details/109244806">调研sonarqube版本区别</a></li>
-<li><a href="https://cloud.tencent.com/developer/article/1732805">从零开始针对 .NET 应用的 DevOps 运营实践 - Jenkins &amp; SonarQube 安装配置</a></li>
-</ol>
-]]></content>
-      <categories>
-        <category>SonarQube</category>
-      </categories>
-      <tags>
-        <tag>SonarQube</tag>
-        <tag>代码扫描</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>代码扫描(四)-DevOps平台集成Sonar方案</title>
-    <url>/soanrqube-devOps-platform-integration/</url>
-    <content><![CDATA[<p>SonarQube需要融合到DevOps平台，使其成为CICD的一个环节中来，发挥其更大的价值。我们需要考虑到如何与DevOps平台的集成，并且可以最小限度的对于业务代码的侵入性，这边文档将我的方案做个各详细阐述和大家一起分享。</p>
-<span id="more"></span>
-<h2 id="1-扫描流程"><a class="markdownIt-Anchor" href="#1-扫描流程"></a> 1、扫描流程</h2>
-<p>整个代码扫描涉及工具、系统如下：</p>
-<ul>
-<li>Gitlab</li>
-<li>Jenkins</li>
-<li>SonarQube</li>
-<li>DevOps平台（代码扫描开发应用）</li>
-</ul>
-<p><strong>执行流程如下：</strong></p>
-<p><img src="/soanrqube-devOps-platform-integration/Sonar%E9%9B%86%E6%88%90%E6%B5%81%E7%A8%8B-new.jpg" alt="Jenkins配置"></p>
-<h2 id="2-详细说明"><a class="markdownIt-Anchor" href="#2-详细说明"></a> 2、详细说明</h2>
-<h3 id="21-devops平台代码"><a class="markdownIt-Anchor" href="#21-devops平台代码"></a> 2.1、DevOps平台（代码）</h3>
-<p>代码扫描以一个开放应用的形式接入研发中台，有一个基本Widget页面，展示代码扫描结果概览</p>
-<p>所有的检测结果可以基于研发中台进行处理</p>
-<ul>
-<li>流程中断</li>
-<li>消息告警</li>
-</ul>
-<p><strong>SonarQube开放应用界面</strong></p>
-<p><img src="/soanrqube-devOps-platform-integration/Sonar%E5%BC%80%E6%94%BE%E5%BA%94%E7%94%A8-new.jpg" alt="Jenkins配置"></p>
-<h3 id="22-jenkins扫描job"><a class="markdownIt-Anchor" href="#22-jenkins扫描job"></a> 2.2、Jenkins扫描Job</h3>
-<p>所有触发通过研发中台触发，所以Jenkins只配置一个通用扫描Job即可，使用Pipeline Job编写。</p>
-<p><strong>说明：所以参数拼接可以研发中台传递给 Jenkins，所以业务代码可以不用 sonar-project.properties文件，减少业务代码的侵入性</strong></p>
-<h4 id="jenkins-job入参"><a class="markdownIt-Anchor" href="#jenkins-job入参"></a> Jenkins Job入参</h4>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;commonParams&quot;: &#123;</span><br><span class="line">		&quot;appCode&quot;: &quot;php-demo&quot;,     // 应用编号唯一，对应：sonar.projectkey</span><br><span class="line">		&quot;appLanguage&quot;: &quot;php&quot;,   // 应用语言，针对不同语言设置默认的扫描命令及参数，如：php、go、java、gradle</span><br><span class="line">		&quot;gitRepository&quot;: &quot;git@gitlab.demo.com:demo/php-demo.git&quot;,  // 代码仓库地址</span><br><span class="line">		&quot;gitProjectId&quot;: &quot;&quot;,   // GitLab仓库PojectId，对应：sonar.gitlab.project_id，Comment on Commit需要</span><br><span class="line">		&quot;gitBranch&quot;: &quot;test&quot;,  // 扫描代码分支，对应：sonar.branch.name</span><br><span class="line">		&quot;gitCommit&quot;: &quot;&quot;,  // 代码提交Commit Hash值，对应：sonar.gitlab.commit_sha</span><br><span class="line">		&quot;gitRefName&quot;: &quot;master&quot;  // 扫描参考基准分支或Commit，对应：sonar.gitlab.ref_name</span><br><span class="line">        &quot;gitEvent&quot;: &quot;Merge Request Hook&quot;,   // git触发事件类型，Push Hook、Merge Request Hook、Flow Build、Fast Build等</span><br><span class="line">		&quot;mrKey&quot;: &quot;1&quot;,   // MR Key，对应：sonar.pullrequest.key</span><br><span class="line">		&quot;mrSourceBranch&quot;: &quot;test-mr&quot;,   // MR来源分支，对应：sonar.pullrequest.branch</span><br><span class="line">		&quot;mrTargetBranch&quot;: &quot;master&quot;  // MR目标分支，对应：sonar.pullrequest.base</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;extendParams&quot;: &#123;  // 预留扩展参数，如自定义扫描参数等</span><br><span class="line">		&quot;customAnalysisParams&quot;: &#123;        // 以下会默认覆盖原有既定扫描参数</span><br><span class="line">			&quot;sonar.sourceEncoding&quot;: &quot;GBK&quot;,</span><br><span class="line">			&quot;sonar.projectBaseDir&quot;: &quot;/src/code&quot;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="jenkins-pipeline示例"><a class="markdownIt-Anchor" href="#jenkins-pipeline示例"></a> Jenkins pipeline示例</h4>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line"></span><br><span class="line">    stages &#123;</span><br><span class="line">        stage (&quot;参数解析&quot;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                script &#123;</span><br><span class="line">                    echo params.BUILD_PARAMS_JSON</span><br><span class="line">                    if (params.BUILD_PARAMS_JSON != null &amp;&amp; params.BUILD_PARAMS_JSON != &#x27;&#x27;) &#123;</span><br><span class="line">                        buildParams = readJSON text: params.BUILD_PARAMS_JSON</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        error &quot;BUILD_PARAMS_JSON is required params&quot;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    // 通用参数与定制参数赋值</span><br><span class="line">                    COMMON_PARAMS = buildParams[&#x27;commonParams&#x27;]</span><br><span class="line">                    EXTEND_PARAMS = buildParams[&#x27;extendParams&#x27;]</span><br><span class="line"></span><br><span class="line">                    // 入参json数据校验,通用参数必须包含 appCode + gitRepository</span><br><span class="line">                    if (COMMON_PARAMS[&#x27;appCode&#x27;].isEmpty() || COMMON_PARAMS[&#x27;gitRepository&#x27;].isEmpty() ) &#123;</span><br><span class="line">                        error &quot;buildParams[&#x27;commonParams&#x27;] is error, must have appCode and gitRepository&quot;</span><br><span class="line">                    &#125;</span><br><span class="line">                    // gitBranch不存在则默认为master</span><br><span class="line">                    COMMON_PARAMS[&#x27;gitBranch&#x27;].isEmpty() &amp;&amp; (COMMON_PARAMS[&#x27;gitBranch&#x27;] = &quot;master&quot;)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        stage (&quot;代码拉取&quot;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                // 不同的应用对应不同的工作空间,避免工作空间相互影响覆盖</span><br><span class="line">                dir (&quot;$&#123;COMMON_PARAMS[&#x27;appCode&#x27;]&#125;&quot;) &#123;</span><br><span class="line">                    // 拉取git仓库代码， 默认基于分支拉取</span><br><span class="line">                    script &#123;</span><br><span class="line">                        if (COMMON_PARAMS[&#x27;gitEvent&#x27;] == &quot;Merge Request Hook&quot; || !COMMON_PARAMS[&#x27;mrKey&#x27;].isEmpty()) &#123;</span><br><span class="line">                            // SCM: MR必须使用此进行拉取代码,否则Sonar Scan无法识别此次SCM是基于MR</span><br><span class="line">                            gitCodeFetch(&quot;branch&quot;, COMMON_PARAMS[&#x27;mrSourceBranch&#x27;], COMMON_PARAMS[&#x27;gitRepository&#x27;], params.GITLAB_DEPLOY_CRED, &quot;MR&quot;, COMMON_PARAMS[&#x27;mrTargetBranch&#x27;])</span><br><span class="line">                        &#125; else &#123;</span><br><span class="line">                            gitCodeFetch(&quot;branch&quot;, COMMON_PARAMS[&#x27;gitBranch&#x27;], COMMON_PARAMS[&#x27;gitRepository&#x27;], params.GITLAB_DEPLOY_CRED)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 扫描参数此处组织,则业务代码无需sonar-project.properties文件,不侵入业务代码</span><br><span class="line">        stage (&quot;扫描参数组织&quot;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                script &#123;</span><br><span class="line">                    ANALYSIS_PARAMS = [:]</span><br><span class="line">                    // =================  通用扫描参数 ==========================</span><br><span class="line">                    // 通用扫描参数,其中个别参数存在值才进行赋值,否则空值可能会出现扫描异常情况</span><br><span class="line">                    ANALYSIS_PARAMS[&#x27;sonar.projectKey&#x27;] = COMMON_PARAMS[&#x27;appCode&#x27;]</span><br><span class="line">                    ANALYSIS_PARAMS[&#x27;sonar.projectName&#x27;] = COMMON_PARAMS[&#x27;appCode&#x27;]</span><br><span class="line">                    ...</span><br><span class="line">                    </span><br><span class="line">                    // =================  各语言的约定扫描参数 ======================</span><br><span class="line">                    // 各语言的约定扫描参数,如:sonar.exclusions,sonar.sourceEncoding,默认扫描报告文件位置: .scannerwork/report-task.txt</span><br><span class="line">                    REPORT_FILE_PATH = &quot;.scannerwork/report-task.txt&quot;</span><br><span class="line">                    if (COMMON_PARAMS[&#x27;appLanguage&#x27;] == &quot;php&quot;) &#123;</span><br><span class="line">                        ANALYSIS_PARAMS[&#x27;sonar.exclusions&#x27;] = &quot;vendor/**&quot;</span><br><span class="line">                    &#125; else if (COMMON_PARAMS[&#x27;appLanguage&#x27;] == &quot;go&quot;) &#123;</span><br><span class="line">                        ANALYSIS_PARAMS[&#x27;sonar.exclusions&#x27;] = &quot;vendor/**&quot;</span><br><span class="line">                    &#125; else if (COMMON_PARAMS[&#x27;appLanguage&#x27;] == &quot;java&quot;) &#123;</span><br><span class="line">                        // 以下mvn sonar:sonar 会默认设置,对于multi-module的仓库同样适用</span><br><span class="line">                        //ANALYSIS_PARAMS[&#x27;sonar.sources&#x27;] = &quot;src&quot;</span><br><span class="line">                        //ANALYSIS_PARAMS[&#x27;sonar.java.binaries&#x27;] = &quot;target/classes&quot;</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        // TODO</span><br><span class="line">                        echo &quot;TODO&quot;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    // =================  定制化扫描参数 ======================</span><br><span class="line">                    // 定制化扫描参数(研发中台页面配置), 放置最后,可覆盖之前约定扫描参数</span><br><span class="line">                    if (!EXTEND_PARAMS[&#x27;customAnalysisParams&#x27;].isEmpty()) &#123;</span><br><span class="line">                        EXTEND_PARAMS[&#x27;customAnalysisParams&#x27;].each &#123; key,value -&gt;</span><br><span class="line">                            ANALYSIS_PARAMS[&quot;$&#123;key&#125;&quot;] = value</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        stage (&quot;前置扫描操作&quot;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                dir(&quot;$&#123;COMMON_PARAMS[&#x27;appCode&#x27;]&#125;&quot;) &#123;</span><br><span class="line">                    script &#123;</span><br><span class="line">                        if (COMMON_PARAMS[&#x27;appLanguage&#x27;] == &quot;java&quot;) &#123;</span><br><span class="line">                            // java 语言需前置编译, 下载统一的setting.xml文件</span><br><span class="line">                            sh &quot;wget -O settings.xml http://.../settings-sonar.xml&quot;</span><br><span class="line">                        &#125; else &#123;</span><br><span class="line">                            echo &quot;Do Nothing&quot;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        stage (&quot;代码扫描&quot;) &#123;</span><br><span class="line">            environment &#123;</span><br><span class="line">                GIT_COMMIT = &quot;&quot;  // 此环境变量置空, 否则影响MR检测时的Sonar回写Gitlab,注:取值为jenkins pipeline 仓库的Hash值</span><br><span class="line">            &#125;</span><br><span class="line">            steps &#123;</span><br><span class="line">                dir(&quot;$&#123;COMMON_PARAMS[&#x27;appCode&#x27;]&#125;&quot;) &#123;</span><br><span class="line">                    script &#123;</span><br><span class="line">                        // 扫描参数拼接</span><br><span class="line">                        println(JsonOutput.toJson(ANALYSIS_PARAMS))</span><br><span class="line">                        def analysisParams = &#x27;&#x27;</span><br><span class="line">                        ANALYSIS_PARAMS.each &#123; key,value -&gt;</span><br><span class="line">                            analysisParams += &quot;-D&quot; + key + &quot;=&quot; + value + &quot; &quot;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        def scannerHome = tool &#x27;SonarScanner&#x27;</span><br><span class="line">                        withSonarQubeEnv(&quot;SonarServer&quot;) &#123;</span><br><span class="line">                            if (COMMON_PARAMS[&#x27;appLanguage&#x27;] == &quot;java&quot;) &#123;</span><br><span class="line">                                // 适应multi-module的仓库, 将 sonar:sonar 作为独立的一步执行</span><br><span class="line">                                //sh &quot;mvn -s settings.xml clean install -Dmaven.test.skip=true&quot;</span><br><span class="line">                                sh &quot;mvn -s settings.xml clean install&quot;</span><br><span class="line">                                sh &quot;mvn -s settings.xml sonar:sonar $&#123;analysisParams&#125;&quot;</span><br><span class="line">                            &#125; else &#123;</span><br><span class="line">                                sh &quot;$&#123;scannerHome&#125;/bin/sonar-scanner $&#123;analysisParams&#125;&quot;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        // 扫描质量门结果</span><br><span class="line">                        timeout(time: 1, unit: &#x27;HOURS&#x27;) &#123;</span><br><span class="line">                             // 返回格式Map,示例: &#123;&quot;status&quot;:&quot;OK / ERROR&quot;&#125;, 返回放置在 ARTIFACTS[&#x27;qualityGate&#x27;]</span><br><span class="line">                            ARTIFACTS[&#x27;qualityGate&#x27;] = waitForQualityGate()</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>2.3、SonarQube</p>
-<p>登陆和Gitlab进行打通，实现联动登陆（Gitlab完成登陆了，则SonarQube即自动登陆）</p>
-<p><img src="/soanrqube-devOps-platform-integration/Sonar%E7%99%BB%E9%99%86.png" alt="Jenkins配置"></p>
-<p>2.4、Gitlab</p>
-<p>实现扫描结果 Comment on Commit ，<a href="https://gitlab.2345.cn/qiannw/wg-php-demo/commit/95e08b1428c0d7b1bae90f1d4b8facc136baae97">示例查看</a>（注：会同时给对应的代码提交人发送一封邮件通知 [Gitlab的Commit自带的配置]）</p>
-<p>注：根据实际需求进行，需要传入 <code>sonar.gitlab.project_id 参数</code></p>
-<p><strong>基于MR的Comment</strong></p>
-<p><img src="/soanrqube-devOps-platform-integration/MR-Sonar%E8%B4%A8%E9%87%8F%E9%98%88.png" alt="Jenkins配置"></p>
-<h2 id="问题记录"><a class="markdownIt-Anchor" href="#问题记录"></a> 问题记录</h2>
-<h3 id="1-sonarqube-扫描项目的权限问题"><a class="markdownIt-Anchor" href="#1-sonarqube-扫描项目的权限问题"></a> 1、SonarQube 扫描项目的权限问题</h3>
-<p>默认设置，登陆用户均可以查看，这个会造成源代码泄露风险</p>
-<p><strong>处理方式：</strong></p>
-<ul>
-<li>Default visibility of new projects: <strong>Private</strong> 位置：Administration &gt; Projects &gt; Management 右上角</li>
-<li>修改全局的权限设置模板，位置：Administration &gt; Security &gt; Default template &gt; Edit，设置如下：</li>
-<li><strong>新项目，通过Api接口设置对应的用户，有对应的权限：</strong></li>
-</ul>
-<p><strong>全局权限+新用户权限</strong></p>
-<p><img src="/soanrqube-devOps-platform-integration/%E5%85%A8%E5%B1%80%E6%9D%83%E9%99%90.png" alt="Jenkins配置"></p>
-<p><img src="/soanrqube-devOps-platform-integration/%E4%BA%BA%E5%91%98%E6%9D%83%E9%99%90.png" alt="Jenkins配置"></p>
-<h3 id="2-基于mr扫描状态结果回写gitlab"><a class="markdownIt-Anchor" href="#2-基于mr扫描状态结果回写gitlab"></a> 2、基于MR扫描状态结果回写Gitlab</h3>
-<ul>
-<li>
-<p>**坑1：目前使用7.9.x 对应的 branch plugin-1.3.2需要加入此参数(否则报错),后续针对8.x版本则不再需要<br>
-**参数：sonar.pullrequest.gitlab.repositorySlug的值对应MR的iid值</p>
-</li>
-<li>
-<p>**坑2：使用Jenkins Pipeline SCM模式，默认的变量GIT_COMMIT变量会影响到sonar扫描结果回写<br>
-**此环境变量置空, 否则影响MR检测时的Sonar回写Gitlab,注:取值为jenkins pipeline 仓库的Hash值</p>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">stage (&quot;代码扫描&quot;) &#123;</span><br><span class="line">    environment &#123;</span><br><span class="line">         GIT_COMMIT = &quot;&quot;  // 此环境变量置空, 否则影响MR检测时的Sonar回写Gitlab,注:取值为jenkins pipeline 仓库的Hash值</span><br><span class="line">       &#125;</span><br><span class="line">    steps &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-]]></content>
-      <categories>
-        <category>SonarQube</category>
-      </categories>
-      <tags>
-        <tag>SonarQube</tag>
-        <tag>代码扫描</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>禅道持续交付(七)-失败总结</title>
-    <url>/zentao-failure-summary/</url>
-    <content><![CDATA[<p>哈哈，想不到吧，虽然经过小伙伴的很长时间的努力，我们最终落地的效果是不理想。最终项目被”砍“掉了。不过很值得和大家分享下，感觉这篇应该是这个系列最<code>值钱</code>的一篇啦，不容错过！</p>
-<span id="more"></span>
-<h2 id="1-持续交付最终结果"><a class="markdownIt-Anchor" href="#1-持续交付最终结果"></a> 1、持续交付最终结果</h2>
-<p>在完成试点后，整体落地推进整体结果不是很好，总结两句话</p>
-<ul>
-<li>Web端使用体验很操作</li>
-<li>移动端整体尚可</li>
-</ul>
-<p>最终由于**”领导层“**的决定，禅道<code>寿终正寝</code>了 😢😢😢</p>
-<h2 id="2-失败原因"><a class="markdownIt-Anchor" href="#2-失败原因"></a> 2、失败原因</h2>
-<p>其实在禅道命运的变更和我司上层调整是一个重合的时间节点，当初我一度很”郁闷“，想不通这个是一个正确的事儿，K8s也是前沿趋势，我门打造的可是我司第一个统一产研研发大平台……</p>
-<p>但是随着时间推移和经历更多的DevOps的实践，发现禅道的”死亡“一定程度上是必然的，我会逐步给到各位解释哈。</p>
-<h3 id="21-空中楼阁核心原因"><a class="markdownIt-Anchor" href="#21-空中楼阁核心原因"></a> 2.1、空中楼阁（核心原因）</h3>
-<p>我们打造的持续交付系统可能先对于公司当时的现状来说太”高、大、尚“了，因为技术层面整体 <strong>底层建设不牢</strong></p>
-<ul>
-<li>软件版本和架构未标准化  –  容器化改造能定制化到你怀疑人生</li>
-<li>运维自动化程度低（基本处于脚本时代吧） – 配置改造、域名标准</li>
-<li>无标准化测试环境 – 大家各自的测试环境基本各成体系</li>
-<li>自身建设的K8s集群先对稳定性不足</li>
-<li>大部分小伙伴其实都没有准备好</li>
-</ul>
-<p>基建其实是一个很庞大的工程，不是一个持续交付系统所能撑起来的，我基于个人的理解把它们理解成一套房子，而持续交付属于Roof一环，如果Foundation和House都没有建设好的化，直接盖”屋顶“，这将是一个很艰难的过程。</p>
-<p><img src="/zentao-failure-summary/%E7%A9%BA%E4%B8%AD%E6%A5%BC%E9%98%81-new.jpg" alt></p>
-<h3 id="22-技术选型"><a class="markdownIt-Anchor" href="#22-技术选型"></a> 2.2、技术选型</h3>
-<p><strong><code>并不是最新、先进就是合适的</code></strong>，我觉得当时起步选择了Helm并不是一个明知的决定，学习成本太高，专业技术方向人员还Ok，当时需要推向多有业务小伙伴使用，这个成本可想而知，入门成本同时带来的问题就是维护起来也是一个浩大的工程。</p>
-<h3 id="23-自身易用性"><a class="markdownIt-Anchor" href="#23-自身易用性"></a> 2.3、自身易用性</h3>
-<p>我们基于禅道自身Scrum框架，做了很多流程、角色限制，最终的结果感觉就是<strong>作茧自缚</strong>。说实话这个就是机械的贯彻了标准的软件生命周期流程（也可以理解为瀑布式），然而他并不”敏捷“。</p>
-<p>流程过度的自由，会引发不可预知的问题，但流程机械化的强制管控，会引起生产效率的降低以及<code>怨声载道</code>。在流程和效率中间找到一个平衡，或者说DevOps落地的不同阶段我们可以逐步规范，这估计也是 <strong>敏捷思想</strong> 想引导的，可惜的是：<strong>当时的我们并不知道这些（认知局限）</strong></p>
-]]></content>
-      <categories>
-        <category>持续交付</category>
-      </categories>
-      <tags>
-        <tag>CICD</tag>
-        <tag>Zentao</tag>
-        <tag>禅道</tag>
-        <tag>持续交付</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>禅道持续交付(一)-概述及框架</title>
     <url>/zentao-cicd-overview/</url>
     <content><![CDATA[<p>我们基于禅道打造了持续交付系统，整合了多个开源系统（包括禅道zentao、jenkins、gitlab、nexus、harbor、ldap、mysql等等），并进行大量的二次开发，将多个系统功能（项目管理、集成管理、代码仓库管理、编译私服，镜像仓库管理、用户认证等）、多个开发环境（开发环境、测试环境、预发布环境、灰度环境、生产环境等），多种发布流程（代码扫描、版本集成、版本发布等）进行统一整合，提供一套高度集成和高度自动化的项目管理+版本集成发布系统。</p>
@@ -1017,6 +975,48 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <p><img src="/zentao-cicd-overview/%E5%B7%A5%E5%85%B7%E9%93%BE%E9%80%89%E5%9E%8B-new.png" alt="img"></p>
 <h3 id="android移动端"><a class="markdownIt-Anchor" href="#android移动端"></a> Android移动端</h3>
 <p><img src="/zentao-cicd-overview/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B7%A5%E5%85%B7%E9%93%BE-new.jpg" alt="img"></p>
+]]></content>
+      <categories>
+        <category>持续交付</category>
+      </categories>
+      <tags>
+        <tag>CICD</tag>
+        <tag>Zentao</tag>
+        <tag>禅道</tag>
+        <tag>持续交付</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>禅道持续交付(七)-失败总结</title>
+    <url>/zentao-failure-summary/</url>
+    <content><![CDATA[<p>哈哈，想不到吧，虽然经过小伙伴的很长时间的努力，我们最终落地的效果是不理想。最终项目被”砍“掉了。不过很值得和大家分享下，感觉这篇应该是这个系列最<code>值钱</code>的一篇啦，不容错过！</p>
+<span id="more"></span>
+<h2 id="1-持续交付最终结果"><a class="markdownIt-Anchor" href="#1-持续交付最终结果"></a> 1、持续交付最终结果</h2>
+<p>在完成试点后，整体落地推进整体结果不是很好，总结两句话</p>
+<ul>
+<li>Web端使用体验很操作</li>
+<li>移动端整体尚可</li>
+</ul>
+<p>最终由于**”领导层“**的决定，禅道<code>寿终正寝</code>了 😢😢😢</p>
+<h2 id="2-失败原因"><a class="markdownIt-Anchor" href="#2-失败原因"></a> 2、失败原因</h2>
+<p>其实在禅道命运的变更和我司上层调整是一个重合的时间节点，当初我一度很”郁闷“，想不通这个是一个正确的事儿，K8s也是前沿趋势，我门打造的可是我司第一个统一产研研发大平台……</p>
+<p>但是随着时间推移和经历更多的DevOps的实践，发现禅道的”死亡“一定程度上是必然的，我会逐步给到各位解释哈。</p>
+<h3 id="21-空中楼阁核心原因"><a class="markdownIt-Anchor" href="#21-空中楼阁核心原因"></a> 2.1、空中楼阁（核心原因）</h3>
+<p>我们打造的持续交付系统可能先对于公司当时的现状来说太”高、大、尚“了，因为技术层面整体 <strong>底层建设不牢</strong></p>
+<ul>
+<li>软件版本和架构未标准化  –  容器化改造能定制化到你怀疑人生</li>
+<li>运维自动化程度低（基本处于脚本时代吧） – 配置改造、域名标准</li>
+<li>无标准化测试环境 – 大家各自的测试环境基本各成体系</li>
+<li>自身建设的K8s集群先对稳定性不足</li>
+<li>大部分小伙伴其实都没有准备好</li>
+</ul>
+<p>基建其实是一个很庞大的工程，不是一个持续交付系统所能撑起来的，我基于个人的理解把它们理解成一套房子，而持续交付属于Roof一环，如果Foundation和House都没有建设好的化，直接盖”屋顶“，这将是一个很艰难的过程。</p>
+<p><img src="/zentao-failure-summary/%E7%A9%BA%E4%B8%AD%E6%A5%BC%E9%98%81-new.jpg" alt></p>
+<h3 id="22-技术选型"><a class="markdownIt-Anchor" href="#22-技术选型"></a> 2.2、技术选型</h3>
+<p><strong><code>并不是最新、先进就是合适的</code></strong>，我觉得当时起步选择了Helm并不是一个明知的决定，学习成本太高，专业技术方向人员还Ok，当时需要推向多有业务小伙伴使用，这个成本可想而知，入门成本同时带来的问题就是维护起来也是一个浩大的工程。</p>
+<h3 id="23-自身易用性"><a class="markdownIt-Anchor" href="#23-自身易用性"></a> 2.3、自身易用性</h3>
+<p>我们基于禅道自身Scrum框架，做了很多流程、角色限制，最终的结果感觉就是<strong>作茧自缚</strong>。说实话这个就是机械的贯彻了标准的软件生命周期流程（也可以理解为瀑布式），然而他并不”敏捷“。</p>
+<p>流程过度的自由，会引发不可预知的问题，但流程机械化的强制管控，会引起生产效率的降低以及<code>怨声载道</code>。在流程和效率中间找到一个平衡，或者说DevOps落地的不同阶段我们可以逐步规范，这估计也是 <strong>敏捷思想</strong> 想引导的，可惜的是：<strong>当时的我们并不知道这些（认知局限）</strong></p>
 ]]></content>
       <categories>
         <category>持续交付</category>
