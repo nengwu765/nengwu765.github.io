@@ -20,28 +20,22 @@
     var CONFIG = {"hostname":"doublejia.site","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="我们基于禅道打造了持续交付系统，整合了多个开源系统（包括禅道zentao、jenkins、gitlab、nexus、harbor、ldap、mysql等等），并进行大量的二次开发，将多个系统功能（项目管理、集成管理、代码仓库管理、编译私服，镜像仓库管理、用户认证等）、多个开发环境（开发环境、测试环境、预发布环境、灰度环境、生产环境等），多种发布流程（代码扫描、版本集成、版本发布等）进行统一整合，提">
+  <meta name="description" content="在作为运维开发的这段时间，我们主要围绕运维的工作做了些自动化系统，这边就简单分享下我当初大约经历8个月左右的时间，基于运维自动化搭建一些列自动化运维平台。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="禅道持续交付(一)-概述及框架">
-<meta property="og:url" content="https://doublejia.site/zentao-cicd-overview/index.html">
+<meta property="og:title" content="自动化运维系统建设">
+<meta property="og:url" content="https://doublejia.site/auto-cops-sys/index.html">
 <meta property="og:site_name" content="765DevOps">
-<meta property="og:description" content="我们基于禅道打造了持续交付系统，整合了多个开源系统（包括禅道zentao、jenkins、gitlab、nexus、harbor、ldap、mysql等等），并进行大量的二次开发，将多个系统功能（项目管理、集成管理、代码仓库管理、编译私服，镜像仓库管理、用户认证等）、多个开发环境（开发环境、测试环境、预发布环境、灰度环境、生产环境等），多种发布流程（代码扫描、版本集成、版本发布等）进行统一整合，提">
+<meta property="og:description" content="在作为运维开发的这段时间，我们主要围绕运维的工作做了些自动化系统，这边就简单分享下我当初大约经历8个月左右的时间，基于运维自动化搭建一些列自动化运维平台。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://doublejia.site/zentao-cicd-overview/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84-new.png">
-<meta property="og:image" content="https://doublejia.site/zentao-cicd-overview/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E6%B5%81%E7%A8%8B-new.png">
-<meta property="og:image" content="https://doublejia.site/zentao-cicd-overview/%E5%B7%A5%E5%85%B7%E9%93%BE%E9%80%89%E5%9E%8B-new.png">
-<meta property="og:image" content="https://doublejia.site/zentao-cicd-overview/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B7%A5%E5%85%B7%E9%93%BE-new.jpg">
-<meta property="article:published_time" content="2019-09-25T04:12:57.000Z">
-<meta property="article:modified_time" content="2021-06-25T08:11:33.969Z">
+<meta property="article:published_time" content="2020-09-23T04:12:57.000Z">
+<meta property="article:modified_time" content="2021-07-15T07:25:15.233Z">
 <meta property="article:author" content="765">
-<meta property="article:tag" content="CICD">
-<meta property="article:tag" content="Zentao">
-<meta property="article:tag" content="禅道">
-<meta property="article:tag" content="持续交付">
+<meta property="article:tag" content="DevOps">
+<meta property="article:tag" content="自动化运维">
+<meta property="article:tag" content="Cops">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://doublejia.site/zentao-cicd-overview/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84-new.png">
 
-<link rel="canonical" href="https://doublejia.site/zentao-cicd-overview/">
+<link rel="canonical" href="https://doublejia.site/auto-cops-sys/">
 
 
 <script id="page-configurations">
@@ -54,7 +48,7 @@
   };
 </script>
 
-  <title>禅道持续交付(一)-概述及框架 | 765DevOps</title>
+  <title>自动化运维系统建设 | 765DevOps</title>
   
 
 
@@ -205,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://doublejia.site/zentao-cicd-overview/">
+    <link itemprop="mainEntityOfPage" href="https://doublejia.site/auto-cops-sys/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/765-log-s.png">
@@ -218,7 +212,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          禅道持续交付(一)-概述及框架
+          自动化运维系统建设
         </h1>
 
         <div class="post-meta">
@@ -228,14 +222,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-09-25 12:12:57" itemprop="dateCreated datePublished" datetime="2019-09-25T12:12:57+08:00">2019-09-25</time>
+              <time title="创建时间：2020-09-23 12:12:57" itemprop="dateCreated datePublished" datetime="2020-09-23T12:12:57+08:00">2020-09-23</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-25 16:11:33" itemprop="dateModified" datetime="2021-06-25T16:11:33+08:00">2021-06-25</time>
+                <time title="修改时间：2021-07-15 15:25:15" itemprop="dateModified" datetime="2021-07-15T15:25:15+08:00">2021-07-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -243,7 +237,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/" itemprop="url" rel="index"><span itemprop="name">持续交付</span></a>
+                  <a href="/categories/DevOps/" itemprop="url" rel="index"><span itemprop="name">DevOps</span></a>
                 </span>
             </span>
 
@@ -253,14 +247,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>885</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -272,45 +266,96 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>我们基于禅道打造了持续交付系统，整合了多个开源系统（包括禅道zentao、jenkins、gitlab、nexus、harbor、ldap、mysql等等），并进行大量的二次开发，将多个系统功能（项目管理、集成管理、代码仓库管理、编译私服，镜像仓库管理、用户认证等）、多个开发环境（开发环境、测试环境、预发布环境、灰度环境、生产环境等），多种发布流程（代码扫描、版本集成、版本发布等）进行统一整合，提供一套高度集成和高度自动化的项目管理+版本集成发布系统。</p>
+        <p>在作为运维开发的这段时间，我们主要围绕运维的工作做了些自动化系统，这边就简单分享下我当初大约经历8个月左右的时间，基于运维自动化搭建一些列自动化运维平台。</p>
 <span id="more"></span>
-<h2 id="1-概述"><a class="markdownIt-Anchor" href="#1-概述"></a> 1、概述</h2>
-<p>因为公司大部门在使用禅道进行项目管理、缺陷管理等，所以我们希望基于此对于禅道做二开扩展，支持到CICD，最终将禅道打造成一个DevOps平台。</p>
-<p>选择禅道主要原因：</p>
+<h2 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h2>
+<p>关于运维发展，可以参考大厂-<a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/637988">阿里的发展历程</a>，可以分为五个阶段，分别为<strong>L1-脚本运维、L2-工具化运维、L3-平台化运维、L4-数据化运维、L5-智能运维</strong>。我们当初运维的整理状态应该在0.5*L2（即半工具化运维😂），可想而知其过程的艰辛。</p>
+<p>运维在系统层面的建设，如：Zabbix监控、ZStack虚拟化、Granfana监控、LVS、IDC重建等，这部分工作主要由运维同学在逐步推进。</p>
+<p>自动化平台部分建设，主要有：CMDB、持续交付系统、DB平台、DNS系统、配置中心、任务调度、自动化平台、事件平台等，接下来我会针对这个自动化平台部门做一个简单的介绍吧。</p>
+<h2 id="cmdb"><a class="markdownIt-Anchor" href="#cmdb"></a> CMDB</h2>
+<p>这个很值得和大家聊一聊的，刚开始时，我们定位是做一个运维 <strong>资产平台</strong>，只需要做好资产申请管理即可。经过一番前期调研，发现我们原有理解实在是太狭隘了，感兴趣的同学可以去了解下运维现代CMDB建设</p>
+<p>以下是引用的话（出处：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/46290201">智能化运维平台的基石</a>），说明CMDB平台如何建设：</p>
+<blockquote>
+<p>1、应用CMDB必须提供统一的应用元数据管理能力。</p>
+<p>2、应用CMDB建设的核心诉求是应用生命周期的管理，带来了整个管理的驱动力是最强的，这时候无论变更的频率还有以及对于一致性的要求都是最高的。</p>
+<p>3、<strong>必须以应用为中心，不是基础资源为中心，这个视角大家要记住。</strong></p>
+<p>4、必须要从应用的角度构建IT资源的弹性关系，有两个层次，一个层次是我应用的模型和后端模型表达关系，我可以依赖DB，我可以依赖DNS，我A可能用了DB，我B没有用DB，这是弹性关系。</p>
+</blockquote>
+<p>最后就是系统的选型啦，我们选择的是腾讯开源的蓝鲸CMDB（<a target="_blank" rel="noopener" href="https://github.com/Tencent">Tencent</a>/<strong><a target="_blank" rel="noopener" href="https://github.com/Tencent/bk-cmdb">bk-cmdb</a></strong>）</p>
+<h2 id="持续交付系统"><a class="markdownIt-Anchor" href="#持续交付系统"></a> 持续交付系统</h2>
+<p>这个是我们重点建设的系统，这个没有选择开源系统而是自建的（其实是运维老大带过来的😄😄😄），当然这个是DevOps的一个核心环节，后续还会有专篇进行解密的，这边主要介绍几个核心模块吧</p>
 <ul>
-<li>有使用历史，符合大多数业务项目的操作习惯</li>
-<li>敏捷管理，基于Scrum的角色且相关流程和功能完善</li>
-<li>社区版开源，可以基于源码进行修改</li>
+<li>应用管理：应用申请、配置、查看、权限人员配置</li>
+<li>容器部署：支持K8s容器部署</li>
+<li>传统部署：支持物理机，虚机部署</li>
 </ul>
-<p><strong>拓展后禅道能力</strong></p>
+<h2 id="db平台"><a class="markdownIt-Anchor" href="#db平台"></a> DB平台</h2>
+<p>两个开源系统纠结吧。</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.zentao.net/book/zentaopmshelp/49.html">使用禅道来进行项目任务管理</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.zentao.net/book/zentaopmshelp/64.html">只使用禅道来做bug管理</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.zentao.net/book/zentaopmshelp/77.html">只使用禅道来进行产品管理</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.zentao.net/book/zentaopmshelp/91.html">个人使用禅道来做事务跟踪管理</a></li>
-<li>仅使用版本集成流程（扩展功能）</li>
-<li>仅使用上线流程审批功能（扩展功能）</li>
-<li>仅使用客户端渠道管理功能（扩展功能）</li>
+<li>Yearning</li>
+<li>Archery（最终选择了这个，主要是DBA伙伴决定的）</li>
 </ul>
-<h2 id="2-持续交付系统框架"><a class="markdownIt-Anchor" href="#2-持续交付系统框架"></a> 2、持续交付系统框架</h2>
-<p>这个比较简单吧，其实有关这种分层的DevOps架构，应该都是大同小异，仅供参考哈😉</p>
-<p><img src="/zentao-cicd-overview/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84-new.png" alt="img"></p>
-<h2 id="3-持续交付流程"><a class="markdownIt-Anchor" href="#3-持续交付流程"></a> 3、持续交付流程</h2>
-<p>主要是基于Helm进行K8s的容器部署，整个交付流程如下：</p>
-<ul>
-<li>使用Zentao作为项目管理工具：管理基本需求、迭代、缺陷等</li>
-<li>Zentao也作为用户CICD系统平台，用户再禅道上做集成、构建、部署等操作</li>
-<li>CICD的后端集成工具：Jenkins</li>
-<li>部署至K8s集群中，部署主要的使用是Helm进行部署管理（注：当时使用的是Helm2）</li>
-</ul>
-<p>注：我们自己编写了Helm的Template模板工程，基本涵盖了很多的使用场景，这个后续我也会跟进分享给大家，尽情期待……</p>
-<p><img src="/zentao-cicd-overview/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E6%B5%81%E7%A8%8B-new.png" alt="img"></p>
-<h2 id="4-工具链选型"><a class="markdownIt-Anchor" href="#4-工具链选型"></a> 4、工具链选型</h2>
-<p>其实DevOps工具链产品有很多，大家可以根据自己的实际情况选择，我们基于Zentao打造的持续交付平台选择的是如下工具链。因为当初我们还木有打通持续测试这一环节，所以这个相对有些简陋了，但是还算清晰！</p>
-<h3 id="web端容器"><a class="markdownIt-Anchor" href="#web端容器"></a> Web端容器</h3>
-<p><img src="/zentao-cicd-overview/%E5%B7%A5%E5%85%B7%E9%93%BE%E9%80%89%E5%9E%8B-new.png" alt="img"></p>
-<h3 id="android移动端"><a class="markdownIt-Anchor" href="#android移动端"></a> Android移动端</h3>
-<p><img src="/zentao-cicd-overview/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B7%A5%E5%85%B7%E9%93%BE-new.jpg" alt="img"></p>
+<h2 id="dns平台"><a class="markdownIt-Anchor" href="#dns平台"></a> DNS平台</h2>
+<p>这个是自建的平台（其实是运维老大带过来的😄😄😄）。</p>
+<p>使用 BIND 作为 DNS 服务器，使用 ETCD 来管理 DNS 服务器的 BIND 配置文件，包括 VIEW，ZONE，RECORD 的各个配置文件。</p>
+<p>所有的 DNS 服务器的配置文件和数据都是统一从 ETCD 上获取，因此所有 DNS 服务器的配置文件及数据都是相同的，且所有 DNS 服务器角色均为 <code>Master</code>，不存在 <code>Slave</code>。</p>
+<p>所有 DNS 服务器会实时监测 ETCD 上的数据，当在平台上对 DNS 进行操作时，只要配置文件发生变化，所有 DNS 服务器都会实时获取到最新的配置文件信息。</p>
+<h2 id="配置中心"><a class="markdownIt-Anchor" href="#配置中心"></a> 配置中心</h2>
+<p>这个选择了携程开源的 Apollo了，因为公司有相当部分业务使用时PHP，对于Apollo的支持不是那么友好，所以基于这个，还开发了一个Apollo-Agent。</p>
+<h2 id="任务调度"><a class="markdownIt-Anchor" href="#任务调度"></a> 任务调度</h2>
+<p>这个选新做了三个开源系统的对比：Xxl-job、ElasticJob和Gocron</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:center">Gocron</th>
+<th style="text-align:left">Xxl-Job</th>
+<th style="text-align:left">Elasticjob</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Golang</td>
+<td style="text-align:center">支持golang job运行可以集成至gin框架原生语言使用较为方便</td>
+<td style="text-align:left">可以支持glue及bean模式有golang客户端也可集成至gin框架原生语言使用较为方便</td>
+<td style="text-align:left">不支持golang job</td>
+</tr>
+<tr>
+<td style="text-align:left">Lumen</td>
+<td style="text-align:center">支持php job只限于命令行可以使用php artisan一键启动</td>
+<td style="text-align:left">可以支持glue及bean模式，包括命令行及fastcgi方式支持php artisan一键启动</td>
+<td style="text-align:left">不支持php job</td>
+</tr>
+<tr>
+<td style="text-align:left">Spring</td>
+<td style="text-align:center">不支持java任务，只能通过shell调用不能和spring框架集成</td>
+<td style="text-align:left">有spring原生库支持，方便接入</td>
+<td style="text-align:left">有spring原生库支持，方便接入</td>
+</tr>
+</tbody>
+</table>
+<p>最终选型确定为：Xxl-job，Xxl-job相比ElasticJob和Gocron功能比较健全，没有明显的缺陷，而且Xxl-job相比Elasticjob对golang和php的原生job支持更友好，相比Gocron对于java的job又更友好，比较适合我们这种java和php业务并存的公司技术形态。</p>
+<p>另外，在其他一些功能特性上Xxl-job相比Gocron有明显优势：</p>
+<p>1、支持任务节点弹性扩容/缩容、故障转移，Xxl-job支持高可用的job调度执行，在业务上云后能发挥更大优势</p>
+<p>2、支持任务分片执行以及其他更多高级调度策略，Xxl-job可以将一个任务按照特定路由规则打散在不同任务服务器机器上</p>
+<p>3、业务拓扑管理、任务执行报告、任务参数传递，能提供应用维度的任务管理、单个任务的执行周期报告数据，可为后期任务脚本逻辑优化提供建议</p>
+<p>与此同时，Xxl-job和Gocron均存在不支持常驻任务，但目前优化后的Xxl-job可以通过集成Goagent支持常驻和命令行模式。</p>
+<h2 id="自动化平台"><a class="markdownIt-Anchor" href="#自动化平台"></a> 自动化平台</h2>
+<p>我们选型的自动化工具是：Ansible，这个平台主要是对Ansible的playbook的管理吧，貌似后续使用程度不高。</p>
+<h2 id="事件平台"><a class="markdownIt-Anchor" href="#事件平台"></a> 事件平台</h2>
+<p>业务故障收集平台</p>
+<h2 id="基础依赖-用户中心和消息通知平台"><a class="markdownIt-Anchor" href="#基础依赖-用户中心和消息通知平台"></a> 基础依赖-用户中心和消息通知平台</h2>
+<h3 id="用户中心"><a class="markdownIt-Anchor" href="#用户中心"></a> 用户中心</h3>
+<p>运维平台的统一用户中心，对接OA LDAP，同时支持各系统的权限管理配置</p>
+<h3 id="消息通知平台"><a class="markdownIt-Anchor" href="#消息通知平台"></a> 消息通知平台</h3>
+<p>各系统的统一的消息通知平台，支持邮件、企微等通知方式</p>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+<h3 id="建设思路"><a class="markdownIt-Anchor" href="#建设思路"></a> 建设思路</h3>
+<p>主要是以平台化的思路在进行建设的（即将缺什么就去做什么，或者以经验为主导进行建设），选型基本以业界标准且开源为主，避免<strong>重复造轮子</strong>。</p>
+<h3 id="反思"><a class="markdownIt-Anchor" href="#反思"></a> 反思</h3>
+<p>平台分散，无法做到DevOps所期望的**<code>一站式研发协同平台</code>**，属于DevOps建设过程的一个中间阶段。</p>
+<h3 id="总结-2"><a class="markdownIt-Anchor" href="#总结-2"></a> 总结</h3>
+<p>后续建设，做好整体的DevOps的整体全景规划，有一个整体的目标和方向，建设过程中可以逐步完善，但是逐步向同一个目标推进，避免系统的分散割裂。</p>
 
     </div>
 
@@ -321,10 +366,9 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/CICD/" rel="tag"><i class="fa fa-tag"></i> CICD</a>
-              <a href="/tags/Zentao/" rel="tag"><i class="fa fa-tag"></i> Zentao</a>
-              <a href="/tags/%E7%A6%85%E9%81%93/" rel="tag"><i class="fa fa-tag"></i> 禅道</a>
-              <a href="/tags/%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98/" rel="tag"><i class="fa fa-tag"></i> 持续交付</a>
+              <a href="/tags/DevOps/" rel="tag"><i class="fa fa-tag"></i> DevOps</a>
+              <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4/" rel="tag"><i class="fa fa-tag"></i> 自动化运维</a>
+              <a href="/tags/Cops/" rel="tag"><i class="fa fa-tag"></i> Cops</a>
           </div>
 
         
@@ -333,12 +377,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/simple-devtest-sys/" rel="prev" title="DevOps启蒙-开发测试管理系统">
-      <i class="fa fa-chevron-left"></i> DevOps启蒙-开发测试管理系统
+    <a href="/devops-panoramic-planning-ops/" rel="prev" title="DevOps全景规划及建设思路-运维视角">
+      <i class="fa fa-chevron-left"></i> DevOps全景规划及建设思路-运维视角
     </a></div>
       <div class="post-nav-item">
-    <a href="/zentao-rd-pipeline/" rel="next" title="禅道持续交付(二)-研发流水线设计">
-      禅道持续交付(二)-研发流水线设计 <i class="fa fa-chevron-right"></i>
+    <a href="/jenkins-pipeline-syntax/" rel="next" title="Jenkins Pipeline语法详解">
+      Jenkins Pipeline语法详解 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -399,7 +443,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text"> 1、概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%A1%86%E6%9E%B6"><span class="nav-number">2.</span> <span class="nav-text"> 2、持续交付系统框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E6%B5%81%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text"> 3、持续交付流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%B7%A5%E5%85%B7%E9%93%BE%E9%80%89%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text"> 4、工具链选型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#web%E7%AB%AF%E5%AE%B9%E5%99%A8"><span class="nav-number">4.1.</span> <span class="nav-text"> Web端容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#android%E7%A7%BB%E5%8A%A8%E7%AB%AF"><span class="nav-number">4.2.</span> <span class="nav-text"> Android移动端</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text"> 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cmdb"><span class="nav-number">2.</span> <span class="nav-text"> CMDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.</span> <span class="nav-text"> 持续交付系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#db%E5%B9%B3%E5%8F%B0"><span class="nav-number">4.</span> <span class="nav-text"> DB平台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dns%E5%B9%B3%E5%8F%B0"><span class="nav-number">5.</span> <span class="nav-text"> DNS平台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83"><span class="nav-number">6.</span> <span class="nav-text"> 配置中心</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6"><span class="nav-number">7.</span> <span class="nav-text"> 任务调度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B9%B3%E5%8F%B0"><span class="nav-number">8.</span> <span class="nav-text"> 自动化平台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%B9%B3%E5%8F%B0"><span class="nav-number">9.</span> <span class="nav-text"> 事件平台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E4%BE%9D%E8%B5%96-%E7%94%A8%E6%88%B7%E4%B8%AD%E5%BF%83%E5%92%8C%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E5%B9%B3%E5%8F%B0"><span class="nav-number">10.</span> <span class="nav-text"> 基础依赖-用户中心和消息通知平台</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E4%B8%AD%E5%BF%83"><span class="nav-number">10.1.</span> <span class="nav-text"> 用户中心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E5%B9%B3%E5%8F%B0"><span class="nav-number">10.2.</span> <span class="nav-text"> 消息通知平台</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">11.</span> <span class="nav-text"> 总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E8%AE%BE%E6%80%9D%E8%B7%AF"><span class="nav-number">11.1.</span> <span class="nav-text"> 建设思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E6%80%9D"><span class="nav-number">11.2.</span> <span class="nav-text"> 反思</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-2"><span class="nav-number">11.3.</span> <span class="nav-text"> 总结</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -544,7 +588,7 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
       repo        : 'nengwu765.github.io',
       owner       : 'nengwu765',
       admin       : ['nengwu765'],
-      id          : '4ec97bb1bd96ea2804f8313fe4173df0',
+      id          : '4ea1152c5d0cbdac3d45c7e9ad22a87e',
         language: '',
       distractionFreeMode: true
     });

@@ -7,6 +7,7 @@ https://doublejia.site/soanrqube-jenkins-gitlab-integration/
 https://doublejia.site/soanrqube-install/
 https://doublejia.site/code-analysis-tools-select/
 https://doublejia.site/jenkins-pipeline-syntax/
+https://doublejia.site/auto-cops-sys/
 https://doublejia.site/devops-panoramic-planning-ops/
 https://doublejia.site/performance-evaluation-with-me/
 https://doublejia.site/okr-primary/
