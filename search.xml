@@ -40,7 +40,7 @@
 <p><img src="/devops-panoramic-planning-ops/DevOps%E5%85%A8%E6%99%AF-new.jpg" alt></p>
 ]]></content>
       <categories>
-        <category>DevOps</category>
+        <category>Devops</category>
       </categories>
       <tags>
         <tag>DevOps</tag>
@@ -143,127 +143,12 @@
 <p>后续建设，做好整体的DevOps的整体全景规划，有一个整体的目标和方向，建设过程中可以逐步完善，但是逐步向同一个目标推进，避免系统的分散割裂。</p>
 ]]></content>
       <categories>
-        <category>DevOps</category>
+        <category>Devops</category>
       </categories>
       <tags>
         <tag>DevOps</tag>
         <tag>自动化运维</tag>
         <tag>Cops</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>DevOps启蒙-开发测试管理系统</title>
-    <url>/simple-devtest-sys/</url>
-    <content><![CDATA[<p>这个算是个回顾吧，自己再2019年进入X公司，发现开发测试流程耦合严重，没有独立的测试环境管理平台，所以参照自己的前东家（👉iflow系统）实现了一个<code>简单</code>的开发测试流程管理系统，当时的<code>思想还很稚嫩，观点粗浅</code>（算是自己DevOps启蒙篇吧），仅供参考哈。</p>
-<span id="more"></span>
-<p><strong>如果你对以下的内容感兴趣，可以一起探讨交流哦……</strong></p>
-<ul>
-<li>技术开发在项目移交测试后，既可以“放飞自我”、“自由飞翔”</li>
-<li>测试妹子如何实现“私人定制”的测试环境，实现简单mock第三方Api</li>
-<li>**终极：**如何让开发测试整个流程自动化</li>
-</ul>
-<h2 id="1-初来乍到遇到的问题"><a class="markdownIt-Anchor" href="#1-初来乍到遇到的问题"></a> 1、“初来乍到”，遇到的问题</h2>
-<p>刚来到公司时，项目都是 <strong>小作坊管理方式</strong> 的，项目的流程规范不是很完善，有些项目让我接的有点“措手不及”吧。还有就是在开发移测后，自己需要过度介入整个测试过程，无法正常开始其他方面的工作：</p>
-<p>总结以下吧：</p>
-<ul>
-<li>产品研发流程不完善</li>
-<li>测试开发过度耦合，无法有效释放生成力</li>
-</ul>
-<p>结合我遇到的问题，我会和大家一起探讨解决问题。</p>
-<h2 id="2-产品研发流程简介这不是本文重点"><a class="markdownIt-Anchor" href="#2-产品研发流程简介这不是本文重点"></a> 2、产品研发流程简介【这不是本文重点】</h2>
-<p>其实在网上有很多资料，来说明一个互联网产品研发的流程了，基本大同小异。</p>
-<p>我主要分以下几个部分简单说一下吧：</p>
-<ul>
-<li>需求阶段：产品需求调研【为什么要做；做了之后会带来什么好处；最终在数据上怎么体现】，明确需求优先级</li>
-<li>方案阶段：产品原型文档，各负责人需求评审，<strong>一线开发&amp;测试</strong> 具体方案评审，排期</li>
-<li>开发阶段：设计方案、编码、自测、提测</li>
-<li>测试阶段：测试用例、线下测试、stage测试</li>
-<li>上线：Beta环境，GA环境</li>
-</ul>
-<p>其中在产品的需求和方案阶段的流程完善可以通过人为 <strong>强制约束规范</strong> 得到有效解决</p>
-<p><img src="/simple-devtest-sys/%E4%BA%A7%E5%93%81%E7%A0%94%E5%8F%91%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B.gif" alt="img"></p>
-<h2 id="3-开发测试中的问题"><a class="markdownIt-Anchor" href="#3-开发测试中的问题"></a> 3、开发&amp;测试中的问题</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//TODO 大家都是码农，我就懒得说了，😄</span><br></pre></td></tr></table></figure>
-<h2 id="4-开发测试流程体系"><a class="markdownIt-Anchor" href="#4-开发测试流程体系"></a> 4、开发测试流程体系</h2>
-<h3 id="41-问题如何解决"><a class="markdownIt-Anchor" href="#41-问题如何解决"></a> 4.1、 问题如何解决</h3>
-<p>问题真实存在，我们应该如何解决呢？怎样才能使我们的工作的更**<code>爽</code>**</p>
-<p>我的思考：业务流程化 –&gt; 流程工具化 –&gt; 工具自动化(信息化)</p>
-<h3 id="42-开发测试流程体系"><a class="markdownIt-Anchor" href="#42-开发测试流程体系"></a> 4.2、 开发测试流程体系</h3>
-<p>其实很容易，在研发流程当中其实已经说明了开发测试的一个简单的流程体系，其主要就是三个阶段：</p>
-<ul>
-<li>Dev阶段：开发设计文档、创建分支、编码、自测、测试用例、提测</li>
-<li>Test阶段：线下测试、Stage测试、代码审查、产品验收</li>
-<li>Online阶段：Beta环境、GA环境</li>
-</ul>
-<p>流程化的过程如下：</p>
-<p><img src="/simple-devtest-sys/%E6%B5%81%E7%A8%8B%E4%BD%93%E7%B3%BB.gif" alt="img"></p>
-<h2 id="5-iflow开发测试流程管理系统"><a class="markdownIt-Anchor" href="#5-iflow开发测试流程管理系统"></a> 5、Iflow开发测试流程管理系统</h2>
-<p>基于以上的问题和思考，以及以往的经验【这个占绝大部分】，我开发一套开发测试流程管理系统。所有的流程【除特出流程类型，如：<code>hotfix</code>】都是分步骤一步一步往下进行的，可以流程化管理。</p>
-<p>Iflow系统特点：</p>
-<ul>
-<li>记录整个开发测试到上线的整个过程</li>
-<li>主子流程明确，不会有流程交叉</li>
-<li>严格流程化，当前流程之后的流程<strong>灰色</strong>，不可点击</li>
-<li>流程化&amp;权限化，严格把控“出错”风险</li>
-<li>测试环境统一化管理，测试可自由定制，mock第三方Api</li>
-<li>后续可完善，做成CI系统</li>
-</ul>
-<h3 id="51-iflow-基本界面说明"><a class="markdownIt-Anchor" href="#51-iflow-基本界面说明"></a> 5.1、IFLOW — 基本界面说明</h3>
-<ul>
-<li>**主流程：**主阶段，创建Iflow、dev阶段、test阶段、online阶段</li>
-<li>**子流程：**就是当前主极端对应的子阶段，如下图中 <strong>dev阶段</strong>，对应的开发文档阶段，创建分支……</li>
-<li>**开发应用：**目前一个QS，可能需要关联开发多个应用，每个应用可以单独的流程，可以独立区分，便于不同的童鞋开发</li>
-</ul>
-<p><img src="/simple-devtest-sys/%E5%9F%BA%E6%9C%AC%E7%95%8C%E9%9D%A2%E8%AF%B4%E6%98%8E.png" alt="img"></p>
-<h3 id="52-iflow-创建iflow选择应用"><a class="markdownIt-Anchor" href="#52-iflow-创建iflow选择应用"></a> 5.2、IFLOW — 创建IFLOW（选择应用）</h3>
-<p>目前根据QS-Id建立Iflow流程【注，目前未关联QS系统】，可以选择应用和不同的流程类型创建Iflow流程。</p>
-<p>流程类型说明：</p>
-<ul>
-<li>正常：需要按常规走完流程</li>
-<li>bug修复/Notesting/线上紧急bug：可以跳过特定的流程步骤</li>
-</ul>
-<p><img src="/simple-devtest-sys/%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8.png" alt="img"></p>
-<h3 id="53-iflow-dev阶段"><a class="markdownIt-Anchor" href="#53-iflow-dev阶段"></a> 5.3、IFLOW — DEV阶段</h3>
-<p>由对应<strong>开发走完整个流程</strong>，上传传文档审核，建立分支，自测，到最后提测。开发走完整个Dev阶段后移交测试。</p>
-<p><img src="/simple-devtest-sys/dev%E9%98%B6%E6%AE%B5.gif" alt="img"></p>
-<h3 id="54-iflow-test阶段"><a class="markdownIt-Anchor" href="#54-iflow-test阶段"></a> 5.4、IFLOW — TEST阶段</h3>
-<p>由对应<strong>测试走完整个流程</strong></p>
-<blockquote>
-<p>首先测试可以在左侧菜单栏【iflow流程列表】，检索对应QS-ID，即可进入对应的流程测试，以及查看dev阶段的api文档和开发文档。</p>
-</blockquote>
-<blockquote>
-<p>其次进入dev阶段完成相应阶段的测试，其中测试环境支持以下的功能：</p>
-</blockquote>
-<ul>
-<li>**释放分支：**释放当前的测试环境绑定</li>
-<li>**切换/更新分支：**将当前iflow流程对应的分支，切换至当前的测试环境</li>
-<li>**更新dev配置文件：**基于目前环境存在的分支代码，同步copy更新dev配置文件，注意：更新后，原有的定制配置将被覆盖。</li>
-<li>**配置文件修改：**更改/定制当前测试环境的配置文件</li>
-<li>**模拟APi【mock第三方api数据】：**可以模拟第三方的api返回数据，设置超时，【使用前，注意绑定下对应模拟api的域名IP，不同的环境这个域名和IP不同】。</li>
-</ul>
-<p><img src="/simple-devtest-sys/test%E9%98%B6%E6%AE%B5.gif" alt="img"></p>
-<h3 id="55-iflow-online阶段"><a class="markdownIt-Anchor" href="#55-iflow-online阶段"></a> 5.5、IFLOW — ONLINE阶段</h3>
-<p>即上线至beta环境和GA环境，显示但前版本列表，支持一键回退功能【目前只是一个空架子】。</p>
-<p><img src="/simple-devtest-sys/online%E9%98%B6%E6%AE%B5.gif" alt="img"></p>
-<h2 id="6-总结"><a class="markdownIt-Anchor" href="#6-总结"></a> 6、总结</h2>
-<p>整体来说IFLOW开发测试流程管理系统只是一个<strong>流程框架或者外壳</strong>，后续相关的功能的模块都可以进行集成，将其形成一套完善的流程管理系统（整体页面功能可能会比较简陋，当时花费一个多月的闲余时间写的😀）。</p>
-<p><strong>可集成功能：</strong></p>
-<ul>
-<li>**文档系统：**api文档、Wiki知识库</li>
-<li>**测试用例系统：**测试编写用例，开发可以审核过测试用例等</li>
-<li>**自动化测试系统：**测试自动化测试脚本</li>
-<li>**代码管理平台：**可以直接检测代码质量，给代码评分等，比如 <a href="http://bbs.2345.net/d/169-sonarqube/3"><strong>sonarQube，可点击此查看</strong></a></li>
-<li>**打包构建工具：**比如jekins（PHP你懂的，木有构建哦😂）</li>
-<li><strong>CI可持续集成</strong></li>
-<li><strong>发布系统</strong></li>
-<li>……</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Iflow</category>
-      </categories>
-      <tags>
-        <tag>Iflow</tag>
       </tags>
   </entry>
   <entry>
@@ -401,6 +286,121 @@
       </categories>
       <tags>
         <tag>Jenkins</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>DevOps启蒙-开发测试管理系统</title>
+    <url>/simple-devtest-sys/</url>
+    <content><![CDATA[<p>这个算是个回顾吧，自己再2019年进入X公司，发现开发测试流程耦合严重，没有独立的测试环境管理平台，所以参照自己的前东家（👉iflow系统）实现了一个<code>简单</code>的开发测试流程管理系统，当时的<code>思想还很稚嫩，观点粗浅</code>（算是自己DevOps启蒙篇吧），仅供参考哈。</p>
+<span id="more"></span>
+<p><strong>如果你对以下的内容感兴趣，可以一起探讨交流哦……</strong></p>
+<ul>
+<li>技术开发在项目移交测试后，既可以“放飞自我”、“自由飞翔”</li>
+<li>测试妹子如何实现“私人定制”的测试环境，实现简单mock第三方Api</li>
+<li>**终极：**如何让开发测试整个流程自动化</li>
+</ul>
+<h2 id="1-初来乍到遇到的问题"><a class="markdownIt-Anchor" href="#1-初来乍到遇到的问题"></a> 1、“初来乍到”，遇到的问题</h2>
+<p>刚来到公司时，项目都是 <strong>小作坊管理方式</strong> 的，项目的流程规范不是很完善，有些项目让我接的有点“措手不及”吧。还有就是在开发移测后，自己需要过度介入整个测试过程，无法正常开始其他方面的工作：</p>
+<p>总结以下吧：</p>
+<ul>
+<li>产品研发流程不完善</li>
+<li>测试开发过度耦合，无法有效释放生成力</li>
+</ul>
+<p>结合我遇到的问题，我会和大家一起探讨解决问题。</p>
+<h2 id="2-产品研发流程简介这不是本文重点"><a class="markdownIt-Anchor" href="#2-产品研发流程简介这不是本文重点"></a> 2、产品研发流程简介【这不是本文重点】</h2>
+<p>其实在网上有很多资料，来说明一个互联网产品研发的流程了，基本大同小异。</p>
+<p>我主要分以下几个部分简单说一下吧：</p>
+<ul>
+<li>需求阶段：产品需求调研【为什么要做；做了之后会带来什么好处；最终在数据上怎么体现】，明确需求优先级</li>
+<li>方案阶段：产品原型文档，各负责人需求评审，<strong>一线开发&amp;测试</strong> 具体方案评审，排期</li>
+<li>开发阶段：设计方案、编码、自测、提测</li>
+<li>测试阶段：测试用例、线下测试、stage测试</li>
+<li>上线：Beta环境，GA环境</li>
+</ul>
+<p>其中在产品的需求和方案阶段的流程完善可以通过人为 <strong>强制约束规范</strong> 得到有效解决</p>
+<p><img src="/simple-devtest-sys/%E4%BA%A7%E5%93%81%E7%A0%94%E5%8F%91%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B.gif" alt="img"></p>
+<h2 id="3-开发测试中的问题"><a class="markdownIt-Anchor" href="#3-开发测试中的问题"></a> 3、开发&amp;测试中的问题</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//TODO 大家都是码农，我就懒得说了，😄</span><br></pre></td></tr></table></figure>
+<h2 id="4-开发测试流程体系"><a class="markdownIt-Anchor" href="#4-开发测试流程体系"></a> 4、开发测试流程体系</h2>
+<h3 id="41-问题如何解决"><a class="markdownIt-Anchor" href="#41-问题如何解决"></a> 4.1、 问题如何解决</h3>
+<p>问题真实存在，我们应该如何解决呢？怎样才能使我们的工作的更**<code>爽</code>**</p>
+<p>我的思考：业务流程化 –&gt; 流程工具化 –&gt; 工具自动化(信息化)</p>
+<h3 id="42-开发测试流程体系"><a class="markdownIt-Anchor" href="#42-开发测试流程体系"></a> 4.2、 开发测试流程体系</h3>
+<p>其实很容易，在研发流程当中其实已经说明了开发测试的一个简单的流程体系，其主要就是三个阶段：</p>
+<ul>
+<li>Dev阶段：开发设计文档、创建分支、编码、自测、测试用例、提测</li>
+<li>Test阶段：线下测试、Stage测试、代码审查、产品验收</li>
+<li>Online阶段：Beta环境、GA环境</li>
+</ul>
+<p>流程化的过程如下：</p>
+<p><img src="/simple-devtest-sys/%E6%B5%81%E7%A8%8B%E4%BD%93%E7%B3%BB.gif" alt="img"></p>
+<h2 id="5-iflow开发测试流程管理系统"><a class="markdownIt-Anchor" href="#5-iflow开发测试流程管理系统"></a> 5、Iflow开发测试流程管理系统</h2>
+<p>基于以上的问题和思考，以及以往的经验【这个占绝大部分】，我开发一套开发测试流程管理系统。所有的流程【除特出流程类型，如：<code>hotfix</code>】都是分步骤一步一步往下进行的，可以流程化管理。</p>
+<p>Iflow系统特点：</p>
+<ul>
+<li>记录整个开发测试到上线的整个过程</li>
+<li>主子流程明确，不会有流程交叉</li>
+<li>严格流程化，当前流程之后的流程<strong>灰色</strong>，不可点击</li>
+<li>流程化&amp;权限化，严格把控“出错”风险</li>
+<li>测试环境统一化管理，测试可自由定制，mock第三方Api</li>
+<li>后续可完善，做成CI系统</li>
+</ul>
+<h3 id="51-iflow-基本界面说明"><a class="markdownIt-Anchor" href="#51-iflow-基本界面说明"></a> 5.1、IFLOW — 基本界面说明</h3>
+<ul>
+<li>**主流程：**主阶段，创建Iflow、dev阶段、test阶段、online阶段</li>
+<li>**子流程：**就是当前主极端对应的子阶段，如下图中 <strong>dev阶段</strong>，对应的开发文档阶段，创建分支……</li>
+<li>**开发应用：**目前一个QS，可能需要关联开发多个应用，每个应用可以单独的流程，可以独立区分，便于不同的童鞋开发</li>
+</ul>
+<p><img src="/simple-devtest-sys/%E5%9F%BA%E6%9C%AC%E7%95%8C%E9%9D%A2%E8%AF%B4%E6%98%8E.png" alt="img"></p>
+<h3 id="52-iflow-创建iflow选择应用"><a class="markdownIt-Anchor" href="#52-iflow-创建iflow选择应用"></a> 5.2、IFLOW — 创建IFLOW（选择应用）</h3>
+<p>目前根据QS-Id建立Iflow流程【注，目前未关联QS系统】，可以选择应用和不同的流程类型创建Iflow流程。</p>
+<p>流程类型说明：</p>
+<ul>
+<li>正常：需要按常规走完流程</li>
+<li>bug修复/Notesting/线上紧急bug：可以跳过特定的流程步骤</li>
+</ul>
+<p><img src="/simple-devtest-sys/%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8.png" alt="img"></p>
+<h3 id="53-iflow-dev阶段"><a class="markdownIt-Anchor" href="#53-iflow-dev阶段"></a> 5.3、IFLOW — DEV阶段</h3>
+<p>由对应<strong>开发走完整个流程</strong>，上传传文档审核，建立分支，自测，到最后提测。开发走完整个Dev阶段后移交测试。</p>
+<p><img src="/simple-devtest-sys/dev%E9%98%B6%E6%AE%B5.gif" alt="img"></p>
+<h3 id="54-iflow-test阶段"><a class="markdownIt-Anchor" href="#54-iflow-test阶段"></a> 5.4、IFLOW — TEST阶段</h3>
+<p>由对应<strong>测试走完整个流程</strong></p>
+<blockquote>
+<p>首先测试可以在左侧菜单栏【iflow流程列表】，检索对应QS-ID，即可进入对应的流程测试，以及查看dev阶段的api文档和开发文档。</p>
+</blockquote>
+<blockquote>
+<p>其次进入dev阶段完成相应阶段的测试，其中测试环境支持以下的功能：</p>
+</blockquote>
+<ul>
+<li>**释放分支：**释放当前的测试环境绑定</li>
+<li>**切换/更新分支：**将当前iflow流程对应的分支，切换至当前的测试环境</li>
+<li>**更新dev配置文件：**基于目前环境存在的分支代码，同步copy更新dev配置文件，注意：更新后，原有的定制配置将被覆盖。</li>
+<li>**配置文件修改：**更改/定制当前测试环境的配置文件</li>
+<li>**模拟APi【mock第三方api数据】：**可以模拟第三方的api返回数据，设置超时，【使用前，注意绑定下对应模拟api的域名IP，不同的环境这个域名和IP不同】。</li>
+</ul>
+<p><img src="/simple-devtest-sys/test%E9%98%B6%E6%AE%B5.gif" alt="img"></p>
+<h3 id="55-iflow-online阶段"><a class="markdownIt-Anchor" href="#55-iflow-online阶段"></a> 5.5、IFLOW — ONLINE阶段</h3>
+<p>即上线至beta环境和GA环境，显示但前版本列表，支持一键回退功能【目前只是一个空架子】。</p>
+<p><img src="/simple-devtest-sys/online%E9%98%B6%E6%AE%B5.gif" alt="img"></p>
+<h2 id="6-总结"><a class="markdownIt-Anchor" href="#6-总结"></a> 6、总结</h2>
+<p>整体来说IFLOW开发测试流程管理系统只是一个<strong>流程框架或者外壳</strong>，后续相关的功能的模块都可以进行集成，将其形成一套完善的流程管理系统（整体页面功能可能会比较简陋，当时花费一个多月的闲余时间写的😀）。</p>
+<p><strong>可集成功能：</strong></p>
+<ul>
+<li>**文档系统：**api文档、Wiki知识库</li>
+<li>**测试用例系统：**测试编写用例，开发可以审核过测试用例等</li>
+<li>**自动化测试系统：**测试自动化测试脚本</li>
+<li>**代码管理平台：**可以直接检测代码质量，给代码评分等，比如 <a href="http://bbs.2345.net/d/169-sonarqube/3"><strong>sonarQube，可点击此查看</strong></a></li>
+<li>**打包构建工具：**比如jekins（PHP你懂的，木有构建哦😂）</li>
+<li><strong>CI可持续集成</strong></li>
+<li><strong>发布系统</strong></li>
+<li>……</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Iflow</category>
+      </categories>
+      <tags>
+        <tag>Iflow</tag>
       </tags>
   </entry>
   <entry>
@@ -663,573 +663,6 @@
         <tag>Jenkins</tag>
         <tag>移动CICD</tag>
         <tag>CICD</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>禅道持续交付(一)-概述及框架</title>
-    <url>/zentao-cicd-overview/</url>
-    <content><![CDATA[<p>我们基于禅道打造了持续交付系统，整合了多个开源系统（包括禅道zentao、jenkins、gitlab、nexus、harbor、ldap、mysql等等），并进行大量的二次开发，将多个系统功能（项目管理、集成管理、代码仓库管理、编译私服，镜像仓库管理、用户认证等）、多个开发环境（开发环境、测试环境、预发布环境、灰度环境、生产环境等），多种发布流程（代码扫描、版本集成、版本发布等）进行统一整合，提供一套高度集成和高度自动化的项目管理+版本集成发布系统。</p>
-<span id="more"></span>
-<h2 id="1-概述"><a class="markdownIt-Anchor" href="#1-概述"></a> 1、概述</h2>
-<p>因为公司大部门在使用禅道进行项目管理、缺陷管理等，所以我们希望基于此对于禅道做二开扩展，支持到CICD，最终将禅道打造成一个DevOps平台。</p>
-<p>选择禅道主要原因：</p>
-<ul>
-<li>有使用历史，符合大多数业务项目的操作习惯</li>
-<li>敏捷管理，基于Scrum的角色且相关流程和功能完善</li>
-<li>社区版开源，可以基于源码进行修改</li>
-</ul>
-<p><strong>拓展后禅道能力</strong></p>
-<ul>
-<li><a href="https://www.zentao.net/book/zentaopmshelp/49.html">使用禅道来进行项目任务管理</a></li>
-<li><a href="https://www.zentao.net/book/zentaopmshelp/64.html">只使用禅道来做bug管理</a></li>
-<li><a href="https://www.zentao.net/book/zentaopmshelp/77.html">只使用禅道来进行产品管理</a></li>
-<li><a href="https://www.zentao.net/book/zentaopmshelp/91.html">个人使用禅道来做事务跟踪管理</a></li>
-<li>仅使用版本集成流程（扩展功能）</li>
-<li>仅使用上线流程审批功能（扩展功能）</li>
-<li>仅使用客户端渠道管理功能（扩展功能）</li>
-</ul>
-<h2 id="2-持续交付系统框架"><a class="markdownIt-Anchor" href="#2-持续交付系统框架"></a> 2、持续交付系统框架</h2>
-<p>这个比较简单吧，其实有关这种分层的DevOps架构，应该都是大同小异，仅供参考哈😉</p>
-<p><img src="/zentao-cicd-overview/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84-new.png" alt="img"></p>
-<h2 id="3-持续交付流程"><a class="markdownIt-Anchor" href="#3-持续交付流程"></a> 3、持续交付流程</h2>
-<p>主要是基于Helm进行K8s的容器部署，整个交付流程如下：</p>
-<ul>
-<li>使用Zentao作为项目管理工具：管理基本需求、迭代、缺陷等</li>
-<li>Zentao也作为用户CICD系统平台，用户再禅道上做集成、构建、部署等操作</li>
-<li>CICD的后端集成工具：Jenkins</li>
-<li>部署至K8s集群中，部署主要的使用是Helm进行部署管理（注：当时使用的是Helm2）</li>
-</ul>
-<p>注：我们自己编写了Helm的Template模板工程，基本涵盖了很多的使用场景，这个后续我也会跟进分享给大家，尽情期待……</p>
-<p><img src="/zentao-cicd-overview/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E6%B5%81%E7%A8%8B-new.png" alt="img"></p>
-<h2 id="4-工具链选型"><a class="markdownIt-Anchor" href="#4-工具链选型"></a> 4、工具链选型</h2>
-<p>其实DevOps工具链产品有很多，大家可以根据自己的实际情况选择，我们基于Zentao打造的持续交付平台选择的是如下工具链。因为当初我们还木有打通持续测试这一环节，所以这个相对有些简陋了，但是还算清晰！</p>
-<h3 id="web端容器"><a class="markdownIt-Anchor" href="#web端容器"></a> Web端容器</h3>
-<p><img src="/zentao-cicd-overview/%E5%B7%A5%E5%85%B7%E9%93%BE%E9%80%89%E5%9E%8B-new.png" alt="img"></p>
-<h3 id="android移动端"><a class="markdownIt-Anchor" href="#android移动端"></a> Android移动端</h3>
-<p><img src="/zentao-cicd-overview/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B7%A5%E5%85%B7%E9%93%BE-new.jpg" alt="img"></p>
-]]></content>
-      <categories>
-        <category>持续交付</category>
-      </categories>
-      <tags>
-        <tag>CICD</tag>
-        <tag>Zentao</tag>
-        <tag>禅道</tag>
-        <tag>持续交付</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>禅道持续交付(七)-失败总结</title>
-    <url>/zentao-failure-summary/</url>
-    <content><![CDATA[<p>哈哈，想不到吧，虽然经过小伙伴的很长时间的努力，我们最终落地的效果是不理想。最终项目被”砍“掉了。不过很值得和大家分享下，感觉这篇应该是这个系列最<code>值钱</code>的一篇啦，不容错过！</p>
-<span id="more"></span>
-<h2 id="1-持续交付最终结果"><a class="markdownIt-Anchor" href="#1-持续交付最终结果"></a> 1、持续交付最终结果</h2>
-<p>在完成试点后，整体落地推进整体结果不是很好，总结两句话</p>
-<ul>
-<li>Web端使用体验很操作</li>
-<li>移动端整体尚可</li>
-</ul>
-<p>最终由于**”领导层“**的决定，禅道<code>寿终正寝</code>了 😢😢😢</p>
-<h2 id="2-失败原因"><a class="markdownIt-Anchor" href="#2-失败原因"></a> 2、失败原因</h2>
-<p>其实在禅道命运的变更和我司上层调整是一个重合的时间节点，当初我一度很”郁闷“，想不通这个是一个正确的事儿，K8s也是前沿趋势，我门打造的可是我司第一个统一产研研发大平台……</p>
-<p>但是随着时间推移和经历更多的DevOps的实践，发现禅道的”死亡“一定程度上是必然的，我会逐步给到各位解释哈。</p>
-<h3 id="21-空中楼阁核心原因"><a class="markdownIt-Anchor" href="#21-空中楼阁核心原因"></a> 2.1、空中楼阁（核心原因）</h3>
-<p>我们打造的持续交付系统可能先对于公司当时的现状来说太”高、大、尚“了，因为技术层面整体 <strong>底层建设不牢</strong></p>
-<ul>
-<li>软件版本和架构未标准化  –  容器化改造能定制化到你怀疑人生</li>
-<li>运维自动化程度低（基本处于脚本时代吧） – 配置改造、域名标准</li>
-<li>无标准化测试环境 – 大家各自的测试环境基本各成体系</li>
-<li>自身建设的K8s集群先对稳定性不足</li>
-<li>大部分小伙伴其实都没有准备好</li>
-</ul>
-<p>基建其实是一个很庞大的工程，不是一个持续交付系统所能撑起来的，我基于个人的理解把它们理解成一套房子，而持续交付属于Roof一环，如果Foundation和House都没有建设好的化，直接盖”屋顶“，这将是一个很艰难的过程。</p>
-<p><img src="/zentao-failure-summary/%E7%A9%BA%E4%B8%AD%E6%A5%BC%E9%98%81-new.jpg" alt></p>
-<h3 id="22-技术选型"><a class="markdownIt-Anchor" href="#22-技术选型"></a> 2.2、技术选型</h3>
-<p><strong><code>并不是最新、先进就是合适的</code></strong>，我觉得当时起步选择了Helm并不是一个明知的决定，学习成本太高，专业技术方向人员还Ok，当时需要推向多有业务小伙伴使用，这个成本可想而知，入门成本同时带来的问题就是维护起来也是一个浩大的工程。</p>
-<h3 id="23-自身易用性"><a class="markdownIt-Anchor" href="#23-自身易用性"></a> 2.3、自身易用性</h3>
-<p>我们基于禅道自身Scrum框架，做了很多流程、角色限制，最终的结果感觉就是<strong>作茧自缚</strong>。说实话这个就是机械的贯彻了标准的软件生命周期流程（也可以理解为瀑布式），然而他并不”敏捷“。</p>
-<p>流程过度的自由，会引发不可预知的问题，但流程机械化的强制管控，会引起生产效率的降低以及<code>怨声载道</code>。在流程和效率中间找到一个平衡，或者说DevOps落地的不同阶段我们可以逐步规范，这估计也是 <strong>敏捷思想</strong> 想引导的，可惜的是：<strong>当时的我们并不知道这些（认知局限）</strong></p>
-]]></content>
-      <categories>
-        <category>持续交付</category>
-      </categories>
-      <tags>
-        <tag>CICD</tag>
-        <tag>Zentao</tag>
-        <tag>禅道</tag>
-        <tag>持续交付</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>禅道持续交付(三)-多环境同域名设计</title>
-    <url>/zentao-one-domain-multiEnv/</url>
-    <content><![CDATA[<p>在实际需求中，我们遇到了这样一个需求：在<code>研发环境</code>和<code>测试环境</code>使用相同的域名，期望根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理。基于此我们调研最后实现这个需求。方案核心点：OpenResty方案: Nginx+lua + redis 实现根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理，redis用于管理用户Client IP和环境的绑定关系。</p>
-<span id="more"></span>
-<h2 id="1-需求调研"><a class="markdownIt-Anchor" href="#1-需求调研"></a> 1 需求调研</h2>
-<p>在<code>研发环境</code>和<code>测试环境</code>使用相同的域名，期望根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理。</p>
-<h2 id="2-方案概述"><a class="markdownIt-Anchor" href="#2-方案概述"></a> 2 方案概述</h2>
-<ol>
-<li>使用<code>OpenResty</code>(集成了 Nginx 和 Lua )对用户请求进行转发</li>
-<li>使用<code>Redis</code>来存储用户 IP 与环境的绑定关系数据</li>
-<li>使用禅道操作<code>Redis</code>来管理用户 IP 与环境的绑定关系</li>
-</ol>
-<h2 id="3-部署实践"><a class="markdownIt-Anchor" href="#3-部署实践"></a> 3 部署实践</h2>
-<h3 id="31-openresty-部署"><a class="markdownIt-Anchor" href="#31-openresty-部署"></a> 3.1 OpenResty 部署</h3>
-<p><a href="https://openresty.org/en/">OpenResty官方介绍</a></p>
-<h4 id="311-openresty-安装"><a class="markdownIt-Anchor" href="#311-openresty-安装"></a> 3.1.1 OpenResty 安装</h4>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install -y yum-utils</span><br><span class="line">sudo yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo</span><br><span class="line">sudo yum install -y openresty</span><br><span class="line">sudo yum install -y openresty-resty</span><br></pre></td></tr></table></figure>
-<h4 id="312-openresty-配置"><a class="markdownIt-Anchor" href="#312-openresty-配置"></a> 3.1.2 OpenResty 配置</h4>
-<h5 id="3121-nginx-配置"><a class="markdownIt-Anchor" href="#3121-nginx-配置"></a> 3.1.2.1 nginx 配置</h5>
-<p>路径：/usr/local/openresty/nginx/conf/nginx.conf</p>
-<ul>
-<li>配置文件路径根据 openresty 安装目录变化</li>
-<li>配置文件中<code>lua_package_path</code>字段值也要根据 openresty 安装目录变化</li>
-</ul>
-<p>配置样例：</p>
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">user</span>                 root root;</span><br><span class="line"><span class="attribute">worker_processes</span>     auto;</span><br><span class="line"><span class="attribute">worker_cpu_affinity</span>  auto;</span><br><span class="line"><span class="attribute">error_log</span>            logs/error.log <span class="literal">info</span>;</span><br><span class="line"><span class="attribute">pid</span>                  logs/nginx.pid;</span><br><span class="line"><span class="attribute">worker_rlimit_nofile</span> <span class="number">65000</span>;</span><br><span class="line"></span><br><span class="line"><span class="section">events</span> &#123;</span><br><span class="line">    <span class="attribute">use</span>                 <span class="literal">epoll</span>;</span><br><span class="line">    <span class="attribute">accept_mutex</span>        <span class="literal">off</span>;</span><br><span class="line">    <span class="attribute">multi_accept</span>        <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">worker_connections</span>  <span class="number">20480</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">include</span>       mime.types;</span><br><span class="line">    <span class="attribute">default_type</span>  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># lua相关配置</span></span><br><span class="line">    <span class="attribute">lua_package_path</span>                   <span class="string">&#x27;/usr/local/openresty/lualib/?.lua;/usr/local/openresty/nginx/conf/?.lua&#x27;</span>;</span><br><span class="line">    <span class="attribute">lua_shared_dict</span>                    xq_req_limit_cache <span class="number">1m</span>;</span><br><span class="line">    <span class="attribute">lua_need_request_body</span>              <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">include</span> conf.d/<span class="regexp">*.conf</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="3122-代理域名配置"><a class="markdownIt-Anchor" href="#3122-代理域名配置"></a> 3.1.2.2 代理域名配置</h5>
-<p>路径：/usr/local/openresty/nginx/conf/conf.d/domain.conf</p>
-<ul>
-<li>配置文件路径根据 openresty 安装目录变化</li>
-<li>配置文件中<code>access_log、error_log、rewrite_by_lua_file</code>字段值也要根据 openresty 安装目录变化</li>
-</ul>
-<p>配置样例：</p>
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> domain.demo.com;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">access_log</span> /usr/local/openresty/nginx/logs/domain.demo.com.access.log;</span><br><span class="line">    <span class="attribute">error_log</span> /usr/local/openresty/nginx/logs/domain.demo.com.<span class="literal">error</span>.log <span class="literal">warn</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">set</span> $target_domain <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        <span class="attribute">set</span> $target_host <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">rewrite_by_lua_file</span> /usr/local/openresty/nginx/conf/proxy.lua;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">proxy_set_header</span> Host $target_domain;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://$target_host;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="3123-lua脚本"><a class="markdownIt-Anchor" href="#3123-lua脚本"></a> 3.1.2.3 Lua脚本</h5>
-<p>路径：/usr/local/openresty/nginx/conf/proxy.lua</p>
-<ul>
-<li>配置文件路径根据 openresty 安装目录变化</li>
-<li>配置文件中<code>file_err</code>字段值也要根据 openresty 安装目录变化</li>
-</ul>
-<p>配置样例：</p>
-<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 日志文件</span></span><br><span class="line"><span class="keyword">local</span> file_err = <span class="string">&quot;/usr/local/openresty/nginx/logs/&quot;</span>..<span class="built_in">os</span>.<span class="built_in">date</span>(<span class="string">&quot;%Y-%m-%d&quot;</span>, <span class="built_in">os</span>.<span class="built_in">time</span>())..<span class="string">&quot;-proxy-lua.log&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- json模块</span></span><br><span class="line"><span class="keyword">local</span> cjson = <span class="built_in">require</span> <span class="string">&quot;cjson&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 写日志函数</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">log</span><span class="params">(type, msg)</span></span></span><br><span class="line">    <span class="built_in">type</span> = <span class="built_in">type</span> <span class="keyword">or</span> <span class="string">&quot;INFO&quot;</span></span><br><span class="line">    files = <span class="built_in">assert</span>(<span class="built_in">io</span>.<span class="built_in">open</span>(file_err, <span class="string">&quot;a+&quot;</span>))</span><br><span class="line">    files:<span class="built_in">write</span>(<span class="built_in">os</span>.<span class="built_in">date</span>(<span class="string">&quot;%Y-%m-%d %X&quot;</span>, <span class="built_in">os</span>.<span class="built_in">time</span>())..<span class="string">&quot; &quot;</span>..<span class="built_in">type</span>..<span class="string">&quot; &quot;</span>..cjson.encode(msg)..<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">    files:<span class="built_in">close</span>()</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取客户端IP</span></span><br><span class="line"><span class="keyword">local</span> client_ip = ngx.req.get_headers()[<span class="string">&quot;X-Real-IP&quot;</span>]</span><br><span class="line"><span class="keyword">if</span> client_ip == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">    client_ip = ngx.req.get_headers()[<span class="string">&quot;x_forwarded_for&quot;</span>]</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> client_ip == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">    client_ip = ngx.var.remote_addr</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- redis模块</span></span><br><span class="line"><span class="keyword">local</span> redis = <span class="built_in">require</span> <span class="string">&quot;resty.redis&quot;</span> </span><br><span class="line"><span class="keyword">local</span> red = redis.new()</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 设置超时</span></span><br><span class="line">red:set_timeouts(<span class="number">1000</span>, <span class="number">1000</span>, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 连接</span></span><br><span class="line"><span class="keyword">local</span> ok, err = red:connect(<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">6379</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> ok <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">log</span>(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to connect: &quot;</span>..err)</span><br><span class="line">    ngx.say(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to connect: &quot;</span>..err)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 令牌</span></span><br><span class="line"><span class="keyword">local</span> ok, err = red:auth(<span class="string">&quot;rc_redis&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> ok <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">log</span>(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to authenticate: &quot;</span>..err)</span><br><span class="line">    ngx.say(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to authenticate: &quot;</span>..err)</span><br><span class="line">    red:<span class="built_in">close</span>()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 选择redis db</span></span><br><span class="line">red:<span class="built_in">select</span>(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取要转发的域名</span></span><br><span class="line"><span class="keyword">local</span> redis_key_domain = <span class="string">&quot;domain:&quot;</span>..ngx.var.server_name..<span class="string">&quot;:clientip:&quot;</span>..client_ip..<span class="string">&quot;:domain&quot;</span></span><br><span class="line"><span class="keyword">local</span> domain, err = red:get(redis_key_domain)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> domain <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">log</span>(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to get &quot;</span>..redis_key_domain..<span class="string">&quot; :&quot;</span>, err)</span><br><span class="line">    ngx.say(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to get &quot;</span>..redis_key_domain..<span class="string">&quot; :&quot;</span>, err)</span><br><span class="line">    red:<span class="built_in">close</span>()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> domain == ngx.null <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">log</span>(<span class="string">&quot;ERROR&quot;</span>, redis_key_domain..<span class="string">&quot; not found.&quot;</span>)</span><br><span class="line">    ngx.say(<span class="string">&quot;ERROR&quot;</span>, redis_key_domain..<span class="string">&quot; not found.&quot;</span>)</span><br><span class="line">    red:<span class="built_in">close</span>()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">log</span>(<span class="string">&quot;DEBUG&quot;</span>, redis_key_domain..<span class="string">&quot; =&gt; &quot;</span>..domain)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取要转发的host</span></span><br><span class="line"><span class="keyword">local</span> redis_key_host = <span class="string">&quot;domain:&quot;</span>..ngx.var.server_name..<span class="string">&quot;:clientip:&quot;</span>..client_ip..<span class="string">&quot;:host&quot;</span></span><br><span class="line"><span class="keyword">local</span> host, err = red:get(redis_key_host)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> host <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">log</span>(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to get &quot;</span>..redis_key_host..<span class="string">&quot; :&quot;</span>, err)</span><br><span class="line">    ngx.say(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to get &quot;</span>..redis_key_host..<span class="string">&quot; :&quot;</span>, err)</span><br><span class="line">    red:<span class="built_in">close</span>()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> host == ngx.null <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">log</span>(<span class="string">&quot;ERROR&quot;</span>, redis_key_host..<span class="string">&quot; not found.&quot;</span>)</span><br><span class="line">    ngx.say(<span class="string">&quot;ERROR&quot;</span>, redis_key_host..<span class="string">&quot; not found.&quot;</span>)</span><br><span class="line">    red:<span class="built_in">close</span>()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">log</span>(<span class="string">&quot;DEBUG&quot;</span>, redis_key_host..<span class="string">&quot; =&gt; &quot;</span>..host)</span><br><span class="line"></span><br><span class="line">ngx.var.target_domain = domain</span><br><span class="line">ngx.var.target_host = host</span><br><span class="line">red:<span class="built_in">close</span>()</span><br></pre></td></tr></table></figure>
-<p>注意事项：</p>
-<ul>
-<li>redis connect</li>
-<li>redis auth</li>
-<li>redis db</li>
-</ul>
-<h3 id="32-redis-数据结构"><a class="markdownIt-Anchor" href="#32-redis-数据结构"></a> 3.2 Redis 数据结构</h3>
-<table>
-<thead>
-<tr>
-<th>键</th>
-<th style="text-align:left">键备注</th>
-<th>值</th>
-<th>值备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>domain:&lt;request_domain&gt;:clientip:&lt;client_ip&gt;:domain</td>
-<td style="text-align:left">字符串类型<br>&lt;request_domain&gt;为客户端请求的域名<br>&lt;client_ip&gt;为客户端IP<br>示例：domain:demo.com:clientip:172.17.18.237:domain</td>
-<td>&lt;target_domain&gt;</td>
-<td>字符串类型<br>&lt;target_domain&gt;为绑定的目标域名<br>示例：<a href="http://st2-demo.com">st2-demo.com</a></td>
-</tr>
-<tr>
-<td>domain:&lt;request_domain&gt;:clientip:&lt;client_ip&gt;:host</td>
-<td style="text-align:left">字符串类型<br>&lt;request_domain&gt;为客户端请求的域名<br>&lt;client_ip&gt;为客户端IP<br>示例：domain:demo:clientip:172.17.18.237:host</td>
-<td>&lt;target_host&gt;:&lt;target_port&gt;</td>
-<td>字符串类型<br>&lt;target_host&gt;为绑定的目标服务器IP<br>&lt;target_port&gt;为绑定的目标服务器端口<br>示例：172.16.0.221:80</td>
-</tr>
-</tbody>
-</table>
-<h3 id="33-禅道操作"><a class="markdownIt-Anchor" href="#33-禅道操作"></a> 3.3 禅道操作</h3>
-<h4 id="331-新增代理域名"><a class="markdownIt-Anchor" href="#331-新增代理域名"></a> 3.3.1 新增代理域名</h4>
-<ol>
-<li>新增一份该域名的代理域名配置到对应目录
-<ul>
-<li>禅道生成文件到指定目录下</li>
-<li>通过rsync同步改目录到OpenResty的对应目录</li>
-</ul>
-</li>
-<li>重现加载 OpenResty Nginx模块
-<ul>
-<li>openresty/nginx/sbin/nginx -s reload</li>
-<li>在Redis中设置一个键值，作为重新加载的标志</li>
-<li>OpenResty部署服务器设置一个定时任务，检测Redis中的标志，决定是否重新加载启动Nginx</li>
-</ul>
-</li>
-</ol>
-<h4 id="332-修改用户绑定"><a class="markdownIt-Anchor" href="#332-修改用户绑定"></a> 3.3.2 修改用户绑定</h4>
-<ol>
-<li>按照 Redis 数据结构，修改上述2个键对应的值（新增、更新、删除）</li>
-</ol>
-]]></content>
-      <categories>
-        <category>持续交付</category>
-      </categories>
-      <tags>
-        <tag>CICD</tag>
-        <tag>Zentao</tag>
-        <tag>禅道</tag>
-        <tag>持续交付</tag>
-        <tag>OpenResty</tag>
-        <tag>Nginx</tag>
-        <tag>Lua</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>禅道持续交付(二)-研发流水线设计</title>
-    <url>/zentao-rd-pipeline/</url>
-    <content><![CDATA[<p>基于禅道设计的研发流水线，实际就是分为了两条流水线：CI和CD，CI流程就是产出最终可交付至线上的版本制品，CD流程就是将CI产出的制品最终交付至线上。在流水线执行过程中，约定了各个版本环境，如：Dev环境、IT环境、ST环境、UAT环境、PVT环境、GVT灰度验证环境、MVT量产环境等。</p>
-<span id="more"></span>
-<h2 id="1-流水线设计"><a class="markdownIt-Anchor" href="#1-流水线设计"></a> 1 流水线设计</h2>
-<p>按照devops理念，整个开发及发布流程被设计为两条流程：持续集成和持续发布。</p>
-<p>在这里持续（continuous）的概念，包含的意义是：<br>
-1、流程可以反复执行；<br>
-2、流程是由多个子流程组成，流程之间都是前后顺序连接，持续执行的。</p>
-<p>由于我们的核心构建系统采用的是jenkins，所有流程的实现是采用的jenkins中的流水线pipeline脚本来实现的。</p>
-<p>最终实现的结果就是持续交付系统主要有两条流水线：</p>
-<ul>
-<li>
-<p>版本持续集成（CI，Continuous Integration）流水线<br>
-就是对源代码进行构建，生成版本制品的过程。</p>
-</li>
-<li>
-<p>版本持续发布（CD，Continuous Delivery）流水线<br>
-就是将经过测试之后合格的版本制品发布部署到目的地的过程。</p>
-</li>
-</ul>
-<p>我们设计的CI和CD流水线的概图如下：<br>
-<img src="/zentao-rd-pipeline/CICD%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
-<h2 id="2-持续集成流水线ci-continuous-integration"><a class="markdownIt-Anchor" href="#2-持续集成流水线ci-continuous-integration"></a> 2 持续集成流水线（CI, Continuous Integration）</h2>
-<p>下面是一个一般的CI的流程模型：<br>
-<img src="/zentao-rd-pipeline/CI%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
-<h2 id="3-持续发布流水线cdcontinous-delivery"><a class="markdownIt-Anchor" href="#3-持续发布流水线cdcontinous-delivery"></a> 3 持续发布流水线（CD，Continous Delivery）</h2>
-<p>下面是一个一般的CD的流程模型：<br>
-<img src="/zentao-rd-pipeline/CD%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
-<h2 id="4-版本和环境流程图"><a class="markdownIt-Anchor" href="#4-版本和环境流程图"></a> 4、版本和环境流程图</h2>
-<p>在逻辑意义上来说，我们目前做了如下定义：</p>
-<ul>
-<li>环境是一个逻辑概念，在物理上的实现，它就是从物理集群内启动并运行起来的一个docker容器；</li>
-<li>内网开发集群定义了系统集成测试环境（SIT，System Integration Test environment），支持的环境数量为三个：sit0、sit1、sit2。</li>
-<li>内网测试集群定义了用户验收测试环境（UAT，User Acceptance Test environment），支持的环境数量为三个：uat0、uat1、uat2。</li>
-<li>生产集群，不管是内网还是外网，公有云还是私有云，都定义如下三个环境：
-<ul>
-<li>预发布环境 pre-release</li>
-<li>灰度发布环境 grey verification environment</li>
-<li>正式生产环境 mass production<br>
-<img src="/zentao-rd-pipeline/%E7%89%88%E6%9C%AC%E5%8F%8A%E7%8E%AF%E5%A2%83-new.png" alt></li>
-</ul>
-</li>
-</ul>
-<h2 id="5-测试环境域名管理方案"><a class="markdownIt-Anchor" href="#5-测试环境域名管理方案"></a> 5、测试环境域名管理方案</h2>
-<p>目前测试环境的访问方式主要有两种，这两种方式可以同时使用：</p>
-<ul>
-<li>
-<p>1、不同环境不同域名方案</p>
-<p>部署至不同集群环境，生成不同域名方案。</p>
-<p>如：域名为&quot;<a href="http://demo.com">demo.com</a>&quot;，部署至sit0环境，则自动生成域名&quot;<a href="http://sit0-demo.com">sit0-demo.com</a>&quot;</p>
-</li>
-<li>
-<p>2、不同环境同一域名方案</p>
-<p>部署至不同集群环境，访问客户端通过**<code>域名代理</code>**访问同一域名（多环境同域名方案OpenResty方案: Nginx+lua + redis 实现根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理（<a href="/zentao-one-domain-multiEnv/" title="方案详情参考此文，多环境同域名设计">方案详情参考此文，多环境同域名设计</a>），访问至不同集群环境。</p>
-<p>如：域名为&quot;<a href="http://demo.com">demo.com</a>&quot;，通过域名代理将访问客户端IP与目的访问集群入口域名&quot;<a href="http://sit0-demo.com">sit0-demo.com</a>&quot;绑定即可实现同一域名访问。</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>持续交付</category>
-      </categories>
-      <tags>
-        <tag>CICD</tag>
-        <tag>Zentao</tag>
-        <tag>禅道</tag>
-        <tag>持续交付</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>禅道持续交付(五)-版本构建发布演示</title>
-    <url>/zentao-cicd-demo/</url>
-    <content><![CDATA[<p>这里只是基本的版本构建和发布页面的简单展示，这里我们版本构建支持Spring cloud微服务多组件的方式，其中各个流程进度节点的状态和日志可以清晰查看。</p>
-<span id="more"></span>
-<h2 id="1-版本构建"><a class="markdownIt-Anchor" href="#1-版本构建"></a> 1、版本构建</h2>
-<ul>
-<li>一键集成、一键发布</li>
-<li>不同角色负责对应流程节点的启动和确认（构建结果、开发自测、系统测试状态）</li>
-<li>整个版本的进度、状态清晰明了</li>
-</ul>
-<p><img src="/zentao-cicd-demo/%E7%89%88%E6%9C%AC%E6%9E%84%E5%BB%BA-new.jpg" alt></p>
-<h2 id="2-版本发布"><a class="markdownIt-Anchor" href="#2-版本发布"></a> 2、版本发布</h2>
-<ul>
-<li>选择测试通过的版本</li>
-<li>版本可以是多组件的版本，一次性部署发布</li>
-<li>部署支持灰度切量部署</li>
-</ul>
-<p><img src="/zentao-cicd-demo/%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83-new.jpg" alt></p>
-<h2 id="3-流程节点进度"><a class="markdownIt-Anchor" href="#3-流程节点进度"></a> 3、流程节点进度</h2>
-<ul>
-<li>支持流程节点进度查看</li>
-<li>每个进度节点的状态和日志清晰查看</li>
-</ul>
-<p><img src="/zentao-cicd-demo/%E6%B5%81%E7%A8%8B%E8%8A%82%E7%82%B9%E8%BF%9B%E5%BA%A6-new.jpg" alt></p>
-<h2 id="4-版本效能数据"><a class="markdownIt-Anchor" href="#4-版本效能数据"></a> 4、版本效能数据</h2>
-<ul>
-<li>每个流程节点操作者和操作时间被记录</li>
-<li>每个流程消耗时间统计计算</li>
-<li>整个流程效率展示在每个版本上</li>
-</ul>
-<p>基于此，可以统计效能指标数据</p>
-<p>– 交付效率：版本构建到上线耗时</p>
-<p>– 稳定性：单位时间内失败次数</p>
-<p>– 吞吐量：单位时间内构建次数</p>
-<p><img src="/zentao-cicd-demo/%E7%89%88%E6%9C%AC%E6%95%88%E8%83%BD%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1-new.jpg" alt></p>
-]]></content>
-      <categories>
-        <category>持续交付</category>
-      </categories>
-      <tags>
-        <tag>CICD</tag>
-        <tag>Zentao</tag>
-        <tag>禅道</tag>
-        <tag>持续交付</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>禅道持续交付(六)-移动端CICD</title>
-    <url>/zentao-mobile-cicd/</url>
-    <content><![CDATA[<p>我们其实有很多移动端的产品，所以在做完web端容器相关持续交付后，我们开始关注移动端相关的应用场景，这里我们重点切入的移动安卓打包及相关打渠道包和最终的市场投放环节，这里也和大家做个简单的分享。</p>
-<p>在移动端母包构建和渠道打包上线后，给业务提效十分明显，尤其是渠道打包，基本能节省30-40%的时间，且自动化不易出错。</p>
-<span id="more"></span>
-<h2 id="1-移动端cicd设计"><a class="markdownIt-Anchor" href="#1-移动端cicd设计"></a> 1、移动端CICD设计</h2>
-<h3 id="11-原流程调研"><a class="markdownIt-Anchor" href="#11-原流程调研"></a> 1.1、原流程调研</h3>
-<p>其实持续交付的核心就是建立一个可靠的交付流水线，将软件交付整个周期进行串联起来，通过这条流水线，将交付过程标准化、自动化、可视化，同时实现关键流程和节点管控。基于此，我们分析目前移动端整体现状或者工作流程，</p>
-<ul>
-<li>项目管理使用禅道</li>
-<li>打包工具使用Jenkins（产运、开发、测试都是在Jenkins打包 😂）</li>
-<li>缺陷管理使用禅道</li>
-<li>包管理暂时是Jenkins打包后通过下载手动传送，或者上传至禅道附件保存</li>
-<li>渠道通过平台打包，手动下载、手动重命名、手动FTP投放、手动邮件通知等</li>
-</ul>
-<h3 id="12-新流程设计"><a class="markdownIt-Anchor" href="#12-新流程设计"></a> 1.2、新流程设计</h3>
-<p>针对原有流程，项目/需求管理还是使用禅道原有功能，将版本母包的功能集成到禅道的版本中，同时禅道支持渠道打包和市场投放功能。</p>
-<p><img src="/zentao-mobile-cicd/%E6%96%B0%E6%B5%81%E7%A8%8B-new.jpg" alt></p>
-<h4 id="版本母包"><a class="markdownIt-Anchor" href="#版本母包"></a> 版本母包</h4>
-<ul>
-<li>版本母包管理（支持自测–&gt;系统测试–&gt;母包同步等）</li>
-<li>统一母包构建入口，支持定制化打包参数设置</li>
-<li>构建构成可视化</li>
-</ul>
-<p><img src="/zentao-mobile-cicd/%E7%89%88%E6%9C%AC%E6%9E%84%E5%BB%BA-new.jpg" alt></p>
-<h4 id="渠道打包"><a class="markdownIt-Anchor" href="#渠道打包"></a> 渠道打包</h4>
-<ul>
-<li>批量打包管理（批量下载、自动重命名、二维码下载等）</li>
-<li>渠道包自动化抽签</li>
-<li>FTP自动化投放</li>
-<li>渠道打包投放过程可视化</li>
-</ul>
-<p><img src="/zentao-mobile-cicd/%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85-new.jpg" alt></p>
-<h2 id="2-多app统一页面实现定制化构建母包"><a class="markdownIt-Anchor" href="#2-多app统一页面实现定制化构建母包"></a> 2、多APP统一页面实现定制化构建母包</h2>
-<h3 id="21-母包构建页面"><a class="markdownIt-Anchor" href="#21-母包构建页面"></a> 2.1、母包构建页面</h3>
-<p><img src="/zentao-mobile-cicd/%E5%AE%9A%E5%88%B6%E5%8C%96%E6%89%93%E5%8C%85-new.jpg" alt></p>
-<h3 id="22-定制参数设计"><a class="markdownIt-Anchor" href="#22-定制参数设计"></a> 2.2、定制参数设计</h3>
-<p><strong>通过业务项目代码的仓库的gradle.properties文件添加约定注解实现</strong></p>
-<ul>
-<li>普通注解示例</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#@name:是否展示获取数据的权限弹框@show:true@enableModify:true@type:bool@description:是否展示获取数据的权限弹框</span><br><span class="line">SHOW_DATA_PERMISSION_DIALOG=false</span><br><span class="line"></span><br><span class="line">#@name:限制升级时间(天)@show:true@enableModify:true@type:int@description:限制升级的时间</span><br><span class="line">UPDATE_LIMIT_DAYS=0</span><br><span class="line"></span><br><span class="line">#@name:是否开启1*1桌面组件@show:true@enableModify:true@type:bool@description:是否开启1*1桌面小组件</span><br><span class="line">IS_USE_WIDGET_1_1=true</span><br></pre></td></tr></table></figure>
-<ul>
-<li>新增附件上传注解</li>
-</ul>
-<p><strong><code>安卓项目有附件资源依赖，附件资源以注解形式给出，通过定制参数传入</code></strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#@name:桌面Icon压缩包@show:true@enableModify:true@type:uploadfile@fileType:zip@description:桌面Icon，必须是压缩包，目录结构符合要求，文件名为 ICON_RES.zip</span><br><span class="line">ICON_RES=</span><br><span class="line"></span><br><span class="line">#@name:启动页图片压缩包@show:true@enableModify:true@type:uploadfile@fileType:zip@description:启动页图片，必须是压缩包，目录结构符合要求，文件名为 SPLASH_RES.zip</span><br><span class="line">SPLASH_RES=</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="23-构建打包jenkins-job设计"><a class="markdownIt-Anchor" href="#23-构建打包jenkins-job设计"></a> 2.3、构建打包Jenkins Job设计</h3>
-<h4 id="入参说明"><a class="markdownIt-Anchor" href="#入参说明"></a> 入参说明</h4>
-<ul>
-<li>Jenkins主要入参</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">参数</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">BUILD_ID</td>
-<td style="text-align:center">构建ID，构建唯一标识</td>
-</tr>
-<tr>
-<td style="text-align:center">BUILD_PARAMS_JSON</td>
-<td style="text-align:center">构建参数，json格式</td>
-</tr>
-<tr>
-<td style="text-align:center">CALLBACK_URLS_JSON</td>
-<td style="text-align:center">流水线回调url参数，json格式</td>
-</tr>
-<tr>
-<td style="text-align:center">other params</td>
-<td style="text-align:center">其他构建参数 <strong><code>【禅道无需关心】</code></strong>，<br>主要由Jenkins自己维护参数</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>通用 CALLBACK_URLS_JSON 参数示例说明</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  // 流水线Job执行结果回调</span><br><span class="line">  &quot;resultCallbackUrl&quot;: &#123;</span><br><span class="line">  	&quot;url&quot;: &quot;http://demo.2345.com&quot;,</span><br><span class="line">  	&quot;host&quot;: &quot;&quot;   // 是否绑定host返回，默认：&quot;&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>BUILD_PARAMS_JSON参数说明</strong></p>
-<p><strong><code>采用一个Json构建字符串，便于后期的扩展和维护</code></strong></p>
-<ul>
-<li>字段说明</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">字段名</th>
-<th style="text-align:center">类型</th>
-<th style="text-align:center">是否必须</th>
-<th style="text-align:center">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">commonParams</td>
-<td style="text-align:center">object</td>
-<td style="text-align:center">是</td>
-<td style="text-align:center">构建 <strong>通用</strong> 参数Object</td>
-</tr>
-<tr>
-<td style="text-align:center">commonParams.gitMode</td>
-<td style="text-align:center">string</td>
-<td style="text-align:center">是</td>
-<td style="text-align:center">拉取git仓库方式：branch-分支；tag-标签</td>
-</tr>
-<tr>
-<td style="text-align:center">commonParams.gitBranchName</td>
-<td style="text-align:center">string</td>
-<td style="text-align:center">是</td>
-<td style="text-align:center">git分支名，若gitMode为tag，字段传空值：&quot;&quot;</td>
-</tr>
-<tr>
-<td style="text-align:center">commonParams.gitTagName</td>
-<td style="text-align:center">string</td>
-<td style="text-align:center">是</td>
-<td style="text-align:center">git标签名，若gitMode为branch，字段传空值：&quot;&quot;</td>
-</tr>
-<tr>
-<td style="text-align:center">commonParams.buildType</td>
-<td style="text-align:center">string</td>
-<td style="text-align:center">是</td>
-<td style="text-align:center">打包版本类型 test-内测、测试版本，release-正式版本</td>
-</tr>
-<tr>
-<td style="text-align:center">commonParams.appName</td>
-<td style="text-align:center">string</td>
-<td style="text-align:center">是</td>
-<td style="text-align:center">应用名称，<strong>从properoties文件中解析对应选项</strong></td>
-</tr>
-<tr>
-<td style="text-align:center">commonParams.packageName</td>
-<td style="text-align:center">string</td>
-<td style="text-align:center">是</td>
-<td style="text-align:center">应用包名，<strong>从properoties文件中解析对应选项</strong></td>
-</tr>
-<tr>
-<td style="text-align:center">commonParams.productFlavor</td>
-<td style="text-align:center">string</td>
-<td style="text-align:center">是</td>
-<td style="text-align:center">定制的产品特性，<strong>从properoties文件中解析对应选项</strong></td>
-</tr>
-<tr>
-<td style="text-align:center">commonParams.channel</td>
-<td style="text-align:center">string</td>
-<td style="text-align:center">是</td>
-<td style="text-align:center">渠道号,多个渠道号请用英文逗号分隔</td>
-</tr>
-<tr>
-<td style="text-align:center">commonParams.versionName</td>
-<td style="text-align:center">string</td>
-<td style="text-align:center">是</td>
-<td style="text-align:center">外部版本号，与内部版本号对应，如：2.3.4<br>主要用于显示给用户，服务端个别接口的逻辑</td>
-</tr>
-<tr>
-<td style="text-align:center">commonParams.versionCode</td>
-<td style="text-align:center">string</td>
-<td style="text-align:center">是</td>
-<td style="text-align:center">内部版本号，与外部版本号对应，如：203040<br> 主要用于升级</td>
-</tr>
-<tr>
-<td style="text-align:center">customParams</td>
-<td style="text-align:center">object</td>
-<td style="text-align:center">是</td>
-<td style="text-align:center">构建 <strong>定制</strong> 参数Object，不存在定制参数传空object，<br> <font color="red"><strong>从properoties文件中解析生成对应的定制参数</strong></font></td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>构建参数示例</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // ====== 构建 通用 参数说明 =====</span><br><span class="line">    &quot;commonParams&quot;: &#123;</span><br><span class="line">        &quot;gitMode&quot;: &quot;branch&quot;,  // 拉取git仓库方式：branch/tag</span><br><span class="line">        &quot;gitBranchName&quot;: &quot;branchName&quot;,  // git分支名</span><br><span class="line">        &quot;gitTagName&quot;: &quot;tagName&quot;,  //git标签名</span><br><span class="line">        &quot;buildType&quot;: &quot;test&quot;,   // 打包版本类型 test-内测、测试版本，release-正式版本</span><br><span class="line">        &quot;appName&quot;: &quot;ABC&quot;, // 应用名称</span><br><span class="line">        &quot;packageName&quot;: &quot;demo&quot;, // 应用包名</span><br><span class="line">        &quot;productFlavor&quot;: &quot;demo123&quot;, // 定制的产品特性</span><br><span class="line">        &quot;channel&quot;: &quot;UMENG_CHANNEL_VALUE&quot;, // 渠道号,多个渠道号请用英文逗号分隔</span><br><span class="line">        &quot;versionName&quot;： &quot;2.3.4.5&quot;, // 外部版本号，主要用于显示给用户，服务端个别接口的逻辑，与内部版本号对应</span><br><span class="line">        &quot;versionCode&quot;: &quot;2345&quot;, // 内部版本号，主要用于升级，与外部版本号对应</span><br><span class="line">        &quot;buildDesc&quot;: &quot;&quot;   // 构建描述</span><br><span class="line">    &#125;,</span><br><span class="line">    // ====== 构建 定制 参数说明 =====</span><br><span class="line">    &quot;customParams&quot;: &#123;</span><br><span class="line">        &quot;NEED_ENCYPT&quot;: true,  // 是否加密</span><br><span class="line">        &quot;IS_PATCH&quot;: true,   // 是否patch包</span><br><span class="line">        &quot;ICON_RES&quot;: &quot;http://download.demo.com&quot;,   // 资源附件url</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>持续交付</category>
-      </categories>
-      <tags>
-        <tag>CICD</tag>
-        <tag>Zentao</tag>
-        <tag>禅道</tag>
-        <tag>持续交付</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>禅道持续交付(四)-使用流程模型</title>
-    <url>/zentao-biz-model/</url>
-    <content><![CDATA[<p>在基于禅道打造的持续交付系统，主要使用的流程以及各个角色在各个环节所起的作用，本文将会做一个详细的介绍说明。另外为了更好的使用，正确搭配使用禅道中的相关概念及操作，实现项目团队的项目管理和开发流程，我们把这种概念搭配和具体操作，抽象成项目管理流程模型。</p>
-<span id="more"></span>
-<h2 id="1-使用流程"><a class="markdownIt-Anchor" href="#1-使用流程"></a> 1、使用流程</h2>
-<p>大概来说，禅道的完整使用有四个流程：<br>
-1、项目创建流程（红色部分）<br>
-这个流程是禅道原生的功能流程，但是optimus二次开发后做了流程定制，跟原生的使用方式有细微的差别。</p>
-<p>2、迭代开发流程（蓝色部分）<br>
-这个流程是原生的禅道流程，optimus只做了bug修复，没有改变现有的流程和使用方式。</p>
-<p>3、版本集成流程（绿色部分）<br>
-这个流程是optimus新增流程。用来支持持续交付的版本集成部分。</p>
-<p>4、版本上线流程（黄色部分）<br>
-这个流程是optimus新增流程。用来支持持续交付的版本发布部署和上线审批流程。</p>
-<p><img src="/zentao-biz-model/%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B-new.png" alt></p>
-<h2 id="2-管理流程模型"><a class="markdownIt-Anchor" href="#2-管理流程模型"></a> 2、管理流程模型</h2>
-<p>项目团队在使用禅道的时候，如何正确搭配使用禅道中的相关概念及操作，实现项目团队的项目管理和开发流程，我们把这种概念搭配和具体操作，抽象成项目管理流程模型，提供给业务团队理解和正确使用。</p>
-<p>根据我们对业务各种项目团队管理模式和流程的初步调研，基于禅道的scrum敏捷开发模式，我们一般会有这几种团队开发协作模式：<br>
-1、基本团队模式：单个产品团队 - 单个开发团队 - 单个测试团队<br>
-这种模式下，一般是一个独立的产品-需求-项目-测试等是一条完整的开发流程线，跟其他项目没有关联耦合。</p>
-<p>2、并行团队模式：单个产品团队 - 多个并行的开发团队 - 单个测试团队<br>
-这种模式的特点：</p>
-<ul>
-<li>
-<p>（1）开发团队有多个，开发出来的子系统或者模块是整个产品系统的组成部分，它们之间存在一定的耦合关系。</p>
-</li>
-<li>
-<p>（2）开发团队各自的的迭代开发、发布上线等流程是一条完整的流程线，各团队流程线之间没有耦合关系。</p>
-</li>
-<li>
-<p>（3）各开发团队由统一的项目经理进行组织协作开发，共享同一个项目开发计划，同一份需求，任务统一分配管理，测试由同一个团队负责。</p>
-</li>
-</ul>
-<p><img src="/zentao-biz-model/%E9%A1%B9%E7%9B%AE%E6%B5%81%E7%A8%8B%E6%A8%A1%E5%9E%8B-new.png" alt></p>
-<font color="red">
-（非常重要）基本模型的一些注意事项：
-<p>1、产品线下可以有多个互不相关的产品；<br>
-2、一个产品，必须建立至少一个计划。计划，就是一个时间段，一般不建议超过4个周。建议每个月作为一个计划，进行逐步迭代演进。<br>
-3、产品必须指定项目/迭代负责人；<br>
-4、每一个需求必须关联到某一个计划上；计划跟需求是一对多的关系。<br>
-5、迭代必须关联至少一个产品；<br>
-6、迭代必须关联至少一个计划；建议迭代跟计划是一对一的对应关系。<br>
-7、迭代可以按照计划关联需求，也可以关联某一项需求，甚至可以自建需求。<br>
-8、只有项目经理可以添加迭代，并管理迭代团队，添加成员。<br>
-9、不在迭代团队里的人，看不见该产品的需求，也看不见该迭代相关的任务BUG等信息，邮件抄送也不会出现在列表中。<br>
-10、版本由开发主管创建并启动构建，发布由项目经理负责创建并启动部署。<br>
-</p></font><p></p>
-]]></content>
-      <categories>
-        <category>持续交付</category>
-      </categories>
-      <tags>
-        <tag>CICD</tag>
-        <tag>Zentao</tag>
-        <tag>禅道</tag>
-        <tag>持续交付</tag>
       </tags>
   </entry>
   <entry>
@@ -1604,125 +1037,612 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
       </tags>
   </entry>
   <entry>
-    <title>分支管理规范</title>
-    <url>/git-branch-strategy/</url>
-    <content><![CDATA[<p>最近有机会体验下阿里的云效产品，感受下&quot;大厂&quot;的DevOps产品。在写这篇Blog时，正正好赶上了《<a href="https://mp.weixin.qq.com/s/3UmieN4cBCzjGVceMn4BlQ">阿里云效公共云基础版全面免费，不限人数使用</a>》，基本可以白嫖了，<strong>为双十一做的贡献，终于有回报了</strong>。</p>
-<p>估计应该由小伙伴为此纠结过吧，其实吧分支管理规范没有 <strong>”银弹“</strong> ，这里我只是分享我觉得比较简单也是对持续交付较为友好的  <a href="https://guides.github.com/introduction/flow/">GitHubFlow </a>+ Tag 分支模型。</p>
+    <title>禅道持续交付(一)-概述及框架</title>
+    <url>/zentao-cicd-overview/</url>
+    <content><![CDATA[<p>我们基于禅道打造了持续交付系统，整合了多个开源系统（包括禅道zentao、jenkins、gitlab、nexus、harbor、ldap、mysql等等），并进行大量的二次开发，将多个系统功能（项目管理、集成管理、代码仓库管理、编译私服，镜像仓库管理、用户认证等）、多个开发环境（开发环境、测试环境、预发布环境、灰度环境、生产环境等），多种发布流程（代码扫描、版本集成、版本发布等）进行统一整合，提供一套高度集成和高度自动化的项目管理+版本集成发布系统。</p>
 <span id="more"></span>
-<p>重要的事儿还是需要在说一遍的：<strong>分支管理规范没有 ”银弹“！</strong></p>
-<h2 id="1-分支管理模型"><a class="markdownIt-Anchor" href="#1-分支管理模型"></a> 1、分支管理模型</h2>
-<p>推荐 <a href="https://guides.github.com/introduction/flow/">GitHubFlow </a>+ Tag 分支模型，不推荐GitlabFlow （<a href="https://georgestocker.com/2020/03/04/please-stop-recommending-git-flow/">Please stop recommending Git Flow!</a>）</p>
-<p>GitHub flow，是 GitHub 所推崇的 Workflow，具有很高的通用性，且叫简单快捷，对持续交付较友好。其流程图如下：</p>
-<p><img src="/git-branch-strategy/github%E5%88%86%E6%94%AF%E6%A8%A1%E5%9E%8B.png" alt="img"></p>
-<p><strong>其中的主要流程为：</strong></p>
+<h2 id="1-概述"><a class="markdownIt-Anchor" href="#1-概述"></a> 1、概述</h2>
+<p>因为公司大部门在使用禅道进行项目管理、缺陷管理等，所以我们希望基于此对于禅道做二开扩展，支持到CICD，最终将禅道打造成一个DevOps平台。</p>
+<p>选择禅道主要原因：</p>
 <ul>
-<li>第一步：根据需求，从稳定分支master拉出新分支，不区分功能分支或补丁分支。</li>
-<li>第二步：新分支开发完成后，或者需要讨论的时候，就向master发起一个 Pull Request 或 Merge Request（简称PR 或 MR ）。</li>
-<li>第三步：PR 或 MR 既是一个通知，让别人注意到你的请求，又是一种对话机制，大家一起评审和讨论你的代码（CodeReview）。对话过程中，你还可以不断提交代码。</li>
-<li>第四步：你的PR 或 MR 被接受，合并（Merge）进master，重新部署（Deploy）后，原来你拉出来的那个分支就被删除。（备注：其中先部署再合并也可。）</li>
-<li>第五步【打Tag】：在第四步的合并（Merge）后打上 Tag，基于 Tag 进行部署（Deploy）。</li>
+<li>有使用历史，符合大多数业务项目的操作习惯</li>
+<li>敏捷管理，基于Scrum的角色且相关流程和功能完善</li>
+<li>社区版开源，可以基于源码进行修改</li>
 </ul>
-<h2 id="2-分支命名规约"><a class="markdownIt-Anchor" href="#2-分支命名规约"></a> 2、分支命名规约</h2>
+<p><strong>拓展后禅道能力</strong></p>
+<ul>
+<li><a href="https://www.zentao.net/book/zentaopmshelp/49.html">使用禅道来进行项目任务管理</a></li>
+<li><a href="https://www.zentao.net/book/zentaopmshelp/64.html">只使用禅道来做bug管理</a></li>
+<li><a href="https://www.zentao.net/book/zentaopmshelp/77.html">只使用禅道来进行产品管理</a></li>
+<li><a href="https://www.zentao.net/book/zentaopmshelp/91.html">个人使用禅道来做事务跟踪管理</a></li>
+<li>仅使用版本集成流程（扩展功能）</li>
+<li>仅使用上线流程审批功能（扩展功能）</li>
+<li>仅使用客户端渠道管理功能（扩展功能）</li>
+</ul>
+<h2 id="2-持续交付系统框架"><a class="markdownIt-Anchor" href="#2-持续交付系统框架"></a> 2、持续交付系统框架</h2>
+<p>这个比较简单吧，其实有关这种分层的DevOps架构，应该都是大同小异，仅供参考哈😉</p>
+<p><img src="/zentao-cicd-overview/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84-new.png" alt="img"></p>
+<h2 id="3-持续交付流程"><a class="markdownIt-Anchor" href="#3-持续交付流程"></a> 3、持续交付流程</h2>
+<p>主要是基于Helm进行K8s的容器部署，整个交付流程如下：</p>
+<ul>
+<li>使用Zentao作为项目管理工具：管理基本需求、迭代、缺陷等</li>
+<li>Zentao也作为用户CICD系统平台，用户再禅道上做集成、构建、部署等操作</li>
+<li>CICD的后端集成工具：Jenkins</li>
+<li>部署至K8s集群中，部署主要的使用是Helm进行部署管理（注：当时使用的是Helm2）</li>
+</ul>
+<p>注：我们自己编写了Helm的Template模板工程，基本涵盖了很多的使用场景，这个后续我也会跟进分享给大家，尽情期待……</p>
+<p><img src="/zentao-cicd-overview/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E6%B5%81%E7%A8%8B-new.png" alt="img"></p>
+<h2 id="4-工具链选型"><a class="markdownIt-Anchor" href="#4-工具链选型"></a> 4、工具链选型</h2>
+<p>其实DevOps工具链产品有很多，大家可以根据自己的实际情况选择，我们基于Zentao打造的持续交付平台选择的是如下工具链。因为当初我们还木有打通持续测试这一环节，所以这个相对有些简陋了，但是还算清晰！</p>
+<h3 id="web端容器"><a class="markdownIt-Anchor" href="#web端容器"></a> Web端容器</h3>
+<p><img src="/zentao-cicd-overview/%E5%B7%A5%E5%85%B7%E9%93%BE%E9%80%89%E5%9E%8B-new.png" alt="img"></p>
+<h3 id="android移动端"><a class="markdownIt-Anchor" href="#android移动端"></a> Android移动端</h3>
+<p><img src="/zentao-cicd-overview/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B7%A5%E5%85%B7%E9%93%BE-new.jpg" alt="img"></p>
+]]></content>
+      <categories>
+        <category>持续交付</category>
+      </categories>
+      <tags>
+        <tag>CICD</tag>
+        <tag>Zentao</tag>
+        <tag>禅道</tag>
+        <tag>持续交付</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>禅道持续交付(七)-失败总结</title>
+    <url>/zentao-failure-summary/</url>
+    <content><![CDATA[<p>哈哈，想不到吧，虽然经过小伙伴的很长时间的努力，我们最终落地的效果是不理想。最终项目被”砍“掉了。不过很值得和大家分享下，感觉这篇应该是这个系列最<code>值钱</code>的一篇啦，不容错过！</p>
+<span id="more"></span>
+<h2 id="1-持续交付最终结果"><a class="markdownIt-Anchor" href="#1-持续交付最终结果"></a> 1、持续交付最终结果</h2>
+<p>在完成试点后，整体落地推进整体结果不是很好，总结两句话</p>
+<ul>
+<li>Web端使用体验很操作</li>
+<li>移动端整体尚可</li>
+</ul>
+<p>最终由于**”领导层“**的决定，禅道<code>寿终正寝</code>了 😢😢😢</p>
+<h2 id="2-失败原因"><a class="markdownIt-Anchor" href="#2-失败原因"></a> 2、失败原因</h2>
+<p>其实在禅道命运的变更和我司上层调整是一个重合的时间节点，当初我一度很”郁闷“，想不通这个是一个正确的事儿，K8s也是前沿趋势，我门打造的可是我司第一个统一产研研发大平台……</p>
+<p>但是随着时间推移和经历更多的DevOps的实践，发现禅道的”死亡“一定程度上是必然的，我会逐步给到各位解释哈。</p>
+<h3 id="21-空中楼阁核心原因"><a class="markdownIt-Anchor" href="#21-空中楼阁核心原因"></a> 2.1、空中楼阁（核心原因）</h3>
+<p>我们打造的持续交付系统可能先对于公司当时的现状来说太”高、大、尚“了，因为技术层面整体 <strong>底层建设不牢</strong></p>
+<ul>
+<li>软件版本和架构未标准化  –  容器化改造能定制化到你怀疑人生</li>
+<li>运维自动化程度低（基本处于脚本时代吧） – 配置改造、域名标准</li>
+<li>无标准化测试环境 – 大家各自的测试环境基本各成体系</li>
+<li>自身建设的K8s集群先对稳定性不足</li>
+<li>大部分小伙伴其实都没有准备好</li>
+</ul>
+<p>基建其实是一个很庞大的工程，不是一个持续交付系统所能撑起来的，我基于个人的理解把它们理解成一套房子，而持续交付属于Roof一环，如果Foundation和House都没有建设好的化，直接盖”屋顶“，这将是一个很艰难的过程。</p>
+<p><img src="/zentao-failure-summary/%E7%A9%BA%E4%B8%AD%E6%A5%BC%E9%98%81-new.jpg" alt></p>
+<h3 id="22-技术选型"><a class="markdownIt-Anchor" href="#22-技术选型"></a> 2.2、技术选型</h3>
+<p><strong><code>并不是最新、先进就是合适的</code></strong>，我觉得当时起步选择了Helm并不是一个明知的决定，学习成本太高，专业技术方向人员还Ok，当时需要推向多有业务小伙伴使用，这个成本可想而知，入门成本同时带来的问题就是维护起来也是一个浩大的工程。</p>
+<h3 id="23-自身易用性"><a class="markdownIt-Anchor" href="#23-自身易用性"></a> 2.3、自身易用性</h3>
+<p>我们基于禅道自身Scrum框架，做了很多流程、角色限制，最终的结果感觉就是<strong>作茧自缚</strong>。说实话这个就是机械的贯彻了标准的软件生命周期流程（也可以理解为瀑布式），然而他并不”敏捷“。</p>
+<p>流程过度的自由，会引发不可预知的问题，但流程机械化的强制管控，会引起生产效率的降低以及<code>怨声载道</code>。在流程和效率中间找到一个平衡，或者说DevOps落地的不同阶段我们可以逐步规范，这估计也是 <strong>敏捷思想</strong> 想引导的，可惜的是：<strong>当时的我们并不知道这些（认知局限）</strong></p>
+]]></content>
+      <categories>
+        <category>持续交付</category>
+      </categories>
+      <tags>
+        <tag>CICD</tag>
+        <tag>Zentao</tag>
+        <tag>禅道</tag>
+        <tag>持续交付</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>禅道持续交付(三)-多环境同域名设计</title>
+    <url>/zentao-one-domain-multiEnv/</url>
+    <content><![CDATA[<p>在实际需求中，我们遇到了这样一个需求：在<code>研发环境</code>和<code>测试环境</code>使用相同的域名，期望根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理。基于此我们调研最后实现这个需求。方案核心点：OpenResty方案: Nginx+lua + redis 实现根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理，redis用于管理用户Client IP和环境的绑定关系。</p>
+<span id="more"></span>
+<h2 id="1-需求调研"><a class="markdownIt-Anchor" href="#1-需求调研"></a> 1 需求调研</h2>
+<p>在<code>研发环境</code>和<code>测试环境</code>使用相同的域名，期望根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理。</p>
+<h2 id="2-方案概述"><a class="markdownIt-Anchor" href="#2-方案概述"></a> 2 方案概述</h2>
+<ol>
+<li>使用<code>OpenResty</code>(集成了 Nginx 和 Lua )对用户请求进行转发</li>
+<li>使用<code>Redis</code>来存储用户 IP 与环境的绑定关系数据</li>
+<li>使用禅道操作<code>Redis</code>来管理用户 IP 与环境的绑定关系</li>
+</ol>
+<h2 id="3-部署实践"><a class="markdownIt-Anchor" href="#3-部署实践"></a> 3 部署实践</h2>
+<h3 id="31-openresty-部署"><a class="markdownIt-Anchor" href="#31-openresty-部署"></a> 3.1 OpenResty 部署</h3>
+<p><a href="https://openresty.org/en/">OpenResty官方介绍</a></p>
+<h4 id="311-openresty-安装"><a class="markdownIt-Anchor" href="#311-openresty-安装"></a> 3.1.1 OpenResty 安装</h4>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install -y yum-utils</span><br><span class="line">sudo yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo</span><br><span class="line">sudo yum install -y openresty</span><br><span class="line">sudo yum install -y openresty-resty</span><br></pre></td></tr></table></figure>
+<h4 id="312-openresty-配置"><a class="markdownIt-Anchor" href="#312-openresty-配置"></a> 3.1.2 OpenResty 配置</h4>
+<h5 id="3121-nginx-配置"><a class="markdownIt-Anchor" href="#3121-nginx-配置"></a> 3.1.2.1 nginx 配置</h5>
+<p>路径：/usr/local/openresty/nginx/conf/nginx.conf</p>
+<ul>
+<li>配置文件路径根据 openresty 安装目录变化</li>
+<li>配置文件中<code>lua_package_path</code>字段值也要根据 openresty 安装目录变化</li>
+</ul>
+<p>配置样例：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">user</span>                 root root;</span><br><span class="line"><span class="attribute">worker_processes</span>     auto;</span><br><span class="line"><span class="attribute">worker_cpu_affinity</span>  auto;</span><br><span class="line"><span class="attribute">error_log</span>            logs/error.log <span class="literal">info</span>;</span><br><span class="line"><span class="attribute">pid</span>                  logs/nginx.pid;</span><br><span class="line"><span class="attribute">worker_rlimit_nofile</span> <span class="number">65000</span>;</span><br><span class="line"></span><br><span class="line"><span class="section">events</span> &#123;</span><br><span class="line">    <span class="attribute">use</span>                 <span class="literal">epoll</span>;</span><br><span class="line">    <span class="attribute">accept_mutex</span>        <span class="literal">off</span>;</span><br><span class="line">    <span class="attribute">multi_accept</span>        <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">worker_connections</span>  <span class="number">20480</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">include</span>       mime.types;</span><br><span class="line">    <span class="attribute">default_type</span>  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># lua相关配置</span></span><br><span class="line">    <span class="attribute">lua_package_path</span>                   <span class="string">&#x27;/usr/local/openresty/lualib/?.lua;/usr/local/openresty/nginx/conf/?.lua&#x27;</span>;</span><br><span class="line">    <span class="attribute">lua_shared_dict</span>                    xq_req_limit_cache <span class="number">1m</span>;</span><br><span class="line">    <span class="attribute">lua_need_request_body</span>              <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">include</span> conf.d/<span class="regexp">*.conf</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="3122-代理域名配置"><a class="markdownIt-Anchor" href="#3122-代理域名配置"></a> 3.1.2.2 代理域名配置</h5>
+<p>路径：/usr/local/openresty/nginx/conf/conf.d/domain.conf</p>
+<ul>
+<li>配置文件路径根据 openresty 安装目录变化</li>
+<li>配置文件中<code>access_log、error_log、rewrite_by_lua_file</code>字段值也要根据 openresty 安装目录变化</li>
+</ul>
+<p>配置样例：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> domain.demo.com;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">access_log</span> /usr/local/openresty/nginx/logs/domain.demo.com.access.log;</span><br><span class="line">    <span class="attribute">error_log</span> /usr/local/openresty/nginx/logs/domain.demo.com.<span class="literal">error</span>.log <span class="literal">warn</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">set</span> $target_domain <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        <span class="attribute">set</span> $target_host <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">rewrite_by_lua_file</span> /usr/local/openresty/nginx/conf/proxy.lua;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">proxy_set_header</span> Host $target_domain;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://$target_host;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="3123-lua脚本"><a class="markdownIt-Anchor" href="#3123-lua脚本"></a> 3.1.2.3 Lua脚本</h5>
+<p>路径：/usr/local/openresty/nginx/conf/proxy.lua</p>
+<ul>
+<li>配置文件路径根据 openresty 安装目录变化</li>
+<li>配置文件中<code>file_err</code>字段值也要根据 openresty 安装目录变化</li>
+</ul>
+<p>配置样例：</p>
+<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 日志文件</span></span><br><span class="line"><span class="keyword">local</span> file_err = <span class="string">&quot;/usr/local/openresty/nginx/logs/&quot;</span>..<span class="built_in">os</span>.<span class="built_in">date</span>(<span class="string">&quot;%Y-%m-%d&quot;</span>, <span class="built_in">os</span>.<span class="built_in">time</span>())..<span class="string">&quot;-proxy-lua.log&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- json模块</span></span><br><span class="line"><span class="keyword">local</span> cjson = <span class="built_in">require</span> <span class="string">&quot;cjson&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 写日志函数</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">log</span><span class="params">(type, msg)</span></span></span><br><span class="line">    <span class="built_in">type</span> = <span class="built_in">type</span> <span class="keyword">or</span> <span class="string">&quot;INFO&quot;</span></span><br><span class="line">    files = <span class="built_in">assert</span>(<span class="built_in">io</span>.<span class="built_in">open</span>(file_err, <span class="string">&quot;a+&quot;</span>))</span><br><span class="line">    files:<span class="built_in">write</span>(<span class="built_in">os</span>.<span class="built_in">date</span>(<span class="string">&quot;%Y-%m-%d %X&quot;</span>, <span class="built_in">os</span>.<span class="built_in">time</span>())..<span class="string">&quot; &quot;</span>..<span class="built_in">type</span>..<span class="string">&quot; &quot;</span>..cjson.encode(msg)..<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">    files:<span class="built_in">close</span>()</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取客户端IP</span></span><br><span class="line"><span class="keyword">local</span> client_ip = ngx.req.get_headers()[<span class="string">&quot;X-Real-IP&quot;</span>]</span><br><span class="line"><span class="keyword">if</span> client_ip == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">    client_ip = ngx.req.get_headers()[<span class="string">&quot;x_forwarded_for&quot;</span>]</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> client_ip == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">    client_ip = ngx.var.remote_addr</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- redis模块</span></span><br><span class="line"><span class="keyword">local</span> redis = <span class="built_in">require</span> <span class="string">&quot;resty.redis&quot;</span> </span><br><span class="line"><span class="keyword">local</span> red = redis.new()</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 设置超时</span></span><br><span class="line">red:set_timeouts(<span class="number">1000</span>, <span class="number">1000</span>, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 连接</span></span><br><span class="line"><span class="keyword">local</span> ok, err = red:connect(<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">6379</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> ok <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">log</span>(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to connect: &quot;</span>..err)</span><br><span class="line">    ngx.say(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to connect: &quot;</span>..err)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 令牌</span></span><br><span class="line"><span class="keyword">local</span> ok, err = red:auth(<span class="string">&quot;rc_redis&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> ok <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">log</span>(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to authenticate: &quot;</span>..err)</span><br><span class="line">    ngx.say(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to authenticate: &quot;</span>..err)</span><br><span class="line">    red:<span class="built_in">close</span>()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 选择redis db</span></span><br><span class="line">red:<span class="built_in">select</span>(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取要转发的域名</span></span><br><span class="line"><span class="keyword">local</span> redis_key_domain = <span class="string">&quot;domain:&quot;</span>..ngx.var.server_name..<span class="string">&quot;:clientip:&quot;</span>..client_ip..<span class="string">&quot;:domain&quot;</span></span><br><span class="line"><span class="keyword">local</span> domain, err = red:get(redis_key_domain)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> domain <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">log</span>(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to get &quot;</span>..redis_key_domain..<span class="string">&quot; :&quot;</span>, err)</span><br><span class="line">    ngx.say(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to get &quot;</span>..redis_key_domain..<span class="string">&quot; :&quot;</span>, err)</span><br><span class="line">    red:<span class="built_in">close</span>()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> domain == ngx.null <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">log</span>(<span class="string">&quot;ERROR&quot;</span>, redis_key_domain..<span class="string">&quot; not found.&quot;</span>)</span><br><span class="line">    ngx.say(<span class="string">&quot;ERROR&quot;</span>, redis_key_domain..<span class="string">&quot; not found.&quot;</span>)</span><br><span class="line">    red:<span class="built_in">close</span>()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">log</span>(<span class="string">&quot;DEBUG&quot;</span>, redis_key_domain..<span class="string">&quot; =&gt; &quot;</span>..domain)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取要转发的host</span></span><br><span class="line"><span class="keyword">local</span> redis_key_host = <span class="string">&quot;domain:&quot;</span>..ngx.var.server_name..<span class="string">&quot;:clientip:&quot;</span>..client_ip..<span class="string">&quot;:host&quot;</span></span><br><span class="line"><span class="keyword">local</span> host, err = red:get(redis_key_host)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> host <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">log</span>(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to get &quot;</span>..redis_key_host..<span class="string">&quot; :&quot;</span>, err)</span><br><span class="line">    ngx.say(<span class="string">&quot;ERROR&quot;</span>, <span class="string">&quot;failed to get &quot;</span>..redis_key_host..<span class="string">&quot; :&quot;</span>, err)</span><br><span class="line">    red:<span class="built_in">close</span>()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> host == ngx.null <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">log</span>(<span class="string">&quot;ERROR&quot;</span>, redis_key_host..<span class="string">&quot; not found.&quot;</span>)</span><br><span class="line">    ngx.say(<span class="string">&quot;ERROR&quot;</span>, redis_key_host..<span class="string">&quot; not found.&quot;</span>)</span><br><span class="line">    red:<span class="built_in">close</span>()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">log</span>(<span class="string">&quot;DEBUG&quot;</span>, redis_key_host..<span class="string">&quot; =&gt; &quot;</span>..host)</span><br><span class="line"></span><br><span class="line">ngx.var.target_domain = domain</span><br><span class="line">ngx.var.target_host = host</span><br><span class="line">red:<span class="built_in">close</span>()</span><br></pre></td></tr></table></figure>
+<p>注意事项：</p>
+<ul>
+<li>redis connect</li>
+<li>redis auth</li>
+<li>redis db</li>
+</ul>
+<h3 id="32-redis-数据结构"><a class="markdownIt-Anchor" href="#32-redis-数据结构"></a> 3.2 Redis 数据结构</h3>
 <table>
 <thead>
 <tr>
-<th style="text-align:left">分支</th>
-<th style="text-align:left">描述</th>
-<th style="text-align:left">备注</th>
+<th>键</th>
+<th style="text-align:left">键备注</th>
+<th>值</th>
+<th>值备注</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">master</td>
-<td style="text-align:left">稳定分支，这个分支只能从其他分支合并，不能在这个分支直接修改</td>
-<td style="text-align:left">需要遵循一个基本原则，所有在<code>master</code>分支上的<code>commit</code>应该<code>tag</code></td>
+<td>domain:&lt;request_domain&gt;:clientip:&lt;client_ip&gt;:domain</td>
+<td style="text-align:left">字符串类型<br>&lt;request_domain&gt;为客户端请求的域名<br>&lt;client_ip&gt;为客户端IP<br>示例：domain:demo.com:clientip:172.17.18.237:domain</td>
+<td>&lt;target_domain&gt;</td>
+<td>字符串类型<br>&lt;target_domain&gt;为绑定的目标域名<br>示例：<a href="http://st2-demo.com">st2-demo.com</a></td>
 </tr>
 <tr>
-<td style="text-align:left">feat/*</td>
-<td style="text-align:left">功能特性分支</td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left">fix/*</td>
-<td style="text-align:left">Bugfix/Hotfix修复分支</td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left">tag</td>
-<td style="text-align:left">上线发布的Tag号，符合语义化版本约定</td>
-<td style="text-align:left"></td>
+<td>domain:&lt;request_domain&gt;:clientip:&lt;client_ip&gt;:host</td>
+<td style="text-align:left">字符串类型<br>&lt;request_domain&gt;为客户端请求的域名<br>&lt;client_ip&gt;为客户端IP<br>示例：domain:demo:clientip:172.17.18.237:host</td>
+<td>&lt;target_host&gt;:&lt;target_port&gt;</td>
+<td>字符串类型<br>&lt;target_host&gt;为绑定的目标服务器IP<br>&lt;target_port&gt;为绑定的目标服务器端口<br>示例：172.16.0.221:80</td>
 </tr>
 </tbody>
 </table>
-<h2 id="3-提交命名规约"><a class="markdownIt-Anchor" href="#3-提交命名规约"></a> 3、提交命名规约</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">任务ID： EE-233   // 对应JIRA Issue编号，可以自动实现Jira与Gitlab的提交关联``提交内容： [feat] 功能特性开发``     ``[fix] 修复Bug``    ``[``rm``] 删除无用文件``    ``[ref] 代码或功能重构 </span><br></pre></td></tr></table></figure>
-<h2 id="4-codereview规约"><a class="markdownIt-Anchor" href="#4-codereview规约"></a> 4、CodeReview规约</h2>
-<h3 id="提交mr"><a class="markdownIt-Anchor" href="#提交mr"></a> 提交MR</h3>
-<p>提交代码后，可以提交<code>mr</code>到<code>master</code>，申请合并代码。（此处可进行自动代码审查）</p>
-<h3 id="合并代码"><a class="markdownIt-Anchor" href="#合并代码"></a> 合并代码</h3>
-<p>研发组长（或结对编程小伙伴），打开MR，Review代码，可以添加相关修改Comment意见。</p>
-<p>开发同学根据建议修复代码，或者线下修改后commit代码。</p>
-<p>研发组长确认没有问题后，可以合并到master，并打上对应的标签。</p>
-<h2 id="5-版本号命名规约"><a class="markdownIt-Anchor" href="#5-版本号命名规约"></a> 5、版本号命名规约</h2>
-<p>参考<a href="https://semver.org/lang/zh-CN/">《语义化版本 2.0.0》</a></p>
-<p>版本格式：主版本号.次版本号.修订号，版本号递增规则如下：</p>
+<h3 id="33-禅道操作"><a class="markdownIt-Anchor" href="#33-禅道操作"></a> 3.3 禅道操作</h3>
+<h4 id="331-新增代理域名"><a class="markdownIt-Anchor" href="#331-新增代理域名"></a> 3.3.1 新增代理域名</h4>
 <ol>
-<li>主版本号：当你做了不兼容的 API 修改，</li>
-<li>次版本号：当你做了向下兼容的功能性新增，</li>
-<li>修订号：当你做了向下兼容的问题修正。</li>
+<li>新增一份该域名的代理域名配置到对应目录
+<ul>
+<li>禅道生成文件到指定目录下</li>
+<li>通过rsync同步改目录到OpenResty的对应目录</li>
+</ul>
+</li>
+<li>重现加载 OpenResty Nginx模块
+<ul>
+<li>openresty/nginx/sbin/nginx -s reload</li>
+<li>在Redis中设置一个键值，作为重新加载的标志</li>
+<li>OpenResty部署服务器设置一个定时任务，检测Redis中的标志，决定是否重新加载启动Nginx</li>
+</ul>
+</li>
 </ol>
-<p>先行版本号及版本编译元数据可以加到“主版本号.次版本号.修订号”的后面，作为延伸。</p>
-<h2 id="6-上线规范"><a class="markdownIt-Anchor" href="#6-上线规范"></a> 6、上线规范</h2>
-<p>所有上线的制品是基于 Git Tag 构建产出的制品。</p>
-<h2 id="7-commit-message提交规范"><a class="markdownIt-Anchor" href="#7-commit-message提交规范"></a> 7、Commit Message提交规范</h2>
-<p>参考： <a href="https://www.conventionalcommits.org/zh-hans/v1.0.0-beta.4/">约定式提交 1.0.0-beta.4</a></p>
-<p><strong>目前有相应工具做到支持：</strong><a href="https://gist.github.com/redblue9771/5c3cecca694ae396e906bef285b6c19b">commitizen &amp; cz-conventional-changelog</a> 、 git-commit-plugin等</p>
-<h3 id="基本提交格式"><a class="markdownIt-Anchor" href="#基本提交格式"></a> 基本提交格式：</h3>
-<hr>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;类型&gt;([可选的作用域]): &lt;描述&gt;</span><br><span class="line">// 空一行</span><br><span class="line">[可选的正文]</span><br><span class="line">// 空一行</span><br><span class="line">[可选的脚注]</span><br></pre></td></tr></table></figure>
-<h3 id="提交示例"><a class="markdownIt-Anchor" href="#提交示例"></a> 提交示例：</h3>
-<hr>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">feat/fix: 完成一个很牛掰的功能开发/修复一个极度危险的Bug</span><br><span class="line"> </span><br><span class="line">re/fix  #EE-123 #EE-333</span><br></pre></td></tr></table></figure>
-<h3 id="约定说明"><a class="markdownIt-Anchor" href="#约定说明"></a> 约定说明：</h3>
-<hr>
-<h4 id="1-类型-type"><a class="markdownIt-Anchor" href="#1-类型-type"></a> 1. 类型 - type</h4>
-<p>type为必填项，用于指定commit的类型，约定了feat、fix两个主要type，以及docs、style、build、refactor、revert五个特殊type，其余type暂不使用。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 主要type</span><br><span class="line">feat:     增加新功能</span><br><span class="line">fix:      修复bug</span><br><span class="line"> </span><br><span class="line"># 特殊type</span><br><span class="line">docs:     只改动了文档相关的内容</span><br><span class="line">style:    不影响代码含义的改动，例如去掉空格、改变缩进、增删分号</span><br><span class="line">build:    构造工具的或者外部依赖的改动，例如webpack，npm</span><br><span class="line">refactor: 代码重构时使用</span><br><span class="line">revert:   执行git revert打印的message</span><br><span class="line"> </span><br><span class="line"># 暂不使用type</span><br><span class="line">test:     添加测试或者修改现有测试</span><br><span class="line">perf:     提高性能的改动</span><br><span class="line">ci:       与CI（持续集成服务）有关的改动</span><br><span class="line">chore:    不修改src或者test的其余修改，例如构建过程或辅助工具的变动</span><br></pre></td></tr></table></figure>
-<p>``</p>
-<p>当一次改动包括主要type与特殊type时，统一采用主要type。</p>
-<h4 id="2-作用域-scope"><a class="markdownIt-Anchor" href="#2-作用域-scope"></a> 2. 作用域 - scope</h4>
-<p>scope也为必填项，用于描述改动的范围，格式为项目名/模块名，例如：node-pc/common rrd-h5/activity，而we-sdk不需指定模块名。如果一次commit修改多个模块，建议拆分成多次commit，以便更好追踪和维护。</p>
-<h4 id="3-正文-body"><a class="markdownIt-Anchor" href="#3-正文-body"></a> 3. 正文 - body</h4>
-<p>body填写详细描述，主要描述改动之前的情况及修改动机，对于小的修改不作要求，但是重大需求、更新等必须添加body来作说明。</p>
-<h4 id="4-注脚-affect-issues"><a class="markdownIt-Anchor" href="#4-注脚-affect-issues"></a> 4. 注脚 - affect issues</h4>
-<p>affect issues指明是否影响了某个问题。例如我们使用jira时，我们在commit message中可以填写其影响的JIRA_ID。</p>
-<p>参考：<a href="https://www.cnblogs.com/xiao2shiqi/p/13514548.html">准时下班的秘密：集成 GitLab &amp;&amp; JIRA 实现自动化工作流</a></p>
-<p>填写方式例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">re #JIRA_ID</span><br><span class="line">fix #JIRA_ID</span><br></pre></td></tr></table></figure>
+<h4 id="332-修改用户绑定"><a class="markdownIt-Anchor" href="#332-修改用户绑定"></a> 3.3.2 修改用户绑定</h4>
+<ol>
+<li>按照 Redis 数据结构，修改上述2个键对应的值（新增、更新、删除）</li>
+</ol>
 ]]></content>
       <categories>
-        <category>git</category>
+        <category>持续交付</category>
       </categories>
       <tags>
-        <tag>DevOps</tag>
-        <tag>git</tag>
-        <tag>代码分支策略</tag>
+        <tag>CICD</tag>
+        <tag>Zentao</tag>
+        <tag>禅道</tag>
+        <tag>持续交付</tag>
+        <tag>OpenResty</tag>
+        <tag>Nginx</tag>
+        <tag>Lua</tag>
       </tags>
   </entry>
   <entry>
-    <title>HPA-Pod水平自动扩缩</title>
-    <url>/k8s-hpa/</url>
-    <content><![CDATA[<p>关于kubernetes的Hpa的配置调研实验。</p>
+    <title>禅道持续交付(五)-版本构建发布演示</title>
+    <url>/zentao-cicd-demo/</url>
+    <content><![CDATA[<p>这里只是基本的版本构建和发布页面的简单展示，这里我们版本构建支持Spring cloud微服务多组件的方式，其中各个流程进度节点的状态和日志可以清晰查看。</p>
 <span id="more"></span>
-<h2 id="1-hpa简介"><a class="markdownIt-Anchor" href="#1-hpa简介"></a> 1、HPA简介</h2>
+<h2 id="1-版本构建"><a class="markdownIt-Anchor" href="#1-版本构建"></a> 1、版本构建</h2>
+<ul>
+<li>一键集成、一键发布</li>
+<li>不同角色负责对应流程节点的启动和确认（构建结果、开发自测、系统测试状态）</li>
+<li>整个版本的进度、状态清晰明了</li>
+</ul>
+<p><img src="/zentao-cicd-demo/%E7%89%88%E6%9C%AC%E6%9E%84%E5%BB%BA-new.jpg" alt></p>
+<h2 id="2-版本发布"><a class="markdownIt-Anchor" href="#2-版本发布"></a> 2、版本发布</h2>
+<ul>
+<li>选择测试通过的版本</li>
+<li>版本可以是多组件的版本，一次性部署发布</li>
+<li>部署支持灰度切量部署</li>
+</ul>
+<p><img src="/zentao-cicd-demo/%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83-new.jpg" alt></p>
+<h2 id="3-流程节点进度"><a class="markdownIt-Anchor" href="#3-流程节点进度"></a> 3、流程节点进度</h2>
+<ul>
+<li>支持流程节点进度查看</li>
+<li>每个进度节点的状态和日志清晰查看</li>
+</ul>
+<p><img src="/zentao-cicd-demo/%E6%B5%81%E7%A8%8B%E8%8A%82%E7%82%B9%E8%BF%9B%E5%BA%A6-new.jpg" alt></p>
+<h2 id="4-版本效能数据"><a class="markdownIt-Anchor" href="#4-版本效能数据"></a> 4、版本效能数据</h2>
+<ul>
+<li>每个流程节点操作者和操作时间被记录</li>
+<li>每个流程消耗时间统计计算</li>
+<li>整个流程效率展示在每个版本上</li>
+</ul>
+<p>基于此，可以统计效能指标数据</p>
+<p>– 交付效率：版本构建到上线耗时</p>
+<p>– 稳定性：单位时间内失败次数</p>
+<p>– 吞吐量：单位时间内构建次数</p>
+<p><img src="/zentao-cicd-demo/%E7%89%88%E6%9C%AC%E6%95%88%E8%83%BD%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1-new.jpg" alt></p>
 ]]></content>
       <categories>
-        <category>kubernetes</category>
+        <category>持续交付</category>
+      </categories>
+      <tags>
+        <tag>CICD</tag>
+        <tag>Zentao</tag>
+        <tag>禅道</tag>
+        <tag>持续交付</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>禅道持续交付(二)-研发流水线设计</title>
+    <url>/zentao-rd-pipeline/</url>
+    <content><![CDATA[<p>基于禅道设计的研发流水线，实际就是分为了两条流水线：CI和CD，CI流程就是产出最终可交付至线上的版本制品，CD流程就是将CI产出的制品最终交付至线上。在流水线执行过程中，约定了各个版本环境，如：Dev环境、IT环境、ST环境、UAT环境、PVT环境、GVT灰度验证环境、MVT量产环境等。</p>
+<span id="more"></span>
+<h2 id="1-流水线设计"><a class="markdownIt-Anchor" href="#1-流水线设计"></a> 1 流水线设计</h2>
+<p>按照devops理念，整个开发及发布流程被设计为两条流程：持续集成和持续发布。</p>
+<p>在这里持续（continuous）的概念，包含的意义是：<br>
+1、流程可以反复执行；<br>
+2、流程是由多个子流程组成，流程之间都是前后顺序连接，持续执行的。</p>
+<p>由于我们的核心构建系统采用的是jenkins，所有流程的实现是采用的jenkins中的流水线pipeline脚本来实现的。</p>
+<p>最终实现的结果就是持续交付系统主要有两条流水线：</p>
+<ul>
+<li>
+<p>版本持续集成（CI，Continuous Integration）流水线<br>
+就是对源代码进行构建，生成版本制品的过程。</p>
+</li>
+<li>
+<p>版本持续发布（CD，Continuous Delivery）流水线<br>
+就是将经过测试之后合格的版本制品发布部署到目的地的过程。</p>
+</li>
+</ul>
+<p>我们设计的CI和CD流水线的概图如下：<br>
+<img src="/zentao-rd-pipeline/CICD%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
+<h2 id="2-持续集成流水线ci-continuous-integration"><a class="markdownIt-Anchor" href="#2-持续集成流水线ci-continuous-integration"></a> 2 持续集成流水线（CI, Continuous Integration）</h2>
+<p>下面是一个一般的CI的流程模型：<br>
+<img src="/zentao-rd-pipeline/CI%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
+<h2 id="3-持续发布流水线cdcontinous-delivery"><a class="markdownIt-Anchor" href="#3-持续发布流水线cdcontinous-delivery"></a> 3 持续发布流水线（CD，Continous Delivery）</h2>
+<p>下面是一个一般的CD的流程模型：<br>
+<img src="/zentao-rd-pipeline/CD%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
+<h2 id="4-版本和环境流程图"><a class="markdownIt-Anchor" href="#4-版本和环境流程图"></a> 4、版本和环境流程图</h2>
+<p>在逻辑意义上来说，我们目前做了如下定义：</p>
+<ul>
+<li>环境是一个逻辑概念，在物理上的实现，它就是从物理集群内启动并运行起来的一个docker容器；</li>
+<li>内网开发集群定义了系统集成测试环境（SIT，System Integration Test environment），支持的环境数量为三个：sit0、sit1、sit2。</li>
+<li>内网测试集群定义了用户验收测试环境（UAT，User Acceptance Test environment），支持的环境数量为三个：uat0、uat1、uat2。</li>
+<li>生产集群，不管是内网还是外网，公有云还是私有云，都定义如下三个环境：
+<ul>
+<li>预发布环境 pre-release</li>
+<li>灰度发布环境 grey verification environment</li>
+<li>正式生产环境 mass production<br>
+<img src="/zentao-rd-pipeline/%E7%89%88%E6%9C%AC%E5%8F%8A%E7%8E%AF%E5%A2%83-new.png" alt></li>
+</ul>
+</li>
+</ul>
+<h2 id="5-测试环境域名管理方案"><a class="markdownIt-Anchor" href="#5-测试环境域名管理方案"></a> 5、测试环境域名管理方案</h2>
+<p>目前测试环境的访问方式主要有两种，这两种方式可以同时使用：</p>
+<ul>
+<li>
+<p>1、不同环境不同域名方案</p>
+<p>部署至不同集群环境，生成不同域名方案。</p>
+<p>如：域名为&quot;<a href="http://demo.com">demo.com</a>&quot;，部署至sit0环境，则自动生成域名&quot;<a href="http://sit0-demo.com">sit0-demo.com</a>&quot;</p>
+</li>
+<li>
+<p>2、不同环境同一域名方案</p>
+<p>部署至不同集群环境，访问客户端通过**<code>域名代理</code>**访问同一域名（多环境同域名方案OpenResty方案: Nginx+lua + redis 实现根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理（<a href="/zentao-one-domain-multiEnv/" title="方案详情参考此文，多环境同域名设计">方案详情参考此文，多环境同域名设计</a>），访问至不同集群环境。</p>
+<p>如：域名为&quot;<a href="http://demo.com">demo.com</a>&quot;，通过域名代理将访问客户端IP与目的访问集群入口域名&quot;<a href="http://sit0-demo.com">sit0-demo.com</a>&quot;绑定即可实现同一域名访问。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>持续交付</category>
+      </categories>
+      <tags>
+        <tag>CICD</tag>
+        <tag>Zentao</tag>
+        <tag>禅道</tag>
+        <tag>持续交付</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>禅道持续交付(四)-使用流程模型</title>
+    <url>/zentao-biz-model/</url>
+    <content><![CDATA[<p>在基于禅道打造的持续交付系统，主要使用的流程以及各个角色在各个环节所起的作用，本文将会做一个详细的介绍说明。另外为了更好的使用，正确搭配使用禅道中的相关概念及操作，实现项目团队的项目管理和开发流程，我们把这种概念搭配和具体操作，抽象成项目管理流程模型。</p>
+<span id="more"></span>
+<h2 id="1-使用流程"><a class="markdownIt-Anchor" href="#1-使用流程"></a> 1、使用流程</h2>
+<p>大概来说，禅道的完整使用有四个流程：<br>
+1、项目创建流程（红色部分）<br>
+这个流程是禅道原生的功能流程，但是optimus二次开发后做了流程定制，跟原生的使用方式有细微的差别。</p>
+<p>2、迭代开发流程（蓝色部分）<br>
+这个流程是原生的禅道流程，optimus只做了bug修复，没有改变现有的流程和使用方式。</p>
+<p>3、版本集成流程（绿色部分）<br>
+这个流程是optimus新增流程。用来支持持续交付的版本集成部分。</p>
+<p>4、版本上线流程（黄色部分）<br>
+这个流程是optimus新增流程。用来支持持续交付的版本发布部署和上线审批流程。</p>
+<p><img src="/zentao-biz-model/%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B-new.png" alt></p>
+<h2 id="2-管理流程模型"><a class="markdownIt-Anchor" href="#2-管理流程模型"></a> 2、管理流程模型</h2>
+<p>项目团队在使用禅道的时候，如何正确搭配使用禅道中的相关概念及操作，实现项目团队的项目管理和开发流程，我们把这种概念搭配和具体操作，抽象成项目管理流程模型，提供给业务团队理解和正确使用。</p>
+<p>根据我们对业务各种项目团队管理模式和流程的初步调研，基于禅道的scrum敏捷开发模式，我们一般会有这几种团队开发协作模式：<br>
+1、基本团队模式：单个产品团队 - 单个开发团队 - 单个测试团队<br>
+这种模式下，一般是一个独立的产品-需求-项目-测试等是一条完整的开发流程线，跟其他项目没有关联耦合。</p>
+<p>2、并行团队模式：单个产品团队 - 多个并行的开发团队 - 单个测试团队<br>
+这种模式的特点：</p>
+<ul>
+<li>
+<p>（1）开发团队有多个，开发出来的子系统或者模块是整个产品系统的组成部分，它们之间存在一定的耦合关系。</p>
+</li>
+<li>
+<p>（2）开发团队各自的的迭代开发、发布上线等流程是一条完整的流程线，各团队流程线之间没有耦合关系。</p>
+</li>
+<li>
+<p>（3）各开发团队由统一的项目经理进行组织协作开发，共享同一个项目开发计划，同一份需求，任务统一分配管理，测试由同一个团队负责。</p>
+</li>
+</ul>
+<p><img src="/zentao-biz-model/%E9%A1%B9%E7%9B%AE%E6%B5%81%E7%A8%8B%E6%A8%A1%E5%9E%8B-new.png" alt></p>
+<font color="red">
+（非常重要）基本模型的一些注意事项：
+<p>1、产品线下可以有多个互不相关的产品；<br>
+2、一个产品，必须建立至少一个计划。计划，就是一个时间段，一般不建议超过4个周。建议每个月作为一个计划，进行逐步迭代演进。<br>
+3、产品必须指定项目/迭代负责人；<br>
+4、每一个需求必须关联到某一个计划上；计划跟需求是一对多的关系。<br>
+5、迭代必须关联至少一个产品；<br>
+6、迭代必须关联至少一个计划；建议迭代跟计划是一对一的对应关系。<br>
+7、迭代可以按照计划关联需求，也可以关联某一项需求，甚至可以自建需求。<br>
+8、只有项目经理可以添加迭代，并管理迭代团队，添加成员。<br>
+9、不在迭代团队里的人，看不见该产品的需求，也看不见该迭代相关的任务BUG等信息，邮件抄送也不会出现在列表中。<br>
+10、版本由开发主管创建并启动构建，发布由项目经理负责创建并启动部署。<br>
+</p></font><p></p>
+]]></content>
+      <categories>
+        <category>持续交付</category>
+      </categories>
+      <tags>
+        <tag>CICD</tag>
+        <tag>Zentao</tag>
+        <tag>禅道</tag>
+        <tag>持续交付</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>禅道持续交付(六)-移动端CICD</title>
+    <url>/zentao-mobile-cicd/</url>
+    <content><![CDATA[<p>我们其实有很多移动端的产品，所以在做完web端容器相关持续交付后，我们开始关注移动端相关的应用场景，这里我们重点切入的移动安卓打包及相关打渠道包和最终的市场投放环节，这里也和大家做个简单的分享。</p>
+<p>在移动端母包构建和渠道打包上线后，给业务提效十分明显，尤其是渠道打包，基本能节省30-40%的时间，且自动化不易出错。</p>
+<span id="more"></span>
+<h2 id="1-移动端cicd设计"><a class="markdownIt-Anchor" href="#1-移动端cicd设计"></a> 1、移动端CICD设计</h2>
+<h3 id="11-原流程调研"><a class="markdownIt-Anchor" href="#11-原流程调研"></a> 1.1、原流程调研</h3>
+<p>其实持续交付的核心就是建立一个可靠的交付流水线，将软件交付整个周期进行串联起来，通过这条流水线，将交付过程标准化、自动化、可视化，同时实现关键流程和节点管控。基于此，我们分析目前移动端整体现状或者工作流程，</p>
+<ul>
+<li>项目管理使用禅道</li>
+<li>打包工具使用Jenkins（产运、开发、测试都是在Jenkins打包 😂）</li>
+<li>缺陷管理使用禅道</li>
+<li>包管理暂时是Jenkins打包后通过下载手动传送，或者上传至禅道附件保存</li>
+<li>渠道通过平台打包，手动下载、手动重命名、手动FTP投放、手动邮件通知等</li>
+</ul>
+<h3 id="12-新流程设计"><a class="markdownIt-Anchor" href="#12-新流程设计"></a> 1.2、新流程设计</h3>
+<p>针对原有流程，项目/需求管理还是使用禅道原有功能，将版本母包的功能集成到禅道的版本中，同时禅道支持渠道打包和市场投放功能。</p>
+<p><img src="/zentao-mobile-cicd/%E6%96%B0%E6%B5%81%E7%A8%8B-new.jpg" alt></p>
+<h4 id="版本母包"><a class="markdownIt-Anchor" href="#版本母包"></a> 版本母包</h4>
+<ul>
+<li>版本母包管理（支持自测–&gt;系统测试–&gt;母包同步等）</li>
+<li>统一母包构建入口，支持定制化打包参数设置</li>
+<li>构建构成可视化</li>
+</ul>
+<p><img src="/zentao-mobile-cicd/%E7%89%88%E6%9C%AC%E6%9E%84%E5%BB%BA-new.jpg" alt></p>
+<h4 id="渠道打包"><a class="markdownIt-Anchor" href="#渠道打包"></a> 渠道打包</h4>
+<ul>
+<li>批量打包管理（批量下载、自动重命名、二维码下载等）</li>
+<li>渠道包自动化抽签</li>
+<li>FTP自动化投放</li>
+<li>渠道打包投放过程可视化</li>
+</ul>
+<p><img src="/zentao-mobile-cicd/%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85-new.jpg" alt></p>
+<h2 id="2-多app统一页面实现定制化构建母包"><a class="markdownIt-Anchor" href="#2-多app统一页面实现定制化构建母包"></a> 2、多APP统一页面实现定制化构建母包</h2>
+<h3 id="21-母包构建页面"><a class="markdownIt-Anchor" href="#21-母包构建页面"></a> 2.1、母包构建页面</h3>
+<p><img src="/zentao-mobile-cicd/%E5%AE%9A%E5%88%B6%E5%8C%96%E6%89%93%E5%8C%85-new.jpg" alt></p>
+<h3 id="22-定制参数设计"><a class="markdownIt-Anchor" href="#22-定制参数设计"></a> 2.2、定制参数设计</h3>
+<p><strong>通过业务项目代码的仓库的gradle.properties文件添加约定注解实现</strong></p>
+<ul>
+<li>普通注解示例</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#@name:是否展示获取数据的权限弹框@show:true@enableModify:true@type:bool@description:是否展示获取数据的权限弹框</span><br><span class="line">SHOW_DATA_PERMISSION_DIALOG=false</span><br><span class="line"></span><br><span class="line">#@name:限制升级时间(天)@show:true@enableModify:true@type:int@description:限制升级的时间</span><br><span class="line">UPDATE_LIMIT_DAYS=0</span><br><span class="line"></span><br><span class="line">#@name:是否开启1*1桌面组件@show:true@enableModify:true@type:bool@description:是否开启1*1桌面小组件</span><br><span class="line">IS_USE_WIDGET_1_1=true</span><br></pre></td></tr></table></figure>
+<ul>
+<li>新增附件上传注解</li>
+</ul>
+<p><strong><code>安卓项目有附件资源依赖，附件资源以注解形式给出，通过定制参数传入</code></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#@name:桌面Icon压缩包@show:true@enableModify:true@type:uploadfile@fileType:zip@description:桌面Icon，必须是压缩包，目录结构符合要求，文件名为 ICON_RES.zip</span><br><span class="line">ICON_RES=</span><br><span class="line"></span><br><span class="line">#@name:启动页图片压缩包@show:true@enableModify:true@type:uploadfile@fileType:zip@description:启动页图片，必须是压缩包，目录结构符合要求，文件名为 SPLASH_RES.zip</span><br><span class="line">SPLASH_RES=</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="23-构建打包jenkins-job设计"><a class="markdownIt-Anchor" href="#23-构建打包jenkins-job设计"></a> 2.3、构建打包Jenkins Job设计</h3>
+<h4 id="入参说明"><a class="markdownIt-Anchor" href="#入参说明"></a> 入参说明</h4>
+<ul>
+<li>Jenkins主要入参</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">BUILD_ID</td>
+<td style="text-align:center">构建ID，构建唯一标识</td>
+</tr>
+<tr>
+<td style="text-align:center">BUILD_PARAMS_JSON</td>
+<td style="text-align:center">构建参数，json格式</td>
+</tr>
+<tr>
+<td style="text-align:center">CALLBACK_URLS_JSON</td>
+<td style="text-align:center">流水线回调url参数，json格式</td>
+</tr>
+<tr>
+<td style="text-align:center">other params</td>
+<td style="text-align:center">其他构建参数 <strong><code>【禅道无需关心】</code></strong>，<br>主要由Jenkins自己维护参数</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>通用 CALLBACK_URLS_JSON 参数示例说明</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  // 流水线Job执行结果回调</span><br><span class="line">  &quot;resultCallbackUrl&quot;: &#123;</span><br><span class="line">  	&quot;url&quot;: &quot;http://demo.2345.com&quot;,</span><br><span class="line">  	&quot;host&quot;: &quot;&quot;   // 是否绑定host返回，默认：&quot;&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>BUILD_PARAMS_JSON参数说明</strong></p>
+<p><strong><code>采用一个Json构建字符串，便于后期的扩展和维护</code></strong></p>
+<ul>
+<li>字段说明</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字段名</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">是否必须</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">commonParams</td>
+<td style="text-align:center">object</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">构建 <strong>通用</strong> 参数Object</td>
+</tr>
+<tr>
+<td style="text-align:center">commonParams.gitMode</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">拉取git仓库方式：branch-分支；tag-标签</td>
+</tr>
+<tr>
+<td style="text-align:center">commonParams.gitBranchName</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">git分支名，若gitMode为tag，字段传空值：&quot;&quot;</td>
+</tr>
+<tr>
+<td style="text-align:center">commonParams.gitTagName</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">git标签名，若gitMode为branch，字段传空值：&quot;&quot;</td>
+</tr>
+<tr>
+<td style="text-align:center">commonParams.buildType</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">打包版本类型 test-内测、测试版本，release-正式版本</td>
+</tr>
+<tr>
+<td style="text-align:center">commonParams.appName</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">应用名称，<strong>从properoties文件中解析对应选项</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">commonParams.packageName</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">应用包名，<strong>从properoties文件中解析对应选项</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">commonParams.productFlavor</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">定制的产品特性，<strong>从properoties文件中解析对应选项</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">commonParams.channel</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">渠道号,多个渠道号请用英文逗号分隔</td>
+</tr>
+<tr>
+<td style="text-align:center">commonParams.versionName</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">外部版本号，与内部版本号对应，如：2.3.4<br>主要用于显示给用户，服务端个别接口的逻辑</td>
+</tr>
+<tr>
+<td style="text-align:center">commonParams.versionCode</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">内部版本号，与外部版本号对应，如：203040<br> 主要用于升级</td>
+</tr>
+<tr>
+<td style="text-align:center">customParams</td>
+<td style="text-align:center">object</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">构建 <strong>定制</strong> 参数Object，不存在定制参数传空object，<br> <font color="red"><strong>从properoties文件中解析生成对应的定制参数</strong></font></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>构建参数示例</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // ====== 构建 通用 参数说明 =====</span><br><span class="line">    &quot;commonParams&quot;: &#123;</span><br><span class="line">        &quot;gitMode&quot;: &quot;branch&quot;,  // 拉取git仓库方式：branch/tag</span><br><span class="line">        &quot;gitBranchName&quot;: &quot;branchName&quot;,  // git分支名</span><br><span class="line">        &quot;gitTagName&quot;: &quot;tagName&quot;,  //git标签名</span><br><span class="line">        &quot;buildType&quot;: &quot;test&quot;,   // 打包版本类型 test-内测、测试版本，release-正式版本</span><br><span class="line">        &quot;appName&quot;: &quot;ABC&quot;, // 应用名称</span><br><span class="line">        &quot;packageName&quot;: &quot;demo&quot;, // 应用包名</span><br><span class="line">        &quot;productFlavor&quot;: &quot;demo123&quot;, // 定制的产品特性</span><br><span class="line">        &quot;channel&quot;: &quot;UMENG_CHANNEL_VALUE&quot;, // 渠道号,多个渠道号请用英文逗号分隔</span><br><span class="line">        &quot;versionName&quot;： &quot;2.3.4.5&quot;, // 外部版本号，主要用于显示给用户，服务端个别接口的逻辑，与内部版本号对应</span><br><span class="line">        &quot;versionCode&quot;: &quot;2345&quot;, // 内部版本号，主要用于升级，与外部版本号对应</span><br><span class="line">        &quot;buildDesc&quot;: &quot;&quot;   // 构建描述</span><br><span class="line">    &#125;,</span><br><span class="line">    // ====== 构建 定制 参数说明 =====</span><br><span class="line">    &quot;customParams&quot;: &#123;</span><br><span class="line">        &quot;NEED_ENCYPT&quot;: true,  // 是否加密</span><br><span class="line">        &quot;IS_PATCH&quot;: true,   // 是否patch包</span><br><span class="line">        &quot;ICON_RES&quot;: &quot;http://download.demo.com&quot;,   // 资源附件url</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>持续交付</category>
+      </categories>
+      <tags>
+        <tag>CICD</tag>
+        <tag>Zentao</tag>
+        <tag>禅道</tag>
+        <tag>持续交付</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代码自定义Dockerfile</title>
+    <url>/custom-define-dockerfile/</url>
+    <content><![CDATA[<p>之前我司所执行的CI方案，其中对于业务来说是不开放Dockerfile的，由系统生成对应的Dcokerfile，业务唯一需要关心的只有build.sh文件。有优势（简单、高效、且安全）也有劣势（不灵活、无法多阶段构建、构建环境前依赖Jenkins机器环境），所以此处也做一个支持自定义的Dockerfile的方案。</p>
+<span id="more"></span>
+<p><strong>凡事都有两面性，各有优势，各位可执行选择哈</strong></p>
+<h2 id="1-现行方案梳理"><a class="markdownIt-Anchor" href="#1-现行方案梳理"></a> 1、现行方案梳理</h2>
+<p>推</p>
+<h2 id="2-自定义dockerfile方案"><a class="markdownIt-Anchor" href="#2-自定义dockerfile方案"></a> 2、自定义Dockerfile方案</h2>
+<p>建议业务代码仓库存在CI的三个 标准文件: Dockerfile、Makefile、<a href="http://build.sh">build.sh</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">├── Dockerfile</span><br><span class="line">├── Makefile</span><br><span class="line">├── build.sh</span><br><span class="line">├── src</span><br><span class="line">└── ...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="dockerfile"><a class="markdownIt-Anchor" href="#dockerfile"></a> Dockerfile</h3>
+<p>Dockerfile 是由一系列命令和参数构成的脚本，这些命令应用于基础镜像并最终创建一个新的镜像。它们简化了从头到尾的流程并极大的简化了部署工作。Dockerfile 从 FROM 命令开始，紧接着跟随者各种方法，命令和参数。其产出为一个新的可以用于创建容器的镜像。</p>
+<p>自定义的Dockerfile，可以支持多阶段构建，可以避免依赖构建的基础环境（比如：我们使用的Jenkins打包机）。</p>
+<ul>
+<li>示例</li>
+</ul>
+<p>备注：在应用CI集成过程中，<code>不建议</code>在Docker镜像中构建，一是新起构建容器有一定资源开销；二是整个构建过程相关依赖缓存无法使用；三是获取对应构建产出的制品文件不方便，总体来说 <strong>效率不高</strong> 。但是在开源或者演示项目，可以采用这种方式。</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ===【多阶段构建】构建阶段 ===</span></span><br><span class="line"><span class="comment"># 使用go16作为基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> golang:<span class="number">1.16</span>-alpine as build</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用go module</span></span><br><span class="line"><span class="keyword">ENV</span> GO111MODULE=on \</span><br><span class="line">    GOPROXY=https://goproxy.cn,direct</span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /opt/build</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> . .</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># CGO_ENABLED禁用cgo 然后指定OS等，并go build</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -0 app  . </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ===【多阶段构建】运行阶段 ===</span></span><br><span class="line"><span class="comment"># 运行阶段指定scratch作为基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> scratch as prod</span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /opt/<span class="keyword">case</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将builder阶段publish文件夹下的所有文件复制进来</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=builder /opt/build .</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定运行时环境变量</span></span><br><span class="line"><span class="keyword">ENV</span> GIN_MODE=release \</span><br><span class="line">    PORT=<span class="number">80</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">80</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">&quot;./app&quot;</span>]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ===【多阶段构建】导出构建制品阶段 ===</span></span><br><span class="line"><span class="comment"># 运行阶段指定scratch作为基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> scratch AS export-artifacts</span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=build /opt/build .</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="makefile"><a class="markdownIt-Anchor" href="#makefile"></a> Makefile</h3>
+<p><code>make</code>命令是GNU的工程化编译工具，用于编译众多相互关联的源代码文件，以实现工程化的管理，提高开发效率，make 执行时会在当前目录下寻找 Makefile 或 makefile 文件。如果存在相应的文件，它就会依据其中定义好的规则完成构建任务。<code>Makefile</code>主要出现在<code>c/c++</code>的项目居多，用来管理<code>c/c++</code>的编译依赖。实际上 Makefile 内都是你根据 make 语法规则，自己编写的特定 Shell 命令。</p>
+<p>它原生支持多入口子命令执行，是一个系统变量或者命令的集合。在容器化应用中引用dockerfile，或者读取默认的dockerfile，来完成自动按照某个流程 build的目的。</p>
+<ul>
+<li>示例</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">NOW = <span class="variable">$(<span class="built_in">shell</span> date -u &#x27;+%Y%m%d%I%M%S&#x27;)</span></span><br><span class="line"></span><br><span class="line">GOVET = go tool vet -composites=false -methods=false -structtags=false</span><br><span class="line">GOFMT ?= gofmt <span class="string">&quot;-s&quot;</span></span><br><span class="line">GOFILES := <span class="variable">$(<span class="built_in">shell</span> find . -name &quot;*.go&quot; -type f -not -path &quot;./vendor/*&quot;)</span></span><br><span class="line">LDFLAGS += -w</span><br><span class="line">LDFLAGS += -X <span class="string">&quot;ztdemo/pkg/version.gitBranch=$(shell git symbolic-ref --short -q HEAD)&quot;</span></span><br><span class="line">LDFLAGS += -X <span class="string">&quot;ztdemo/pkg/version.gitCommit=$(shell git rev-parse HEAD)&quot;</span></span><br><span class="line">LDFLAGS += -X <span class="string">&quot;ztdemo/pkg/version.goVersion=$(shell go version)&quot;</span></span><br><span class="line">LDFLAGS += -X <span class="string">&quot;ztdemo/pkg/version.buildTime=$(shell date &quot;</span>+%Y-%m-%d %T %Z<span class="string">&quot;)&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> GOPROXY=https://goproxy.io</span><br><span class="line"></span><br><span class="line">IMAGE_REPO_NAME = harbor.2345.cn/defalut_project/default_name</span><br><span class="line">TAG_NAME = 0.1-demo</span><br><span class="line">EXPORT_ARTIFACT = output_scm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 各子命令完全可以自己定义，并于Dockersfile组合好即可</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: build clean out docker push pushd</span></span><br><span class="line"></span><br><span class="line"><span class="section">all: clean build docker</span></span><br><span class="line"></span><br><span class="line"><span class="section">build:</span></span><br><span class="line">	CGO_ENABLED=0 GOOS=linux go build -mod vendor -ldflags &#x27;<span class="variable">$(LDFLAGS)</span>&#x27; -trimpath -o ./bin/kmw cmd/main.go</span><br><span class="line"></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	@rm -rf ./bin</span><br><span class="line">	@rm -rf ./out</span><br><span class="line">	@go clean all</span><br><span class="line"></span><br><span class="line"><span class="section">docker:</span></span><br><span class="line">	docker build -t <span class="variable">$(IMAGE_REPO_NAME)</span>:<span class="variable">$(TAG_NAME)</span> -f ./Dockerfile .</span><br><span class="line"></span><br><span class="line"><span class="section">docker-push: docker</span></span><br><span class="line">	docker push <span class="variable">$(IMAGE_REPO_NAME)</span>:<span class="variable">$(TAG_NAME)</span></span><br><span class="line">	docker rmi <span class="variable">$(IMAGE_REPO_NAME)</span>:<span class="variable">$(TAG_NAME)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果实在Docker环境构建，导出对应的构建后制品需要，制品默认导出文件目录：output_scm</span></span><br><span class="line"><span class="section">export-artifacts:</span></span><br><span class="line">	DOCKER_BUILDKIT=1  docker build --target export-artifacts --output $&#123;EXPORT_ARTIFACT&#125; .</span><br><span class="line">	</span><br><span class="line"><span class="section">help:</span></span><br><span class="line">    @echo <span class="string">&quot;make: defalut build app&quot;</span></span><br><span class="line">    @echo <span class="string">&quot;make clean: clean the build output files&quot;</span></span><br><span class="line">    @echo <span class="string">&quot;make docker: docker build with Dcokerfile&quot;</span></span><br><span class="line">    @echo <span class="string">&quot;make docker-push: docker push to remote image repo and delete local image&quot;</span>	</span><br><span class="line">    @echo <span class="string">&quot;make export-artifact: export build artifacts to host&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="buildsh"><a class="markdownIt-Anchor" href="#buildsh"></a> <a href="http://build.sh">build.sh</a></h3>
+<p>满足相对复杂的构建场景需求，作为CI（本文使用工具为：Jenkins）的执行的唯一入口。一般来说涵盖的执行过程大体和应用本身关联不大，主要是业务或者特殊场景处理情况，比如：构建制品的处理，前端文件上传阿里云Oss处理等</p>
+<ul>
+<li>示例</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 基本信息</span></span><br><span class="line"><span class="comment"># 构建制品压缩包的文件名，示例：xxx.tar.gz</span></span><br><span class="line">APP_PKG_NAME=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line"><span class="comment"># 是否为容器化应用，&quot;0&quot;-非容器化项目，&quot;1&quot;-容器化项目</span></span><br><span class="line">IS_DOCKER=<span class="string">&quot;<span class="variable">$2</span>&quot;</span></span><br><span class="line"><span class="comment"># 若为容器化项目则需要：镜像 NAME+TAG，如：harbor.xxx.cn/cloud-demo/helloworld:v0.1-demo</span></span><br><span class="line">IMAGE_REPO_NAME=<span class="string">&quot;<span class="variable">$3</span>&quot;</span></span><br><span class="line">IMAGE_TAG=<span class="string">&quot;<span class="variable">$4</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 当前工作目录，也就是代码仓库的根目录</span></span><br><span class="line">BASE_DIR=$(<span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(dirname <span class="string">&quot;<span class="variable">$0</span>&quot;</span>)</span>&quot;</span>;<span class="built_in">pwd</span>)</span><br><span class="line"><span class="comment"># 制品目录，约定为：output_scm</span></span><br><span class="line">OUTPUT_DIR=<span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 若为单仓库对应多个构建应用，check可对应做需要做调整</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">check</span></span>() &#123;</span><br><span class="line">	<span class="keyword">if</span> [ -z <span class="variable">$&#123;APP_PKG_NAME&#125;</span> ]; <span class="keyword">then</span></span><br><span class="line">     	_showError <span class="string">&#x27;参数错误！请检查是否传入 APP_PKG_NAME 参数！&#x27;</span></span><br><span class="line">  	<span class="keyword">fi</span></span><br><span class="line">  	<span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$&#123;IS_DOCKER&#125;</span>&quot;</span> -eq <span class="string">&quot;1&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">  		<span class="keyword">if</span> [[ -z <span class="variable">$&#123;IMAGE_REPO_NAME&#125;</span> || -z <span class="variable">$&#123;IMAGE_TAG&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">     		_showError <span class="string">&#x27;参数错误！容器化应用需传入 IMAGE_REPO_NAME 和 IMAGE_TAG 参数！&#x27;</span></span><br><span class="line">  		<span class="keyword">fi</span></span><br><span class="line">  	<span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">build</span></span>() &#123;</span><br><span class="line">	<span class="comment"># 应用构建，借助Makile，原有构建过程放置Makefile（如果需要进行单步构建步骤，基于Docker容器内构建则不需要）</span></span><br><span class="line">	<span class="comment"># make build</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 容器化应用镜像构建并Push</span></span><br><span class="line">	<span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$&#123;IS_DOCKER&#125;</span>&quot;</span> -eq <span class="string">&quot;1&quot;</span> ]; <span class="keyword">then</span> </span><br><span class="line">		make docker-push <span class="string">&quot;IMAGE_REPO_NAME=<span class="variable">$&#123;IMAGE_REPO_NAME&#125;</span> TAG_NAME=<span class="variable">$&#123;TAG_NAME&#125;</span>&quot;</span></span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 判断构建结果</span></span><br><span class="line">    <span class="keyword">if</span> [ $? != 0 ]; <span class="keyword">then</span></span><br><span class="line">    	_showError <span class="string">&#x27;构建错误！请检查控制台日志！&#x27;</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Cloud平台管理的构建制品，对于传统部署应用，为必须项</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">package</span></span>() &#123;</span><br><span class="line">	<span class="comment"># 1、清空制品目录</span></span><br><span class="line">	[ -d <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm&quot;</span> ] &amp;&amp; rm -rf <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm&quot;</span></span><br><span class="line">    mkdir -p <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm/<span class="variable">$&#123;APP_PKG_NAME&#125;</span>&quot;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 2、非基于Docker容器内构建，则参考原有方式即可</span></span><br><span class="line">	<span class="comment"># ...</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 2、基于Dockerfile容器构建</span></span><br><span class="line">	<span class="comment"># a、获取构建制品，默认文件导出为 OUTPUT_DIR=$&#123;BASE_DIR&#125;/output_scm</span></span><br><span class="line">	make export-artifact <span class="string">&quot;XPORT_ARTIFACT=output_scm/<span class="variable">$&#123;APP_PKG_NAME&#125;</span>&quot;</span></span><br><span class="line">	<span class="comment"># b、可选，其他配置或静态资源的copy</span></span><br><span class="line">	<span class="comment"># cp -r &quot;$&#123;BASE_DIR&#125;/statics&quot; &quot;$&#123;BASE_DIR&#125;/output_scm/$&#123;APP_PKG_NAME&#125;&quot;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 3、生成制品tar.gz文件</span></span><br><span class="line">    <span class="built_in">cd</span> <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm&quot;</span></span><br><span class="line">    tar -zcf <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm/<span class="variable">$&#123;APP_PKG_NAME&#125;</span>.tar.gz&quot;</span> <span class="string">&quot;<span class="variable">$&#123;APP_PKG_NAME&#125;</span>&quot;</span></span><br><span class="line">    md5sum <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm/<span class="variable">$&#123;APP_PKG_NAME&#125;</span>.tar.gz&quot;</span> &gt; <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm/<span class="variable">$&#123;APP_PKG_NAME&#125;</span>.tar.gz.md5&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">_showError</span></span>() &#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&#x27;################################################&#x27;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot; <span class="variable">$1</span> &quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&#x27;################################################&#x27;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="built_in">exit</span> 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">check</span><br><span class="line">build</span><br><span class="line">package</span><br><span class="line"><span class="comment"># 前端应用选项，具体可参考历史前端项目</span></span><br><span class="line"><span class="comment"># uploadToOSS</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Devops</category>
+        <category>ci</category>
       </categories>
       <tags>
         <tag>DevOps</tag>
-        <tag>kubernetes</tag>
-        <tag>k8s</tag>
+        <tag>ci</tag>
       </tags>
   </entry>
   <entry>
@@ -1910,6 +1830,22 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
     <content><![CDATA[<p>关于kubernetes的动态准入的配置调研实验。</p>
 <span id="more"></span>
 <h2 id="1-动态准入简介"><a class="markdownIt-Anchor" href="#1-动态准入简介"></a> 1、动态准入简介</h2>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>DevOps</tag>
+        <tag>kubernetes</tag>
+        <tag>k8s</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HPA-Pod水平自动扩缩</title>
+    <url>/k8s-hpa/</url>
+    <content><![CDATA[<p>关于kubernetes的Hpa的配置调研实验。</p>
+<span id="more"></span>
+<h2 id="1-hpa简介"><a class="markdownIt-Anchor" href="#1-hpa简介"></a> 1、HPA简介</h2>
 ]]></content>
       <categories>
         <category>kubernetes</category>
@@ -2994,7 +2930,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </ol>
 ]]></content>
       <categories>
-        <category>DevOps</category>
+        <category>Devops</category>
       </categories>
       <tags>
         <tag>DevOps</tag>
