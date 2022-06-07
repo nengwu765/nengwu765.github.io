@@ -272,21 +272,21 @@
       
         <p>在实际需求中，我们遇到了这样一个需求：在<code>研发环境</code>和<code>测试环境</code>使用相同的域名，期望根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理。基于此我们调研最后实现这个需求。方案核心点：OpenResty方案: Nginx+lua + redis 实现根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理，redis用于管理用户Client IP和环境的绑定关系。</p>
 <span id="more"></span>
-<h2 id="1-需求调研"><a class="markdownIt-Anchor" href="#1-需求调研"></a> 1 需求调研</h2>
+<h2 id="1-%E9%9C%80%E6%B1%82%E8%B0%83%E7%A0%94">1 需求调研</h2>
 <p>在<code>研发环境</code>和<code>测试环境</code>使用相同的域名，期望根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理。</p>
-<h2 id="2-方案概述"><a class="markdownIt-Anchor" href="#2-方案概述"></a> 2 方案概述</h2>
+<h2 id="2-%E6%96%B9%E6%A1%88%E6%A6%82%E8%BF%B0">2 方案概述</h2>
 <ol>
 <li>使用<code>OpenResty</code>(集成了 Nginx 和 Lua )对用户请求进行转发</li>
 <li>使用<code>Redis</code>来存储用户 IP 与环境的绑定关系数据</li>
 <li>使用禅道操作<code>Redis</code>来管理用户 IP 与环境的绑定关系</li>
 </ol>
-<h2 id="3-部署实践"><a class="markdownIt-Anchor" href="#3-部署实践"></a> 3 部署实践</h2>
-<h3 id="31-openresty-部署"><a class="markdownIt-Anchor" href="#31-openresty-部署"></a> 3.1 OpenResty 部署</h3>
+<h2 id="3-%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5">3 部署实践</h2>
+<h3 id="3.1-openresty-%E9%83%A8%E7%BD%B2">3.1 OpenResty 部署</h3>
 <p><a target="_blank" rel="noopener" href="https://openresty.org/en/">OpenResty官方介绍</a></p>
-<h4 id="311-openresty-安装"><a class="markdownIt-Anchor" href="#311-openresty-安装"></a> 3.1.1 OpenResty 安装</h4>
+<h4 id="3.1.1-openresty-%E5%AE%89%E8%A3%85">3.1.1 OpenResty 安装</h4>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y yum-utils</span><br><span class="line">sudo yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo</span><br><span class="line">sudo yum install -y openresty</span><br><span class="line">sudo yum install -y openresty-resty</span><br></pre></td></tr></table></figure>
-<h4 id="312-openresty-配置"><a class="markdownIt-Anchor" href="#312-openresty-配置"></a> 3.1.2 OpenResty 配置</h4>
-<h5 id="3121-nginx-配置"><a class="markdownIt-Anchor" href="#3121-nginx-配置"></a> 3.1.2.1 nginx 配置</h5>
+<h4 id="3.1.2-openresty-%E9%85%8D%E7%BD%AE">3.1.2 OpenResty 配置</h4>
+<h5 id="3.1.2.1-nginx-%E9%85%8D%E7%BD%AE">3.1.2.1 nginx 配置</h5>
 <p>路径：/usr/local/openresty/nginx/conf/nginx.conf</p>
 <ul>
 <li>配置文件路径根据 openresty 安装目录变化</li>
@@ -294,7 +294,7 @@
 </ul>
 <p>配置样例：</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">user</span>                 root root;</span><br><span class="line"><span class="attribute">worker_processes</span>     auto;</span><br><span class="line"><span class="attribute">worker_cpu_affinity</span>  auto;</span><br><span class="line"><span class="attribute">error_log</span>            logs/error.log <span class="literal">info</span>;</span><br><span class="line"><span class="attribute">pid</span>                  logs/nginx.pid;</span><br><span class="line"><span class="attribute">worker_rlimit_nofile</span> <span class="number">65000</span>;</span><br><span class="line"></span><br><span class="line"><span class="section">events</span> &#123;</span><br><span class="line">    <span class="attribute">use</span>                 <span class="literal">epoll</span>;</span><br><span class="line">    <span class="attribute">accept_mutex</span>        <span class="literal">off</span>;</span><br><span class="line">    <span class="attribute">multi_accept</span>        <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">worker_connections</span>  <span class="number">20480</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">include</span>       mime.types;</span><br><span class="line">    <span class="attribute">default_type</span>  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># lua相关配置</span></span><br><span class="line">    <span class="attribute">lua_package_path</span>                   <span class="string">&#x27;/usr/local/openresty/lualib/?.lua;/usr/local/openresty/nginx/conf/?.lua&#x27;</span>;</span><br><span class="line">    <span class="attribute">lua_shared_dict</span>                    xq_req_limit_cache <span class="number">1m</span>;</span><br><span class="line">    <span class="attribute">lua_need_request_body</span>              <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">include</span> conf.d/<span class="regexp">*.conf</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="3122-代理域名配置"><a class="markdownIt-Anchor" href="#3122-代理域名配置"></a> 3.1.2.2 代理域名配置</h5>
+<h5 id="3.1.2.2-%E4%BB%A3%E7%90%86%E5%9F%9F%E5%90%8D%E9%85%8D%E7%BD%AE">3.1.2.2 代理域名配置</h5>
 <p>路径：/usr/local/openresty/nginx/conf/conf.d/domain.conf</p>
 <ul>
 <li>配置文件路径根据 openresty 安装目录变化</li>
@@ -302,7 +302,7 @@
 </ul>
 <p>配置样例：</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> domain.demo.com;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">access_log</span> /usr/local/openresty/nginx/logs/domain.demo.com.access.log;</span><br><span class="line">    <span class="attribute">error_log</span> /usr/local/openresty/nginx/logs/domain.demo.com.<span class="literal">error</span>.log <span class="literal">warn</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">set</span> $target_domain <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        <span class="attribute">set</span> $target_host <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">rewrite_by_lua_file</span> /usr/local/openresty/nginx/conf/proxy.lua;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">proxy_set_header</span> Host $target_domain;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://$target_host;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="3123-lua脚本"><a class="markdownIt-Anchor" href="#3123-lua脚本"></a> 3.1.2.3 Lua脚本</h5>
+<h5 id="3.1.2.3-lua%E8%84%9A%E6%9C%AC">3.1.2.3 Lua脚本</h5>
 <p>路径：/usr/local/openresty/nginx/conf/proxy.lua</p>
 <ul>
 <li>配置文件路径根据 openresty 安装目录变化</li>
@@ -316,7 +316,7 @@
 <li>redis auth</li>
 <li>redis db</li>
 </ul>
-<h3 id="32-redis-数据结构"><a class="markdownIt-Anchor" href="#32-redis-数据结构"></a> 3.2 Redis 数据结构</h3>
+<h3 id="3.2-redis-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">3.2 Redis 数据结构</h3>
 <table>
 <thead>
 <tr>
@@ -341,8 +341,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="33-禅道操作"><a class="markdownIt-Anchor" href="#33-禅道操作"></a> 3.3 禅道操作</h3>
-<h4 id="331-新增代理域名"><a class="markdownIt-Anchor" href="#331-新增代理域名"></a> 3.3.1 新增代理域名</h4>
+<h3 id="3.3-%E7%A6%85%E9%81%93%E6%93%8D%E4%BD%9C">3.3 禅道操作</h3>
+<h4 id="3.3.1-%E6%96%B0%E5%A2%9E%E4%BB%A3%E7%90%86%E5%9F%9F%E5%90%8D">3.3.1 新增代理域名</h4>
 <ol>
 <li>新增一份该域名的代理域名配置到对应目录
 <ul>
@@ -358,7 +358,7 @@
 </ul>
 </li>
 </ol>
-<h4 id="332-修改用户绑定"><a class="markdownIt-Anchor" href="#332-修改用户绑定"></a> 3.3.2 修改用户绑定</h4>
+<h4 id="3.3.2-%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E7%BB%91%E5%AE%9A">3.3.2 修改用户绑定</h4>
 <ol>
 <li>按照 Redis 数据结构，修改上述2个键对应的值（新增、更新、删除）</li>
 </ol>
@@ -453,7 +453,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%9C%80%E6%B1%82%E8%B0%83%E7%A0%94"><span class="nav-number">1.</span> <span class="nav-text"> 1 需求调研</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%96%B9%E6%A1%88%E6%A6%82%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text"> 2 方案概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5"><span class="nav-number">3.</span> <span class="nav-text"> 3 部署实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-openresty-%E9%83%A8%E7%BD%B2"><span class="nav-number">3.1.</span> <span class="nav-text"> 3.1 OpenResty 部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-redis-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">3.2.</span> <span class="nav-text"> 3.2 Redis 数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-%E7%A6%85%E9%81%93%E6%93%8D%E4%BD%9C"><span class="nav-number">3.3.</span> <span class="nav-text"> 3.3 禅道操作</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%9C%80%E6%B1%82%E8%B0%83%E7%A0%94"><span class="nav-number">1.</span> <span class="nav-text">1 需求调研</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%96%B9%E6%A1%88%E6%A6%82%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">2 方案概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5"><span class="nav-number">3.</span> <span class="nav-text">3 部署实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3.1-openresty-%E9%83%A8%E7%BD%B2"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 OpenResty 部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3.2-redis-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 Redis 数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3.3-%E7%A6%85%E9%81%93%E6%93%8D%E4%BD%9C"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 禅道操作</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -525,7 +525,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:05</span>
+    <span title="站点阅读时长">1:04</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
