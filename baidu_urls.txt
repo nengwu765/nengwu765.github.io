@@ -1,3 +1,7 @@
+https://doublejia.site/k8s-kubeadm-isntall-cluster/
+https://doublejia.site/k8s-hpa/
+https://doublejia.site/k8s-dynamic-admission/
+https://doublejia.site/git-branch-strategy/
 https://doublejia.site/git-branch-strategy/
 https://doublejia.site/aliyunxiao-first-experience/
 https://doublejia.site/jenkins-deploy-select/

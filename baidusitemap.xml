@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://doublejia.site/k8s-kubeadm-isntall-cluster/</loc>
+    <lastmod>2021-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://doublejia.site/k8s-dynamic-admission/</loc>
+    <lastmod>2021-08-24</lastmod>
+  </url>
+  <url>
+    <loc>https://doublejia.site/k8s-hpa/</loc>
+    <lastmod>2021-08-24</lastmod>
+  </url>
+  <url>
+    <loc>https://doublejia.site/soanrqube-install/</loc>
+    <lastmod>2021-08-09</lastmod>
+  </url>
+  <url>
     <loc>https://doublejia.site/auto-cops-sys/</loc>
     <lastmod>2021-07-15</lastmod>
+  </url>
+  <url>
+    <loc>https://doublejia.site/git-branch-strategy/</loc>
+    <lastmod>2021-07-02</lastmod>
   </url>
   <url>
     <loc>https://doublejia.site/git-branch-strategy/</loc>
@@ -58,10 +78,6 @@
   </url>
   <url>
     <loc>https://doublejia.site/jenkins-pipeline-syntax/</loc>
-    <lastmod>2021-06-25</lastmod>
-  </url>
-  <url>
-    <loc>https://doublejia.site/soanrqube-install/</loc>
     <lastmod>2021-06-25</lastmod>
   </url>
   <url>
