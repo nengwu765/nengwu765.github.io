@@ -152,6 +152,121 @@
       </tags>
   </entry>
   <entry>
+    <title>DevOps启蒙-开发测试管理系统</title>
+    <url>/simple-devtest-sys/</url>
+    <content><![CDATA[<p>这个算是个回顾吧，自己再2019年进入X公司，发现开发测试流程耦合严重，没有独立的测试环境管理平台，所以参照自己的前东家（👉iflow系统）实现了一个<code>简单</code>的开发测试流程管理系统，当时的<code>思想还很稚嫩，观点粗浅</code>（算是自己DevOps启蒙篇吧），仅供参考哈。</p>
+<span id="more"></span>
+<p><strong>如果你对以下的内容感兴趣，可以一起探讨交流哦……</strong></p>
+<ul>
+<li>技术开发在项目移交测试后，既可以“放飞自我”、“自由飞翔”</li>
+<li>测试妹子如何实现“私人定制”的测试环境，实现简单mock第三方Api</li>
+<li>**终极：**如何让开发测试整个流程自动化</li>
+</ul>
+<h2 id="1-初来乍到遇到的问题"><a class="markdownIt-Anchor" href="#1-初来乍到遇到的问题"></a> 1、“初来乍到”，遇到的问题</h2>
+<p>刚来到公司时，项目都是 <strong>小作坊管理方式</strong> 的，项目的流程规范不是很完善，有些项目让我接的有点“措手不及”吧。还有就是在开发移测后，自己需要过度介入整个测试过程，无法正常开始其他方面的工作：</p>
+<p>总结以下吧：</p>
+<ul>
+<li>产品研发流程不完善</li>
+<li>测试开发过度耦合，无法有效释放生成力</li>
+</ul>
+<p>结合我遇到的问题，我会和大家一起探讨解决问题。</p>
+<h2 id="2-产品研发流程简介这不是本文重点"><a class="markdownIt-Anchor" href="#2-产品研发流程简介这不是本文重点"></a> 2、产品研发流程简介【这不是本文重点】</h2>
+<p>其实在网上有很多资料，来说明一个互联网产品研发的流程了，基本大同小异。</p>
+<p>我主要分以下几个部分简单说一下吧：</p>
+<ul>
+<li>需求阶段：产品需求调研【为什么要做；做了之后会带来什么好处；最终在数据上怎么体现】，明确需求优先级</li>
+<li>方案阶段：产品原型文档，各负责人需求评审，<strong>一线开发&amp;测试</strong> 具体方案评审，排期</li>
+<li>开发阶段：设计方案、编码、自测、提测</li>
+<li>测试阶段：测试用例、线下测试、stage测试</li>
+<li>上线：Beta环境，GA环境</li>
+</ul>
+<p>其中在产品的需求和方案阶段的流程完善可以通过人为 <strong>强制约束规范</strong> 得到有效解决</p>
+<p><img src="/simple-devtest-sys/%E4%BA%A7%E5%93%81%E7%A0%94%E5%8F%91%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B.gif" alt="img"></p>
+<h2 id="3-开发测试中的问题"><a class="markdownIt-Anchor" href="#3-开发测试中的问题"></a> 3、开发&amp;测试中的问题</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//TODO 大家都是码农，我就懒得说了，😄</span><br></pre></td></tr></table></figure>
+<h2 id="4-开发测试流程体系"><a class="markdownIt-Anchor" href="#4-开发测试流程体系"></a> 4、开发测试流程体系</h2>
+<h3 id="41-问题如何解决"><a class="markdownIt-Anchor" href="#41-问题如何解决"></a> 4.1、 问题如何解决</h3>
+<p>问题真实存在，我们应该如何解决呢？怎样才能使我们的工作的更**<code>爽</code>**</p>
+<p>我的思考：业务流程化 –&gt; 流程工具化 –&gt; 工具自动化(信息化)</p>
+<h3 id="42-开发测试流程体系"><a class="markdownIt-Anchor" href="#42-开发测试流程体系"></a> 4.2、 开发测试流程体系</h3>
+<p>其实很容易，在研发流程当中其实已经说明了开发测试的一个简单的流程体系，其主要就是三个阶段：</p>
+<ul>
+<li>Dev阶段：开发设计文档、创建分支、编码、自测、测试用例、提测</li>
+<li>Test阶段：线下测试、Stage测试、代码审查、产品验收</li>
+<li>Online阶段：Beta环境、GA环境</li>
+</ul>
+<p>流程化的过程如下：</p>
+<p><img src="/simple-devtest-sys/%E6%B5%81%E7%A8%8B%E4%BD%93%E7%B3%BB.gif" alt="img"></p>
+<h2 id="5-iflow开发测试流程管理系统"><a class="markdownIt-Anchor" href="#5-iflow开发测试流程管理系统"></a> 5、Iflow开发测试流程管理系统</h2>
+<p>基于以上的问题和思考，以及以往的经验【这个占绝大部分】，我开发一套开发测试流程管理系统。所有的流程【除特出流程类型，如：<code>hotfix</code>】都是分步骤一步一步往下进行的，可以流程化管理。</p>
+<p>Iflow系统特点：</p>
+<ul>
+<li>记录整个开发测试到上线的整个过程</li>
+<li>主子流程明确，不会有流程交叉</li>
+<li>严格流程化，当前流程之后的流程<strong>灰色</strong>，不可点击</li>
+<li>流程化&amp;权限化，严格把控“出错”风险</li>
+<li>测试环境统一化管理，测试可自由定制，mock第三方Api</li>
+<li>后续可完善，做成CI系统</li>
+</ul>
+<h3 id="51-iflow-基本界面说明"><a class="markdownIt-Anchor" href="#51-iflow-基本界面说明"></a> 5.1、IFLOW — 基本界面说明</h3>
+<ul>
+<li>**主流程：**主阶段，创建Iflow、dev阶段、test阶段、online阶段</li>
+<li>**子流程：**就是当前主极端对应的子阶段，如下图中 <strong>dev阶段</strong>，对应的开发文档阶段，创建分支……</li>
+<li>**开发应用：**目前一个QS，可能需要关联开发多个应用，每个应用可以单独的流程，可以独立区分，便于不同的童鞋开发</li>
+</ul>
+<p><img src="/simple-devtest-sys/%E5%9F%BA%E6%9C%AC%E7%95%8C%E9%9D%A2%E8%AF%B4%E6%98%8E.png" alt="img"></p>
+<h3 id="52-iflow-创建iflow选择应用"><a class="markdownIt-Anchor" href="#52-iflow-创建iflow选择应用"></a> 5.2、IFLOW — 创建IFLOW（选择应用）</h3>
+<p>目前根据QS-Id建立Iflow流程【注，目前未关联QS系统】，可以选择应用和不同的流程类型创建Iflow流程。</p>
+<p>流程类型说明：</p>
+<ul>
+<li>正常：需要按常规走完流程</li>
+<li>bug修复/Notesting/线上紧急bug：可以跳过特定的流程步骤</li>
+</ul>
+<p><img src="/simple-devtest-sys/%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8.png" alt="img"></p>
+<h3 id="53-iflow-dev阶段"><a class="markdownIt-Anchor" href="#53-iflow-dev阶段"></a> 5.3、IFLOW — DEV阶段</h3>
+<p>由对应<strong>开发走完整个流程</strong>，上传传文档审核，建立分支，自测，到最后提测。开发走完整个Dev阶段后移交测试。</p>
+<p><img src="/simple-devtest-sys/dev%E9%98%B6%E6%AE%B5.gif" alt="img"></p>
+<h3 id="54-iflow-test阶段"><a class="markdownIt-Anchor" href="#54-iflow-test阶段"></a> 5.4、IFLOW — TEST阶段</h3>
+<p>由对应<strong>测试走完整个流程</strong></p>
+<blockquote>
+<p>首先测试可以在左侧菜单栏【iflow流程列表】，检索对应QS-ID，即可进入对应的流程测试，以及查看dev阶段的api文档和开发文档。</p>
+</blockquote>
+<blockquote>
+<p>其次进入dev阶段完成相应阶段的测试，其中测试环境支持以下的功能：</p>
+</blockquote>
+<ul>
+<li>**释放分支：**释放当前的测试环境绑定</li>
+<li>**切换/更新分支：**将当前iflow流程对应的分支，切换至当前的测试环境</li>
+<li>**更新dev配置文件：**基于目前环境存在的分支代码，同步copy更新dev配置文件，注意：更新后，原有的定制配置将被覆盖。</li>
+<li>**配置文件修改：**更改/定制当前测试环境的配置文件</li>
+<li>**模拟APi【mock第三方api数据】：**可以模拟第三方的api返回数据，设置超时，【使用前，注意绑定下对应模拟api的域名IP，不同的环境这个域名和IP不同】。</li>
+</ul>
+<p><img src="/simple-devtest-sys/test%E9%98%B6%E6%AE%B5.gif" alt="img"></p>
+<h3 id="55-iflow-online阶段"><a class="markdownIt-Anchor" href="#55-iflow-online阶段"></a> 5.5、IFLOW — ONLINE阶段</h3>
+<p>即上线至beta环境和GA环境，显示但前版本列表，支持一键回退功能【目前只是一个空架子】。</p>
+<p><img src="/simple-devtest-sys/online%E9%98%B6%E6%AE%B5.gif" alt="img"></p>
+<h2 id="6-总结"><a class="markdownIt-Anchor" href="#6-总结"></a> 6、总结</h2>
+<p>整体来说IFLOW开发测试流程管理系统只是一个<strong>流程框架或者外壳</strong>，后续相关的功能的模块都可以进行集成，将其形成一套完善的流程管理系统（整体页面功能可能会比较简陋，当时花费一个多月的闲余时间写的😀）。</p>
+<p><strong>可集成功能：</strong></p>
+<ul>
+<li>**文档系统：**api文档、Wiki知识库</li>
+<li>**测试用例系统：**测试编写用例，开发可以审核过测试用例等</li>
+<li>**自动化测试系统：**测试自动化测试脚本</li>
+<li>**代码管理平台：**可以直接检测代码质量，给代码评分等，比如 <a href="http://bbs.2345.net/d/169-sonarqube/3"><strong>sonarQube，可点击此查看</strong></a></li>
+<li>**打包构建工具：**比如jekins（PHP你懂的，木有构建哦😂）</li>
+<li><strong>CI可持续集成</strong></li>
+<li><strong>发布系统</strong></li>
+<li>……</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Iflow</category>
+      </categories>
+      <tags>
+        <tag>Iflow</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Jenkins共享库使用-初阶</title>
     <url>/jenkins-sharelib-primary/</url>
     <content><![CDATA[<p>在我们实际写Jenkin pipelines脚本中，可能会出现``java.lang.RuntimeException: Method code too large!<code>，这个时候你就要抽象出一些公共的函数类库，</code>避免项目方重复冗余的脚本代码书写`，在此处我也把我经常使用的一些共享函数库（<strong><a href="https://github.com/nengwu765/jenkins-share-library">jenkins-share-library</a></strong>）分享出来，欢迎交流指正哈！</p>
@@ -286,121 +401,6 @@
       </categories>
       <tags>
         <tag>Jenkins</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>DevOps启蒙-开发测试管理系统</title>
-    <url>/simple-devtest-sys/</url>
-    <content><![CDATA[<p>这个算是个回顾吧，自己再2019年进入X公司，发现开发测试流程耦合严重，没有独立的测试环境管理平台，所以参照自己的前东家（👉iflow系统）实现了一个<code>简单</code>的开发测试流程管理系统，当时的<code>思想还很稚嫩，观点粗浅</code>（算是自己DevOps启蒙篇吧），仅供参考哈。</p>
-<span id="more"></span>
-<p><strong>如果你对以下的内容感兴趣，可以一起探讨交流哦……</strong></p>
-<ul>
-<li>技术开发在项目移交测试后，既可以“放飞自我”、“自由飞翔”</li>
-<li>测试妹子如何实现“私人定制”的测试环境，实现简单mock第三方Api</li>
-<li>**终极：**如何让开发测试整个流程自动化</li>
-</ul>
-<h2 id="1-初来乍到遇到的问题"><a class="markdownIt-Anchor" href="#1-初来乍到遇到的问题"></a> 1、“初来乍到”，遇到的问题</h2>
-<p>刚来到公司时，项目都是 <strong>小作坊管理方式</strong> 的，项目的流程规范不是很完善，有些项目让我接的有点“措手不及”吧。还有就是在开发移测后，自己需要过度介入整个测试过程，无法正常开始其他方面的工作：</p>
-<p>总结以下吧：</p>
-<ul>
-<li>产品研发流程不完善</li>
-<li>测试开发过度耦合，无法有效释放生成力</li>
-</ul>
-<p>结合我遇到的问题，我会和大家一起探讨解决问题。</p>
-<h2 id="2-产品研发流程简介这不是本文重点"><a class="markdownIt-Anchor" href="#2-产品研发流程简介这不是本文重点"></a> 2、产品研发流程简介【这不是本文重点】</h2>
-<p>其实在网上有很多资料，来说明一个互联网产品研发的流程了，基本大同小异。</p>
-<p>我主要分以下几个部分简单说一下吧：</p>
-<ul>
-<li>需求阶段：产品需求调研【为什么要做；做了之后会带来什么好处；最终在数据上怎么体现】，明确需求优先级</li>
-<li>方案阶段：产品原型文档，各负责人需求评审，<strong>一线开发&amp;测试</strong> 具体方案评审，排期</li>
-<li>开发阶段：设计方案、编码、自测、提测</li>
-<li>测试阶段：测试用例、线下测试、stage测试</li>
-<li>上线：Beta环境，GA环境</li>
-</ul>
-<p>其中在产品的需求和方案阶段的流程完善可以通过人为 <strong>强制约束规范</strong> 得到有效解决</p>
-<p><img src="/simple-devtest-sys/%E4%BA%A7%E5%93%81%E7%A0%94%E5%8F%91%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B.gif" alt="img"></p>
-<h2 id="3-开发测试中的问题"><a class="markdownIt-Anchor" href="#3-开发测试中的问题"></a> 3、开发&amp;测试中的问题</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//TODO 大家都是码农，我就懒得说了，😄</span><br></pre></td></tr></table></figure>
-<h2 id="4-开发测试流程体系"><a class="markdownIt-Anchor" href="#4-开发测试流程体系"></a> 4、开发测试流程体系</h2>
-<h3 id="41-问题如何解决"><a class="markdownIt-Anchor" href="#41-问题如何解决"></a> 4.1、 问题如何解决</h3>
-<p>问题真实存在，我们应该如何解决呢？怎样才能使我们的工作的更**<code>爽</code>**</p>
-<p>我的思考：业务流程化 –&gt; 流程工具化 –&gt; 工具自动化(信息化)</p>
-<h3 id="42-开发测试流程体系"><a class="markdownIt-Anchor" href="#42-开发测试流程体系"></a> 4.2、 开发测试流程体系</h3>
-<p>其实很容易，在研发流程当中其实已经说明了开发测试的一个简单的流程体系，其主要就是三个阶段：</p>
-<ul>
-<li>Dev阶段：开发设计文档、创建分支、编码、自测、测试用例、提测</li>
-<li>Test阶段：线下测试、Stage测试、代码审查、产品验收</li>
-<li>Online阶段：Beta环境、GA环境</li>
-</ul>
-<p>流程化的过程如下：</p>
-<p><img src="/simple-devtest-sys/%E6%B5%81%E7%A8%8B%E4%BD%93%E7%B3%BB.gif" alt="img"></p>
-<h2 id="5-iflow开发测试流程管理系统"><a class="markdownIt-Anchor" href="#5-iflow开发测试流程管理系统"></a> 5、Iflow开发测试流程管理系统</h2>
-<p>基于以上的问题和思考，以及以往的经验【这个占绝大部分】，我开发一套开发测试流程管理系统。所有的流程【除特出流程类型，如：<code>hotfix</code>】都是分步骤一步一步往下进行的，可以流程化管理。</p>
-<p>Iflow系统特点：</p>
-<ul>
-<li>记录整个开发测试到上线的整个过程</li>
-<li>主子流程明确，不会有流程交叉</li>
-<li>严格流程化，当前流程之后的流程<strong>灰色</strong>，不可点击</li>
-<li>流程化&amp;权限化，严格把控“出错”风险</li>
-<li>测试环境统一化管理，测试可自由定制，mock第三方Api</li>
-<li>后续可完善，做成CI系统</li>
-</ul>
-<h3 id="51-iflow-基本界面说明"><a class="markdownIt-Anchor" href="#51-iflow-基本界面说明"></a> 5.1、IFLOW — 基本界面说明</h3>
-<ul>
-<li>**主流程：**主阶段，创建Iflow、dev阶段、test阶段、online阶段</li>
-<li>**子流程：**就是当前主极端对应的子阶段，如下图中 <strong>dev阶段</strong>，对应的开发文档阶段，创建分支……</li>
-<li>**开发应用：**目前一个QS，可能需要关联开发多个应用，每个应用可以单独的流程，可以独立区分，便于不同的童鞋开发</li>
-</ul>
-<p><img src="/simple-devtest-sys/%E5%9F%BA%E6%9C%AC%E7%95%8C%E9%9D%A2%E8%AF%B4%E6%98%8E.png" alt="img"></p>
-<h3 id="52-iflow-创建iflow选择应用"><a class="markdownIt-Anchor" href="#52-iflow-创建iflow选择应用"></a> 5.2、IFLOW — 创建IFLOW（选择应用）</h3>
-<p>目前根据QS-Id建立Iflow流程【注，目前未关联QS系统】，可以选择应用和不同的流程类型创建Iflow流程。</p>
-<p>流程类型说明：</p>
-<ul>
-<li>正常：需要按常规走完流程</li>
-<li>bug修复/Notesting/线上紧急bug：可以跳过特定的流程步骤</li>
-</ul>
-<p><img src="/simple-devtest-sys/%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8.png" alt="img"></p>
-<h3 id="53-iflow-dev阶段"><a class="markdownIt-Anchor" href="#53-iflow-dev阶段"></a> 5.3、IFLOW — DEV阶段</h3>
-<p>由对应<strong>开发走完整个流程</strong>，上传传文档审核，建立分支，自测，到最后提测。开发走完整个Dev阶段后移交测试。</p>
-<p><img src="/simple-devtest-sys/dev%E9%98%B6%E6%AE%B5.gif" alt="img"></p>
-<h3 id="54-iflow-test阶段"><a class="markdownIt-Anchor" href="#54-iflow-test阶段"></a> 5.4、IFLOW — TEST阶段</h3>
-<p>由对应<strong>测试走完整个流程</strong></p>
-<blockquote>
-<p>首先测试可以在左侧菜单栏【iflow流程列表】，检索对应QS-ID，即可进入对应的流程测试，以及查看dev阶段的api文档和开发文档。</p>
-</blockquote>
-<blockquote>
-<p>其次进入dev阶段完成相应阶段的测试，其中测试环境支持以下的功能：</p>
-</blockquote>
-<ul>
-<li>**释放分支：**释放当前的测试环境绑定</li>
-<li>**切换/更新分支：**将当前iflow流程对应的分支，切换至当前的测试环境</li>
-<li>**更新dev配置文件：**基于目前环境存在的分支代码，同步copy更新dev配置文件，注意：更新后，原有的定制配置将被覆盖。</li>
-<li>**配置文件修改：**更改/定制当前测试环境的配置文件</li>
-<li>**模拟APi【mock第三方api数据】：**可以模拟第三方的api返回数据，设置超时，【使用前，注意绑定下对应模拟api的域名IP，不同的环境这个域名和IP不同】。</li>
-</ul>
-<p><img src="/simple-devtest-sys/test%E9%98%B6%E6%AE%B5.gif" alt="img"></p>
-<h3 id="55-iflow-online阶段"><a class="markdownIt-Anchor" href="#55-iflow-online阶段"></a> 5.5、IFLOW — ONLINE阶段</h3>
-<p>即上线至beta环境和GA环境，显示但前版本列表，支持一键回退功能【目前只是一个空架子】。</p>
-<p><img src="/simple-devtest-sys/online%E9%98%B6%E6%AE%B5.gif" alt="img"></p>
-<h2 id="6-总结"><a class="markdownIt-Anchor" href="#6-总结"></a> 6、总结</h2>
-<p>整体来说IFLOW开发测试流程管理系统只是一个<strong>流程框架或者外壳</strong>，后续相关的功能的模块都可以进行集成，将其形成一套完善的流程管理系统（整体页面功能可能会比较简陋，当时花费一个多月的闲余时间写的😀）。</p>
-<p><strong>可集成功能：</strong></p>
-<ul>
-<li>**文档系统：**api文档、Wiki知识库</li>
-<li>**测试用例系统：**测试编写用例，开发可以审核过测试用例等</li>
-<li>**自动化测试系统：**测试自动化测试脚本</li>
-<li>**代码管理平台：**可以直接检测代码质量，给代码评分等，比如 <a href="http://bbs.2345.net/d/169-sonarqube/3"><strong>sonarQube，可点击此查看</strong></a></li>
-<li>**打包构建工具：**比如jekins（PHP你懂的，木有构建哦😂）</li>
-<li><strong>CI可持续集成</strong></li>
-<li><strong>发布系统</strong></li>
-<li>……</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Iflow</category>
-      </categories>
-      <tags>
-        <tag>Iflow</tag>
       </tags>
   </entry>
   <entry>
@@ -963,59 +963,6 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
       </tags>
   </entry>
   <entry>
-    <title>禅道持续交付(一)-概述及框架</title>
-    <url>/zentao-cicd-overview/</url>
-    <content><![CDATA[<p>我们基于禅道打造了持续交付系统，整合了多个开源系统（包括禅道zentao、jenkins、gitlab、nexus、harbor、ldap、mysql等等），并进行大量的二次开发，将多个系统功能（项目管理、集成管理、代码仓库管理、编译私服，镜像仓库管理、用户认证等）、多个开发环境（开发环境、测试环境、预发布环境、灰度环境、生产环境等），多种发布流程（代码扫描、版本集成、版本发布等）进行统一整合，提供一套高度集成和高度自动化的项目管理+版本集成发布系统。</p>
-<span id="more"></span>
-<h2 id="1-概述"><a class="markdownIt-Anchor" href="#1-概述"></a> 1、概述</h2>
-<p>因为公司大部门在使用禅道进行项目管理、缺陷管理等，所以我们希望基于此对于禅道做二开扩展，支持到CICD，最终将禅道打造成一个DevOps平台。</p>
-<p>选择禅道主要原因：</p>
-<ul>
-<li>有使用历史，符合大多数业务项目的操作习惯</li>
-<li>敏捷管理，基于Scrum的角色且相关流程和功能完善</li>
-<li>社区版开源，可以基于源码进行修改</li>
-</ul>
-<p><strong>拓展后禅道能力</strong></p>
-<ul>
-<li><a href="https://www.zentao.net/book/zentaopmshelp/49.html">使用禅道来进行项目任务管理</a></li>
-<li><a href="https://www.zentao.net/book/zentaopmshelp/64.html">只使用禅道来做bug管理</a></li>
-<li><a href="https://www.zentao.net/book/zentaopmshelp/77.html">只使用禅道来进行产品管理</a></li>
-<li><a href="https://www.zentao.net/book/zentaopmshelp/91.html">个人使用禅道来做事务跟踪管理</a></li>
-<li>仅使用版本集成流程（扩展功能）</li>
-<li>仅使用上线流程审批功能（扩展功能）</li>
-<li>仅使用客户端渠道管理功能（扩展功能）</li>
-</ul>
-<h2 id="2-持续交付系统框架"><a class="markdownIt-Anchor" href="#2-持续交付系统框架"></a> 2、持续交付系统框架</h2>
-<p>这个比较简单吧，其实有关这种分层的DevOps架构，应该都是大同小异，仅供参考哈😉</p>
-<p><img src="/zentao-cicd-overview/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84-new.png" alt="img"></p>
-<h2 id="3-持续交付流程"><a class="markdownIt-Anchor" href="#3-持续交付流程"></a> 3、持续交付流程</h2>
-<p>主要是基于Helm进行K8s的容器部署，整个交付流程如下：</p>
-<ul>
-<li>使用Zentao作为项目管理工具：管理基本需求、迭代、缺陷等</li>
-<li>Zentao也作为用户CICD系统平台，用户再禅道上做集成、构建、部署等操作</li>
-<li>CICD的后端集成工具：Jenkins</li>
-<li>部署至K8s集群中，部署主要的使用是Helm进行部署管理（注：当时使用的是Helm2）</li>
-</ul>
-<p>注：我们自己编写了Helm的Template模板工程，基本涵盖了很多的使用场景，这个后续我也会跟进分享给大家，尽情期待……</p>
-<p><img src="/zentao-cicd-overview/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E6%B5%81%E7%A8%8B-new.png" alt="img"></p>
-<h2 id="4-工具链选型"><a class="markdownIt-Anchor" href="#4-工具链选型"></a> 4、工具链选型</h2>
-<p>其实DevOps工具链产品有很多，大家可以根据自己的实际情况选择，我们基于Zentao打造的持续交付平台选择的是如下工具链。因为当初我们还木有打通持续测试这一环节，所以这个相对有些简陋了，但是还算清晰！</p>
-<h3 id="web端容器"><a class="markdownIt-Anchor" href="#web端容器"></a> Web端容器</h3>
-<p><img src="/zentao-cicd-overview/%E5%B7%A5%E5%85%B7%E9%93%BE%E9%80%89%E5%9E%8B-new.png" alt="img"></p>
-<h3 id="android移动端"><a class="markdownIt-Anchor" href="#android移动端"></a> Android移动端</h3>
-<p><img src="/zentao-cicd-overview/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B7%A5%E5%85%B7%E9%93%BE-new.jpg" alt="img"></p>
-]]></content>
-      <categories>
-        <category>持续交付</category>
-      </categories>
-      <tags>
-        <tag>CICD</tag>
-        <tag>Zentao</tag>
-        <tag>禅道</tag>
-        <tag>持续交付</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>代码扫描(四)-DevOps平台集成Sonar方案</title>
     <url>/soanrqube-devOps-platform-integration/</url>
     <content><![CDATA[<p>SonarQube需要融合到DevOps平台，使其成为CICD的一个环节中来，发挥其更大的价值。我们需要考虑到如何与DevOps平台的集成，并且可以最小限度的对于业务代码的侵入性，这边文档将我的方案做个各详细阐述和大家一起分享。</p>
@@ -1087,6 +1034,59 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
       <tags>
         <tag>SonarQube</tag>
         <tag>代码扫描</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>禅道持续交付(一)-概述及框架</title>
+    <url>/zentao-cicd-overview/</url>
+    <content><![CDATA[<p>我们基于禅道打造了持续交付系统，整合了多个开源系统（包括禅道zentao、jenkins、gitlab、nexus、harbor、ldap、mysql等等），并进行大量的二次开发，将多个系统功能（项目管理、集成管理、代码仓库管理、编译私服，镜像仓库管理、用户认证等）、多个开发环境（开发环境、测试环境、预发布环境、灰度环境、生产环境等），多种发布流程（代码扫描、版本集成、版本发布等）进行统一整合，提供一套高度集成和高度自动化的项目管理+版本集成发布系统。</p>
+<span id="more"></span>
+<h2 id="1-概述"><a class="markdownIt-Anchor" href="#1-概述"></a> 1、概述</h2>
+<p>因为公司大部门在使用禅道进行项目管理、缺陷管理等，所以我们希望基于此对于禅道做二开扩展，支持到CICD，最终将禅道打造成一个DevOps平台。</p>
+<p>选择禅道主要原因：</p>
+<ul>
+<li>有使用历史，符合大多数业务项目的操作习惯</li>
+<li>敏捷管理，基于Scrum的角色且相关流程和功能完善</li>
+<li>社区版开源，可以基于源码进行修改</li>
+</ul>
+<p><strong>拓展后禅道能力</strong></p>
+<ul>
+<li><a href="https://www.zentao.net/book/zentaopmshelp/49.html">使用禅道来进行项目任务管理</a></li>
+<li><a href="https://www.zentao.net/book/zentaopmshelp/64.html">只使用禅道来做bug管理</a></li>
+<li><a href="https://www.zentao.net/book/zentaopmshelp/77.html">只使用禅道来进行产品管理</a></li>
+<li><a href="https://www.zentao.net/book/zentaopmshelp/91.html">个人使用禅道来做事务跟踪管理</a></li>
+<li>仅使用版本集成流程（扩展功能）</li>
+<li>仅使用上线流程审批功能（扩展功能）</li>
+<li>仅使用客户端渠道管理功能（扩展功能）</li>
+</ul>
+<h2 id="2-持续交付系统框架"><a class="markdownIt-Anchor" href="#2-持续交付系统框架"></a> 2、持续交付系统框架</h2>
+<p>这个比较简单吧，其实有关这种分层的DevOps架构，应该都是大同小异，仅供参考哈😉</p>
+<p><img src="/zentao-cicd-overview/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84-new.png" alt="img"></p>
+<h2 id="3-持续交付流程"><a class="markdownIt-Anchor" href="#3-持续交付流程"></a> 3、持续交付流程</h2>
+<p>主要是基于Helm进行K8s的容器部署，整个交付流程如下：</p>
+<ul>
+<li>使用Zentao作为项目管理工具：管理基本需求、迭代、缺陷等</li>
+<li>Zentao也作为用户CICD系统平台，用户再禅道上做集成、构建、部署等操作</li>
+<li>CICD的后端集成工具：Jenkins</li>
+<li>部署至K8s集群中，部署主要的使用是Helm进行部署管理（注：当时使用的是Helm2）</li>
+</ul>
+<p>注：我们自己编写了Helm的Template模板工程，基本涵盖了很多的使用场景，这个后续我也会跟进分享给大家，尽情期待……</p>
+<p><img src="/zentao-cicd-overview/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E6%B5%81%E7%A8%8B-new.png" alt="img"></p>
+<h2 id="4-工具链选型"><a class="markdownIt-Anchor" href="#4-工具链选型"></a> 4、工具链选型</h2>
+<p>其实DevOps工具链产品有很多，大家可以根据自己的实际情况选择，我们基于Zentao打造的持续交付平台选择的是如下工具链。因为当初我们还木有打通持续测试这一环节，所以这个相对有些简陋了，但是还算清晰！</p>
+<h3 id="web端容器"><a class="markdownIt-Anchor" href="#web端容器"></a> Web端容器</h3>
+<p><img src="/zentao-cicd-overview/%E5%B7%A5%E5%85%B7%E9%93%BE%E9%80%89%E5%9E%8B-new.png" alt="img"></p>
+<h3 id="android移动端"><a class="markdownIt-Anchor" href="#android移动端"></a> Android移动端</h3>
+<p><img src="/zentao-cicd-overview/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B7%A5%E5%85%B7%E9%93%BE-new.jpg" alt="img"></p>
+]]></content>
+      <categories>
+        <category>持续交付</category>
+      </categories>
+      <tags>
+        <tag>CICD</tag>
+        <tag>Zentao</tag>
+        <tag>禅道</tag>
+        <tag>持续交付</tag>
       </tags>
   </entry>
   <entry>
@@ -1610,17 +1610,17 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <span id="more"></span>
 <p><strong>凡事都有两面性，各有优势，各位可执行选择哈</strong></p>
 <h2 id="1-现行方案梳理"><a class="markdownIt-Anchor" href="#1-现行方案梳理"></a> 1、现行方案梳理</h2>
-<p>推</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TODO 待补充</span><br></pre></td></tr></table></figure>
 <h2 id="2-自定义dockerfile方案"><a class="markdownIt-Anchor" href="#2-自定义dockerfile方案"></a> 2、自定义Dockerfile方案</h2>
 <p>建议业务代码仓库存在CI的三个 标准文件: Dockerfile、Makefile、<a href="http://build.sh">build.sh</a></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">├── Dockerfile</span><br><span class="line">├── Makefile</span><br><span class="line">├── build.sh</span><br><span class="line">├── src</span><br><span class="line">└── ...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">├── Dockerfile  // 业务代码基于此构建出响应的容器镜像</span><br><span class="line">├── Makefile    // make命令执行，多命令入口组合；可结合docker 实现编译（分平台）、打包、发布等过程阶段</span><br><span class="line">├── build.sh    // 与业务本身无关，CI执行入口，含特定CI过程，也可满足复杂CI场景需求，如：构建制品处理，前端文件Oss上传等</span><br><span class="line">├── src</span><br><span class="line">└── ...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h3 id="dockerfile"><a class="markdownIt-Anchor" href="#dockerfile"></a> Dockerfile</h3>
 <p>Dockerfile 是由一系列命令和参数构成的脚本，这些命令应用于基础镜像并最终创建一个新的镜像。它们简化了从头到尾的流程并极大的简化了部署工作。Dockerfile 从 FROM 命令开始，紧接着跟随者各种方法，命令和参数。其产出为一个新的可以用于创建容器的镜像。</p>
-<p>自定义的Dockerfile，可以支持多阶段构建，可以避免依赖构建的基础环境（比如：我们使用的Jenkins打包机）。</p>
+<p>自定义的Dockerfile，可以支持<code>多阶段构建</code>，可以避免依赖构建的基础环境（比如：我们使用的Jenkins打包机）。</p>
+<p>**备注：**在应用CI集成过程中，<code>不建议</code>在Docker镜像中构建，一是新起构建容器有一定资源开销；二是整个构建过程相关依赖缓存无法使用；三是获取对应构建产出的制品文件不方便，总体来说 <strong>效率不高</strong> 。但是在开源或者演示项目，可以采用这种方式。</p>
 <ul>
 <li>示例</li>
 </ul>
-<p>备注：在应用CI集成过程中，<code>不建议</code>在Docker镜像中构建，一是新起构建容器有一定资源开销；二是整个构建过程相关依赖缓存无法使用；三是获取对应构建产出的制品文件不方便，总体来说 <strong>效率不高</strong> 。但是在开源或者演示项目，可以采用这种方式。</p>
 <figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ===【多阶段构建】构建阶段 ===</span></span><br><span class="line"><span class="comment"># 使用go16作为基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> golang:<span class="number">1.16</span>-alpine as build</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用go module</span></span><br><span class="line"><span class="keyword">ENV</span> GO111MODULE=on \</span><br><span class="line">    GOPROXY=https://goproxy.cn,direct</span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /opt/build</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> . .</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># CGO_ENABLED禁用cgo 然后指定OS等，并go build</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -0 app  . </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ===【多阶段构建】运行阶段 ===</span></span><br><span class="line"><span class="comment"># 运行阶段指定scratch作为基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> scratch as prod</span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /opt/<span class="keyword">case</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将builder阶段publish文件夹下的所有文件复制进来</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=builder /opt/build .</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定运行时环境变量</span></span><br><span class="line"><span class="keyword">ENV</span> GIN_MODE=release \</span><br><span class="line">    PORT=<span class="number">80</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">80</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">&quot;./app&quot;</span>]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ===【多阶段构建】导出构建制品阶段 ===</span></span><br><span class="line"><span class="comment"># 运行阶段指定scratch作为基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> scratch AS export-artifacts</span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=build /opt/build .</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h3 id="makefile"><a class="markdownIt-Anchor" href="#makefile"></a> Makefile</h3>
 <p><code>make</code>命令是GNU的工程化编译工具，用于编译众多相互关联的源代码文件，以实现工程化的管理，提高开发效率，make 执行时会在当前目录下寻找 Makefile 或 makefile 文件。如果存在相应的文件，它就会依据其中定义好的规则完成构建任务。<code>Makefile</code>主要出现在<code>c/c++</code>的项目居多，用来管理<code>c/c++</code>的编译依赖。实际上 Makefile 内都是你根据 make 语法规则，自己编写的特定 Shell 命令。</p>
@@ -1630,11 +1630,11 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </ul>
 <figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">NOW = <span class="variable">$(<span class="built_in">shell</span> date -u &#x27;+%Y%m%d%I%M%S&#x27;)</span></span><br><span class="line"></span><br><span class="line">GOVET = go tool vet -composites=false -methods=false -structtags=false</span><br><span class="line">GOFMT ?= gofmt <span class="string">&quot;-s&quot;</span></span><br><span class="line">GOFILES := <span class="variable">$(<span class="built_in">shell</span> find . -name &quot;*.go&quot; -type f -not -path &quot;./vendor/*&quot;)</span></span><br><span class="line">LDFLAGS += -w</span><br><span class="line">LDFLAGS += -X <span class="string">&quot;ztdemo/pkg/version.gitBranch=$(shell git symbolic-ref --short -q HEAD)&quot;</span></span><br><span class="line">LDFLAGS += -X <span class="string">&quot;ztdemo/pkg/version.gitCommit=$(shell git rev-parse HEAD)&quot;</span></span><br><span class="line">LDFLAGS += -X <span class="string">&quot;ztdemo/pkg/version.goVersion=$(shell go version)&quot;</span></span><br><span class="line">LDFLAGS += -X <span class="string">&quot;ztdemo/pkg/version.buildTime=$(shell date &quot;</span>+%Y-%m-%d %T %Z<span class="string">&quot;)&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> GOPROXY=https://goproxy.io</span><br><span class="line"></span><br><span class="line">IMAGE_REPO_NAME = harbor.2345.cn/defalut_project/default_name</span><br><span class="line">TAG_NAME = 0.1-demo</span><br><span class="line">EXPORT_ARTIFACT = output_scm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 各子命令完全可以自己定义，并于Dockersfile组合好即可</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: build clean out docker push pushd</span></span><br><span class="line"></span><br><span class="line"><span class="section">all: clean build docker</span></span><br><span class="line"></span><br><span class="line"><span class="section">build:</span></span><br><span class="line">	CGO_ENABLED=0 GOOS=linux go build -mod vendor -ldflags &#x27;<span class="variable">$(LDFLAGS)</span>&#x27; -trimpath -o ./bin/kmw cmd/main.go</span><br><span class="line"></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	@rm -rf ./bin</span><br><span class="line">	@rm -rf ./out</span><br><span class="line">	@go clean all</span><br><span class="line"></span><br><span class="line"><span class="section">docker:</span></span><br><span class="line">	docker build -t <span class="variable">$(IMAGE_REPO_NAME)</span>:<span class="variable">$(TAG_NAME)</span> -f ./Dockerfile .</span><br><span class="line"></span><br><span class="line"><span class="section">docker-push: docker</span></span><br><span class="line">	docker push <span class="variable">$(IMAGE_REPO_NAME)</span>:<span class="variable">$(TAG_NAME)</span></span><br><span class="line">	docker rmi <span class="variable">$(IMAGE_REPO_NAME)</span>:<span class="variable">$(TAG_NAME)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果实在Docker环境构建，导出对应的构建后制品需要，制品默认导出文件目录：output_scm</span></span><br><span class="line"><span class="section">export-artifacts:</span></span><br><span class="line">	DOCKER_BUILDKIT=1  docker build --target export-artifacts --output $&#123;EXPORT_ARTIFACT&#125; .</span><br><span class="line">	</span><br><span class="line"><span class="section">help:</span></span><br><span class="line">    @echo <span class="string">&quot;make: defalut build app&quot;</span></span><br><span class="line">    @echo <span class="string">&quot;make clean: clean the build output files&quot;</span></span><br><span class="line">    @echo <span class="string">&quot;make docker: docker build with Dcokerfile&quot;</span></span><br><span class="line">    @echo <span class="string">&quot;make docker-push: docker push to remote image repo and delete local image&quot;</span>	</span><br><span class="line">    @echo <span class="string">&quot;make export-artifact: export build artifacts to host&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h3 id="buildsh"><a class="markdownIt-Anchor" href="#buildsh"></a> <a href="http://build.sh">build.sh</a></h3>
-<p>满足相对复杂的构建场景需求，作为CI（本文使用工具为：Jenkins）的执行的唯一入口。一般来说涵盖的执行过程大体和应用本身关联不大，主要是业务或者特殊场景处理情况，比如：构建制品的处理，前端文件上传阿里云Oss处理等</p>
+<p>满足相对复杂的构建场景需求，作为CI（本文使用工具为：Jenkins）的执行的唯一入口。一般来说涵盖的执行过程大体和应用本身关联不大，主要是业务或者特殊场景处理情况，比如：构建制品的处理，前端文件Oss上传等</p>
 <ul>
 <li>示例</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 基本信息</span></span><br><span class="line"><span class="comment"># 构建制品压缩包的文件名，示例：xxx.tar.gz</span></span><br><span class="line">APP_PKG_NAME=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line"><span class="comment"># 是否为容器化应用，&quot;0&quot;-非容器化项目，&quot;1&quot;-容器化项目</span></span><br><span class="line">IS_DOCKER=<span class="string">&quot;<span class="variable">$2</span>&quot;</span></span><br><span class="line"><span class="comment"># 若为容器化项目则需要：镜像 NAME+TAG，如：harbor.xxx.cn/cloud-demo/helloworld:v0.1-demo</span></span><br><span class="line">IMAGE_REPO_NAME=<span class="string">&quot;<span class="variable">$3</span>&quot;</span></span><br><span class="line">IMAGE_TAG=<span class="string">&quot;<span class="variable">$4</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 当前工作目录，也就是代码仓库的根目录</span></span><br><span class="line">BASE_DIR=$(<span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(dirname <span class="string">&quot;<span class="variable">$0</span>&quot;</span>)</span>&quot;</span>;<span class="built_in">pwd</span>)</span><br><span class="line"><span class="comment"># 制品目录，约定为：output_scm</span></span><br><span class="line">OUTPUT_DIR=<span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 若为单仓库对应多个构建应用，check可对应做需要做调整</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">check</span></span>() &#123;</span><br><span class="line">	<span class="keyword">if</span> [ -z <span class="variable">$&#123;APP_PKG_NAME&#125;</span> ]; <span class="keyword">then</span></span><br><span class="line">     	_showError <span class="string">&#x27;参数错误！请检查是否传入 APP_PKG_NAME 参数！&#x27;</span></span><br><span class="line">  	<span class="keyword">fi</span></span><br><span class="line">  	<span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$&#123;IS_DOCKER&#125;</span>&quot;</span> -eq <span class="string">&quot;1&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">  		<span class="keyword">if</span> [[ -z <span class="variable">$&#123;IMAGE_REPO_NAME&#125;</span> || -z <span class="variable">$&#123;IMAGE_TAG&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">     		_showError <span class="string">&#x27;参数错误！容器化应用需传入 IMAGE_REPO_NAME 和 IMAGE_TAG 参数！&#x27;</span></span><br><span class="line">  		<span class="keyword">fi</span></span><br><span class="line">  	<span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">build</span></span>() &#123;</span><br><span class="line">	<span class="comment"># 应用构建，借助Makile，原有构建过程放置Makefile（如果需要进行单步构建步骤，基于Docker容器内构建则不需要）</span></span><br><span class="line">	<span class="comment"># make build</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 容器化应用镜像构建并Push</span></span><br><span class="line">	<span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$&#123;IS_DOCKER&#125;</span>&quot;</span> -eq <span class="string">&quot;1&quot;</span> ]; <span class="keyword">then</span> </span><br><span class="line">		make docker-push <span class="string">&quot;IMAGE_REPO_NAME=<span class="variable">$&#123;IMAGE_REPO_NAME&#125;</span> TAG_NAME=<span class="variable">$&#123;TAG_NAME&#125;</span>&quot;</span></span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 判断构建结果</span></span><br><span class="line">    <span class="keyword">if</span> [ $? != 0 ]; <span class="keyword">then</span></span><br><span class="line">    	_showError <span class="string">&#x27;构建错误！请检查控制台日志！&#x27;</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Cloud平台管理的构建制品，对于传统部署应用，为必须项</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">package</span></span>() &#123;</span><br><span class="line">	<span class="comment"># 1、清空制品目录</span></span><br><span class="line">	[ -d <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm&quot;</span> ] &amp;&amp; rm -rf <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm&quot;</span></span><br><span class="line">    mkdir -p <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm/<span class="variable">$&#123;APP_PKG_NAME&#125;</span>&quot;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 2、非基于Docker容器内构建，则参考原有方式即可</span></span><br><span class="line">	<span class="comment"># ...</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 2、基于Dockerfile容器构建</span></span><br><span class="line">	<span class="comment"># a、获取构建制品，默认文件导出为 OUTPUT_DIR=$&#123;BASE_DIR&#125;/output_scm</span></span><br><span class="line">	make export-artifact <span class="string">&quot;XPORT_ARTIFACT=output_scm/<span class="variable">$&#123;APP_PKG_NAME&#125;</span>&quot;</span></span><br><span class="line">	<span class="comment"># b、可选，其他配置或静态资源的copy</span></span><br><span class="line">	<span class="comment"># cp -r &quot;$&#123;BASE_DIR&#125;/statics&quot; &quot;$&#123;BASE_DIR&#125;/output_scm/$&#123;APP_PKG_NAME&#125;&quot;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 3、生成制品tar.gz文件</span></span><br><span class="line">    <span class="built_in">cd</span> <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm&quot;</span></span><br><span class="line">    tar -zcf <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm/<span class="variable">$&#123;APP_PKG_NAME&#125;</span>.tar.gz&quot;</span> <span class="string">&quot;<span class="variable">$&#123;APP_PKG_NAME&#125;</span>&quot;</span></span><br><span class="line">    md5sum <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm/<span class="variable">$&#123;APP_PKG_NAME&#125;</span>.tar.gz&quot;</span> &gt; <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm/<span class="variable">$&#123;APP_PKG_NAME&#125;</span>.tar.gz.md5&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">_showError</span></span>() &#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&#x27;################################################&#x27;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot; <span class="variable">$1</span> &quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&#x27;################################################&#x27;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="built_in">exit</span> 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">check</span><br><span class="line">build</span><br><span class="line">package</span><br><span class="line"><span class="comment"># 前端应用选项，具体可参考历史前端项目</span></span><br><span class="line"><span class="comment"># uploadToOSS</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 基本信息</span></span><br><span class="line"><span class="comment"># 构建制品压缩包的文件名，示例：xxx.tar.gz</span></span><br><span class="line">APP_PKG_NAME=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line"><span class="comment"># 是否为容器化应用，&quot;0&quot;-非容器化项目，&quot;1&quot;-容器化项目</span></span><br><span class="line">IS_DOCKER=<span class="string">&quot;<span class="variable">$2</span>&quot;</span></span><br><span class="line"><span class="comment"># 若为容器化项目则需要：镜像 NAME+TAG，如：harbor.xxx.cn/cloud-demo/helloworld:v0.1-demo</span></span><br><span class="line">IMAGE_REPO_NAME=<span class="string">&quot;<span class="variable">$3</span>&quot;</span></span><br><span class="line">IMAGE_TAG=<span class="string">&quot;<span class="variable">$4</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 当前工作目录，也就是代码仓库的根目录</span></span><br><span class="line">BASE_DIR=$(<span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(dirname <span class="string">&quot;<span class="variable">$0</span>&quot;</span>)</span>&quot;</span>;<span class="built_in">pwd</span>)</span><br><span class="line"><span class="comment"># 制品目录，约定为：output_scm</span></span><br><span class="line">OUTPUT_DIR=<span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 若为单仓库对应多个构建应用，check可对应做需要做调整</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">check</span></span>() &#123;</span><br><span class="line">	<span class="keyword">if</span> [ -z <span class="variable">$&#123;APP_PKG_NAME&#125;</span> ]; <span class="keyword">then</span></span><br><span class="line">     	_showError <span class="string">&#x27;参数错误！请检查是否传入 APP_PKG_NAME 参数！&#x27;</span></span><br><span class="line">  	<span class="keyword">fi</span></span><br><span class="line">  	<span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$&#123;IS_DOCKER&#125;</span>&quot;</span> -eq <span class="string">&quot;1&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">  		<span class="keyword">if</span> [[ -z <span class="variable">$&#123;IMAGE_REPO_NAME&#125;</span> || -z <span class="variable">$&#123;IMAGE_TAG&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">     		_showError <span class="string">&#x27;参数错误！容器化应用需传入 IMAGE_REPO_NAME 和 IMAGE_TAG 参数！&#x27;</span></span><br><span class="line">  		<span class="keyword">fi</span></span><br><span class="line">  	<span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">build</span></span>() &#123;</span><br><span class="line">	<span class="comment"># 应用构建，借助Makile，原有构建过程放置Makefile（如果需要进行单步构建步骤，基于Docker容器内构建则不需要）</span></span><br><span class="line">	<span class="comment"># make build</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 容器化应用镜像构建并Push</span></span><br><span class="line">	<span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$&#123;IS_DOCKER&#125;</span>&quot;</span> -eq <span class="string">&quot;1&quot;</span> ]; <span class="keyword">then</span> </span><br><span class="line">		make docker-push <span class="string">&quot;IMAGE_REPO_NAME=<span class="variable">$&#123;IMAGE_REPO_NAME&#125;</span> TAG_NAME=<span class="variable">$&#123;TAG_NAME&#125;</span>&quot;</span></span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 判断构建结果</span></span><br><span class="line">    <span class="keyword">if</span> [ $? != 0 ]; <span class="keyword">then</span></span><br><span class="line">    	_showError <span class="string">&#x27;构建错误！请检查控制台日志！&#x27;</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Cloud平台管理的构建制品：xxx.tar.gz（传统/混合部署为必须项，容器化部署为非必须项，因为本身image即为制品）</span></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">package</span></span>() &#123;</span><br><span class="line">	<span class="comment"># 1、清空制品目录</span></span><br><span class="line">	[ -d <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm&quot;</span> ] &amp;&amp; rm -rf <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm&quot;</span></span><br><span class="line">    mkdir -p <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm/<span class="variable">$&#123;APP_PKG_NAME&#125;</span>&quot;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 2、非基于Docker容器内构建，则参考原有方式即可</span></span><br><span class="line">	<span class="comment"># ...</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 2、基于Dockerfile容器构建</span></span><br><span class="line">	<span class="comment"># a、获取构建制品，默认文件导出为 OUTPUT_DIR=$&#123;BASE_DIR&#125;/output_scm</span></span><br><span class="line">	make export-artifact <span class="string">&quot;XPORT_ARTIFACT=output_scm/<span class="variable">$&#123;APP_PKG_NAME&#125;</span>&quot;</span></span><br><span class="line">	<span class="comment"># b、可选，其他配置或静态资源的copy</span></span><br><span class="line">	<span class="comment"># cp -r &quot;$&#123;BASE_DIR&#125;/statics&quot; &quot;$&#123;BASE_DIR&#125;/output_scm/$&#123;APP_PKG_NAME&#125;&quot;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 3、生成制品tar.gz文件</span></span><br><span class="line">    <span class="built_in">cd</span> <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm&quot;</span></span><br><span class="line">    tar -zcf <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm/<span class="variable">$&#123;APP_PKG_NAME&#125;</span>.tar.gz&quot;</span> <span class="string">&quot;<span class="variable">$&#123;APP_PKG_NAME&#125;</span>&quot;</span></span><br><span class="line">    md5sum <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm/<span class="variable">$&#123;APP_PKG_NAME&#125;</span>.tar.gz&quot;</span> &gt; <span class="string">&quot;<span class="variable">$&#123;BASE_DIR&#125;</span>/output_scm/<span class="variable">$&#123;APP_PKG_NAME&#125;</span>.tar.gz.md5&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">_showError</span></span>() &#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&#x27;################################################&#x27;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot; <span class="variable">$1</span> &quot;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&#x27;################################################&#x27;</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="built_in">exit</span> 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">check</span><br><span class="line">build</span><br><span class="line">package</span><br><span class="line"><span class="comment"># 前端应用选项，具体可参考历史前端项目</span></span><br><span class="line"><span class="comment"># uploadToOSS</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Devops</category>
@@ -1643,111 +1643,6 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
       <tags>
         <tag>DevOps</tag>
         <tag>ci</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HPA-Pod水平自动扩缩</title>
-    <url>/k8s-hpa/</url>
-    <content><![CDATA[<p>关于kubernetes的Hpa的配置调研实验。</p>
-<span id="more"></span>
-<h2 id="1-hpa简介"><a class="markdownIt-Anchor" href="#1-hpa简介"></a> 1、HPA简介</h2>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>DevOps</tag>
-        <tag>kubernetes</tag>
-        <tag>k8s</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Kubeadm安装K8s集群</title>
-    <url>/k8s-kubeadm-isntall-cluster/</url>
-    <content><![CDATA[<p>关于kubernetes的动态准入的配置调研实验。</p>
-<span id="more"></span>
-<h2 id="1-环境说明"><a class="markdownIt-Anchor" href="#1-环境说明"></a> 1、环境说明</h2>
-<p>1、一台ubuntu20.04 （master）</p>
-<p>2、一台centos7.8  （node）</p>
-<p>部署：</p>
-<p><a href="https://github.com/cncamp/101/tree/master/k8s-by-kubeadm">https://github.com/cncamp/101/tree/master/k8s-by-kubeadm</a></p>
-<h3 id="问题"><a class="markdownIt-Anchor" href="#问题"></a> 问题</h3>
-<p>1、Failed create pod sandbox: open /run/systemd/resolve/resolv.conf: no such file or directory：<a href="https://github.com/ivanfioravanti/kubernetes-the-hard-way-on-azure/issues/30">https://github.com/ivanfioravanti/kubernetes-the-hard-way-on-azure/issues/30</a></p>
-<ul>
-<li>
-<p>describe  nodes</p>
-</li>
-<li>
-<p>node 节点 kubelet日志 ，<code>sudo systemctl status kubelet</code>  <code>sudo journalctl -xefu kubelet</code></p>
-</li>
-<li>
-<p>检查pod信息 kubectl get pod --all-namespaces，查看问题pod，定位是calico网络，describe pod （Failed create pod sandbox: open /run/systemd/resolve/resolv.conf: no such file or directory）</p>
-<p>网络检索，说是从master进行copy一份即可，感觉似乎不妥，</p>
-</li>
-<li>
-<p>找到本机的resolv.conf文件，<code>sudo find /run -name &quot;resolv.conf&quot;</code> ，软链操作：<code>sudo ln -s /run/NetworkManager/resolv.conf /run/systemd/resolve/resolv.conf</code>，resolv.conf到底是什么？？？</p>
-</li>
-</ul>
-<p>2、Error from server (InternalError): error when creating “nginx-demo.yaml”: Internal error occurred: failed calling webhook “<a href="http://validate.nginx.ingress.kubernetes.io">validate.nginx.ingress.kubernetes.io</a>”: Post “<a href="https://ingress-nginx-controller-admission.ingress-nginx.svc:443/networking/v1/ingresses?timeout=10s">https://ingress-nginx-controller-admission.ingress-nginx.svc:443/networking/v1/ingresses?timeout=10s</a>”: context deadline exceeded</p>
-<ul>
-<li><a href="https://stackoverflow.com/questions/61616203/nginx-ingress-controller-failed-calling-webhook">https://stackoverflow.com/questions/61616203/nginx-ingress-controller-failed-calling-webhook</a></li>
-</ul>
-<h3 id="安装ingress-controller使用externalips暴露"><a class="markdownIt-Anchor" href="#安装ingress-controller使用externalips暴露"></a> 安装ingress controller，使用externalIPs暴露</h3>
-<ul>
-<li><a href="https://www.cnsre.cn/posts/210602036084/">https://www.cnsre.cn/posts/210602036084/</a></li>
-</ul>
-<h2 id="install-calico-cni-plugin"><a class="markdownIt-Anchor" href="#install-calico-cni-plugin"></a> install calico cni plugin</h2>
-<p><a href="https://docs.projectcalico.org/getting-started/kubernetes/quickstart">https://docs.projectcalico.org/getting-started/kubernetes/quickstart</a></p>
-<p><code>坑：只用于单节点集群</code></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml</span><br><span class="line">$ kubectl create -f https://docs.projectcalico.org/manifests/custom-resources.yaml</span><br></pre></td></tr></table></figure>
-<h4 id="ip_autodetection_method-value-interfaceeth1-根据实际网卡名称配置"><a class="markdownIt-Anchor" href="#ip_autodetection_method-value-interfaceeth1-根据实际网卡名称配置"></a> IP_AUTODETECTION_METHOD   value: “interface=eth1”  # 根据实际网卡名称配置</h4>
-<p>官网安装：<a href="https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises#determine-your-datastore">https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises#determine-your-datastore</a></p>
-<blockquote>
-<p>calico/node is not ready: BIRD is not ready: BGP not established with xxxx</p>
-</blockquote>
-<p>配置：<a href="https://www.jianshu.com/p/46e4261a63b4">https://www.jianshu.com/p/46e4261a63b4</a></p>
-<p><a href="https://www.cnblogs.com/houchaoying/p/14652573.html">https://www.cnblogs.com/houchaoying/p/14652573.html</a></p>
-<pre><code>        - name: IP_AUTODETECTION_METHOD
-          value: &quot;interface=en.*&quot;   # en.*正则表示匹配到em开头的所有网卡    
-</code></pre>
-<p>集群内部域名为什么ping不通，可以通过curl访问？？？</p>
-<ul>
-<li><a href="https://segmentfault.com/a/1190000039349716">https://segmentfault.com/a/1190000039349716</a></li>
-<li><a href="https://hansedong.github.io/2018/11/20/9/">https://hansedong.github.io/2018/11/20/9/</a></li>
-<li><a href="https://www.yoyoask.com/?p=4742">https://www.yoyoask.com/?p=4742</a></li>
-</ul>
-<h3 id="容器时区"><a class="markdownIt-Anchor" href="#容器时区"></a> 容器时区？</h3>
-<ul>
-<li>业务镜像通过定制Dockerfile添加时区：  <a href="https://i4t.com/4703.html">https://i4t.com/4703.html</a></li>
-</ul>
-<p>master IP变更后：</p>
-<p>是否可以使用域名？？？</p>
-<p><a href="https://www.jianshu.com/p/62813e9dbb7f">https://www.jianshu.com/p/62813e9dbb7f</a></p>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>DevOps</tag>
-        <tag>kubernetes</tag>
-        <tag>k8s</tag>
-        <tag>kubeadm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>K8s动态准入控制</title>
-    <url>/k8s-dynamic-admission/</url>
-    <content><![CDATA[<p>关于kubernetes的动态准入的配置调研实验。</p>
-<span id="more"></span>
-<h2 id="1-动态准入简介"><a class="markdownIt-Anchor" href="#1-动态准入简介"></a> 1、动态准入简介</h2>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>DevOps</tag>
-        <tag>kubernetes</tag>
-        <tag>k8s</tag>
       </tags>
   </entry>
   <entry>
@@ -1854,6 +1749,111 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
         <tag>DevOps</tag>
         <tag>git</tag>
         <tag>代码分支策略</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HPA-Pod水平自动扩缩</title>
+    <url>/k8s-hpa/</url>
+    <content><![CDATA[<p>关于kubernetes的Hpa的配置调研实验。</p>
+<span id="more"></span>
+<h2 id="1-hpa简介"><a class="markdownIt-Anchor" href="#1-hpa简介"></a> 1、HPA简介</h2>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>DevOps</tag>
+        <tag>kubernetes</tag>
+        <tag>k8s</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>K8s动态准入控制</title>
+    <url>/k8s-dynamic-admission/</url>
+    <content><![CDATA[<p>关于kubernetes的动态准入的配置调研实验。</p>
+<span id="more"></span>
+<h2 id="1-动态准入简介"><a class="markdownIt-Anchor" href="#1-动态准入简介"></a> 1、动态准入简介</h2>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>DevOps</tag>
+        <tag>kubernetes</tag>
+        <tag>k8s</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubeadm安装K8s集群</title>
+    <url>/k8s-kubeadm-isntall-cluster/</url>
+    <content><![CDATA[<p>关于kubernetes的动态准入的配置调研实验。</p>
+<span id="more"></span>
+<h2 id="1-环境说明"><a class="markdownIt-Anchor" href="#1-环境说明"></a> 1、环境说明</h2>
+<p>1、一台ubuntu20.04 （master）</p>
+<p>2、一台centos7.8  （node）</p>
+<p>部署：</p>
+<p><a href="https://github.com/cncamp/101/tree/master/k8s-by-kubeadm">https://github.com/cncamp/101/tree/master/k8s-by-kubeadm</a></p>
+<h3 id="问题"><a class="markdownIt-Anchor" href="#问题"></a> 问题</h3>
+<p>1、Failed create pod sandbox: open /run/systemd/resolve/resolv.conf: no such file or directory：<a href="https://github.com/ivanfioravanti/kubernetes-the-hard-way-on-azure/issues/30">https://github.com/ivanfioravanti/kubernetes-the-hard-way-on-azure/issues/30</a></p>
+<ul>
+<li>
+<p>describe  nodes</p>
+</li>
+<li>
+<p>node 节点 kubelet日志 ，<code>sudo systemctl status kubelet</code>  <code>sudo journalctl -xefu kubelet</code></p>
+</li>
+<li>
+<p>检查pod信息 kubectl get pod --all-namespaces，查看问题pod，定位是calico网络，describe pod （Failed create pod sandbox: open /run/systemd/resolve/resolv.conf: no such file or directory）</p>
+<p>网络检索，说是从master进行copy一份即可，感觉似乎不妥，</p>
+</li>
+<li>
+<p>找到本机的resolv.conf文件，<code>sudo find /run -name &quot;resolv.conf&quot;</code> ，软链操作：<code>sudo ln -s /run/NetworkManager/resolv.conf /run/systemd/resolve/resolv.conf</code>，resolv.conf到底是什么？？？</p>
+</li>
+</ul>
+<p>2、Error from server (InternalError): error when creating “nginx-demo.yaml”: Internal error occurred: failed calling webhook “<a href="http://validate.nginx.ingress.kubernetes.io">validate.nginx.ingress.kubernetes.io</a>”: Post “<a href="https://ingress-nginx-controller-admission.ingress-nginx.svc:443/networking/v1/ingresses?timeout=10s">https://ingress-nginx-controller-admission.ingress-nginx.svc:443/networking/v1/ingresses?timeout=10s</a>”: context deadline exceeded</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/61616203/nginx-ingress-controller-failed-calling-webhook">https://stackoverflow.com/questions/61616203/nginx-ingress-controller-failed-calling-webhook</a></li>
+</ul>
+<h3 id="安装ingress-controller使用externalips暴露"><a class="markdownIt-Anchor" href="#安装ingress-controller使用externalips暴露"></a> 安装ingress controller，使用externalIPs暴露</h3>
+<ul>
+<li><a href="https://www.cnsre.cn/posts/210602036084/">https://www.cnsre.cn/posts/210602036084/</a></li>
+</ul>
+<h2 id="install-calico-cni-plugin"><a class="markdownIt-Anchor" href="#install-calico-cni-plugin"></a> install calico cni plugin</h2>
+<p><a href="https://docs.projectcalico.org/getting-started/kubernetes/quickstart">https://docs.projectcalico.org/getting-started/kubernetes/quickstart</a></p>
+<p><code>坑：只用于单节点集群</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml</span><br><span class="line">$ kubectl create -f https://docs.projectcalico.org/manifests/custom-resources.yaml</span><br></pre></td></tr></table></figure>
+<h4 id="ip_autodetection_method-value-interfaceeth1-根据实际网卡名称配置"><a class="markdownIt-Anchor" href="#ip_autodetection_method-value-interfaceeth1-根据实际网卡名称配置"></a> IP_AUTODETECTION_METHOD   value: “interface=eth1”  # 根据实际网卡名称配置</h4>
+<p>官网安装：<a href="https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises#determine-your-datastore">https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises#determine-your-datastore</a></p>
+<blockquote>
+<p>calico/node is not ready: BIRD is not ready: BGP not established with xxxx</p>
+</blockquote>
+<p>配置：<a href="https://www.jianshu.com/p/46e4261a63b4">https://www.jianshu.com/p/46e4261a63b4</a></p>
+<p><a href="https://www.cnblogs.com/houchaoying/p/14652573.html">https://www.cnblogs.com/houchaoying/p/14652573.html</a></p>
+<pre><code>        - name: IP_AUTODETECTION_METHOD
+          value: &quot;interface=en.*&quot;   # en.*正则表示匹配到em开头的所有网卡    
+</code></pre>
+<p>集群内部域名为什么ping不通，可以通过curl访问？？？</p>
+<ul>
+<li><a href="https://segmentfault.com/a/1190000039349716">https://segmentfault.com/a/1190000039349716</a></li>
+<li><a href="https://hansedong.github.io/2018/11/20/9/">https://hansedong.github.io/2018/11/20/9/</a></li>
+<li><a href="https://www.yoyoask.com/?p=4742">https://www.yoyoask.com/?p=4742</a></li>
+</ul>
+<h3 id="容器时区"><a class="markdownIt-Anchor" href="#容器时区"></a> 容器时区？</h3>
+<ul>
+<li>业务镜像通过定制Dockerfile添加时区：  <a href="https://i4t.com/4703.html">https://i4t.com/4703.html</a></li>
+</ul>
+<p>master IP变更后：</p>
+<p>是否可以使用域名？？？</p>
+<p><a href="https://www.jianshu.com/p/62813e9dbb7f">https://www.jianshu.com/p/62813e9dbb7f</a></p>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>DevOps</tag>
+        <tag>kubernetes</tag>
+        <tag>k8s</tag>
+        <tag>kubeadm</tag>
       </tags>
   </entry>
   <entry>
