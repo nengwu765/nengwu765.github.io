@@ -274,7 +274,7 @@
       
         <p>基于禅道设计的研发流水线，实际就是分为了两条流水线：CI和CD，CI流程就是产出最终可交付至线上的版本制品，CD流程就是将CI产出的制品最终交付至线上。在流水线执行过程中，约定了各个版本环境，如：Dev环境、IT环境、ST环境、UAT环境、PVT环境、GVT灰度验证环境、MVT量产环境等。</p>
 <span id="more"></span>
-<h2 id="1-%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1">1 流水线设计</h2>
+<h2 id="1-流水线设计"><a class="markdownIt-Anchor" href="#1-流水线设计"></a> 1 流水线设计</h2>
 <p>按照devops理念，整个开发及发布流程被设计为两条流程：持续集成和持续发布。</p>
 <p>在这里持续（continuous）的概念，包含的意义是：<br>
 1、流程可以反复执行；<br>
@@ -293,13 +293,13 @@
 </ul>
 <p>我们设计的CI和CD流水线的概图如下：<br>
 <img src="/zentao-rd-pipeline/CICD%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
-<h2 id="2-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%B5%81%E6%B0%B4%E7%BA%BF%EF%BC%88ci%2C-continuous-integration%EF%BC%89">2 持续集成流水线（CI, Continuous Integration）</h2>
+<h2 id="2-持续集成流水线ci-continuous-integration"><a class="markdownIt-Anchor" href="#2-持续集成流水线ci-continuous-integration"></a> 2 持续集成流水线（CI, Continuous Integration）</h2>
 <p>下面是一个一般的CI的流程模型：<br>
 <img src="/zentao-rd-pipeline/CI%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
-<h2 id="3-%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E6%B5%81%E6%B0%B4%E7%BA%BF%EF%BC%88cd%EF%BC%8Ccontinous-delivery%EF%BC%89">3 持续发布流水线（CD，Continous Delivery）</h2>
+<h2 id="3-持续发布流水线cdcontinous-delivery"><a class="markdownIt-Anchor" href="#3-持续发布流水线cdcontinous-delivery"></a> 3 持续发布流水线（CD，Continous Delivery）</h2>
 <p>下面是一个一般的CD的流程模型：<br>
 <img src="/zentao-rd-pipeline/CD%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
-<h2 id="4%E3%80%81%E7%89%88%E6%9C%AC%E5%92%8C%E7%8E%AF%E5%A2%83%E6%B5%81%E7%A8%8B%E5%9B%BE">4、版本和环境流程图</h2>
+<h2 id="4-版本和环境流程图"><a class="markdownIt-Anchor" href="#4-版本和环境流程图"></a> 4、版本和环境流程图</h2>
 <p>在逻辑意义上来说，我们目前做了如下定义：</p>
 <ul>
 <li>环境是一个逻辑概念，在物理上的实现，它就是从物理集群内启动并运行起来的一个docker容器；</li>
@@ -314,7 +314,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="5%E3%80%81%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E5%9F%9F%E5%90%8D%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88">5、测试环境域名管理方案</h2>
+<h2 id="5-测试环境域名管理方案"><a class="markdownIt-Anchor" href="#5-测试环境域名管理方案"></a> 5、测试环境域名管理方案</h2>
 <p>目前测试环境的访问方式主要有两种，这两种方式可以同时使用：</p>
 <ul>
 <li>
@@ -416,7 +416,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">1 流水线设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%B5%81%E6%B0%B4%E7%BA%BF%EF%BC%88ci,-continuous-integration%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">2 持续集成流水线（CI, Continuous Integration）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E6%B5%81%E6%B0%B4%E7%BA%BF%EF%BC%88cd%EF%BC%8Ccontinous-delivery%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">3 持续发布流水线（CD，Continous Delivery）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E7%89%88%E6%9C%AC%E5%92%8C%E7%8E%AF%E5%A2%83%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-number">4.</span> <span class="nav-text">4、版本和环境流程图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E5%9F%9F%E5%90%8D%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88"><span class="nav-number">5.</span> <span class="nav-text">5、测试环境域名管理方案</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text"> 1 流水线设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%B5%81%E6%B0%B4%E7%BA%BFci-continuous-integration"><span class="nav-number">2.</span> <span class="nav-text"> 2 持续集成流水线（CI, Continuous Integration）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E6%B5%81%E6%B0%B4%E7%BA%BFcdcontinous-delivery"><span class="nav-number">3.</span> <span class="nav-text"> 3 持续发布流水线（CD，Continous Delivery）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E7%89%88%E6%9C%AC%E5%92%8C%E7%8E%AF%E5%A2%83%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-number">4.</span> <span class="nav-text"> 4、版本和环境流程图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E5%9F%9F%E5%90%8D%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88"><span class="nav-number">5.</span> <span class="nav-text"> 5、测试环境域名管理方案</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -488,7 +488,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:04</span>
+    <span title="站点阅读时长">1:05</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

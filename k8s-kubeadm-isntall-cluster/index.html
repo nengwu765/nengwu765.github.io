@@ -269,41 +269,41 @@
       
         <p>关于kubernetes的动态准入的配置调研实验。</p>
 <span id="more"></span>
-<h2 id="1%E3%80%81%E7%8E%AF%E5%A2%83%E8%AF%B4%E6%98%8E">1、环境说明</h2>
+<h2 id="1-环境说明"><a class="markdownIt-Anchor" href="#1-环境说明"></a> 1、环境说明</h2>
 <p>1、一台ubuntu20.04 （master）</p>
 <p>2、一台centos7.8  （node）</p>
 <p>部署：</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/cncamp/101/tree/master/k8s-by-kubeadm">https://github.com/cncamp/101/tree/master/k8s-by-kubeadm</a></p>
-<h3 id="%E9%97%AE%E9%A2%98">问题</h3>
+<h3 id="问题"><a class="markdownIt-Anchor" href="#问题"></a> 问题</h3>
 <p>1、Failed create pod sandbox: open /run/systemd/resolve/resolv.conf: no such file or directory：<a target="_blank" rel="noopener" href="https://github.com/ivanfioravanti/kubernetes-the-hard-way-on-azure/issues/30">https://github.com/ivanfioravanti/kubernetes-the-hard-way-on-azure/issues/30</a></p>
 <ul>
 <li>
 <p>describe  nodes</p>
 </li>
 <li>
-<p>node 节点 kubelet日志 ，<code>sudo systemctl status kubelet </code>  <code>sudo journalctl -xefu kubelet</code></p>
+<p>node 节点 kubelet日志 ，<code>sudo systemctl status kubelet</code>  <code>sudo journalctl -xefu kubelet</code></p>
 </li>
 <li>
 <p>检查pod信息 kubectl get pod --all-namespaces，查看问题pod，定位是calico网络，describe pod （Failed create pod sandbox: open /run/systemd/resolve/resolv.conf: no such file or directory）</p>
 <p>网络检索，说是从master进行copy一份即可，感觉似乎不妥，</p>
 </li>
 <li>
-<p>找到本机的resolv.conf文件，<code>sudo find /run -name &quot;resolv.conf&quot;</code> ，软链操作：<code>sudo ln -s /run/NetworkManager/resolv.conf  /run/systemd/resolve/resolv.conf </code>，resolv.conf到底是什么？？？</p>
+<p>找到本机的resolv.conf文件，<code>sudo find /run -name &quot;resolv.conf&quot;</code> ，软链操作：<code>sudo ln -s /run/NetworkManager/resolv.conf /run/systemd/resolve/resolv.conf</code>，resolv.conf到底是什么？？？</p>
 </li>
 </ul>
-<p>2、Error from server (InternalError): error when creating &quot;nginx-demo.yaml&quot;: Internal error occurred: failed calling webhook &quot;<a target="_blank" rel="noopener" href="http://validate.nginx.ingress.kubernetes.io">validate.nginx.ingress.kubernetes.io</a>&quot;: Post &quot;<a target="_blank" rel="noopener" href="https://ingress-nginx-controller-admission.ingress-nginx.svc:443/networking/v1/ingresses?timeout=10s">https://ingress-nginx-controller-admission.ingress-nginx.svc:443/networking/v1/ingresses?timeout=10s</a>&quot;: context deadline exceeded</p>
+<p>2、Error from server (InternalError): error when creating “nginx-demo.yaml”: Internal error occurred: failed calling webhook “<a target="_blank" rel="noopener" href="http://validate.nginx.ingress.kubernetes.io">validate.nginx.ingress.kubernetes.io</a>”: Post “<a target="_blank" rel="noopener" href="https://ingress-nginx-controller-admission.ingress-nginx.svc:443/networking/v1/ingresses?timeout=10s">https://ingress-nginx-controller-admission.ingress-nginx.svc:443/networking/v1/ingresses?timeout=10s</a>”: context deadline exceeded</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/61616203/nginx-ingress-controller-failed-calling-webhook">https://stackoverflow.com/questions/61616203/nginx-ingress-controller-failed-calling-webhook</a></li>
 </ul>
-<h3 id="%E5%AE%89%E8%A3%85ingress-controller%EF%BC%8C%E4%BD%BF%E7%94%A8externalips%E6%9A%B4%E9%9C%B2">安装ingress controller，使用externalIPs暴露</h3>
+<h3 id="安装ingress-controller使用externalips暴露"><a class="markdownIt-Anchor" href="#安装ingress-controller使用externalips暴露"></a> 安装ingress controller，使用externalIPs暴露</h3>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.cnsre.cn/posts/210602036084/">https://www.cnsre.cn/posts/210602036084/</a></li>
 </ul>
-<h2 id="install-calico-cni-plugin">install calico cni plugin</h2>
+<h2 id="install-calico-cni-plugin"><a class="markdownIt-Anchor" href="#install-calico-cni-plugin"></a> install calico cni plugin</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.projectcalico.org/getting-started/kubernetes/quickstart">https://docs.projectcalico.org/getting-started/kubernetes/quickstart</a></p>
 <p><code>坑：只用于单节点集群</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml</span><br><span class="line">$ kubectl create -f https://docs.projectcalico.org/manifests/custom-resources.yaml</span><br></pre></td></tr></table></figure>
-<h4 id="ip_autodetection_method-value%3A-%22interface%3Deth1%22-%23-%E6%A0%B9%E6%8D%AE%E5%AE%9E%E9%99%85%E7%BD%91%E5%8D%A1%E5%90%8D%E7%A7%B0%E9%85%8D%E7%BD%AE">IP_AUTODETECTION_METHOD   value: &quot;interface=eth1&quot;  # 根据实际网卡名称配置</h4>
+<h4 id="ip_autodetection_method-value-interfaceeth1-根据实际网卡名称配置"><a class="markdownIt-Anchor" href="#ip_autodetection_method-value-interfaceeth1-根据实际网卡名称配置"></a> IP_AUTODETECTION_METHOD   value: “interface=eth1”  # 根据实际网卡名称配置</h4>
 <p>官网安装：<a target="_blank" rel="noopener" href="https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises#determine-your-datastore">https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises#determine-your-datastore</a></p>
 <blockquote>
 <p>calico/node is not ready: BIRD is not ready: BGP not established with xxxx</p>
@@ -319,7 +319,7 @@
 <li><a target="_blank" rel="noopener" href="https://hansedong.github.io/2018/11/20/9/">https://hansedong.github.io/2018/11/20/9/</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.yoyoask.com/?p=4742">https://www.yoyoask.com/?p=4742</a></li>
 </ul>
-<h3 id="%E5%AE%B9%E5%99%A8%E6%97%B6%E5%8C%BA%EF%BC%9F">容器时区？</h3>
+<h3 id="容器时区"><a class="markdownIt-Anchor" href="#容器时区"></a> 容器时区？</h3>
 <ul>
 <li>业务镜像通过定制Dockerfile添加时区：  <a target="_blank" rel="noopener" href="https://i4t.com/4703.html">https://i4t.com/4703.html</a></li>
 </ul>
@@ -414,7 +414,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E7%8E%AF%E5%A2%83%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">1、环境说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85ingress-controller%EF%BC%8C%E4%BD%BF%E7%94%A8externalips%E6%9A%B4%E9%9C%B2"><span class="nav-number">1.2.</span> <span class="nav-text">安装ingress controller，使用externalIPs暴露</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#install-calico-cni-plugin"><span class="nav-number">2.</span> <span class="nav-text">install calico cni plugin</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E6%97%B6%E5%8C%BA%EF%BC%9F"><span class="nav-number">2.1.</span> <span class="nav-text">容器时区？</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%8E%AF%E5%A2%83%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text"> 1、环境说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text"> 问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85ingress-controller%E4%BD%BF%E7%94%A8externalips%E6%9A%B4%E9%9C%B2"><span class="nav-number">1.2.</span> <span class="nav-text"> 安装ingress controller，使用externalIPs暴露</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#install-calico-cni-plugin"><span class="nav-number">2.</span> <span class="nav-text"> install calico cni plugin</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E6%97%B6%E5%8C%BA"><span class="nav-number">2.1.</span> <span class="nav-text"> 容器时区？</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -486,7 +486,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:04</span>
+    <span title="站点阅读时长">1:05</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
