@@ -277,37 +277,37 @@
       
         <p>之前有一个系列文章<a href="/zentao-cicd-overview/" title="《禅道之持续交付系列》">《禅道之持续交付系列》</a>，其中总结了相关的失败经验 <a href="/zentao-failure-summary/" title="禅道持续交付(七)-失败总结">禅道持续交付(七)-失败总结</a>，其中却反相关运维基础标准化建设的重要环节，现来到运维部门，成为了一名运维开发工程师，并有幸负责了相关DevOps相关的建设规划。下面我们来一起聊一聊吧。</p>
 <span id="more"></span>
-<h2 id="1-devops的全景框架"><a class="markdownIt-Anchor" href="#1-devops的全景框架"></a> 1、DevOps的全景框架</h2>
+<h2 id="1%E3%80%81devops%E7%9A%84%E5%85%A8%E6%99%AF%E6%A1%86%E6%9E%B6">1、DevOps的全景框架</h2>
 <p>从运维角度出发，会更加偏重底层的基础建设部分，参考图中，我们可以理解为我们此步阶段是更加注重：<strong>Iaas、Paas、和CMDB的建设</strong>。</p>
 <p><img src="/devops-panoramic-planning-ops/Devops%E5%85%A8%E6%99%AF%E6%A1%86%E6%9E%B6-new.jpg" alt></p>
-<h2 id="2-devops的建设思路"><a class="markdownIt-Anchor" href="#2-devops的建设思路"></a> 2、DevOps的建设思路</h2>
-<h3 id="iaas"><a class="markdownIt-Anchor" href="#iaas"></a> IaaS</h3>
+<h2 id="2%E3%80%81devops%E7%9A%84%E5%BB%BA%E8%AE%BE%E6%80%9D%E8%B7%AF">2、DevOps的建设思路</h2>
+<h3 id="iaas">IaaS</h3>
 <p>**定位：**处于应用底层，整合最下层的基础设施资源，并向用户提供可快速部署、按需分配、按需付费的高安全与高可靠的计算能力以及存储能力租用服务，并可为应用提供开放的云基础设施服务接口，用户可以根据业务需求灵活定制租用相应的基础设施资源。</p>
 <p><strong>IaaS服务对应的用户是系统管理员</strong></p>
 <p><img src="/devops-panoramic-planning-ops/Iaas%E5%BB%BA%E8%AE%BE-new.jpg" alt></p>
-<h3 id="paas"><a class="markdownIt-Anchor" href="#paas"></a> PaaS</h3>
+<h3 id="paas">PaaS</h3>
 <p>**定位：**应用基础架构（中间件）服务（包 括应用平台、集成、业务流程管理和数据服务）的广泛集合，用户基于这些服务构建业务应用。从用户角度来说，这意味着他们无需自行搭建开发，测试和运维平台，也不会在不同平台兼容性方面遇到困扰。</p>
 <p><strong>PaaS服务对应的用户是应用的开发者和运维人员。</strong></p>
 <p><strong>目前Pass层还是一种抽象层</strong>，旨在帮助开发人员专注于编写、 运行和管理应用，而无需担心和考虑底层基础架构，同时对其系统进行 IT 运营控制。</p>
 <p>#<img src="/devops-panoramic-planning-ops/Paas%E5%BB%BA%E8%AE%BE-new.jpg" alt></p>
-<h3 id="cmdb"><a class="markdownIt-Anchor" href="#cmdb"></a> CMDB</h3>
+<h3 id="cmdb">CMDB</h3>
 <p><strong>定位：整个Devops体系的基石</strong> ，用于构建完善的运维对象生命周期和操作闭环。提供了一整套OpenAPI与其它任何需要信息的系统进行对接，<strong>将信息从一个统一的、标准的源头输出给各垂直或水平业务功能系统</strong>，而运维需要做的就是维护 CMDB 本身基础数据的完整性、准确性，CMDB 与各流程系统、垂直功能系统结合之后实现信息数据一处变更，处处同步。</p>
 <p><strong>现代CMDB核心：以应用为中心的管理模型</strong>，参考《<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/46290201">应用CMDB — 智能化运维平台的基石</a>》</p>
 <p><img src="/devops-panoramic-planning-ops/CMDB%E5%BB%BA%E8%AE%BE-new.jpg" alt></p>
-<h3 id="saas"><a class="markdownIt-Anchor" href="#saas"></a> SaaS</h3>
+<h3 id="saas">SaaS</h3>
 <ul>
 <li>CI/CD- 持续交付</li>
 <li>CO - 持续运营</li>
 </ul>
 <p><img src="/devops-panoramic-planning-ops/Saas%E5%BB%BA%E8%AE%BE-new.jpg" alt></p>
-<h3 id="监控日志"><a class="markdownIt-Anchor" href="#监控日志"></a> 监控&amp;日志</h3>
+<h3 id="%E7%9B%91%E6%8E%A7%26%E6%97%A5%E5%BF%97">监控&amp;日志</h3>
 <p>**定位：**快速的发现问题、定位、止损（see-&gt;know-&gt;act），缩短异常MTTR</p>
 <p><strong>数据可观测性</strong></p>
 <p><img src="/devops-panoramic-planning-ops/%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97-new.jpg" alt></p>
-<h3 id="devops-portal"><a class="markdownIt-Anchor" href="#devops-portal"></a> Devops Portal</h3>
+<h3 id="devops-portal">Devops Portal</h3>
 <p>**定位：**统一Devops门户，打通整个运维生态</p>
 <p><img src="/devops-panoramic-planning-ops/Portal%E9%97%A8%E6%88%B7-new.jpg" alt></p>
-<h2 id="3-devops全景"><a class="markdownIt-Anchor" href="#3-devops全景"></a> 3、DevOps全景</h2>
+<h2 id="3%E3%80%81devops%E5%85%A8%E6%99%AF">3、DevOps全景</h2>
 <p>基于上述整体梳理，下面给出DevOps的梳理全景图。</p>
 <p><img src="/devops-panoramic-planning-ops/DevOps%E5%85%A8%E6%99%AF-new.jpg" alt></p>
 
@@ -397,7 +397,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-devops%E7%9A%84%E5%85%A8%E6%99%AF%E6%A1%86%E6%9E%B6"><span class="nav-number">1.</span> <span class="nav-text"> 1、DevOps的全景框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-devops%E7%9A%84%E5%BB%BA%E8%AE%BE%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text"> 2、DevOps的建设思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#iaas"><span class="nav-number">2.1.</span> <span class="nav-text"> IaaS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paas"><span class="nav-number">2.2.</span> <span class="nav-text"> PaaS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cmdb"><span class="nav-number">2.3.</span> <span class="nav-text"> CMDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#saas"><span class="nav-number">2.4.</span> <span class="nav-text"> SaaS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97"><span class="nav-number">2.5.</span> <span class="nav-text"> 监控&amp;日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#devops-portal"><span class="nav-number">2.6.</span> <span class="nav-text"> Devops Portal</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-devops%E5%85%A8%E6%99%AF"><span class="nav-number">3.</span> <span class="nav-text"> 3、DevOps全景</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81devops%E7%9A%84%E5%85%A8%E6%99%AF%E6%A1%86%E6%9E%B6"><span class="nav-number">1.</span> <span class="nav-text">1、DevOps的全景框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81devops%E7%9A%84%E5%BB%BA%E8%AE%BE%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">2、DevOps的建设思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#iaas"><span class="nav-number">2.1.</span> <span class="nav-text">IaaS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paas"><span class="nav-number">2.2.</span> <span class="nav-text">PaaS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cmdb"><span class="nav-number">2.3.</span> <span class="nav-text">CMDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#saas"><span class="nav-number">2.4.</span> <span class="nav-text">SaaS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%91%E6%8E%A7&%E6%97%A5%E5%BF%97"><span class="nav-number">2.5.</span> <span class="nav-text">监控&amp;日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#devops-portal"><span class="nav-number">2.6.</span> <span class="nav-text">Devops Portal</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81devops%E5%85%A8%E6%99%AF"><span class="nav-number">3.</span> <span class="nav-text">3、DevOps全景</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -463,13 +463,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">71k</span>
+    <span title="站点总字数">73k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:05</span>
+    <span title="站点阅读时长">1:06</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
