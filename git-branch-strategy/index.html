@@ -272,7 +272,7 @@
 <p>估计应该由小伙伴为此纠结过吧，其实吧分支管理规范没有 <strong>”银弹“</strong> ，这里我只是分享我觉得比较简单也是对持续交付较为友好的  <a target="_blank" rel="noopener" href="https://guides.github.com/introduction/flow/">GitHubFlow </a>+ Tag 分支模型。</p>
 <span id="more"></span>
 <p>重要的事儿还是需要在说一遍的：<strong>分支管理规范没有 ”银弹“！</strong></p>
-<h2 id="1%E3%80%81%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9E%8B">1、分支管理模型</h2>
+<h2 id="1-分支管理模型"><a class="markdownIt-Anchor" href="#1-分支管理模型"></a> 1、分支管理模型</h2>
 <p>推荐 <a target="_blank" rel="noopener" href="https://guides.github.com/introduction/flow/">GitHubFlow </a>+ Tag 分支模型，不推荐GitlabFlow （<a target="_blank" rel="noopener" href="https://georgestocker.com/2020/03/04/please-stop-recommending-git-flow/">Please stop recommending Git Flow!</a>）</p>
 <p>GitHub flow，是 GitHub 所推崇的 Workflow，具有很高的通用性，且叫简单快捷，对持续交付较友好。其流程图如下：</p>
 <p><img src="/git-branch-strategy/github%E5%88%86%E6%94%AF%E6%A8%A1%E5%9E%8B.png" alt="img"></p>
@@ -284,7 +284,7 @@
 <li>第四步：你的PR 或 MR 被接受，合并（Merge）进master，重新部署（Deploy）后，原来你拉出来的那个分支就被删除。（备注：其中先部署再合并也可。）</li>
 <li>第五步【打Tag】：在第四步的合并（Merge）后打上 Tag，基于 Tag 进行部署（Deploy）。</li>
 </ul>
-<h2 id="2%E3%80%81%E5%88%86%E6%94%AF%E5%91%BD%E5%90%8D%E8%A7%84%E7%BA%A6">2、分支命名规约</h2>
+<h2 id="2-分支命名规约"><a class="markdownIt-Anchor" href="#2-分支命名规约"></a> 2、分支命名规约</h2>
 <table>
 <thead>
 <tr>
@@ -316,16 +316,16 @@
 </tr>
 </tbody>
 </table>
-<h2 id="3%E3%80%81%E6%8F%90%E4%BA%A4%E5%91%BD%E5%90%8D%E8%A7%84%E7%BA%A6">3、提交命名规约</h2>
+<h2 id="3-提交命名规约"><a class="markdownIt-Anchor" href="#3-提交命名规约"></a> 3、提交命名规约</h2>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">任务ID： EE-233   // 对应JIRA Issue编号，可以自动实现Jira与Gitlab的提交关联``提交内容： [feat] 功能特性开发``     ``[fix] 修复Bug``    ``[``rm``] 删除无用文件``    ``[ref] 代码或功能重构 </span><br></pre></td></tr></table></figure>
-<h2 id="4%E3%80%81codereview%E8%A7%84%E7%BA%A6">4、CodeReview规约</h2>
-<h3 id="%E6%8F%90%E4%BA%A4mr">提交MR</h3>
+<h2 id="4-codereview规约"><a class="markdownIt-Anchor" href="#4-codereview规约"></a> 4、CodeReview规约</h2>
+<h3 id="提交mr"><a class="markdownIt-Anchor" href="#提交mr"></a> 提交MR</h3>
 <p>提交代码后，可以提交<code>mr</code>到<code>master</code>，申请合并代码。（此处可进行自动代码审查）</p>
-<h3 id="%E5%90%88%E5%B9%B6%E4%BB%A3%E7%A0%81">合并代码</h3>
+<h3 id="合并代码"><a class="markdownIt-Anchor" href="#合并代码"></a> 合并代码</h3>
 <p>研发组长（或结对编程小伙伴），打开MR，Review代码，可以添加相关修改Comment意见。</p>
 <p>开发同学根据建议修复代码，或者线下修改后commit代码。</p>
 <p>研发组长确认没有问题后，可以合并到master，并打上对应的标签。</p>
-<h2 id="5%E3%80%81%E7%89%88%E6%9C%AC%E5%8F%B7%E5%91%BD%E5%90%8D%E8%A7%84%E7%BA%A6">5、版本号命名规约</h2>
+<h2 id="5-版本号命名规约"><a class="markdownIt-Anchor" href="#5-版本号命名规约"></a> 5、版本号命名规约</h2>
 <p>参考<a target="_blank" rel="noopener" href="https://semver.org/lang/zh-CN/">《语义化版本 2.0.0》</a></p>
 <p>版本格式：主版本号.次版本号.修订号，版本号递增规则如下：</p>
 <ol>
@@ -334,29 +334,29 @@
 <li>修订号：当你做了向下兼容的问题修正。</li>
 </ol>
 <p>先行版本号及版本编译元数据可以加到“主版本号.次版本号.修订号”的后面，作为延伸。</p>
-<h2 id="6%E3%80%81%E4%B8%8A%E7%BA%BF%E8%A7%84%E8%8C%83">6、上线规范</h2>
+<h2 id="6-上线规范"><a class="markdownIt-Anchor" href="#6-上线规范"></a> 6、上线规范</h2>
 <p>所有上线的制品是基于 Git Tag 构建产出的制品。</p>
-<h2 id="7%E3%80%81commit-message%E6%8F%90%E4%BA%A4%E8%A7%84%E8%8C%83">7、Commit Message提交规范</h2>
+<h2 id="7-commit-message提交规范"><a class="markdownIt-Anchor" href="#7-commit-message提交规范"></a> 7、Commit Message提交规范</h2>
 <p>参考： <a target="_blank" rel="noopener" href="https://www.conventionalcommits.org/zh-hans/v1.0.0-beta.4/">约定式提交 1.0.0-beta.4</a></p>
 <p><strong>目前有相应工具做到支持：</strong><a target="_blank" rel="noopener" href="https://gist.github.com/redblue9771/5c3cecca694ae396e906bef285b6c19b">commitizen &amp; cz-conventional-changelog</a> 、 git-commit-plugin等</p>
-<h3 id="%E5%9F%BA%E6%9C%AC%E6%8F%90%E4%BA%A4%E6%A0%BC%E5%BC%8F%EF%BC%9A">基本提交格式：</h3>
+<h3 id="基本提交格式"><a class="markdownIt-Anchor" href="#基本提交格式"></a> 基本提交格式：</h3>
 <hr>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;类型&gt;([可选的作用域]): &lt;描述&gt;</span><br><span class="line">// 空一行</span><br><span class="line">[可选的正文]</span><br><span class="line">// 空一行</span><br><span class="line">[可选的脚注]</span><br></pre></td></tr></table></figure>
-<h3 id="%E6%8F%90%E4%BA%A4%E7%A4%BA%E4%BE%8B%EF%BC%9A">提交示例：</h3>
+<h3 id="提交示例"><a class="markdownIt-Anchor" href="#提交示例"></a> 提交示例：</h3>
 <hr>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">feat/fix: 完成一个很牛掰的功能开发/修复一个极度危险的Bug</span><br><span class="line"> </span><br><span class="line">re/fix  #EE-123 #EE-333</span><br></pre></td></tr></table></figure>
-<h3 id="%E7%BA%A6%E5%AE%9A%E8%AF%B4%E6%98%8E%EF%BC%9A">约定说明：</h3>
+<h3 id="约定说明"><a class="markdownIt-Anchor" href="#约定说明"></a> 约定说明：</h3>
 <hr>
-<h4 id="1.-%E7%B1%BB%E5%9E%8B---type">1. 类型 - type</h4>
+<h4 id="1-类型-type"><a class="markdownIt-Anchor" href="#1-类型-type"></a> 1. 类型 - type</h4>
 <p>type为必填项，用于指定commit的类型，约定了feat、fix两个主要type，以及docs、style、build、refactor、revert五个特殊type，其余type暂不使用。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 主要type</span><br><span class="line">feat:     增加新功能</span><br><span class="line">fix:      修复bug</span><br><span class="line"> </span><br><span class="line"># 特殊type</span><br><span class="line">docs:     只改动了文档相关的内容</span><br><span class="line">style:    不影响代码含义的改动，例如去掉空格、改变缩进、增删分号</span><br><span class="line">build:    构造工具的或者外部依赖的改动，例如webpack，npm</span><br><span class="line">refactor: 代码重构时使用</span><br><span class="line">revert:   执行git revert打印的message</span><br><span class="line"> </span><br><span class="line"># 暂不使用type</span><br><span class="line">test:     添加测试或者修改现有测试</span><br><span class="line">perf:     提高性能的改动</span><br><span class="line">ci:       与CI（持续集成服务）有关的改动</span><br><span class="line">chore:    不修改src或者test的其余修改，例如构建过程或辅助工具的变动</span><br></pre></td></tr></table></figure>
 <p>``</p>
 <p>当一次改动包括主要type与特殊type时，统一采用主要type。</p>
-<h4 id="2.-%E4%BD%9C%E7%94%A8%E5%9F%9F---scope">2. 作用域 - scope</h4>
+<h4 id="2-作用域-scope"><a class="markdownIt-Anchor" href="#2-作用域-scope"></a> 2. 作用域 - scope</h4>
 <p>scope也为必填项，用于描述改动的范围，格式为项目名/模块名，例如：node-pc/common rrd-h5/activity，而we-sdk不需指定模块名。如果一次commit修改多个模块，建议拆分成多次commit，以便更好追踪和维护。</p>
-<h4 id="3.-%E6%AD%A3%E6%96%87---body">3. 正文 - body</h4>
+<h4 id="3-正文-body"><a class="markdownIt-Anchor" href="#3-正文-body"></a> 3. 正文 - body</h4>
 <p>body填写详细描述，主要描述改动之前的情况及修改动机，对于小的修改不作要求，但是重大需求、更新等必须添加body来作说明。</p>
-<h4 id="4.-%E6%B3%A8%E8%84%9A---affect-issues">4. 注脚 - affect issues</h4>
+<h4 id="4-注脚-affect-issues"><a class="markdownIt-Anchor" href="#4-注脚-affect-issues"></a> 4. 注脚 - affect issues</h4>
 <p>affect issues指明是否影响了某个问题。例如我们使用jira时，我们在commit message中可以填写其影响的JIRA_ID。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xiao2shiqi/p/13514548.html">准时下班的秘密：集成 GitLab &amp;&amp; JIRA 实现自动化工作流</a></p>
 <p>填写方式例如：</p>
@@ -386,8 +386,8 @@
       <i class="fa fa-chevron-left"></i> 阿里云效初体验
     </a></div>
       <div class="post-nav-item">
-    <a href="/k8s-hpa/" rel="next" title="HPA-Pod水平自动扩缩">
-      HPA-Pod水平自动扩缩 <i class="fa fa-chevron-right"></i>
+    <a href="/k8s-dynamic-admission/" rel="next" title="K8s动态准入控制">
+      K8s动态准入控制 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -448,7 +448,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">1、分支管理模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E5%88%86%E6%94%AF%E5%91%BD%E5%90%8D%E8%A7%84%E7%BA%A6"><span class="nav-number">2.</span> <span class="nav-text">2、分支命名规约</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E6%8F%90%E4%BA%A4%E5%91%BD%E5%90%8D%E8%A7%84%E7%BA%A6"><span class="nav-number">3.</span> <span class="nav-text">3、提交命名规约</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81codereview%E8%A7%84%E7%BA%A6"><span class="nav-number">4.</span> <span class="nav-text">4、CodeReview规约</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4mr"><span class="nav-number">4.1.</span> <span class="nav-text">提交MR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E4%BB%A3%E7%A0%81"><span class="nav-number">4.2.</span> <span class="nav-text">合并代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81%E7%89%88%E6%9C%AC%E5%8F%B7%E5%91%BD%E5%90%8D%E8%A7%84%E7%BA%A6"><span class="nav-number">5.</span> <span class="nav-text">5、版本号命名规约</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81%E4%B8%8A%E7%BA%BF%E8%A7%84%E8%8C%83"><span class="nav-number">6.</span> <span class="nav-text">6、上线规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7%E3%80%81commit-message%E6%8F%90%E4%BA%A4%E8%A7%84%E8%8C%83"><span class="nav-number">7.</span> <span class="nav-text">7、Commit Message提交规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%8F%90%E4%BA%A4%E6%A0%BC%E5%BC%8F%EF%BC%9A"><span class="nav-number">7.1.</span> <span class="nav-text">基本提交格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E7%A4%BA%E4%BE%8B%EF%BC%9A"><span class="nav-number">7.2.</span> <span class="nav-text">提交示例：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A6%E5%AE%9A%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="nav-number">7.3.</span> <span class="nav-text">约定说明：</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text"> 1、分支管理模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%88%86%E6%94%AF%E5%91%BD%E5%90%8D%E8%A7%84%E7%BA%A6"><span class="nav-number">2.</span> <span class="nav-text"> 2、分支命名规约</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%8F%90%E4%BA%A4%E5%91%BD%E5%90%8D%E8%A7%84%E7%BA%A6"><span class="nav-number">3.</span> <span class="nav-text"> 3、提交命名规约</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-codereview%E8%A7%84%E7%BA%A6"><span class="nav-number">4.</span> <span class="nav-text"> 4、CodeReview规约</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4mr"><span class="nav-number">4.1.</span> <span class="nav-text"> 提交MR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E4%BB%A3%E7%A0%81"><span class="nav-number">4.2.</span> <span class="nav-text"> 合并代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%89%88%E6%9C%AC%E5%8F%B7%E5%91%BD%E5%90%8D%E8%A7%84%E7%BA%A6"><span class="nav-number">5.</span> <span class="nav-text"> 5、版本号命名规约</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E4%B8%8A%E7%BA%BF%E8%A7%84%E8%8C%83"><span class="nav-number">6.</span> <span class="nav-text"> 6、上线规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-commit-message%E6%8F%90%E4%BA%A4%E8%A7%84%E8%8C%83"><span class="nav-number">7.</span> <span class="nav-text"> 7、Commit Message提交规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%8F%90%E4%BA%A4%E6%A0%BC%E5%BC%8F"><span class="nav-number">7.1.</span> <span class="nav-text"> 基本提交格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E7%A4%BA%E4%BE%8B"><span class="nav-number">7.2.</span> <span class="nav-text"> 提交示例：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A6%E5%AE%9A%E8%AF%B4%E6%98%8E"><span class="nav-number">7.3.</span> <span class="nav-text"> 约定说明：</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -514,13 +514,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">73k</span>
+    <span title="站点总字数">75k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:06</span>
+    <span title="站点阅读时长">1:08</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

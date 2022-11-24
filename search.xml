@@ -5,37 +5,37 @@
     <url>/devops-panoramic-planning-ops/</url>
     <content><![CDATA[<p>之前有一个系列文章<a href="/zentao-cicd-overview/" title="《禅道之持续交付系列》">《禅道之持续交付系列》</a>，其中总结了相关的失败经验 <a href="/zentao-failure-summary/" title="禅道持续交付(七)-失败总结">禅道持续交付(七)-失败总结</a>，其中却反相关运维基础标准化建设的重要环节，现来到运维部门，成为了一名运维开发工程师，并有幸负责了相关DevOps相关的建设规划。下面我们来一起聊一聊吧。</p>
 <span id="more"></span>
-<h2 id="1%E3%80%81devops%E7%9A%84%E5%85%A8%E6%99%AF%E6%A1%86%E6%9E%B6">1、DevOps的全景框架</h2>
+<h2 id="1-devops的全景框架"><a class="markdownIt-Anchor" href="#1-devops的全景框架"></a> 1、DevOps的全景框架</h2>
 <p>从运维角度出发，会更加偏重底层的基础建设部分，参考图中，我们可以理解为我们此步阶段是更加注重：<strong>Iaas、Paas、和CMDB的建设</strong>。</p>
 <p><img src="/devops-panoramic-planning-ops/Devops%E5%85%A8%E6%99%AF%E6%A1%86%E6%9E%B6-new.jpg" alt></p>
-<h2 id="2%E3%80%81devops%E7%9A%84%E5%BB%BA%E8%AE%BE%E6%80%9D%E8%B7%AF">2、DevOps的建设思路</h2>
-<h3 id="iaas">IaaS</h3>
+<h2 id="2-devops的建设思路"><a class="markdownIt-Anchor" href="#2-devops的建设思路"></a> 2、DevOps的建设思路</h2>
+<h3 id="iaas"><a class="markdownIt-Anchor" href="#iaas"></a> IaaS</h3>
 <p>**定位：**处于应用底层，整合最下层的基础设施资源，并向用户提供可快速部署、按需分配、按需付费的高安全与高可靠的计算能力以及存储能力租用服务，并可为应用提供开放的云基础设施服务接口，用户可以根据业务需求灵活定制租用相应的基础设施资源。</p>
 <p><strong>IaaS服务对应的用户是系统管理员</strong></p>
 <p><img src="/devops-panoramic-planning-ops/Iaas%E5%BB%BA%E8%AE%BE-new.jpg" alt></p>
-<h3 id="paas">PaaS</h3>
+<h3 id="paas"><a class="markdownIt-Anchor" href="#paas"></a> PaaS</h3>
 <p>**定位：**应用基础架构（中间件）服务（包 括应用平台、集成、业务流程管理和数据服务）的广泛集合，用户基于这些服务构建业务应用。从用户角度来说，这意味着他们无需自行搭建开发，测试和运维平台，也不会在不同平台兼容性方面遇到困扰。</p>
 <p><strong>PaaS服务对应的用户是应用的开发者和运维人员。</strong></p>
 <p><strong>目前Pass层还是一种抽象层</strong>，旨在帮助开发人员专注于编写、 运行和管理应用，而无需担心和考虑底层基础架构，同时对其系统进行 IT 运营控制。</p>
 <p>#<img src="/devops-panoramic-planning-ops/Paas%E5%BB%BA%E8%AE%BE-new.jpg" alt></p>
-<h3 id="cmdb">CMDB</h3>
+<h3 id="cmdb"><a class="markdownIt-Anchor" href="#cmdb"></a> CMDB</h3>
 <p><strong>定位：整个Devops体系的基石</strong> ，用于构建完善的运维对象生命周期和操作闭环。提供了一整套OpenAPI与其它任何需要信息的系统进行对接，<strong>将信息从一个统一的、标准的源头输出给各垂直或水平业务功能系统</strong>，而运维需要做的就是维护 CMDB 本身基础数据的完整性、准确性，CMDB 与各流程系统、垂直功能系统结合之后实现信息数据一处变更，处处同步。</p>
 <p><strong>现代CMDB核心：以应用为中心的管理模型</strong>，参考《<a href="https://zhuanlan.zhihu.com/p/46290201">应用CMDB — 智能化运维平台的基石</a>》</p>
 <p><img src="/devops-panoramic-planning-ops/CMDB%E5%BB%BA%E8%AE%BE-new.jpg" alt></p>
-<h3 id="saas">SaaS</h3>
+<h3 id="saas"><a class="markdownIt-Anchor" href="#saas"></a> SaaS</h3>
 <ul>
 <li>CI/CD- 持续交付</li>
 <li>CO - 持续运营</li>
 </ul>
 <p><img src="/devops-panoramic-planning-ops/Saas%E5%BB%BA%E8%AE%BE-new.jpg" alt></p>
-<h3 id="%E7%9B%91%E6%8E%A7%26%E6%97%A5%E5%BF%97">监控&amp;日志</h3>
+<h3 id="监控日志"><a class="markdownIt-Anchor" href="#监控日志"></a> 监控&amp;日志</h3>
 <p>**定位：**快速的发现问题、定位、止损（see-&gt;know-&gt;act），缩短异常MTTR</p>
 <p><strong>数据可观测性</strong></p>
 <p><img src="/devops-panoramic-planning-ops/%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97-new.jpg" alt></p>
-<h3 id="devops-portal">Devops Portal</h3>
+<h3 id="devops-portal"><a class="markdownIt-Anchor" href="#devops-portal"></a> Devops Portal</h3>
 <p>**定位：**统一Devops门户，打通整个运维生态</p>
 <p><img src="/devops-panoramic-planning-ops/Portal%E9%97%A8%E6%88%B7-new.jpg" alt></p>
-<h2 id="3%E3%80%81devops%E5%85%A8%E6%99%AF">3、DevOps全景</h2>
+<h2 id="3-devops全景"><a class="markdownIt-Anchor" href="#3-devops全景"></a> 3、DevOps全景</h2>
 <p>基于上述整体梳理，下面给出DevOps的梳理全景图。</p>
 <p><img src="/devops-panoramic-planning-ops/DevOps%E5%85%A8%E6%99%AF-new.jpg" alt></p>
 ]]></content>
@@ -53,11 +53,11 @@
     <url>/auto-cops-sys/</url>
     <content><![CDATA[<p>在作为运维开发的这段时间，我们主要围绕运维的工作做了些自动化系统，这边就简单分享下我当初大约经历8个月左右的时间，基于运维自动化搭建一些列自动化运维平台。</p>
 <span id="more"></span>
-<h2 id="%E6%A6%82%E8%BF%B0">概述</h2>
+<h2 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h2>
 <p>关于运维发展，可以参考大厂-<a href="https://developer.aliyun.com/article/637988">阿里的发展历程</a>，可以分为五个阶段，分别为<strong>L1-脚本运维、L2-工具化运维、L3-平台化运维、L4-数据化运维、L5-智能运维</strong>。我们当初运维的整理状态应该在0.5*L2（即半工具化运维😂），可想而知其过程的艰辛。</p>
 <p>运维在系统层面的建设，如：Zabbix监控、ZStack虚拟化、Granfana监控、LVS、IDC重建等，这部分工作主要由运维同学在逐步推进。</p>
 <p>自动化平台部分建设，主要有：CMDB、持续交付系统、DB平台、DNS系统、配置中心、任务调度、自动化平台、事件平台等，接下来我会针对这个自动化平台部门做一个简单的介绍吧。</p>
-<h2 id="cmdb">CMDB</h2>
+<h2 id="cmdb"><a class="markdownIt-Anchor" href="#cmdb"></a> CMDB</h2>
 <p>这个很值得和大家聊一聊的，刚开始时，我们定位是做一个运维 <strong>资产平台</strong>，只需要做好资产申请管理即可。经过一番前期调研，发现我们原有理解实在是太狭隘了，感兴趣的同学可以去了解下运维现代CMDB建设</p>
 <p>以下是引用的话（出处：<a href="https://zhuanlan.zhihu.com/p/46290201">智能化运维平台的基石</a>），说明CMDB平台如何建设：</p>
 <blockquote>
@@ -67,27 +67,27 @@
 <p>4、必须要从应用的角度构建IT资源的弹性关系，有两个层次，一个层次是我应用的模型和后端模型表达关系，我可以依赖DB，我可以依赖DNS，我A可能用了DB，我B没有用DB，这是弹性关系。</p>
 </blockquote>
 <p>最后就是系统的选型啦，我们选择的是腾讯开源的蓝鲸CMDB（<a href="https://github.com/Tencent">Tencent</a>/<strong><a href="https://github.com/Tencent/bk-cmdb">bk-cmdb</a></strong>）</p>
-<h2 id="%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F">持续交付系统</h2>
+<h2 id="持续交付系统"><a class="markdownIt-Anchor" href="#持续交付系统"></a> 持续交付系统</h2>
 <p>这个是我们重点建设的系统，这个没有选择开源系统而是自建的（其实是运维老大带过来的😄😄😄），当然这个是DevOps的一个核心环节，后续还会有专篇进行解密的，这边主要介绍几个核心模块吧</p>
 <ul>
 <li>应用管理：应用申请、配置、查看、权限人员配置</li>
 <li>容器部署：支持K8s容器部署</li>
 <li>传统部署：支持物理机，虚机部署</li>
 </ul>
-<h2 id="db%E5%B9%B3%E5%8F%B0">DB平台</h2>
+<h2 id="db平台"><a class="markdownIt-Anchor" href="#db平台"></a> DB平台</h2>
 <p>两个开源系统纠结吧。</p>
 <ul>
 <li>Yearning</li>
 <li>Archery（最终选择了这个，主要是DBA伙伴决定的）</li>
 </ul>
-<h2 id="dns%E5%B9%B3%E5%8F%B0">DNS平台</h2>
+<h2 id="dns平台"><a class="markdownIt-Anchor" href="#dns平台"></a> DNS平台</h2>
 <p>这个是自建的平台（其实是运维老大带过来的😄😄😄）。</p>
 <p>使用 BIND 作为 DNS 服务器，使用 ETCD 来管理 DNS 服务器的 BIND 配置文件，包括 VIEW，ZONE，RECORD 的各个配置文件。</p>
 <p>所有的 DNS 服务器的配置文件和数据都是统一从 ETCD 上获取，因此所有 DNS 服务器的配置文件及数据都是相同的，且所有 DNS 服务器角色均为 <code>Master</code>，不存在 <code>Slave</code>。</p>
 <p>所有 DNS 服务器会实时监测 ETCD 上的数据，当在平台上对 DNS 进行操作时，只要配置文件发生变化，所有 DNS 服务器都会实时获取到最新的配置文件信息。</p>
-<h2 id="%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83">配置中心</h2>
+<h2 id="配置中心"><a class="markdownIt-Anchor" href="#配置中心"></a> 配置中心</h2>
 <p>这个选择了携程开源的 Apollo了，因为公司有相当部分业务使用时PHP，对于Apollo的支持不是那么友好，所以基于这个，还开发了一个Apollo-Agent。</p>
-<h2 id="%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6">任务调度</h2>
+<h2 id="任务调度"><a class="markdownIt-Anchor" href="#任务调度"></a> 任务调度</h2>
 <p>这个选新做了三个开源系统的对比：Xxl-job、ElasticJob和Gocron</p>
 <table>
 <thead>
@@ -125,21 +125,21 @@
 <p>2、支持任务分片执行以及其他更多高级调度策略，Xxl-job可以将一个任务按照特定路由规则打散在不同任务服务器机器上</p>
 <p>3、业务拓扑管理、任务执行报告、任务参数传递，能提供应用维度的任务管理、单个任务的执行周期报告数据，可为后期任务脚本逻辑优化提供建议</p>
 <p>与此同时，Xxl-job和Gocron均存在不支持常驻任务，但目前优化后的Xxl-job可以通过集成Goagent支持常驻和命令行模式。</p>
-<h2 id="%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B9%B3%E5%8F%B0">自动化平台</h2>
+<h2 id="自动化平台"><a class="markdownIt-Anchor" href="#自动化平台"></a> 自动化平台</h2>
 <p>我们选型的自动化工具是：Ansible，这个平台主要是对Ansible的playbook的管理吧，貌似后续使用程度不高。</p>
-<h2 id="%E4%BA%8B%E4%BB%B6%E5%B9%B3%E5%8F%B0">事件平台</h2>
+<h2 id="事件平台"><a class="markdownIt-Anchor" href="#事件平台"></a> 事件平台</h2>
 <p>业务故障收集平台</p>
-<h2 id="%E5%9F%BA%E7%A1%80%E4%BE%9D%E8%B5%96-%E7%94%A8%E6%88%B7%E4%B8%AD%E5%BF%83%E5%92%8C%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E5%B9%B3%E5%8F%B0">基础依赖-用户中心和消息通知平台</h2>
-<h3 id="%E7%94%A8%E6%88%B7%E4%B8%AD%E5%BF%83">用户中心</h3>
+<h2 id="基础依赖-用户中心和消息通知平台"><a class="markdownIt-Anchor" href="#基础依赖-用户中心和消息通知平台"></a> 基础依赖-用户中心和消息通知平台</h2>
+<h3 id="用户中心"><a class="markdownIt-Anchor" href="#用户中心"></a> 用户中心</h3>
 <p>运维平台的统一用户中心，对接OA LDAP，同时支持各系统的权限管理配置</p>
-<h3 id="%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E5%B9%B3%E5%8F%B0">消息通知平台</h3>
+<h3 id="消息通知平台"><a class="markdownIt-Anchor" href="#消息通知平台"></a> 消息通知平台</h3>
 <p>各系统的统一的消息通知平台，支持邮件、企微等通知方式</p>
-<h2 id="%E6%80%BB%E7%BB%93">总结</h2>
-<h3 id="%E5%BB%BA%E8%AE%BE%E6%80%9D%E8%B7%AF">建设思路</h3>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+<h3 id="建设思路"><a class="markdownIt-Anchor" href="#建设思路"></a> 建设思路</h3>
 <p>主要是以平台化的思路在进行建设的（即将缺什么就去做什么，或者以经验为主导进行建设），选型基本以业界标准且开源为主，避免<strong>重复造轮子</strong>。</p>
-<h3 id="%E5%8F%8D%E6%80%9D">反思</h3>
+<h3 id="反思"><a class="markdownIt-Anchor" href="#反思"></a> 反思</h3>
 <p>平台分散，无法做到DevOps所期望的**<code>一站式研发协同平台</code>**，属于DevOps建设过程的一个中间阶段。</p>
-<h3 id="%E6%80%BB%E7%BB%93-1">总结</h3>
+<h3 id="总结-2"><a class="markdownIt-Anchor" href="#总结-2"></a> 总结</h3>
 <p>后续建设，做好整体的DevOps的整体全景规划，有一个整体的目标和方向，建设过程中可以逐步完善，但是逐步向同一个目标推进，避免系统的分散割裂。</p>
 ]]></content>
       <categories>
@@ -162,7 +162,7 @@
 <li>测试妹子如何实现“私人定制”的测试环境，实现简单mock第三方Api</li>
 <li>**终极：**如何让开发测试整个流程自动化</li>
 </ul>
-<h2 id="1%E3%80%81%E2%80%9C%E5%88%9D%E6%9D%A5%E4%B9%8D%E5%88%B0%E2%80%9D%EF%BC%8C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98">1、“初来乍到”，遇到的问题</h2>
+<h2 id="1-初来乍到遇到的问题"><a class="markdownIt-Anchor" href="#1-初来乍到遇到的问题"></a> 1、“初来乍到”，遇到的问题</h2>
 <p>刚来到公司时，项目都是 <strong>小作坊管理方式</strong> 的，项目的流程规范不是很完善，有些项目让我接的有点“措手不及”吧。还有就是在开发移测后，自己需要过度介入整个测试过程，无法正常开始其他方面的工作：</p>
 <p>总结以下吧：</p>
 <ul>
@@ -170,7 +170,7 @@
 <li>测试开发过度耦合，无法有效释放生成力</li>
 </ul>
 <p>结合我遇到的问题，我会和大家一起探讨解决问题。</p>
-<h2 id="2%E3%80%81%E4%BA%A7%E5%93%81%E7%A0%94%E5%8F%91%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B%E3%80%90%E8%BF%99%E4%B8%8D%E6%98%AF%E6%9C%AC%E6%96%87%E9%87%8D%E7%82%B9%E3%80%91">2、产品研发流程简介【这不是本文重点】</h2>
+<h2 id="2-产品研发流程简介这不是本文重点"><a class="markdownIt-Anchor" href="#2-产品研发流程简介这不是本文重点"></a> 2、产品研发流程简介【这不是本文重点】</h2>
 <p>其实在网上有很多资料，来说明一个互联网产品研发的流程了，基本大同小异。</p>
 <p>我主要分以下几个部分简单说一下吧：</p>
 <ul>
@@ -182,13 +182,13 @@
 </ul>
 <p>其中在产品的需求和方案阶段的流程完善可以通过人为 <strong>强制约束规范</strong> 得到有效解决</p>
 <p><img src="/simple-devtest-sys/%E4%BA%A7%E5%93%81%E7%A0%94%E5%8F%91%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B.gif" alt="img"></p>
-<h2 id="3%E3%80%81%E5%BC%80%E5%8F%91%26%E6%B5%8B%E8%AF%95%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98">3、开发&amp;测试中的问题</h2>
+<h2 id="3-开发测试中的问题"><a class="markdownIt-Anchor" href="#3-开发测试中的问题"></a> 3、开发&amp;测试中的问题</h2>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//TODO 大家都是码农，我就懒得说了，😄</span><br></pre></td></tr></table></figure>
-<h2 id="4%E3%80%81%E5%BC%80%E5%8F%91%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B%E4%BD%93%E7%B3%BB">4、开发测试流程体系</h2>
-<h3 id="4.1%E3%80%81-%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3">4.1、 问题如何解决</h3>
+<h2 id="4-开发测试流程体系"><a class="markdownIt-Anchor" href="#4-开发测试流程体系"></a> 4、开发测试流程体系</h2>
+<h3 id="41-问题如何解决"><a class="markdownIt-Anchor" href="#41-问题如何解决"></a> 4.1、 问题如何解决</h3>
 <p>问题真实存在，我们应该如何解决呢？怎样才能使我们的工作的更**<code>爽</code>**</p>
 <p>我的思考：业务流程化 –&gt; 流程工具化 –&gt; 工具自动化(信息化)</p>
-<h3 id="4.2%E3%80%81-%E5%BC%80%E5%8F%91%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B%E4%BD%93%E7%B3%BB">4.2、 开发测试流程体系</h3>
+<h3 id="42-开发测试流程体系"><a class="markdownIt-Anchor" href="#42-开发测试流程体系"></a> 4.2、 开发测试流程体系</h3>
 <p>其实很容易，在研发流程当中其实已经说明了开发测试的一个简单的流程体系，其主要就是三个阶段：</p>
 <ul>
 <li>Dev阶段：开发设计文档、创建分支、编码、自测、测试用例、提测</li>
@@ -197,7 +197,7 @@
 </ul>
 <p>流程化的过程如下：</p>
 <p><img src="/simple-devtest-sys/%E6%B5%81%E7%A8%8B%E4%BD%93%E7%B3%BB.gif" alt="img"></p>
-<h2 id="5%E3%80%81iflow%E5%BC%80%E5%8F%91%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F">5、Iflow开发测试流程管理系统</h2>
+<h2 id="5-iflow开发测试流程管理系统"><a class="markdownIt-Anchor" href="#5-iflow开发测试流程管理系统"></a> 5、Iflow开发测试流程管理系统</h2>
 <p>基于以上的问题和思考，以及以往的经验【这个占绝大部分】，我开发一套开发测试流程管理系统。所有的流程【除特出流程类型，如：<code>hotfix</code>】都是分步骤一步一步往下进行的，可以流程化管理。</p>
 <p>Iflow系统特点：</p>
 <ul>
@@ -208,14 +208,14 @@
 <li>测试环境统一化管理，测试可自由定制，mock第三方Api</li>
 <li>后续可完善，做成CI系统</li>
 </ul>
-<h3 id="5.1%E3%80%81iflow-%E2%80%94-%E5%9F%BA%E6%9C%AC%E7%95%8C%E9%9D%A2%E8%AF%B4%E6%98%8E">5.1、IFLOW — 基本界面说明</h3>
+<h3 id="51-iflow-基本界面说明"><a class="markdownIt-Anchor" href="#51-iflow-基本界面说明"></a> 5.1、IFLOW — 基本界面说明</h3>
 <ul>
 <li>**主流程：**主阶段，创建Iflow、dev阶段、test阶段、online阶段</li>
 <li>**子流程：**就是当前主极端对应的子阶段，如下图中 <strong>dev阶段</strong>，对应的开发文档阶段，创建分支……</li>
 <li>**开发应用：**目前一个QS，可能需要关联开发多个应用，每个应用可以单独的流程，可以独立区分，便于不同的童鞋开发</li>
 </ul>
 <p><img src="/simple-devtest-sys/%E5%9F%BA%E6%9C%AC%E7%95%8C%E9%9D%A2%E8%AF%B4%E6%98%8E.png" alt="img"></p>
-<h3 id="5.2%E3%80%81iflow-%E2%80%94-%E5%88%9B%E5%BB%BAiflow%EF%BC%88%E9%80%89%E6%8B%A9%E5%BA%94%E7%94%A8%EF%BC%89">5.2、IFLOW — 创建IFLOW（选择应用）</h3>
+<h3 id="52-iflow-创建iflow选择应用"><a class="markdownIt-Anchor" href="#52-iflow-创建iflow选择应用"></a> 5.2、IFLOW — 创建IFLOW（选择应用）</h3>
 <p>目前根据QS-Id建立Iflow流程【注，目前未关联QS系统】，可以选择应用和不同的流程类型创建Iflow流程。</p>
 <p>流程类型说明：</p>
 <ul>
@@ -223,10 +223,10 @@
 <li>bug修复/Notesting/线上紧急bug：可以跳过特定的流程步骤</li>
 </ul>
 <p><img src="/simple-devtest-sys/%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8.png" alt="img"></p>
-<h3 id="5.3%E3%80%81iflow-%E2%80%94-dev%E9%98%B6%E6%AE%B5">5.3、IFLOW — DEV阶段</h3>
+<h3 id="53-iflow-dev阶段"><a class="markdownIt-Anchor" href="#53-iflow-dev阶段"></a> 5.3、IFLOW — DEV阶段</h3>
 <p>由对应<strong>开发走完整个流程</strong>，上传传文档审核，建立分支，自测，到最后提测。开发走完整个Dev阶段后移交测试。</p>
 <p><img src="/simple-devtest-sys/dev%E9%98%B6%E6%AE%B5.gif" alt="img"></p>
-<h3 id="5.4%E3%80%81iflow-%E2%80%94-test%E9%98%B6%E6%AE%B5">5.4、IFLOW — TEST阶段</h3>
+<h3 id="54-iflow-test阶段"><a class="markdownIt-Anchor" href="#54-iflow-test阶段"></a> 5.4、IFLOW — TEST阶段</h3>
 <p>由对应<strong>测试走完整个流程</strong></p>
 <blockquote>
 <p>首先测试可以在左侧菜单栏【iflow流程列表】，检索对应QS-ID，即可进入对应的流程测试，以及查看dev阶段的api文档和开发文档。</p>
@@ -242,10 +242,10 @@
 <li>**模拟APi【mock第三方api数据】：**可以模拟第三方的api返回数据，设置超时，【使用前，注意绑定下对应模拟api的域名IP，不同的环境这个域名和IP不同】。</li>
 </ul>
 <p><img src="/simple-devtest-sys/test%E9%98%B6%E6%AE%B5.gif" alt="img"></p>
-<h3 id="5.5%E3%80%81iflow-%E2%80%94-online%E9%98%B6%E6%AE%B5">5.5、IFLOW — ONLINE阶段</h3>
+<h3 id="55-iflow-online阶段"><a class="markdownIt-Anchor" href="#55-iflow-online阶段"></a> 5.5、IFLOW — ONLINE阶段</h3>
 <p>即上线至beta环境和GA环境，显示但前版本列表，支持一键回退功能【目前只是一个空架子】。</p>
 <p><img src="/simple-devtest-sys/online%E9%98%B6%E6%AE%B5.gif" alt="img"></p>
-<h2 id="6%E3%80%81%E6%80%BB%E7%BB%93">6、总结</h2>
+<h2 id="6-总结"><a class="markdownIt-Anchor" href="#6-总结"></a> 6、总结</h2>
 <p>整体来说IFLOW开发测试流程管理系统只是一个<strong>流程框架或者外壳</strong>，后续相关的功能的模块都可以进行集成，将其形成一套完善的流程管理系统（整体页面功能可能会比较简陋，当时花费一个多月的闲余时间写的😀）。</p>
 <p><strong>可集成功能：</strong></p>
 <ul>
@@ -271,7 +271,7 @@
     <url>/jenkins-sharelib-primary/</url>
     <content><![CDATA[<p>在我们实际写Jenkin pipelines脚本中，可能会出现``java.lang.RuntimeException: Method code too large!<code>，这个时候你就要抽象出一些公共的函数类库，</code>避免项目方重复冗余的脚本代码书写`，在此处我也把我经常使用的一些共享函数库（<strong><a href="https://github.com/nengwu765/jenkins-share-library">jenkins-share-library</a></strong>）分享出来，欢迎交流指正哈！</p>
 <span id="more"></span>
-<h2 id="1.-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8jenkins%E5%85%B1%E4%BA%AB%E5%BA%93">1. 如何使用Jenkins共享库</h2>
+<h2 id="1-如何使用jenkins共享库"><a class="markdownIt-Anchor" href="#1-如何使用jenkins共享库"></a> 1. 如何使用Jenkins共享库</h2>
 <ul>
 <li>在Jenkinsfile的脚本文件第一行引入以下代码</li>
 </ul>
@@ -280,39 +280,39 @@
 <li>调用示例</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">stage (&quot;demo&quot;) &#123;</span><br><span class="line">	steps &#123;</span><br><span class="line">		script &#123;</span><br><span class="line">			// 调用：共享方法名+入参</span><br><span class="line">			demoFunction(params1, params2, ...)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="2.-%E6%94%AF%E6%8C%81%E7%9A%84%E5%85%B1%E4%BA%AB%E5%BA%93%E6%96%B9%E6%B3%95">2. 支持的共享库方法</h2>
-<h3 id="2.1-git%E4%BB%93%E5%BA%93%E6%8B%89%E5%8F%96---gitcodefetch()">2.1 Git仓库拉取 - gitCodeFetch()</h3>
+<h2 id="2-支持的共享库方法"><a class="markdownIt-Anchor" href="#2-支持的共享库方法"></a> 2. 支持的共享库方法</h2>
+<h3 id="21-git仓库拉取-gitcodefetch"><a class="markdownIt-Anchor" href="#21-git仓库拉取-gitcodefetch"></a> 2.1 Git仓库拉取 - gitCodeFetch()</h3>
 <p>支持基于分支/标签 和 Submodule子仓库拉取以及基于MR拉取分支，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/gitCodeFetch.groovy">源码参考</a></p>
 <ul>
 <li>入参说明</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Git仓库版本拉取 -- 支持基于分支/标签 和 Submodule子仓库拉取以及基于MR拉取分支</span><br><span class="line"> *</span><br><span class="line"> * @param fetchMode Git代码拉取方式：branch-基于分支; tag-基于标签</span><br><span class="line"> * @param gitBranchOrTag Git仓库分支 或 标签</span><br><span class="line"> * @param gitRepository  Git仓库地址</span><br><span class="line"> * @param gitCredentialsId  Git拉取凭证ID 【若存在Submodule子仓库，则该凭证需要有子仓库拉取权限】</span><br><span class="line"> * @param gitEvent  git拉取事件,基于分支或Tag拉取,则置空; MergeRequest则为:&quot;MR&quot;</span><br><span class="line"> * @param targetBranch 若gitEvent为&quot;MR&quot;,此处为MR目标分支</span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">void call(String fetchMode,String gitBranchOrTag, String gitRepository, String gitCredentialsId, String gitEvent = &#x27;&#x27;, String targetBranch = &#x27;&#x27;) </span><br></pre></td></tr></table></figure>
-<h3 id="2.2-md5%E5%80%BC%E6%A0%A1%E9%AA%8C---md5check()">2.2 MD5值校验 - md5Check()</h3>
+<h3 id="22-md5值校验-md5check"><a class="markdownIt-Anchor" href="#22-md5值校验-md5check"></a> 2.2 MD5值校验 - md5Check()</h3>
 <p>文件MD5值check，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/md5Check.groovy">源码参考</a></p>
 <ul>
 <li>入参说明</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 文件MD5值check</span><br><span class="line"> *</span><br><span class="line"> * @param filePath 文件路径</span><br><span class="line"> * @param md5 文件md5值</span><br><span class="line"> * @param forceCheck 是强制检查，是-必检，否-md5值非空则进行检查</span><br><span class="line"> */</span><br><span class="line">void md5Check(String filePath, String md5, boolean forceCheck = true)</span><br><span class="line"></span><br><span class="line">注：forceCheck=true时，校验不通过则报错，流水线终止</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="2.3-sha1%E5%80%BC%E6%A0%A1%E9%AA%8C---sha1check()">2.3 SHA1值校验 - sha1Check()</h3>
+<h3 id="23-sha1值校验-sha1check"><a class="markdownIt-Anchor" href="#23-sha1值校验-sha1check"></a> 2.3 SHA1值校验 - sha1Check()</h3>
 <p>文件SHA1值check，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/sha1Check.groovy">源码参考</a></p>
 <ul>
 <li>入参说明</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 文件SHA1值check</span><br><span class="line"> *</span><br><span class="line"> * @param filePath 文件路径</span><br><span class="line"> * @param sha1 文件md5值</span><br><span class="line"> * @param forceCheck 是强制检查，是-必检，否-md5值非空则进行检查</span><br><span class="line"> */</span><br><span class="line">void sha1Check(String filePath, String sha1, boolean forceCheck = true)</span><br><span class="line"></span><br><span class="line">注：forceCheck=true时，校验不通过则报错，流水线终止</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="2.4-ftp%E4%B8%8A%E4%BC%A0---ftpupload()">2.4 FTP上传 - ftpUpload()</h3>
-<p>FTP文件上传  -- // 参数参考说明：<a href="https://jenkins.io/doc/pipeline/steps/publish-over-ftp">https://jenkins.io/doc/pipeline/steps/publish-over-ftp</a></p>
+<h3 id="24-ftp上传-ftpupload"><a class="markdownIt-Anchor" href="#24-ftp上传-ftpupload"></a> 2.4 FTP上传 - ftpUpload()</h3>
+<p>FTP文件上传  – // 参数参考说明：<a href="https://jenkins.io/doc/pipeline/steps/publish-over-ftp">https://jenkins.io/doc/pipeline/steps/publish-over-ftp</a></p>
 <p><a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/ftpUpload.groovy">源码参考</a></p>
 <ul>
 <li>入参说明</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * FTP文件上传  -- // 参数参考说明：https://jenkins.io/doc/pipeline/steps/publish-over-ftp</span><br><span class="line"> * @param configName  在Jenkins全局设置的FTP Server名称</span><br><span class="line"> * @param sourceFiles  上传源文件，支持正则匹配，如[递归目录层级使用&#x27;**&#x27;]：&#x27;**/*.apk,public/**/*&#x27;</span><br><span class="line"> * @param remoteDir  上传子目录路径，注此路径会追加到全局设置的FTP Server的Remote Directory之后</span><br><span class="line"> * @param excludes  排除上传文件，支持正则匹配，如[递归目录层级使用&#x27;**&#x27;]： &#x27;**/*.log,**/*.tmp,.git/&#x27;</span><br><span class="line"> * @param removePrefix  去除上传文件的路径前缀，避免ftp服务器中生成无用的目录路径,注：所有上传文件必须都有该前缀，否则报错</span><br><span class="line"> */</span><br><span class="line">void ftpUpload(String configName, String sourceFiles, String remoteDir = &#x27;&#x27;, String excludes = &#x27;&#x27;, String removePrefix = &#x27;&#x27;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="2.5-rsync-module%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5---rsyncmodule()">2.5 Rsync Module远程同步 - rsyncModule()</h3>
+<h3 id="25-rsync-module远程同步-rsyncmodule"><a class="markdownIt-Anchor" href="#25-rsync-module远程同步-rsyncmodule"></a> 2.5 Rsync Module远程同步 - rsyncModule()</h3>
 <p>rsync 使用Module远程同步，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/rsyncWithModule.groovy">源码参考</a></p>
 <ul>
 <li>入参说明</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  rsync 使用Module远程同步</span><br><span class="line"> *</span><br><span class="line"> * @param ip rsync服务器IP</span><br><span class="line"> * @param port rsync服务器监听端口</span><br><span class="line"> * @param path rsync本地同步绝对路径</span><br><span class="line"> * @param module rsync同步模块</span><br><span class="line"> * @param user  rsync同步用户，指定传输文件为指定用户</span><br><span class="line"> * @param customParams 定制rsync参数，不允许出现&quot;delete&quot;关键字，如：--exclude=PATTERN --include=PATTERN --exclude-from=FILE --include-from=FILE</span><br><span class="line"> * @param bwlimit</span><br><span class="line"> */</span><br><span class="line">void rsyncModule(String ip, int port, String path, String module, String user = &#x27;&#x27;, String customParams = &#x27;&#x27;, int bwlimit = 8192)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="2.6-%E5%88%B6%E5%93%81%E4%B8%8A%E4%BC%A0nexus---uploadartifactstonexus()">2.6 制品上传Nexus - uploadArtifactsToNexus()</h3>
+<h3 id="26-制品上传nexus-uploadartifactstonexus"><a class="markdownIt-Anchor" href="#26-制品上传nexus-uploadartifactstonexus"></a> 2.6 制品上传Nexus - uploadArtifactsToNexus()</h3>
 <p>如果你是以Nexus作为制品库的话，这个可以作为参考，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/uploadArtifactsToNexus.groovy">源码参考</a></p>
 <ul>
 <li>入参说明</li>
@@ -323,7 +323,7 @@
 </ul>
 <p><strong><code>针对Android制品上传，做了一层外围封装，防止不同业务上传仓库紊乱</code></strong>，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/uploadAndroidArtifacts.groovy">源码参考</a></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 上传制品至Nexus仓库</span><br><span class="line"> *</span><br><span class="line"> * @param dir 检索目录</span><br><span class="line"> * @param fileMatchRegex 文件正则匹配规则， 支持文件类型、文件前缀、文件全名，</span><br><span class="line"> *        如文件：prefix_file.test,</span><br><span class="line"> *        匹配规则：</span><br><span class="line"> *              文件类型： fileMatchRegex = &quot;.test&quot;</span><br><span class="line"> *              文件前缀： fileMatchRegex = &quot;prefix_&quot;</span><br><span class="line"> *              文件全名： fileMatchRegex = &quot;prefix_file.test&quot;</span><br><span class="line"> * @param uploadSubPath 制品上传路经</span><br><span class="line"> * @param isRecursion 是否递归检索子目录,默认：否【注：同名文件会被覆盖】</span><br><span class="line"> * @param artifacts 制品存储数据，Map结构，默认：空Map</span><br><span class="line"> * @return Map 返回上传制品数据</span><br><span class="line"> *         eg: [</span><br><span class="line"> *              &#x27;file1&#x27;:[</span><br><span class="line"> *                  &#x27;url&#x27;:&#x27;https://nexus.demo.com/.../file1&#x27;  // 文件在nexus中的上传路径【即下载路径】</span><br><span class="line"> *                  &#x27;md5&#x27;:&#x27;xxxx&#x27; // 文件md5值</span><br><span class="line"> *                  &#x27;sha1&#x27;:&#x27;xxxx&#x27;   // 文件sha1值</span><br><span class="line"> *               ],</span><br><span class="line"> *         ]</span><br><span class="line"> */</span><br><span class="line">def uploadAndroidArtifacts(String dir, String fileMatchRegex, String uploadPath, boolean isRecursion = false, Map artifacts = [:])</span><br></pre></td></tr></table></figure>
-<h3 id="2.7-%E6%B5%81%E6%B0%B4%E7%BA%BF%E7%BB%93%E6%9E%9C%E5%9B%9E%E8%B0%83---callbackaction()">2.7 流水线结果回调 - callBackAction()</h3>
+<h3 id="27-流水线结果回调-callbackaction"><a class="markdownIt-Anchor" href="#27-流水线结果回调-callbackaction"></a> 2.7 流水线结果回调 - callBackAction()</h3>
 <p>Jenkins pipeline结果回调通知（这个其实有个Plugin支持，Job Notification，但是我觉得不够灵活），这边我自定义了一个通用回调，可以防止在任何位置，<a href="https://github.com/nengwu765/jenkins-share-library/blob/master/vars/callBackAction.groovy">源码参考</a></p>
 <ul>
 <li>入参说明</li>
@@ -333,7 +333,7 @@
 <li>使用示例</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">	agent any</span><br><span class="line"></span><br><span class="line">	stages &#123;...&#125;</span><br><span class="line">    </span><br><span class="line">	post &#123;</span><br><span class="line">        always &#123;</span><br><span class="line">            // 回调Api通知对接JOB执行结果</span><br><span class="line">            script &#123;</span><br><span class="line">                if (!binding.variables.containsKey(&quot;ARTIFACTS&quot;)) &#123;</span><br><span class="line">                    ARTIFACTS = [:]</span><br><span class="line">                &#125;</span><br><span class="line">                callBackAction(params.CALLBACK_URLS_JSON, ARTIFACTS)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            echo &quot;I will be executed while failed or succeed&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="5-%E5%BC%95%E7%94%A8">5 引用</h2>
+<h2 id="5-引用"><a class="markdownIt-Anchor" href="#5-引用"></a> 5 引用</h2>
 <p><a href="https://www.jenkins.io/doc/book/pipeline/shared-libraries/">官方参考，Extending with Shared Libraries</a></p>
 ]]></content>
       <categories>
@@ -349,7 +349,7 @@
     <content><![CDATA[<p>如果你开始使用Jenkins作为你的CI工具，刚好也在使用K8s集群做CD，那你一定很纠结我的Jenkins到底用什么方式进行部署管理呢？<br>
 这里我将我们遇到的实际经验分享给各位参考，希望能给到你一些帮助吧，😄</p>
 <span id="more"></span>
-<h2 id="1%E3%80%81%E7%BB%93%E8%AE%BA">1、结论</h2>
+<h2 id="1-结论"><a class="markdownIt-Anchor" href="#1-结论"></a> 1、结论</h2>
 <p>不拖沓，直接上结论：</p>
 <p><strong>轻易不要上K8s</strong>，启动速度和Slave镜像管理以及构建缓存等会比较<code>耗精力</code>；在CICD起步，日构建在500次左右，特别是含Android的gradle构建时，建议直接上物理机，绝对<code>真香</code>。</p>
 <blockquote>
@@ -361,10 +361,10 @@
 <li>Web应用构建，约日均构建在400-500次/日</li>
 <li>移动端构建（Android为主），约日均构建在30-50次/日，偶尔会有批量的渠道打包量比较大（渠道量1K+）</li>
 </ul>
-<h2 id="2%E3%80%81k8s%E9%9B%86%E7%BE%A4%E9%87%8C%E7%9A%84jenkins">2、K8s集群里的Jenkins</h2>
-<h3 id="2.1%E3%80%81%E9%80%89%E6%8B%A9%E8%83%8C%E6%99%AF">2.1、选择背景</h3>
+<h2 id="2-k8s集群里的jenkins"><a class="markdownIt-Anchor" href="#2-k8s集群里的jenkins"></a> 2、K8s集群里的Jenkins</h2>
+<h3 id="21-选择背景"><a class="markdownIt-Anchor" href="#21-选择背景"></a> 2.1、选择背景</h3>
 <p>公司开始做中台了，其中包括建设CICD系统，基本是从 O 起步吧，当初直接选型了：java spring微服务 + K8s作为接下来的技术发展方向。作为<code>打辅助</code>的持续交付系统也就那个时候定型的，选型CI工具为Jenkins（当然还有很多的周边的工具链选型），部署原则：<strong>Everything in docker</strong></p>
-<h3 id="2.2%E3%80%81%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98">2.2、遇到问题</h3>
+<h3 id="22-遇到问题"><a class="markdownIt-Anchor" href="#22-遇到问题"></a> 2.2、遇到问题</h3>
 <ul>
 <li>K8s集群稳定性是第一大考验</li>
 <li>动态的Slave启动慢，修改长时间存活，莫名会出现心跳终端，SalvePod假死</li>
@@ -372,14 +372,14 @@
 <li>Slave多了后占用的资源无法想象，最后不得不给Jenkins独立的Node，打上标签区分</li>
 <li>还有就是构建过程，一个字儿：<strong>超级慢</strong>，很大原因是K8s集群的Ceph文件系统</li>
 <li>Slave镜像维护成本也颇高，尤其是需要版本升级的时候</li>
-<li>....</li>
+<li>…</li>
 </ul>
-<h2 id="3%E3%80%81%E7%89%A9%E7%90%86%E6%9C%BA%E9%87%8C%E7%9A%84jenkins">3、物理机里的Jenkins</h2>
-<h3 id="3.1%E3%80%81%E9%80%89%E6%8B%A9%E8%83%8C%E6%99%AF">3.1、选择背景</h3>
+<h2 id="3-物理机里的jenkins"><a class="markdownIt-Anchor" href="#3-物理机里的jenkins"></a> 3、物理机里的Jenkins</h2>
+<h3 id="31-选择背景"><a class="markdownIt-Anchor" href="#31-选择背景"></a> 3.1、选择背景</h3>
 <p>我们重新建设了DevOps平台（定位：一站式研发协同平台），对于原有的功能迁移后，发现对于很多<code>核心、根本</code>问题，治标不治本。新平台也迫切需要出成绩，最终开出了 <code>历史的倒车</code>，我们回到了物理机Jenkins。</p>
-<h3 id="3.2%E3%80%81%E6%95%88%E6%9E%9C">3.2、效果</h3>
+<h3 id="32-效果"><a class="markdownIt-Anchor" href="#32-效果"></a> 3.2、效果</h3>
 <p>一个字：<strong>快</strong>，平均提速达到30%+（其中移动端提速了甚至到了50%），且稳定性更高</p>
-<h3 id="3.3%E3%80%81%E6%88%90%E6%9C%AC%E6%A0%B8%E7%AE%97">3.3、成本核算</h3>
+<h3 id="33-成本核算"><a class="markdownIt-Anchor" href="#33-成本核算"></a> 3.3、成本核算</h3>
 <p>迁移到物理是不是成本很高啊，那可是物理机啊，然并卵……</p>
 <table>
 <thead>
@@ -404,76 +404,18 @@
       </tags>
   </entry>
   <entry>
-    <title>OKR实践-初阶</title>
-    <url>/okr-primary/</url>
-    <content><![CDATA[<p>如OKR国内貌似字节“首推”，也一直践行着，至于大家要不要从原有的考核体系切换到比较<code>先进</code>的OKR呢？哈哈，没有答案！大伙儿根据自己的实际遇到的问题 + OKR的理念思想，进行考虑实践。这里只是简单介绍我践行的过程哈。</p>
-<span id="more"></span>
-<h2 id="1-%E3%80%81%E6%8E%A5%E8%A7%A6okr">1 、接触OKR</h2>
-<h3 id="%E5%9B%A2%E9%98%9F%E9%81%87%E5%88%B0%E7%9A%84%E5%9B%B0%E9%9A%BE">团队遇到的困难</h3>
-<ul>
-<li>任务管理</li>
-<li>临时工作插入安排</li>
-<li>重点工作目标推进</li>
-</ul>
-<h3 id="%E5%AF%BB%E6%89%BE%E6%96%B9%E6%A1%88">寻找方案</h3>
-<p>偶然看到一个OKR的视频培训，之前有听说过（但是没有实践经验吧），当天看了视频直播，觉得值得一试。</p>
-<p>《<a href="https://www.bilibili.com/video/BV1fk4y1r7oZ">如何应用OKR+敏捷实践驱动团队管理改进 丰之恺 中国DevOps社区第23期线上分享</a>》</p>
-<h2 id="2%E3%80%81%E5%9B%A2%E9%98%9F%E5%AE%9E%E8%B7%B5">2、团队实践</h2>
-<p><strong>团队宣导：理解目标，理解OKR</strong></p>
-<ul>
-<li>
-<p>团队协商讨论，制定团队OKR，公开分享团队成员绩效计划</p>
-</li>
-<li>
-<p>团队成员针对团队目标，制定个人OKR</p>
-</li>
-<li>
-<p>确保目标达成，成员对OKR做敏捷计划拆解</p>
-</li>
-<li>
-<p>每日站立晨会(10-20min)，对齐目标计划，重点讨论阻塞问题</p>
-</li>
-<li>
-<p>每周回顾总结，对齐目标，有问题及时调整</p>
-</li>
-</ul>
-<h3 id="2.1%E3%80%81%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%85%B7">2.1、使用工具</h3>
-<p><strong>Confluence（共享、开放、透明） + JIRA（敏捷看板、计划跟进）</strong></p>
-<h3 id="2.2%E3%80%81%E5%9B%A2%E9%98%9Fokr">2.2、团队OKR</h3>
-<p>针对组织目标（可以理解为领导下达的KPI），结合小伙伴的个人目标，团队共同制定出团队OKR。</p>
-<p><img src="/okr-primary/%E5%9B%A2%E9%98%9FOKR-new.jpg" alt></p>
-<h3 id="2.3%E3%80%81%E4%B8%AA%E4%BA%BAokr">2.3、个人OKR</h3>
-<p>小伙伴针对团队OKR进行拆解，为了可以确保目标达成，小伙伴还进行了详细的任务计划。</p>
-<p><strong>每个O的Owner需主动推进该O和KR的达成，需要协助自主协调，对于该O富有绝对主导责任！</strong></p>
-<p><img src="/okr-primary/%E4%B8%AA%E4%BA%BAOKR-new.jpg" alt></p>
-<h2 id="3%E3%80%81%E5%AE%9E%E8%B7%B5%E5%8F%82%E8%80%83">3、实践参考</h2>
-<ul>
-<li><a href="https://blog.worktile.com/okr-okr-template-02-dev/?utm_source=segmentfault&amp;utm_medium=meiyang">技术研发类OKR制定</a></li>
-<li><a href="https://www.atlassian.com/dam/jcr:a8b8a327-abd0-4c78-a493-9ff677efb6d0/OKRs-Blueprint.pdf">OKR模板.PDF - 本文参考使用的</a></li>
-<li><a href="https://www.atlassian.com/software/confluence/templates/okrs">Confluence OKRS Template</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>管理实践</category>
-      </categories>
-      <tags>
-        <tag>管理</tag>
-        <tag>OKR</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>我是如何制定绩效目标考核的</title>
     <url>/performance-evaluation-with-me/</url>
     <content><![CDATA[<p>每个公司到了一定阶段，一定会出现绩效考核，至于为什么会有**”绩效考核“**，大家自己估狗 一下，本初不予置评。但是如何使用好绩效考核，打造一个富有创新活力的团队，我个人有些参考，不对之处，求轻踩……</p>
 <span id="more"></span>
-<h2 id="1-%E3%80%81%E7%BB%A9%E6%95%88%E5%88%86%E7%B1%BB">1 、绩效分类</h2>
+<h2 id="1-绩效分类"><a class="markdownIt-Anchor" href="#1-绩效分类"></a> 1 、绩效分类</h2>
 <p>将绩效归为三类</p>
 <ul>
 <li>T1：重点工作（也可认为组织目标），这也是公司聘用的核心价值所在，一般比重在80%</li>
 <li>T2：产品改进、代码优化或创新实践，对于负责的业务产品有优化改进提升的，一般比重在10%-15%</li>
 <li>T3：学习提升和技术研究分享，这个可以不设限，任何兴趣学习分享都鼓励，一般比重在5%-10%</li>
 </ul>
-<h2 id="2%E3%80%81%E5%85%B7%E4%BD%93%E7%BB%86%E5%88%99">2、具体细则</h2>
+<h2 id="2-具体细则"><a class="markdownIt-Anchor" href="#2-具体细则"></a> 2、具体细则</h2>
 <p><strong>绩效制定细则说明：</strong></p>
 <ul>
 <li>绩效比重分配：T1月度重点工作（80%） + T2产品改进、代码优化和创新实践(10%) + T3专业技能学习和技术研究分享</li>
@@ -493,7 +435,7 @@
 <li>必须包含每月的好的和待改进</li>
 <li>考分细化分数加减项 必须 明确 说明</li>
 </ul>
-<h2 id="3%E3%80%81%E8%80%83%E6%A0%B8%E7%A4%BA%E4%BE%8B%E8%AF%B4%E6%98%8E">3、考核示例说明</h2>
+<h2 id="3-考核示例说明"><a class="markdownIt-Anchor" href="#3-考核示例说明"></a> 3、考核示例说明</h2>
 <p><strong>“分”就在这里，发挥你的才干，尽情的给自己加分</strong> 🏅🏅🏅</p>
 <table>
 <thead>
@@ -530,7 +472,7 @@
 </tbody>
 </table>
 <hr>
-<h3 id="%E7%A4%BA%E4%BE%8B%EF%BC%9A">示例：</h3>
+<h3 id="示例"><a class="markdownIt-Anchor" href="#示例"></a> 示例：</h3>
 <table>
 <thead>
 <tr>
@@ -603,13 +545,71 @@
       </tags>
   </entry>
   <entry>
+    <title>OKR实践-初阶</title>
+    <url>/okr-primary/</url>
+    <content><![CDATA[<p>如OKR国内貌似字节“首推”，也一直践行着，至于大家要不要从原有的考核体系切换到比较<code>先进</code>的OKR呢？哈哈，没有答案！大伙儿根据自己的实际遇到的问题 + OKR的理念思想，进行考虑实践。这里只是简单介绍我践行的过程哈。</p>
+<span id="more"></span>
+<h2 id="1-接触okr"><a class="markdownIt-Anchor" href="#1-接触okr"></a> 1 、接触OKR</h2>
+<h3 id="团队遇到的困难"><a class="markdownIt-Anchor" href="#团队遇到的困难"></a> 团队遇到的困难</h3>
+<ul>
+<li>任务管理</li>
+<li>临时工作插入安排</li>
+<li>重点工作目标推进</li>
+</ul>
+<h3 id="寻找方案"><a class="markdownIt-Anchor" href="#寻找方案"></a> 寻找方案</h3>
+<p>偶然看到一个OKR的视频培训，之前有听说过（但是没有实践经验吧），当天看了视频直播，觉得值得一试。</p>
+<p>《<a href="https://www.bilibili.com/video/BV1fk4y1r7oZ">如何应用OKR+敏捷实践驱动团队管理改进 丰之恺 中国DevOps社区第23期线上分享</a>》</p>
+<h2 id="2-团队实践"><a class="markdownIt-Anchor" href="#2-团队实践"></a> 2、团队实践</h2>
+<p><strong>团队宣导：理解目标，理解OKR</strong></p>
+<ul>
+<li>
+<p>团队协商讨论，制定团队OKR，公开分享团队成员绩效计划</p>
+</li>
+<li>
+<p>团队成员针对团队目标，制定个人OKR</p>
+</li>
+<li>
+<p>确保目标达成，成员对OKR做敏捷计划拆解</p>
+</li>
+<li>
+<p>每日站立晨会(10-20min)，对齐目标计划，重点讨论阻塞问题</p>
+</li>
+<li>
+<p>每周回顾总结，对齐目标，有问题及时调整</p>
+</li>
+</ul>
+<h3 id="21-使用工具"><a class="markdownIt-Anchor" href="#21-使用工具"></a> 2.1、使用工具</h3>
+<p><strong>Confluence（共享、开放、透明） + JIRA（敏捷看板、计划跟进）</strong></p>
+<h3 id="22-团队okr"><a class="markdownIt-Anchor" href="#22-团队okr"></a> 2.2、团队OKR</h3>
+<p>针对组织目标（可以理解为领导下达的KPI），结合小伙伴的个人目标，团队共同制定出团队OKR。</p>
+<p><img src="/okr-primary/%E5%9B%A2%E9%98%9FOKR-new.jpg" alt></p>
+<h3 id="23-个人okr"><a class="markdownIt-Anchor" href="#23-个人okr"></a> 2.3、个人OKR</h3>
+<p>小伙伴针对团队OKR进行拆解，为了可以确保目标达成，小伙伴还进行了详细的任务计划。</p>
+<p><strong>每个O的Owner需主动推进该O和KR的达成，需要协助自主协调，对于该O富有绝对主导责任！</strong></p>
+<p><img src="/okr-primary/%E4%B8%AA%E4%BA%BAOKR-new.jpg" alt></p>
+<h2 id="3-实践参考"><a class="markdownIt-Anchor" href="#3-实践参考"></a> 3、实践参考</h2>
+<ul>
+<li><a href="https://blog.worktile.com/okr-okr-template-02-dev/?utm_source=segmentfault&amp;utm_medium=meiyang">技术研发类OKR制定</a></li>
+<li><a href="https://www.atlassian.com/dam/jcr:a8b8a327-abd0-4c78-a493-9ff677efb6d0/OKRs-Blueprint.pdf">OKR模板.PDF - 本文参考使用的</a></li>
+<li><a href="https://www.atlassian.com/software/confluence/templates/okrs">Confluence OKRS Template</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>管理实践</category>
+      </categories>
+      <tags>
+        <tag>管理</tag>
+        <tag>OKR</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JenkinsK8s集群部署AndroidSDK安装</title>
     <url>/k8s-android-sdk-with-jenkins/</url>
     <content><![CDATA[<p>如过你的Jenkins是部署在K8s集群中的，那需要支持Android打包的情况。Android SDK安装与更新怎么做呢？<br>
 <strong>本文将介绍在<code>K8s集群</code>中如何安装和更新 Android SDK</strong></p>
 <span id="more"></span>
-<h2 id="1.-k8s%E9%9B%86%E7%BE%A4%E4%B8%ADandroid-sdk%E5%AE%89%E8%A3%85%E4%B8%8E%E6%9B%B4%E6%96%B0%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1">1. K8s集群中Android SDK安装与更新方案设计</h2>
-<h3 id="1.1-android-sdk-tools%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C">1.1 Android SDK Tools镜像制作</h3>
+<h2 id="1-k8s集群中android-sdk安装与更新方案设计"><a class="markdownIt-Anchor" href="#1-k8s集群中android-sdk安装与更新方案设计"></a> 1. K8s集群中Android SDK安装与更新方案设计</h2>
+<h3 id="11-android-sdk-tools镜像制作"><a class="markdownIt-Anchor" href="#11-android-sdk-tools镜像制作"></a> 1.1 Android SDK Tools镜像制作</h3>
 <ul>
 <li>使用Android SDK Tools</li>
 </ul>
@@ -623,7 +623,7 @@
 <p>注：<code>sdkmanager</code>工具在 Android SDK Tools 软件包（25.2.3 及更高版本）中提供，并位于 android_sdk/tools/bin/ 目录下，无需独立安装。</p>
 </blockquote>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// Android SDK Tools Dockerfile</span><br><span class="line">FROM harbor.demo.com/base/jre_centos:8u202_7.8</span><br><span class="line">USER root</span><br><span class="line"></span><br><span class="line">ENV SDK_TOOLS_URL=&quot;https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip&quot; \</span><br><span class="line">    ANDROID_HOME=&quot;/opt/app/android-sdk&quot;</span><br><span class="line"></span><br><span class="line">RUN yum install -y zip unzip</span><br><span class="line">RUN mkdir -p &quot;$ANDROID_HOME&quot; .android \</span><br><span class="line">    &amp;&amp; cd &quot;$ANDROID_HOME&quot; \</span><br><span class="line">    &amp;&amp; curl -o sdk-tools.zip $SDK_TOOLS_URL \</span><br><span class="line">    &amp;&amp; unzip sdk-tools.zip \</span><br><span class="line">    &amp;&amp; rm sdk-tools.zip</span><br><span class="line">RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses \</span><br><span class="line">    &amp;&amp; $ANDROID_HOME/tools/bin/sdkmanager --update</span><br><span class="line"></span><br><span class="line">#RUN $ANDROID_HOME/tools/bin/sdkmanager --install &quot;build-tools;29.0.1&quot; &quot;platforms;android-29&quot;</span><br><span class="line"></span><br><span class="line">CMD [&quot;/bin/bash&quot;]</span><br></pre></td></tr></table></figure>
-<h3 id="1.2-%E5%B0%86android-sdk%E4%BD%9C%E4%B8%BApvc%E6%8C%82%E8%BD%BD%E5%87%BA%E6%9D%A5">1.2 将Android sdk作为PVC挂载出来</h3>
+<h3 id="12-将android-sdk作为pvc挂载出来"><a class="markdownIt-Anchor" href="#12-将android-sdk作为pvc挂载出来"></a> 1.2 将Android sdk作为PVC挂载出来</h3>
 <ul>
 <li>
 <p>k8s中申请50G的pvc挂载点</p>
@@ -633,18 +633,18 @@
 </li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 安装Android sdk工具</span><br><span class="line">sdkmanager --install XXX</span><br></pre></td></tr></table></figure>
-<h3 id="1.3-android-sdk%E6%9B%B4%E6%96%B0">1.3 Android SDK更新</h3>
+<h3 id="13-android-sdk更新"><a class="markdownIt-Anchor" href="#13-android-sdk更新"></a> 1.3 Android SDK更新</h3>
 <ul>
 <li>使用cronjob重新发布一次即可</li>
 </ul>
 <p><strong><code>Cronjob更新稳定性不是很好，如果没有成功安装SDK工具，则可进入容器中，直接执行sdkmanager更新命令（cluster: cluster_pro 内网正式, namespace：jenkins，pod：androidsdk-xxxxx）</code></strong></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// cronjob的部署示例：</span><br><span class="line">jobs:</span><br><span class="line">- name: androidsdk-job</span><br><span class="line">  # job运行环境集群，和 global.env 的值对应</span><br><span class="line">  runEnv:</span><br><span class="line">  - dev</span><br><span class="line">  - test</span><br><span class="line">  - pdt</span><br><span class="line">  image:</span><br><span class="line">     repository: harbor.demo.com/cicd/android-sdk-tools</span><br><span class="line">     tag: v0.0.1</span><br><span class="line">     pullPolicy: Always</span><br><span class="line">  command:</span><br><span class="line">  - &quot;/opt/app/android-sdk-v/tools/bin/sdkmanager&quot;</span><br><span class="line">  - &quot;--install&quot;</span><br><span class="line">  args:</span><br><span class="line">#### ./sdkmanager --list sdk包 ####</span><br><span class="line">#  - &quot;build-tools;19.1.0&quot;</span><br><span class="line">#  - &quot;build-tools;20.0.0&quot;</span><br><span class="line">#  - &quot;build-tools;21.1.2&quot;</span><br><span class="line">#  - &quot;build-tools;22.0.1&quot;</span><br><span class="line">#  - &quot;build-tools;23.0.1&quot;</span><br><span class="line">#  - &quot;build-tools;23.0.2&quot;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<h3 id="1.4-k8s%E9%9B%86%E7%BE%A4%E4%B8%ADandroid-sdk%E5%AE%89%E8%A3%85%E4%B8%8E%E6%9B%B4%E6%96%B0">1.4 K8s集群中Android SDK安装与更新</h3>
+<h3 id="14-k8s集群中android-sdk安装与更新"><a class="markdownIt-Anchor" href="#14-k8s集群中android-sdk安装与更新"></a> 1.4 K8s集群中Android SDK安装与更新</h3>
 <ul>
 <li>使用Helm进行部署和更新，此处我们使用的是Helm方式部署的（有关Helm的部署，将后续分享……）</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TODO chart部署仓库</span><br></pre></td></tr></table></figure>
-<h2 id="2-jenkins-slave%E8%8A%82%E7%82%B9%E4%BD%BF%E7%94%A8android-sdk%E5%B7%A5%E5%85%B7">2 Jenkins slave节点使用Android SDK工具</h2>
+<h2 id="2-jenkins-slave节点使用android-sdk工具"><a class="markdownIt-Anchor" href="#2-jenkins-slave节点使用android-sdk工具"></a> 2 Jenkins slave节点使用Android SDK工具</h2>
 <ul>
 <li>配置Jenkins slave节点</li>
 </ul>
@@ -670,8 +670,8 @@
     <url>/code-analysis-tools-select/</url>
     <content><![CDATA[<p>DevOps必不可少的一环就是代码扫描了，这里面包含了编码规范、代码缺陷、性能、漏洞的检测。目前也会有很多的开源静态代码扫描工具，如：SonarQube、Infer、PMD、FindBugs、CheckStyle。针对此做了简单的收集对比，各位可以根据自身的需求进行参考。</p>
 <span id="more"></span>
-<h2 id="%E5%B7%A5%E5%85%B7%E9%80%89%E5%9E%8B%E8%B0%83%E7%A0%94">工具选型调研</h2>
-<h3 id="%E5%B7%A5%E5%85%B7%E5%AF%B9%E6%AF%94%E8%AF%B4%E6%98%8E">工具对比说明</h3>
+<h2 id="工具选型调研"><a class="markdownIt-Anchor" href="#工具选型调研"></a> 工具选型调研</h2>
+<h3 id="工具对比说明"><a class="markdownIt-Anchor" href="#工具对比说明"></a> 工具对比说明</h3>
 <p>目前比较流行的开源的静态代码扫描工具：SonarQube、Infer、PMD、FindBugs、CheckStyle。因为后续会有流程定制化等需求，暂不考虑商业化的软件。</p>
 <table>
 <thead>
@@ -739,16 +739,16 @@
 </tr>
 </tbody>
 </table>
-<h3 id="%E9%80%89%E5%9E%8B">选型</h3>
+<h3 id="选型"><a class="markdownIt-Anchor" href="#选型"></a> 选型</h3>
 <p>基于上述，<strong>选型SonarQube作为代码扫描工具</strong>，SonarQube 也是是一款目前比较流行的工具，国内很多互联网公司都选择用它来搭建静态检查的平台。</p>
 <p>SonarQube介绍: <a href="https://www.sonarqube.org/">官网</a></p>
-<h2 id="%E5%AE%9E%E6%96%BD%E8%AE%A1%E5%88%92">实施计划</h2>
+<h2 id="实施计划"><a class="markdownIt-Anchor" href="#实施计划"></a> 实施计划</h2>
 <ul>
 <li>SonarQube的部署使用调研</li>
 <li>代码检测集成方案，（Jenkins、gitlab CI、代码检测时机等）</li>
 <li>考虑代码质量平台管理（原生平台界面不友好、同时展示维度无法做到应用维度）</li>
 </ul>
-<h2 id="%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><strong>参考资料</strong></h2>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> <strong>参考资料</strong></h2>
 <table>
 <thead>
 <tr>
@@ -783,11 +783,141 @@
       </tags>
   </entry>
   <entry>
+    <title>代码扫描(三)-Sonar+Jenkins+Gitlab集成</title>
+    <url>/soanrqube-jenkins-gitlab-integration/</url>
+    <content><![CDATA[<p>目前我们使用CI工具主要是Jenkins，所以此相互选择了jenkins进行集成。根据实际情况，也可选择GitlabCI等工具。</p>
+<p>实施代码检测，Gitlab 代码变更（Push/Merge），触发Jenkins Job执行SonarScanner扫描代码，SonarServer通过Gitlab插件，将代码扫描完的结果回写至Gitlab，GitLab即可查看到对应Sonar检测的结果代码注释，方便开发人员代码排查</p>
+<span id="more"></span>
+<h2 id="实现目的"><a class="markdownIt-Anchor" href="#实现目的"></a> 实现目的</h2>
+<ul>
+<li>1、研发过程，Jenkins在构建过程，加入SonarQube的代码质量门，检测本次构建增量代码质量</li>
+<li>2、定期的全量代码质量扫描，在每周定期对公司所有代码进行全量扫描，产出代码质量报告</li>
+</ul>
+<h2 id="集成插件配置"><a class="markdownIt-Anchor" href="#集成插件配置"></a> 集成插件配置</h2>
+<h3 id="1-jenkins插件配置"><a class="markdownIt-Anchor" href="#1-jenkins插件配置"></a> 1、Jenkins插件&amp;配置</h3>
+<p><strong>插件：</strong></p>
+<ul>
+<li>SonarQubeScannerForJenkins</li>
+</ul>
+<p><strong>配置：</strong></p>
+<ul>
+<li>SonarServer配置：Manage Jenkins – &gt; Configure System – &gt; SonarQube servers<br>
+需要SonarQube基于高权限账号生成的 授权token （SonarQube：Administration – &gt; Security – &gt; Users）</li>
+<li>SonarScanner配置：Manage Jenkins – &gt; Global Tool Configuration – &gt; SonarQube Scanner<br>
+备注：<strong>这里安装多个SonarQube Scanner，为多项目并行代码扫描做准备</strong></li>
+</ul>
+<h3 id="2-sonarqube配置"><a class="markdownIt-Anchor" href="#2-sonarqube配置"></a> 2、SonarQube配置</h3>
+<p><strong>插件：</strong></p>
+<p>实现gitlab打通，<strong>同时实现gitlab auth授权登陆</strong>。</p>
+<ul>
+<li>sonar-gitlab-plugin：<a href="https://github.com/javamachr/sonar-gitlab-plugin">https://github.com/javamachr/sonar-gitlab-plugin</a></li>
+<li>**sonar-auth-gitlab-plugin：**<a href="https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin">https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin</a></li>
+</ul>
+<p>**Sonar Serverbase Url设置：**Administration &gt; Configuration &gt; General&gt; Server base URL</p>
+<p><strong>Webhook配置：（实操，不配置，JEnkins在获取质量门结果时会无限等待）</strong></p>
+<p>Administration &gt; Configuration &gt; Webhooks. The URL should point to your Jenkins server： <code>http://&#123;JENKINS_HOST&#125;/sonarqube-webhook/</code></p>
+<p>具体说明：参考Jenkins官方文档说明（<a href="https://www.jenkins.io/doc/pipeline/steps/sonar/#waitforqualitygate-wait-for-sonarqube-analysis-to-be-completed-and-return-quality-gate-status">Configure a webhook in your SonarQube server pointing</a> … ）</p>
+<p><strong>Gitlab授权登陆：</strong></p>
+<p>Administration &gt; Configuration &gt; GitLab &gt; Authentication ：设置对应的 Application ID + Secret</p>
+<p>(设置参数说明，参考对应的插件说明：<a href="https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin">sonar-auth-gitlab-plugin</a>)</p>
+<p><strong>Gitlab Reporting配置：</strong></p>
+<ul>
+<li>
+<p>作用：可以将检测结果报告已comment的形式回写至Gitlab的Commit中（注：目前版本不支持inline comment in commit，现在只有global comment，具体看附属问题记录说明）</p>
+</li>
+<li>
+<p>配置：Administration &gt; Configuration &gt; GitLab &gt; Reporting</p>
+</li>
+<li>
+<p>参数：扫描时需要配置参数：sonar.gitlab.project_id</p>
+</li>
+</ul>
+<p>说明：这个可以根据实际需求配置说明，此处可根据需求配置将检测的结果是否以comment回写。此处暂时不配置。</p>
+<h3 id="3-gitlab配置"><a class="markdownIt-Anchor" href="#3-gitlab配置"></a> 3、Gitlab配置</h3>
+<p><strong>授权登陆设置：</strong><br>
+Admin Settings -&gt; Application：设置对应的回调：https://<your sonar domain>/oauth2/callback/gitlab (备注：sonar的domain不可为IP+Port形式，经测试http目前也是支持)</your></p>
+<h2 id="问题记录"><a class="markdownIt-Anchor" href="#问题记录"></a> 问题记录</h2>
+<ul>
+<li>SonarCloud + GitHub + Pull Request Analysis = No Inline Comments：<a href="https://community.sonarsource.com/t/sonarcloud-github-pull-request-analysis-no-inline-comments/7371/2">https://community.sonarsource.com/t/sonarcloud-github-pull-request-analysis-no-inline-comments/7371/2</a><br>
+目前最后支持的版本：sonarqube v7.6</li>
+<li>新扫描项目（新sonar project key） No branches currently exist in this project. Please scan the main branch without passing any branch parameters<br>
+注：新项目必须先扫描 master（稳定）分支，才可以进行其他分支的扫描</li>
+<li>不建议写入sonar.language扫描参数： <a href="https://community.sonarsource.com/t/what-is-the-alternative-to-the-sonar-language-property-in-the-current-version-of-sonarqube/3993">https://community.sonarsource.com/t/what-is-the-alternative-to-the-sonar-language-property-in-the-current-version-of-sonarqube/3993</a></li>
+<li>SonarQube插件矩阵（可查看相关产检兼容情况）：<a href="https://docs.sonarqube.org/latest/instance-administration/plugin-version-matrix/">https://docs.sonarqube.org/latest/instance-administration/plugin-version-matrix/</a></li>
+</ul>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<ul>
+<li><a href="https://docs.sonarqube.org/latest/">SonarQube官方文档</a></li>
+<li><a href="https://gitbook.curiouser.top/origin/SonarQube%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F%E5%88%86%E6%9E%90%E7%AE%80%E4%BB%8B.html">SonarQube静态代码扫描分析简介</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>SonarQube</category>
+      </categories>
+      <tags>
+        <tag>SonarQube</tag>
+        <tag>代码扫描</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>禅道持续交付(一)-概述及框架</title>
+    <url>/zentao-cicd-overview/</url>
+    <content><![CDATA[<p>我们基于禅道打造了持续交付系统，整合了多个开源系统（包括禅道zentao、jenkins、gitlab、nexus、harbor、ldap、mysql等等），并进行大量的二次开发，将多个系统功能（项目管理、集成管理、代码仓库管理、编译私服，镜像仓库管理、用户认证等）、多个开发环境（开发环境、测试环境、预发布环境、灰度环境、生产环境等），多种发布流程（代码扫描、版本集成、版本发布等）进行统一整合，提供一套高度集成和高度自动化的项目管理+版本集成发布系统。</p>
+<span id="more"></span>
+<h2 id="1-概述"><a class="markdownIt-Anchor" href="#1-概述"></a> 1、概述</h2>
+<p>因为公司大部门在使用禅道进行项目管理、缺陷管理等，所以我们希望基于此对于禅道做二开扩展，支持到CICD，最终将禅道打造成一个DevOps平台。</p>
+<p>选择禅道主要原因：</p>
+<ul>
+<li>有使用历史，符合大多数业务项目的操作习惯</li>
+<li>敏捷管理，基于Scrum的角色且相关流程和功能完善</li>
+<li>社区版开源，可以基于源码进行修改</li>
+</ul>
+<p><strong>拓展后禅道能力</strong></p>
+<ul>
+<li><a href="https://www.zentao.net/book/zentaopmshelp/49.html">使用禅道来进行项目任务管理</a></li>
+<li><a href="https://www.zentao.net/book/zentaopmshelp/64.html">只使用禅道来做bug管理</a></li>
+<li><a href="https://www.zentao.net/book/zentaopmshelp/77.html">只使用禅道来进行产品管理</a></li>
+<li><a href="https://www.zentao.net/book/zentaopmshelp/91.html">个人使用禅道来做事务跟踪管理</a></li>
+<li>仅使用版本集成流程（扩展功能）</li>
+<li>仅使用上线流程审批功能（扩展功能）</li>
+<li>仅使用客户端渠道管理功能（扩展功能）</li>
+</ul>
+<h2 id="2-持续交付系统框架"><a class="markdownIt-Anchor" href="#2-持续交付系统框架"></a> 2、持续交付系统框架</h2>
+<p>这个比较简单吧，其实有关这种分层的DevOps架构，应该都是大同小异，仅供参考哈😉</p>
+<p><img src="/zentao-cicd-overview/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84-new.png" alt="img"></p>
+<h2 id="3-持续交付流程"><a class="markdownIt-Anchor" href="#3-持续交付流程"></a> 3、持续交付流程</h2>
+<p>主要是基于Helm进行K8s的容器部署，整个交付流程如下：</p>
+<ul>
+<li>使用Zentao作为项目管理工具：管理基本需求、迭代、缺陷等</li>
+<li>Zentao也作为用户CICD系统平台，用户再禅道上做集成、构建、部署等操作</li>
+<li>CICD的后端集成工具：Jenkins</li>
+<li>部署至K8s集群中，部署主要的使用是Helm进行部署管理（注：当时使用的是Helm2）</li>
+</ul>
+<p>注：我们自己编写了Helm的Template模板工程，基本涵盖了很多的使用场景，这个后续我也会跟进分享给大家，尽情期待……</p>
+<p><img src="/zentao-cicd-overview/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E6%B5%81%E7%A8%8B-new.png" alt="img"></p>
+<h2 id="4-工具链选型"><a class="markdownIt-Anchor" href="#4-工具链选型"></a> 4、工具链选型</h2>
+<p>其实DevOps工具链产品有很多，大家可以根据自己的实际情况选择，我们基于Zentao打造的持续交付平台选择的是如下工具链。因为当初我们还木有打通持续测试这一环节，所以这个相对有些简陋了，但是还算清晰！</p>
+<h3 id="web端容器"><a class="markdownIt-Anchor" href="#web端容器"></a> Web端容器</h3>
+<p><img src="/zentao-cicd-overview/%E5%B7%A5%E5%85%B7%E9%93%BE%E9%80%89%E5%9E%8B-new.png" alt="img"></p>
+<h3 id="android移动端"><a class="markdownIt-Anchor" href="#android移动端"></a> Android移动端</h3>
+<p><img src="/zentao-cicd-overview/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B7%A5%E5%85%B7%E9%93%BE-new.jpg" alt="img"></p>
+]]></content>
+      <categories>
+        <category>持续交付</category>
+      </categories>
+      <tags>
+        <tag>CICD</tag>
+        <tag>Zentao</tag>
+        <tag>禅道</tag>
+        <tag>持续交付</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>代码扫描(二)-SonarQube安装</title>
     <url>/soanrqube-install/</url>
     <content><![CDATA[<p>SonarQube的安装会给予版本有些差异，建议根据你选择的版本结合官方的文档进行安装，中间遇到问题再自行Google一下啦。本文主要是讲解一下版本的安装：SonarQube：7.9 LTS +PostgreSQL 10</p>
 <span id="more"></span>
-<h2 id="%E7%89%88%E6%9C%AC%E9%80%89%E6%8B%A9">版本选择</h2>
+<h2 id="版本选择"><a class="markdownIt-Anchor" href="#版本选择"></a> 版本选择</h2>
 <p>不同的版本对应的插件选择和数据库支持不同，同时需要考虑版本的稳定性。考虑稳定性，避免出现问题无法跟进处理解决，生产环境不考虑最新版本。</p>
 <p>SonarQube：7.9 LTS</p>
 <p>SonarQube v7.9 的前置依赖说明（<a href="https://docs.sonarqube.org/7.9/requirements/requirements/%EF%BC%89">https://docs.sonarqube.org/7.9/requirements/requirements/）</a></p>
@@ -795,8 +925,8 @@
 <li>数据库：PostgreSQL 10</li>
 <li>Java JDK：OpenJDK 11</li>
 </ul>
-<h2 id="%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E">安装说明</h2>
-<h3 id="1%E3%80%81openjdk-11%E5%AE%89%E8%A3%85">1、OpenJDK 11安装</h3>
+<h2 id="安装说明"><a class="markdownIt-Anchor" href="#安装说明"></a> 安装说明</h2>
+<h3 id="1-openjdk-11安装"><a class="markdownIt-Anchor" href="#1-openjdk-11安装"></a> 1、OpenJDK 11安装</h3>
 <p>官方安装引导：<a href="https://openjdk.java.net/install/">https://openjdk.java.net/install/</a></p>
 <p>安装包（Linux/x64）：（<a href="https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz">官方下载</a> ）</p>
 <p><strong>解压缩</strong></p>
@@ -804,11 +934,11 @@
 <p><strong>配置环境变量</strong></p>
 <p>&gt; 末尾增加如下内容(根据自己jdk目录修改)：<br>
 &gt; export JAVA_HOME=/usr/local/jdk-11<br>
-&gt; export CLASSPATH=$JAVA_HOME/lib:$CLASSPATH<br>
-&gt; export PATH=$JAVA_HOME/bin:$PATH</p>
+&gt; export CLASSPATH=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>J</mi><mi>A</mi><mi>V</mi><msub><mi>A</mi><mi>H</mi></msub><mi>O</mi><mi>M</mi><mi>E</mi><mi mathvariant="normal">/</mi><mi>l</mi><mi>i</mi><mi>b</mi><mo>:</mo></mrow><annotation encoding="application/x-tex">JAVA_HOME/lib:</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.09618em;">J</span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.08125em;">H</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span></span></span></span>CLASSPATH<br>
+&gt; export PATH=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>J</mi><mi>A</mi><mi>V</mi><msub><mi>A</mi><mi>H</mi></msub><mi>O</mi><mi>M</mi><mi>E</mi><mi mathvariant="normal">/</mi><mi>b</mi><mi>i</mi><mi>n</mi><mo>:</mo></mrow><annotation encoding="application/x-tex">JAVA_HOME/bin:</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.09618em;">J</span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord mathdefault">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.08125em;">H</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord">/</span><span class="mord mathdefault">b</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span></span></span></span>PATH</p>
 <p><strong>验证</strong></p>
 <p>&gt; java -version</p>
-<h3 id="2%E3%80%81postgresql-10%E5%AE%89%E8%A3%85">2、PostgreSQL 10安装</h3>
+<h3 id="2-postgresql-10安装"><a class="markdownIt-Anchor" href="#2-postgresql-10安装"></a> 2、PostgreSQL 10安装</h3>
 <p>官方的安装引导：<a href="https://www.postgresql.org/download/linux/redhat/">https://www.postgresql.org/download/linux/redhat/</a></p>
 <ul>
 <li>Select version：10</li>
@@ -821,7 +951,7 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 切换到postgres用户</span></span><br><span class="line">su - postgres</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 连接到数据库</span></span><br><span class="line">psql</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 创建数据库</span></span><br><span class="line">CREATE DATABASE sonarqube;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 创建用户</span></span><br><span class="line">CREATE USER sonarqube WITH PASSWORD <span class="string">&#x27;xxxxx&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 设置权限</span></span><br><span class="line">GRANT ALL PRIVILEGES ON DATABASE sonarqube TO sonarqube;</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 创建授权（必须）</span></span><br><span class="line">ALTER DATABASE sonarqube owner to sonarqube;</span><br></pre></td></tr></table></figure>
 <p>在<code>initdb</code>初始化数据目录时，它会安装一个默认的<code>pg_hba.conf</code>文件（使用命令：systemctl status postgresql-10.service查看位置），修改pg数据的pg_hba.conf（<a href="http://www.postgres.cn/docs/10/auth-pg-hba-conf.html"><code>pg_hba.conf</code>文件说明</a>）将认证 ident 改为 md5，</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># TYPE  DATABASE        USER            ADDRESS                 METHOD</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># &quot;local&quot; is for Unix domain socket connections only</span></span><br><span class="line"><span class="built_in">local</span>   all             all                                     peer</span><br><span class="line"><span class="comment"># IPv4 local connections:</span></span><br><span class="line">host    all             all             127.0.0.1/32            md5</span><br><span class="line"><span class="comment"># IPv6 local connections:</span></span><br><span class="line">host    all             all             ::1/128                 md5</span><br><span class="line"><span class="comment"># Allow replication connections from localhost, by a user with the</span></span><br><span class="line"><span class="comment"># replication privilege.</span></span><br><span class="line"><span class="comment">#local   replication     postgres                                peer</span></span><br><span class="line"><span class="comment">#host    replication     postgres        127.0.0.1/32            ident</span></span><br><span class="line"><span class="comment">#host    replication     postgres        ::1/128                 ident</span></span><br><span class="line"><span class="comment">#host    replication     sonar           127.0.0.1/32            ident</span></span><br></pre></td></tr></table></figure>
-<h3 id="3%E3%80%81sonarqube-7.9%E5%AE%89%E8%A3%85">3、SonarQube 7.9安装</h3>
+<h3 id="3-sonarqube-79安装"><a class="markdownIt-Anchor" href="#3-sonarqube-79安装"></a> 3、SonarQube 7.9安装</h3>
 <p>官方的安装引导：<a href="https://docs.sonarqube.org/7.9/setup/install-server/">https://docs.sonarqube.org/7.9/setup/install-server/</a></p>
 <p>安装包：（<a href="https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.9.6.zip">官方下载</a>）</p>
 <p><strong>创建sonar用户</strong></p>
@@ -846,31 +976,31 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; <span class="variable">$&#123;sonar_home&#125;</span>/bin/linux-x86-64/sonar.sh start</span><br></pre></td></tr></table></figure>
 <p>服务器部署，注意加入到开机启动项中,，此处我是加入 rc.local 文件中</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># sonarqube server</span></span><br><span class="line">su - sonar -c <span class="string">&quot;/opt/app/sonarqube/sonarqube-7.9.6/bin/linux-x86-64/sonar.sh start&quot;</span></span><br></pre></td></tr></table></figure>
-<h3 id="4%E3%80%81sonarqube-scanner">4、SonarQube Scanner</h3>
+<h3 id="4-sonarqube-scanner"><a class="markdownIt-Anchor" href="#4-sonarqube-scanner"></a> 4、SonarQube Scanner</h3>
 <p>官方的安装引导：<a href="https://docs.sonarqube.org/7.9/analysis/scan/sonarscanner/">https://docs.sonarqube.org/7.9/analysis/scan/sonarscanner/</a></p>
 <p>安装包：（<a href="https://docs.sonarqube.org/7.9/analysis/scan/sonarscanner/">官方下载</a>）</p>
 <p>安装：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置SonarQube Server，位置：$install_directory/conf/sonar-scanner.properties</span></span><br><span class="line"><span class="comment">#----- Default SonarQube server</span></span><br><span class="line">sonar.host.url=http://localhost:9000</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 将$install_directory/bin，加入到环境变量PATH</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 使用 sonar-scanner -h ，做验证</span></span><br></pre></td></tr></table></figure>
 <p>**每个扫描项目的根目录加入：**sonar-project.properties</p>
 <p>sonar-project.properties示例： <a href="https://github.com/SonarSource/sonar-scanning-examples">browsed</a> or <a href="https://github.com/SonarSource/sonar-scanning-examples/archive/master.zip">downloaded</a></p>
-<h3 id="5%E3%80%81sonarqube-plugin">5、SonarQube Plugin</h3>
+<h3 id="5-sonarqube-plugin"><a class="markdownIt-Anchor" href="#5-sonarqube-plugin"></a> 5、SonarQube Plugin</h3>
 <ul>
 <li>社区版支持多分支检测： <a href="https://github.com/mc1arke/sonarqube-community-branch-plugin">sonarqube-community-branch-plugin</a>（1.3.2老版本，安装<a href="https://github.com/mc1arke/sonarqube-community-branch-plugin/commit/a6b6db3f30e1ebba7183825542d1f5363b66a831#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5">区别现说明</a>：Copy the plugin JAR file to the <code>extensions/plugins/</code> <strong>and</strong> the <code>lib/common/</code> directories of your SonarQube instance and restart SonarQube）</li>
 <li>汉化包（不建议，总觉得怪怪的）：直接在应用市场检索按照对应的版本即可（jar插件下载：<a href="https://github.com/xuhuisheng/sonar-l10n-zh">sonar-l10n-zh</a>）</li>
 </ul>
-<h3 id="6%E3%80%81%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE">6、相关配置</h3>
+<h3 id="6-相关配置"><a class="markdownIt-Anchor" href="#6-相关配置"></a> 6、相关配置</h3>
 <ul>
 <li><strong>解决增量代码小于20行，QG不生效情况：</strong></li>
 </ul>
 <p>&gt; 配置：sonarqube → quality gates → create/copy a new QG , set :Lines to Cover on New Code to 0</p>
-<h2 id="%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95">问题记录</h2>
+<h2 id="问题记录"><a class="markdownIt-Anchor" href="#问题记录"></a> 问题记录</h2>
 <p><strong>1、Some Quality Gate conditions on New Code were ignored because of the small number of New Lines</strong></p>
 <p>但分支模式增量代码扫描，少于20行时，代码坏味道无法检测到，可以参考：<a href="https://jira.sonarsource.com/browse/SONAR-9352">SONAR-9352</a> 或 <a href="https://groups.google.com/g/sonarqube/c/qxQLr7OAioA/m/Dk9J7Ji8BgAJ?pli=1">论坛讨论</a></p>
 <p>解决：解决方案说明参考 <a href="https://groups.google.com/g/sonarqube/c/qxQLr7OAioA/m/Dk9J7Ji8BgAJ?pli=1">论坛讨论</a>，</p>
 <p>步骤：sonarqube → quality gates → create/copy a new QG , set :Lines to Cover on New Code to 0</p>
 <p><strong>2、the main branch has no lines of code</strong></p>
 <p>扫描php，遇到的错误，主要原因是唯一的php的文件在解析阶段就出现错误，无法正常解析，也就没有扫描文件，更没有扫描结果了。</p>
-<h2 id="%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</h2>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
 <ol>
 <li><a href="https://bbs.huaweicloud.com/blogs/159762">SonarQube安装及踩坑体验</a></li>
 <li><a href="https://blog.csdn.net/CN_TangZheng/article/details/109244806">调研sonarqube版本区别</a></li>
@@ -886,11 +1016,53 @@
       </tags>
   </entry>
   <entry>
+    <title>禅道持续交付(七)-失败总结</title>
+    <url>/zentao-failure-summary/</url>
+    <content><![CDATA[<p>哈哈，想不到吧，虽然经过小伙伴的很长时间的努力，我们最终落地的效果是不理想。最终项目被”砍“掉了。不过很值得和大家分享下，感觉这篇应该是这个系列最<code>值钱</code>的一篇啦，不容错过！</p>
+<span id="more"></span>
+<h2 id="1-持续交付最终结果"><a class="markdownIt-Anchor" href="#1-持续交付最终结果"></a> 1、持续交付最终结果</h2>
+<p>在完成试点后，整体落地推进整体结果不是很好，总结两句话</p>
+<ul>
+<li>Web端使用体验很操作</li>
+<li>移动端整体尚可</li>
+</ul>
+<p>最终由于**”领导层“**的决定，禅道<code>寿终正寝</code>了 😢😢😢</p>
+<h2 id="2-失败原因"><a class="markdownIt-Anchor" href="#2-失败原因"></a> 2、失败原因</h2>
+<p>其实在禅道命运的变更和我司上层调整是一个重合的时间节点，当初我一度很”郁闷“，想不通这个是一个正确的事儿，K8s也是前沿趋势，我门打造的可是我司第一个统一产研研发大平台……</p>
+<p>但是随着时间推移和经历更多的DevOps的实践，发现禅道的”死亡“一定程度上是必然的，我会逐步给到各位解释哈。</p>
+<h3 id="21-空中楼阁核心原因"><a class="markdownIt-Anchor" href="#21-空中楼阁核心原因"></a> 2.1、空中楼阁（核心原因）</h3>
+<p>我们打造的持续交付系统可能先对于公司当时的现状来说太”高、大、尚“了，因为技术层面整体 <strong>底层建设不牢</strong></p>
+<ul>
+<li>软件版本和架构未标准化  –  容器化改造能定制化到你怀疑人生</li>
+<li>运维自动化程度低（基本处于脚本时代吧） – 配置改造、域名标准</li>
+<li>无标准化测试环境 – 大家各自的测试环境基本各成体系</li>
+<li>自身建设的K8s集群先对稳定性不足</li>
+<li>大部分小伙伴其实都没有准备好</li>
+</ul>
+<p>基建其实是一个很庞大的工程，不是一个持续交付系统所能撑起来的，我基于个人的理解把它们理解成一套房子，而持续交付属于Roof一环，如果Foundation和House都没有建设好的化，直接盖”屋顶“，这将是一个很艰难的过程。</p>
+<p><img src="/zentao-failure-summary/%E7%A9%BA%E4%B8%AD%E6%A5%BC%E9%98%81-new.jpg" alt></p>
+<h3 id="22-技术选型"><a class="markdownIt-Anchor" href="#22-技术选型"></a> 2.2、技术选型</h3>
+<p><strong><code>并不是最新、先进就是合适的</code></strong>，我觉得当时起步选择了Helm并不是一个明知的决定，学习成本太高，专业技术方向人员还Ok，当时需要推向多有业务小伙伴使用，这个成本可想而知，入门成本同时带来的问题就是维护起来也是一个浩大的工程。</p>
+<h3 id="23-自身易用性"><a class="markdownIt-Anchor" href="#23-自身易用性"></a> 2.3、自身易用性</h3>
+<p>我们基于禅道自身Scrum框架，做了很多流程、角色限制，最终的结果感觉就是<strong>作茧自缚</strong>。说实话这个就是机械的贯彻了标准的软件生命周期流程（也可以理解为瀑布式），然而他并不”敏捷“。</p>
+<p>流程过度的自由，会引发不可预知的问题，但流程机械化的强制管控，会引起生产效率的降低以及<code>怨声载道</code>。在流程和效率中间找到一个平衡，或者说DevOps落地的不同阶段我们可以逐步规范，这估计也是 <strong>敏捷思想</strong> 想引导的，可惜的是：<strong>当时的我们并不知道这些（认知局限）</strong></p>
+]]></content>
+      <categories>
+        <category>持续交付</category>
+      </categories>
+      <tags>
+        <tag>CICD</tag>
+        <tag>Zentao</tag>
+        <tag>禅道</tag>
+        <tag>持续交付</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>代码扫描(四)-DevOps平台集成Sonar方案</title>
     <url>/soanrqube-devOps-platform-integration/</url>
     <content><![CDATA[<p>SonarQube需要融合到DevOps平台，使其成为CICD的一个环节中来，发挥其更大的价值。我们需要考虑到如何与DevOps平台的集成，并且可以最小限度的对于业务代码的侵入性，这边文档将我的方案做个各详细阐述和大家一起分享。</p>
 <span id="more"></span>
-<h2 id="1%E3%80%81%E6%89%AB%E6%8F%8F%E6%B5%81%E7%A8%8B">1、扫描流程</h2>
+<h2 id="1-扫描流程"><a class="markdownIt-Anchor" href="#1-扫描流程"></a> 1、扫描流程</h2>
 <p>整个代码扫描涉及工具、系统如下：</p>
 <ul>
 <li>Gitlab</li>
@@ -900,8 +1072,8 @@
 </ul>
 <p><strong>执行流程如下：</strong></p>
 <p><img src="/soanrqube-devOps-platform-integration/Sonar%E9%9B%86%E6%88%90%E6%B5%81%E7%A8%8B-new.jpg" alt="Jenkins配置"></p>
-<h2 id="2%E3%80%81%E8%AF%A6%E7%BB%86%E8%AF%B4%E6%98%8E">2、详细说明</h2>
-<h3 id="2.1%E3%80%81devops%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%BB%A3%E7%A0%81%EF%BC%89">2.1、DevOps平台（代码）</h3>
+<h2 id="2-详细说明"><a class="markdownIt-Anchor" href="#2-详细说明"></a> 2、详细说明</h2>
+<h3 id="21-devops平台代码"><a class="markdownIt-Anchor" href="#21-devops平台代码"></a> 2.1、DevOps平台（代码）</h3>
 <p>代码扫描以一个开放应用的形式接入研发中台，有一个基本Widget页面，展示代码扫描结果概览</p>
 <p>所有的检测结果可以基于研发中台进行处理</p>
 <ul>
@@ -910,12 +1082,12 @@
 </ul>
 <p><strong>SonarQube开放应用界面</strong></p>
 <p><img src="/soanrqube-devOps-platform-integration/Sonar%E5%BC%80%E6%94%BE%E5%BA%94%E7%94%A8-new.jpg" alt="Jenkins配置"></p>
-<h3 id="2.2%E3%80%81jenkins%E6%89%AB%E6%8F%8Fjob">2.2、Jenkins扫描Job</h3>
+<h3 id="22-jenkins扫描job"><a class="markdownIt-Anchor" href="#22-jenkins扫描job"></a> 2.2、Jenkins扫描Job</h3>
 <p>所有触发通过研发中台触发，所以Jenkins只配置一个通用扫描Job即可，使用Pipeline Job编写。</p>
 <p><strong>说明：所以参数拼接可以研发中台传递给 Jenkins，所以业务代码可以不用 sonar-project.properties文件，减少业务代码的侵入性</strong></p>
-<h4 id="jenkins-job%E5%85%A5%E5%8F%82">Jenkins Job入参</h4>
+<h4 id="jenkins-job入参"><a class="markdownIt-Anchor" href="#jenkins-job入参"></a> Jenkins Job入参</h4>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;commonParams&quot;: &#123;</span><br><span class="line">		&quot;appCode&quot;: &quot;php-demo&quot;,     // 应用编号唯一，对应：sonar.projectkey</span><br><span class="line">		&quot;appLanguage&quot;: &quot;php&quot;,   // 应用语言，针对不同语言设置默认的扫描命令及参数，如：php、go、java、gradle</span><br><span class="line">		&quot;gitRepository&quot;: &quot;git@gitlab.demo.com:demo/php-demo.git&quot;,  // 代码仓库地址</span><br><span class="line">		&quot;gitProjectId&quot;: &quot;&quot;,   // GitLab仓库PojectId，对应：sonar.gitlab.project_id，Comment on Commit需要</span><br><span class="line">		&quot;gitBranch&quot;: &quot;test&quot;,  // 扫描代码分支，对应：sonar.branch.name</span><br><span class="line">		&quot;gitCommit&quot;: &quot;&quot;,  // 代码提交Commit Hash值，对应：sonar.gitlab.commit_sha</span><br><span class="line">		&quot;gitRefName&quot;: &quot;master&quot;  // 扫描参考基准分支或Commit，对应：sonar.gitlab.ref_name</span><br><span class="line">        &quot;gitEvent&quot;: &quot;Merge Request Hook&quot;,   // git触发事件类型，Push Hook、Merge Request Hook、Flow Build、Fast Build等</span><br><span class="line">		&quot;mrKey&quot;: &quot;1&quot;,   // MR Key，对应：sonar.pullrequest.key</span><br><span class="line">		&quot;mrSourceBranch&quot;: &quot;test-mr&quot;,   // MR来源分支，对应：sonar.pullrequest.branch</span><br><span class="line">		&quot;mrTargetBranch&quot;: &quot;master&quot;  // MR目标分支，对应：sonar.pullrequest.base</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;extendParams&quot;: &#123;  // 预留扩展参数，如自定义扫描参数等</span><br><span class="line">		&quot;customAnalysisParams&quot;: &#123;        // 以下会默认覆盖原有既定扫描参数</span><br><span class="line">			&quot;sonar.sourceEncoding&quot;: &quot;GBK&quot;,</span><br><span class="line">			&quot;sonar.projectBaseDir&quot;: &quot;/src/code&quot;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="jenkins-pipeline%E7%A4%BA%E4%BE%8B">Jenkins pipeline示例</h4>
+<h4 id="jenkins-pipeline示例"><a class="markdownIt-Anchor" href="#jenkins-pipeline示例"></a> Jenkins pipeline示例</h4>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line"></span><br><span class="line">    stages &#123;</span><br><span class="line">        stage (&quot;参数解析&quot;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                script &#123;</span><br><span class="line">                    echo params.BUILD_PARAMS_JSON</span><br><span class="line">                    if (params.BUILD_PARAMS_JSON != null &amp;&amp; params.BUILD_PARAMS_JSON != &#x27;&#x27;) &#123;</span><br><span class="line">                        buildParams = readJSON text: params.BUILD_PARAMS_JSON</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        error &quot;BUILD_PARAMS_JSON is required params&quot;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    // 通用参数与定制参数赋值</span><br><span class="line">                    COMMON_PARAMS = buildParams[&#x27;commonParams&#x27;]</span><br><span class="line">                    EXTEND_PARAMS = buildParams[&#x27;extendParams&#x27;]</span><br><span class="line"></span><br><span class="line">                    // 入参json数据校验,通用参数必须包含 appCode + gitRepository</span><br><span class="line">                    if (COMMON_PARAMS[&#x27;appCode&#x27;].isEmpty() || COMMON_PARAMS[&#x27;gitRepository&#x27;].isEmpty() ) &#123;</span><br><span class="line">                        error &quot;buildParams[&#x27;commonParams&#x27;] is error, must have appCode and gitRepository&quot;</span><br><span class="line">                    &#125;</span><br><span class="line">                    // gitBranch不存在则默认为master</span><br><span class="line">                    COMMON_PARAMS[&#x27;gitBranch&#x27;].isEmpty() &amp;&amp; (COMMON_PARAMS[&#x27;gitBranch&#x27;] = &quot;master&quot;)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        stage (&quot;代码拉取&quot;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                // 不同的应用对应不同的工作空间,避免工作空间相互影响覆盖</span><br><span class="line">                dir (&quot;$&#123;COMMON_PARAMS[&#x27;appCode&#x27;]&#125;&quot;) &#123;</span><br><span class="line">                    // 拉取git仓库代码， 默认基于分支拉取</span><br><span class="line">                    script &#123;</span><br><span class="line">                        if (COMMON_PARAMS[&#x27;gitEvent&#x27;] == &quot;Merge Request Hook&quot; || !COMMON_PARAMS[&#x27;mrKey&#x27;].isEmpty()) &#123;</span><br><span class="line">                            // SCM: MR必须使用此进行拉取代码,否则Sonar Scan无法识别此次SCM是基于MR</span><br><span class="line">                            gitCodeFetch(&quot;branch&quot;, COMMON_PARAMS[&#x27;mrSourceBranch&#x27;], COMMON_PARAMS[&#x27;gitRepository&#x27;], params.GITLAB_DEPLOY_CRED, &quot;MR&quot;, COMMON_PARAMS[&#x27;mrTargetBranch&#x27;])</span><br><span class="line">                        &#125; else &#123;</span><br><span class="line">                            gitCodeFetch(&quot;branch&quot;, COMMON_PARAMS[&#x27;gitBranch&#x27;], COMMON_PARAMS[&#x27;gitRepository&#x27;], params.GITLAB_DEPLOY_CRED)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 扫描参数此处组织,则业务代码无需sonar-project.properties文件,不侵入业务代码</span><br><span class="line">        stage (&quot;扫描参数组织&quot;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                script &#123;</span><br><span class="line">                    ANALYSIS_PARAMS = [:]</span><br><span class="line">                    // =================  通用扫描参数 ==========================</span><br><span class="line">                    // 通用扫描参数,其中个别参数存在值才进行赋值,否则空值可能会出现扫描异常情况</span><br><span class="line">                    ANALYSIS_PARAMS[&#x27;sonar.projectKey&#x27;] = COMMON_PARAMS[&#x27;appCode&#x27;]</span><br><span class="line">                    ANALYSIS_PARAMS[&#x27;sonar.projectName&#x27;] = COMMON_PARAMS[&#x27;appCode&#x27;]</span><br><span class="line">                    ...</span><br><span class="line">                    </span><br><span class="line">                    // =================  各语言的约定扫描参数 ======================</span><br><span class="line">                    // 各语言的约定扫描参数,如:sonar.exclusions,sonar.sourceEncoding,默认扫描报告文件位置: .scannerwork/report-task.txt</span><br><span class="line">                    REPORT_FILE_PATH = &quot;.scannerwork/report-task.txt&quot;</span><br><span class="line">                    if (COMMON_PARAMS[&#x27;appLanguage&#x27;] == &quot;php&quot;) &#123;</span><br><span class="line">                        ANALYSIS_PARAMS[&#x27;sonar.exclusions&#x27;] = &quot;vendor/**&quot;</span><br><span class="line">                    &#125; else if (COMMON_PARAMS[&#x27;appLanguage&#x27;] == &quot;go&quot;) &#123;</span><br><span class="line">                        ANALYSIS_PARAMS[&#x27;sonar.exclusions&#x27;] = &quot;vendor/**&quot;</span><br><span class="line">                    &#125; else if (COMMON_PARAMS[&#x27;appLanguage&#x27;] == &quot;java&quot;) &#123;</span><br><span class="line">                        // 以下mvn sonar:sonar 会默认设置,对于multi-module的仓库同样适用</span><br><span class="line">                        //ANALYSIS_PARAMS[&#x27;sonar.sources&#x27;] = &quot;src&quot;</span><br><span class="line">                        //ANALYSIS_PARAMS[&#x27;sonar.java.binaries&#x27;] = &quot;target/classes&quot;</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        // TODO</span><br><span class="line">                        echo &quot;TODO&quot;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    // =================  定制化扫描参数 ======================</span><br><span class="line">                    // 定制化扫描参数(研发中台页面配置), 放置最后,可覆盖之前约定扫描参数</span><br><span class="line">                    if (!EXTEND_PARAMS[&#x27;customAnalysisParams&#x27;].isEmpty()) &#123;</span><br><span class="line">                        EXTEND_PARAMS[&#x27;customAnalysisParams&#x27;].each &#123; key,value -&gt;</span><br><span class="line">                            ANALYSIS_PARAMS[&quot;$&#123;key&#125;&quot;] = value</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        stage (&quot;前置扫描操作&quot;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                dir(&quot;$&#123;COMMON_PARAMS[&#x27;appCode&#x27;]&#125;&quot;) &#123;</span><br><span class="line">                    script &#123;</span><br><span class="line">                        if (COMMON_PARAMS[&#x27;appLanguage&#x27;] == &quot;java&quot;) &#123;</span><br><span class="line">                            // java 语言需前置编译, 下载统一的setting.xml文件</span><br><span class="line">                            sh &quot;wget -O settings.xml http://.../settings-sonar.xml&quot;</span><br><span class="line">                        &#125; else &#123;</span><br><span class="line">                            echo &quot;Do Nothing&quot;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        stage (&quot;代码扫描&quot;) &#123;</span><br><span class="line">            environment &#123;</span><br><span class="line">                GIT_COMMIT = &quot;&quot;  // 此环境变量置空, 否则影响MR检测时的Sonar回写Gitlab,注:取值为jenkins pipeline 仓库的Hash值</span><br><span class="line">            &#125;</span><br><span class="line">            steps &#123;</span><br><span class="line">                dir(&quot;$&#123;COMMON_PARAMS[&#x27;appCode&#x27;]&#125;&quot;) &#123;</span><br><span class="line">                    script &#123;</span><br><span class="line">                        // 扫描参数拼接</span><br><span class="line">                        println(JsonOutput.toJson(ANALYSIS_PARAMS))</span><br><span class="line">                        def analysisParams = &#x27;&#x27;</span><br><span class="line">                        ANALYSIS_PARAMS.each &#123; key,value -&gt;</span><br><span class="line">                            analysisParams += &quot;-D&quot; + key + &quot;=&quot; + value + &quot; &quot;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        def scannerHome = tool &#x27;SonarScanner&#x27;</span><br><span class="line">                        withSonarQubeEnv(&quot;SonarServer&quot;) &#123;</span><br><span class="line">                            if (COMMON_PARAMS[&#x27;appLanguage&#x27;] == &quot;java&quot;) &#123;</span><br><span class="line">                                // 适应multi-module的仓库, 将 sonar:sonar 作为独立的一步执行</span><br><span class="line">                                //sh &quot;mvn -s settings.xml clean install -Dmaven.test.skip=true&quot;</span><br><span class="line">                                sh &quot;mvn -s settings.xml clean install&quot;</span><br><span class="line">                                sh &quot;mvn -s settings.xml sonar:sonar $&#123;analysisParams&#125;&quot;</span><br><span class="line">                            &#125; else &#123;</span><br><span class="line">                                sh &quot;$&#123;scannerHome&#125;/bin/sonar-scanner $&#123;analysisParams&#125;&quot;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        // 扫描质量门结果</span><br><span class="line">                        timeout(time: 1, unit: &#x27;HOURS&#x27;) &#123;</span><br><span class="line">                             // 返回格式Map,示例: &#123;&quot;status&quot;:&quot;OK / ERROR&quot;&#125;, 返回放置在 ARTIFACTS[&#x27;qualityGate&#x27;]</span><br><span class="line">                            ARTIFACTS[&#x27;qualityGate&#x27;] = waitForQualityGate()</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>2.3、SonarQube</p>
 <p>登陆和Gitlab进行打通，实现联动登陆（Gitlab完成登陆了，则SonarQube即自动登陆）</p>
@@ -925,8 +1097,8 @@
 <p>注：根据实际需求进行，需要传入 <code>sonar.gitlab.project_id 参数</code></p>
 <p><strong>基于MR的Comment</strong></p>
 <p><img src="/soanrqube-devOps-platform-integration/MR-Sonar%E8%B4%A8%E9%87%8F%E9%98%88.png" alt="Jenkins配置"></p>
-<h2 id="%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95">问题记录</h2>
-<h3 id="1%E3%80%81sonarqube-%E6%89%AB%E6%8F%8F%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98">1、SonarQube 扫描项目的权限问题</h3>
+<h2 id="问题记录"><a class="markdownIt-Anchor" href="#问题记录"></a> 问题记录</h2>
+<h3 id="1-sonarqube-扫描项目的权限问题"><a class="markdownIt-Anchor" href="#1-sonarqube-扫描项目的权限问题"></a> 1、SonarQube 扫描项目的权限问题</h3>
 <p>默认设置，登陆用户均可以查看，这个会造成源代码泄露风险</p>
 <p><strong>处理方式：</strong></p>
 <ul>
@@ -937,7 +1109,7 @@
 <p><strong>全局权限+新用户权限</strong></p>
 <p><img src="/soanrqube-devOps-platform-integration/%E5%85%A8%E5%B1%80%E6%9D%83%E9%99%90.png" alt="Jenkins配置"></p>
 <p><img src="/soanrqube-devOps-platform-integration/%E4%BA%BA%E5%91%98%E6%9D%83%E9%99%90.png" alt="Jenkins配置"></p>
-<h3 id="2%E3%80%81%E5%9F%BA%E4%BA%8Emr%E6%89%AB%E6%8F%8F%E7%8A%B6%E6%80%81%E7%BB%93%E6%9E%9C%E5%9B%9E%E5%86%99gitlab">2、基于MR扫描状态结果回写Gitlab</h3>
+<h3 id="2-基于mr扫描状态结果回写gitlab"><a class="markdownIt-Anchor" href="#2-基于mr扫描状态结果回写gitlab"></a> 2、基于MR扫描状态结果回写Gitlab</h3>
 <ul>
 <li>
 <p>**坑1：目前使用7.9.x 对应的 branch plugin-1.3.2需要加入此参数(否则报错),后续针对8.x版本则不再需要<br>
@@ -960,144 +1132,25 @@
       </tags>
   </entry>
   <entry>
-    <title>代码扫描(三)-Sonar+Jenkins+Gitlab集成</title>
-    <url>/soanrqube-jenkins-gitlab-integration/</url>
-    <content><![CDATA[<p>目前我们使用CI工具主要是Jenkins，所以此相互选择了jenkins进行集成。根据实际情况，也可选择GitlabCI等工具。</p>
-<p>实施代码检测，Gitlab 代码变更（Push/Merge），触发Jenkins Job执行SonarScanner扫描代码，SonarServer通过Gitlab插件，将代码扫描完的结果回写至Gitlab，GitLab即可查看到对应Sonar检测的结果代码注释，方便开发人员代码排查</p>
-<span id="more"></span>
-<h2 id="%E5%AE%9E%E7%8E%B0%E7%9B%AE%E7%9A%84">实现目的</h2>
-<ul>
-<li>1、研发过程，Jenkins在构建过程，加入SonarQube的代码质量门，检测本次构建增量代码质量</li>
-<li>2、定期的全量代码质量扫描，在每周定期对公司所有代码进行全量扫描，产出代码质量报告</li>
-</ul>
-<h2 id="%E9%9B%86%E6%88%90%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE">集成插件配置</h2>
-<h3 id="1%E3%80%81jenkins%E6%8F%92%E4%BB%B6%26%E9%85%8D%E7%BD%AE">1、Jenkins插件&amp;配置</h3>
-<p><strong>插件：</strong></p>
-<ul>
-<li>SonarQubeScannerForJenkins</li>
-</ul>
-<p><strong>配置：</strong></p>
-<ul>
-<li>SonarServer配置：Manage Jenkins -- &gt; Configure System -- &gt; SonarQube servers<br>
-需要SonarQube基于高权限账号生成的 授权token （SonarQube：Administration -- &gt; Security -- &gt; Users）</li>
-<li>SonarScanner配置：Manage Jenkins -- &gt; Global Tool Configuration -- &gt; SonarQube Scanner<br>
-备注：<strong>这里安装多个SonarQube Scanner，为多项目并行代码扫描做准备</strong></li>
-</ul>
-<h3 id="2%E3%80%81sonarqube%E9%85%8D%E7%BD%AE">2、SonarQube配置</h3>
-<p><strong>插件：</strong></p>
-<p>实现gitlab打通，<strong>同时实现gitlab auth授权登陆</strong>。</p>
-<ul>
-<li>sonar-gitlab-plugin：<a href="https://github.com/javamachr/sonar-gitlab-plugin">https://github.com/javamachr/sonar-gitlab-plugin</a></li>
-<li>**sonar-auth-gitlab-plugin：**<a href="https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin">https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin</a></li>
-</ul>
-<p>**Sonar Serverbase Url设置：**Administration &gt; Configuration &gt; General&gt; Server base URL</p>
-<p><strong>Webhook配置：（实操，不配置，JEnkins在获取质量门结果时会无限等待）</strong></p>
-<p>Administration &gt; Configuration &gt; Webhooks. The URL should point to your Jenkins server： <code>http://&#123;JENKINS_HOST&#125;/sonarqube-webhook/</code></p>
-<p>具体说明：参考Jenkins官方文档说明（<a href="https://www.jenkins.io/doc/pipeline/steps/sonar/#waitforqualitygate-wait-for-sonarqube-analysis-to-be-completed-and-return-quality-gate-status">Configure a webhook in your SonarQube server pointing</a> ... ）</p>
-<p><strong>Gitlab授权登陆：</strong></p>
-<p>Administration &gt; Configuration &gt; GitLab &gt; Authentication ：设置对应的 Application ID + Secret</p>
-<p>(设置参数说明，参考对应的插件说明：<a href="https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin">sonar-auth-gitlab-plugin</a>)</p>
-<p><strong>Gitlab Reporting配置：</strong></p>
-<ul>
-<li>
-<p>作用：可以将检测结果报告已comment的形式回写至Gitlab的Commit中（注：目前版本不支持inline comment in commit，现在只有global comment，具体看附属问题记录说明）</p>
-</li>
-<li>
-<p>配置：Administration &gt; Configuration &gt; GitLab &gt; Reporting</p>
-</li>
-<li>
-<p>参数：扫描时需要配置参数：sonar.gitlab.project_id</p>
-</li>
-</ul>
-<p>说明：这个可以根据实际需求配置说明，此处可根据需求配置将检测的结果是否以comment回写。此处暂时不配置。</p>
-<h3 id="3%E3%80%81gitlab%E9%85%8D%E7%BD%AE">3、Gitlab配置</h3>
-<p><strong>授权登陆设置：</strong><br>
-Admin Settings -&gt; Application：设置对应的回调：https://<your sonar domain>/oauth2/callback/gitlab (备注：sonar的domain不可为IP+Port形式，经测试http目前也是支持)</your></p>
-<h2 id="%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95">问题记录</h2>
-<ul>
-<li>SonarCloud + GitHub + Pull Request Analysis = No Inline Comments：<a href="https://community.sonarsource.com/t/sonarcloud-github-pull-request-analysis-no-inline-comments/7371/2">https://community.sonarsource.com/t/sonarcloud-github-pull-request-analysis-no-inline-comments/7371/2</a><br>
-目前最后支持的版本：sonarqube v7.6</li>
-<li>新扫描项目（新sonar project key） No branches currently exist in this project. Please scan the main branch without passing any branch parameters<br>
-注：新项目必须先扫描 master（稳定）分支，才可以进行其他分支的扫描</li>
-<li>不建议写入sonar.language扫描参数： <a href="https://community.sonarsource.com/t/what-is-the-alternative-to-the-sonar-language-property-in-the-current-version-of-sonarqube/3993">https://community.sonarsource.com/t/what-is-the-alternative-to-the-sonar-language-property-in-the-current-version-of-sonarqube/3993</a></li>
-<li>SonarQube插件矩阵（可查看相关产检兼容情况）：<a href="https://docs.sonarqube.org/latest/instance-administration/plugin-version-matrix/">https://docs.sonarqube.org/latest/instance-administration/plugin-version-matrix/</a></li>
-</ul>
-<h2 id="%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</h2>
-<ul>
-<li><a href="https://docs.sonarqube.org/latest/">SonarQube官方文档</a></li>
-<li><a href="https://gitbook.curiouser.top/origin/SonarQube%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E6%89%AB%E6%8F%8F%E5%88%86%E6%9E%90%E7%AE%80%E4%BB%8B.html">SonarQube静态代码扫描分析简介</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>SonarQube</category>
-      </categories>
-      <tags>
-        <tag>SonarQube</tag>
-        <tag>代码扫描</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>禅道持续交付(七)-失败总结</title>
-    <url>/zentao-failure-summary/</url>
-    <content><![CDATA[<p>哈哈，想不到吧，虽然经过小伙伴的很长时间的努力，我们最终落地的效果是不理想。最终项目被”砍“掉了。不过很值得和大家分享下，感觉这篇应该是这个系列最<code>值钱</code>的一篇啦，不容错过！</p>
-<span id="more"></span>
-<h2 id="1%E3%80%81%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E6%9C%80%E7%BB%88%E7%BB%93%E6%9E%9C">1、持续交付最终结果</h2>
-<p>在完成试点后，整体落地推进整体结果不是很好，总结两句话</p>
-<ul>
-<li>Web端使用体验很操作</li>
-<li>移动端整体尚可</li>
-</ul>
-<p>最终由于**”领导层“**的决定，禅道<code>寿终正寝</code>了 😢😢😢</p>
-<h2 id="2%E3%80%81%E5%A4%B1%E8%B4%A5%E5%8E%9F%E5%9B%A0">2、失败原因</h2>
-<p>其实在禅道命运的变更和我司上层调整是一个重合的时间节点，当初我一度很”郁闷“，想不通这个是一个正确的事儿，K8s也是前沿趋势，我门打造的可是我司第一个统一产研研发大平台……</p>
-<p>但是随着时间推移和经历更多的DevOps的实践，发现禅道的”死亡“一定程度上是必然的，我会逐步给到各位解释哈。</p>
-<h3 id="2.1%E3%80%81%E7%A9%BA%E4%B8%AD%E6%A5%BC%E9%98%81%EF%BC%88%E6%A0%B8%E5%BF%83%E5%8E%9F%E5%9B%A0%EF%BC%89">2.1、空中楼阁（核心原因）</h3>
-<p>我们打造的持续交付系统可能先对于公司当时的现状来说太”高、大、尚“了，因为技术层面整体 <strong>底层建设不牢</strong></p>
-<ul>
-<li>软件版本和架构未标准化  --  容器化改造能定制化到你怀疑人生</li>
-<li>运维自动化程度低（基本处于脚本时代吧） -- 配置改造、域名标准</li>
-<li>无标准化测试环境 -- 大家各自的测试环境基本各成体系</li>
-<li>自身建设的K8s集群先对稳定性不足</li>
-<li>大部分小伙伴其实都没有准备好</li>
-</ul>
-<p>基建其实是一个很庞大的工程，不是一个持续交付系统所能撑起来的，我基于个人的理解把它们理解成一套房子，而持续交付属于Roof一环，如果Foundation和House都没有建设好的化，直接盖”屋顶“，这将是一个很艰难的过程。</p>
-<p><img src="/zentao-failure-summary/%E7%A9%BA%E4%B8%AD%E6%A5%BC%E9%98%81-new.jpg" alt></p>
-<h3 id="2.2%E3%80%81%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B">2.2、技术选型</h3>
-<p><strong><code>并不是最新、先进就是合适的</code></strong>，我觉得当时起步选择了Helm并不是一个明知的决定，学习成本太高，专业技术方向人员还Ok，当时需要推向多有业务小伙伴使用，这个成本可想而知，入门成本同时带来的问题就是维护起来也是一个浩大的工程。</p>
-<h3 id="2.3%E3%80%81%E8%87%AA%E8%BA%AB%E6%98%93%E7%94%A8%E6%80%A7">2.3、自身易用性</h3>
-<p>我们基于禅道自身Scrum框架，做了很多流程、角色限制，最终的结果感觉就是<strong>作茧自缚</strong>。说实话这个就是机械的贯彻了标准的软件生命周期流程（也可以理解为瀑布式），然而他并不”敏捷“。</p>
-<p>流程过度的自由，会引发不可预知的问题，但流程机械化的强制管控，会引起生产效率的降低以及<code>怨声载道</code>。在流程和效率中间找到一个平衡，或者说DevOps落地的不同阶段我们可以逐步规范，这估计也是 <strong>敏捷思想</strong> 想引导的，可惜的是：<strong>当时的我们并不知道这些（认知局限）</strong></p>
-]]></content>
-      <categories>
-        <category>持续交付</category>
-      </categories>
-      <tags>
-        <tag>CICD</tag>
-        <tag>Zentao</tag>
-        <tag>禅道</tag>
-        <tag>持续交付</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>禅道持续交付(三)-多环境同域名设计</title>
     <url>/zentao-one-domain-multiEnv/</url>
     <content><![CDATA[<p>在实际需求中，我们遇到了这样一个需求：在<code>研发环境</code>和<code>测试环境</code>使用相同的域名，期望根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理。基于此我们调研最后实现这个需求。方案核心点：OpenResty方案: Nginx+lua + redis 实现根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理，redis用于管理用户Client IP和环境的绑定关系。</p>
 <span id="more"></span>
-<h2 id="1-%E9%9C%80%E6%B1%82%E8%B0%83%E7%A0%94">1 需求调研</h2>
+<h2 id="1-需求调研"><a class="markdownIt-Anchor" href="#1-需求调研"></a> 1 需求调研</h2>
 <p>在<code>研发环境</code>和<code>测试环境</code>使用相同的域名，期望根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理。</p>
-<h2 id="2-%E6%96%B9%E6%A1%88%E6%A6%82%E8%BF%B0">2 方案概述</h2>
+<h2 id="2-方案概述"><a class="markdownIt-Anchor" href="#2-方案概述"></a> 2 方案概述</h2>
 <ol>
 <li>使用<code>OpenResty</code>(集成了 Nginx 和 Lua )对用户请求进行转发</li>
 <li>使用<code>Redis</code>来存储用户 IP 与环境的绑定关系数据</li>
 <li>使用禅道操作<code>Redis</code>来管理用户 IP 与环境的绑定关系</li>
 </ol>
-<h2 id="3-%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5">3 部署实践</h2>
-<h3 id="3.1-openresty-%E9%83%A8%E7%BD%B2">3.1 OpenResty 部署</h3>
+<h2 id="3-部署实践"><a class="markdownIt-Anchor" href="#3-部署实践"></a> 3 部署实践</h2>
+<h3 id="31-openresty-部署"><a class="markdownIt-Anchor" href="#31-openresty-部署"></a> 3.1 OpenResty 部署</h3>
 <p><a href="https://openresty.org/en/">OpenResty官方介绍</a></p>
-<h4 id="3.1.1-openresty-%E5%AE%89%E8%A3%85">3.1.1 OpenResty 安装</h4>
+<h4 id="311-openresty-安装"><a class="markdownIt-Anchor" href="#311-openresty-安装"></a> 3.1.1 OpenResty 安装</h4>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install -y yum-utils</span><br><span class="line">sudo yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo</span><br><span class="line">sudo yum install -y openresty</span><br><span class="line">sudo yum install -y openresty-resty</span><br></pre></td></tr></table></figure>
-<h4 id="3.1.2-openresty-%E9%85%8D%E7%BD%AE">3.1.2 OpenResty 配置</h4>
-<h5 id="3.1.2.1-nginx-%E9%85%8D%E7%BD%AE">3.1.2.1 nginx 配置</h5>
+<h4 id="312-openresty-配置"><a class="markdownIt-Anchor" href="#312-openresty-配置"></a> 3.1.2 OpenResty 配置</h4>
+<h5 id="3121-nginx-配置"><a class="markdownIt-Anchor" href="#3121-nginx-配置"></a> 3.1.2.1 nginx 配置</h5>
 <p>路径：/usr/local/openresty/nginx/conf/nginx.conf</p>
 <ul>
 <li>配置文件路径根据 openresty 安装目录变化</li>
@@ -1105,7 +1158,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </ul>
 <p>配置样例：</p>
 <figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">user</span>                 root root;</span><br><span class="line"><span class="attribute">worker_processes</span>     auto;</span><br><span class="line"><span class="attribute">worker_cpu_affinity</span>  auto;</span><br><span class="line"><span class="attribute">error_log</span>            logs/error.log <span class="literal">info</span>;</span><br><span class="line"><span class="attribute">pid</span>                  logs/nginx.pid;</span><br><span class="line"><span class="attribute">worker_rlimit_nofile</span> <span class="number">65000</span>;</span><br><span class="line"></span><br><span class="line"><span class="section">events</span> &#123;</span><br><span class="line">    <span class="attribute">use</span>                 <span class="literal">epoll</span>;</span><br><span class="line">    <span class="attribute">accept_mutex</span>        <span class="literal">off</span>;</span><br><span class="line">    <span class="attribute">multi_accept</span>        <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">worker_connections</span>  <span class="number">20480</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">include</span>       mime.types;</span><br><span class="line">    <span class="attribute">default_type</span>  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># lua相关配置</span></span><br><span class="line">    <span class="attribute">lua_package_path</span>                   <span class="string">&#x27;/usr/local/openresty/lualib/?.lua;/usr/local/openresty/nginx/conf/?.lua&#x27;</span>;</span><br><span class="line">    <span class="attribute">lua_shared_dict</span>                    xq_req_limit_cache <span class="number">1m</span>;</span><br><span class="line">    <span class="attribute">lua_need_request_body</span>              <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">include</span> conf.d/<span class="regexp">*.conf</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="3.1.2.2-%E4%BB%A3%E7%90%86%E5%9F%9F%E5%90%8D%E9%85%8D%E7%BD%AE">3.1.2.2 代理域名配置</h5>
+<h5 id="3122-代理域名配置"><a class="markdownIt-Anchor" href="#3122-代理域名配置"></a> 3.1.2.2 代理域名配置</h5>
 <p>路径：/usr/local/openresty/nginx/conf/conf.d/domain.conf</p>
 <ul>
 <li>配置文件路径根据 openresty 安装目录变化</li>
@@ -1113,7 +1166,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </ul>
 <p>配置样例：</p>
 <figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> domain.demo.com;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">access_log</span> /usr/local/openresty/nginx/logs/domain.demo.com.access.log;</span><br><span class="line">    <span class="attribute">error_log</span> /usr/local/openresty/nginx/logs/domain.demo.com.<span class="literal">error</span>.log <span class="literal">warn</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">set</span> $target_domain <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        <span class="attribute">set</span> $target_host <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">rewrite_by_lua_file</span> /usr/local/openresty/nginx/conf/proxy.lua;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">proxy_set_header</span> Host $target_domain;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://$target_host;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="3.1.2.3-lua%E8%84%9A%E6%9C%AC">3.1.2.3 Lua脚本</h5>
+<h5 id="3123-lua脚本"><a class="markdownIt-Anchor" href="#3123-lua脚本"></a> 3.1.2.3 Lua脚本</h5>
 <p>路径：/usr/local/openresty/nginx/conf/proxy.lua</p>
 <ul>
 <li>配置文件路径根据 openresty 安装目录变化</li>
@@ -1127,7 +1180,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <li>redis auth</li>
 <li>redis db</li>
 </ul>
-<h3 id="3.2-redis-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">3.2 Redis 数据结构</h3>
+<h3 id="32-redis-数据结构"><a class="markdownIt-Anchor" href="#32-redis-数据结构"></a> 3.2 Redis 数据结构</h3>
 <table>
 <thead>
 <tr>
@@ -1152,8 +1205,8 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </tr>
 </tbody>
 </table>
-<h3 id="3.3-%E7%A6%85%E9%81%93%E6%93%8D%E4%BD%9C">3.3 禅道操作</h3>
-<h4 id="3.3.1-%E6%96%B0%E5%A2%9E%E4%BB%A3%E7%90%86%E5%9F%9F%E5%90%8D">3.3.1 新增代理域名</h4>
+<h3 id="33-禅道操作"><a class="markdownIt-Anchor" href="#33-禅道操作"></a> 3.3 禅道操作</h3>
+<h4 id="331-新增代理域名"><a class="markdownIt-Anchor" href="#331-新增代理域名"></a> 3.3.1 新增代理域名</h4>
 <ol>
 <li>新增一份该域名的代理域名配置到对应目录
 <ul>
@@ -1169,7 +1222,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </ul>
 </li>
 </ol>
-<h4 id="3.3.2-%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E7%BB%91%E5%AE%9A">3.3.2 修改用户绑定</h4>
+<h4 id="332-修改用户绑定"><a class="markdownIt-Anchor" href="#332-修改用户绑定"></a> 3.3.2 修改用户绑定</h4>
 <ol>
 <li>按照 Redis 数据结构，修改上述2个键对应的值（新增、更新、删除）</li>
 </ol>
@@ -1188,64 +1241,11 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
       </tags>
   </entry>
   <entry>
-    <title>禅道持续交付(一)-概述及框架</title>
-    <url>/zentao-cicd-overview/</url>
-    <content><![CDATA[<p>我们基于禅道打造了持续交付系统，整合了多个开源系统（包括禅道zentao、jenkins、gitlab、nexus、harbor、ldap、mysql等等），并进行大量的二次开发，将多个系统功能（项目管理、集成管理、代码仓库管理、编译私服，镜像仓库管理、用户认证等）、多个开发环境（开发环境、测试环境、预发布环境、灰度环境、生产环境等），多种发布流程（代码扫描、版本集成、版本发布等）进行统一整合，提供一套高度集成和高度自动化的项目管理+版本集成发布系统。</p>
-<span id="more"></span>
-<h2 id="1%E3%80%81%E6%A6%82%E8%BF%B0">1、概述</h2>
-<p>因为公司大部门在使用禅道进行项目管理、缺陷管理等，所以我们希望基于此对于禅道做二开扩展，支持到CICD，最终将禅道打造成一个DevOps平台。</p>
-<p>选择禅道主要原因：</p>
-<ul>
-<li>有使用历史，符合大多数业务项目的操作习惯</li>
-<li>敏捷管理，基于Scrum的角色且相关流程和功能完善</li>
-<li>社区版开源，可以基于源码进行修改</li>
-</ul>
-<p><strong>拓展后禅道能力</strong></p>
-<ul>
-<li><a href="https://www.zentao.net/book/zentaopmshelp/49.html">使用禅道来进行项目任务管理</a></li>
-<li><a href="https://www.zentao.net/book/zentaopmshelp/64.html">只使用禅道来做bug管理</a></li>
-<li><a href="https://www.zentao.net/book/zentaopmshelp/77.html">只使用禅道来进行产品管理</a></li>
-<li><a href="https://www.zentao.net/book/zentaopmshelp/91.html">个人使用禅道来做事务跟踪管理</a></li>
-<li>仅使用版本集成流程（扩展功能）</li>
-<li>仅使用上线流程审批功能（扩展功能）</li>
-<li>仅使用客户端渠道管理功能（扩展功能）</li>
-</ul>
-<h2 id="2%E3%80%81%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%A1%86%E6%9E%B6">2、持续交付系统框架</h2>
-<p>这个比较简单吧，其实有关这种分层的DevOps架构，应该都是大同小异，仅供参考哈😉</p>
-<p><img src="/zentao-cicd-overview/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84-new.png" alt="img"></p>
-<h2 id="3%E3%80%81%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E6%B5%81%E7%A8%8B">3、持续交付流程</h2>
-<p>主要是基于Helm进行K8s的容器部署，整个交付流程如下：</p>
-<ul>
-<li>使用Zentao作为项目管理工具：管理基本需求、迭代、缺陷等</li>
-<li>Zentao也作为用户CICD系统平台，用户再禅道上做集成、构建、部署等操作</li>
-<li>CICD的后端集成工具：Jenkins</li>
-<li>部署至K8s集群中，部署主要的使用是Helm进行部署管理（注：当时使用的是Helm2）</li>
-</ul>
-<p>注：我们自己编写了Helm的Template模板工程，基本涵盖了很多的使用场景，这个后续我也会跟进分享给大家，尽情期待……</p>
-<p><img src="/zentao-cicd-overview/%E7%A6%85%E9%81%93%E6%8C%81%E7%BB%AD%E4%BA%A4%E4%BB%98%E6%B5%81%E7%A8%8B-new.png" alt="img"></p>
-<h2 id="4%E3%80%81%E5%B7%A5%E5%85%B7%E9%93%BE%E9%80%89%E5%9E%8B">4、工具链选型</h2>
-<p>其实DevOps工具链产品有很多，大家可以根据自己的实际情况选择，我们基于Zentao打造的持续交付平台选择的是如下工具链。因为当初我们还木有打通持续测试这一环节，所以这个相对有些简陋了，但是还算清晰！</p>
-<h3 id="web%E7%AB%AF%E5%AE%B9%E5%99%A8">Web端容器</h3>
-<p><img src="/zentao-cicd-overview/%E5%B7%A5%E5%85%B7%E9%93%BE%E9%80%89%E5%9E%8B-new.png" alt="img"></p>
-<h3 id="android%E7%A7%BB%E5%8A%A8%E7%AB%AF">Android移动端</h3>
-<p><img src="/zentao-cicd-overview/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B7%A5%E5%85%B7%E9%93%BE-new.jpg" alt="img"></p>
-]]></content>
-      <categories>
-        <category>持续交付</category>
-      </categories>
-      <tags>
-        <tag>CICD</tag>
-        <tag>Zentao</tag>
-        <tag>禅道</tag>
-        <tag>持续交付</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>禅道持续交付(二)-研发流水线设计</title>
     <url>/zentao-rd-pipeline/</url>
     <content><![CDATA[<p>基于禅道设计的研发流水线，实际就是分为了两条流水线：CI和CD，CI流程就是产出最终可交付至线上的版本制品，CD流程就是将CI产出的制品最终交付至线上。在流水线执行过程中，约定了各个版本环境，如：Dev环境、IT环境、ST环境、UAT环境、PVT环境、GVT灰度验证环境、MVT量产环境等。</p>
 <span id="more"></span>
-<h2 id="1-%E6%B5%81%E6%B0%B4%E7%BA%BF%E8%AE%BE%E8%AE%A1">1 流水线设计</h2>
+<h2 id="1-流水线设计"><a class="markdownIt-Anchor" href="#1-流水线设计"></a> 1 流水线设计</h2>
 <p>按照devops理念，整个开发及发布流程被设计为两条流程：持续集成和持续发布。</p>
 <p>在这里持续（continuous）的概念，包含的意义是：<br>
 1、流程可以反复执行；<br>
@@ -1264,13 +1264,13 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </ul>
 <p>我们设计的CI和CD流水线的概图如下：<br>
 <img src="/zentao-rd-pipeline/CICD%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
-<h2 id="2-%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%B5%81%E6%B0%B4%E7%BA%BF%EF%BC%88ci%2C-continuous-integration%EF%BC%89">2 持续集成流水线（CI, Continuous Integration）</h2>
+<h2 id="2-持续集成流水线ci-continuous-integration"><a class="markdownIt-Anchor" href="#2-持续集成流水线ci-continuous-integration"></a> 2 持续集成流水线（CI, Continuous Integration）</h2>
 <p>下面是一个一般的CI的流程模型：<br>
 <img src="/zentao-rd-pipeline/CI%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
-<h2 id="3-%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83%E6%B5%81%E6%B0%B4%E7%BA%BF%EF%BC%88cd%EF%BC%8Ccontinous-delivery%EF%BC%89">3 持续发布流水线（CD，Continous Delivery）</h2>
+<h2 id="3-持续发布流水线cdcontinous-delivery"><a class="markdownIt-Anchor" href="#3-持续发布流水线cdcontinous-delivery"></a> 3 持续发布流水线（CD，Continous Delivery）</h2>
 <p>下面是一个一般的CD的流程模型：<br>
 <img src="/zentao-rd-pipeline/CD%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
-<h2 id="4%E3%80%81%E7%89%88%E6%9C%AC%E5%92%8C%E7%8E%AF%E5%A2%83%E6%B5%81%E7%A8%8B%E5%9B%BE">4、版本和环境流程图</h2>
+<h2 id="4-版本和环境流程图"><a class="markdownIt-Anchor" href="#4-版本和环境流程图"></a> 4、版本和环境流程图</h2>
 <p>在逻辑意义上来说，我们目前做了如下定义：</p>
 <ul>
 <li>环境是一个逻辑概念，在物理上的实现，它就是从物理集群内启动并运行起来的一个docker容器；</li>
@@ -1285,7 +1285,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </ul>
 </li>
 </ul>
-<h2 id="5%E3%80%81%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E5%9F%9F%E5%90%8D%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88">5、测试环境域名管理方案</h2>
+<h2 id="5-测试环境域名管理方案"><a class="markdownIt-Anchor" href="#5-测试环境域名管理方案"></a> 5、测试环境域名管理方案</h2>
 <p>目前测试环境的访问方式主要有两种，这两种方式可以同时使用：</p>
 <ul>
 <li>
@@ -1315,36 +1315,36 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
     <url>/zentao-cicd-demo/</url>
     <content><![CDATA[<p>这里只是基本的版本构建和发布页面的简单展示，这里我们版本构建支持Spring cloud微服务多组件的方式，其中各个流程进度节点的状态和日志可以清晰查看。</p>
 <span id="more"></span>
-<h2 id="1%E3%80%81%E7%89%88%E6%9C%AC%E6%9E%84%E5%BB%BA">1、版本构建</h2>
+<h2 id="1-版本构建"><a class="markdownIt-Anchor" href="#1-版本构建"></a> 1、版本构建</h2>
 <ul>
 <li>一键集成、一键发布</li>
 <li>不同角色负责对应流程节点的启动和确认（构建结果、开发自测、系统测试状态）</li>
 <li>整个版本的进度、状态清晰明了</li>
 </ul>
 <p><img src="/zentao-cicd-demo/%E7%89%88%E6%9C%AC%E6%9E%84%E5%BB%BA-new.jpg" alt></p>
-<h2 id="2%E3%80%81%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83">2、版本发布</h2>
+<h2 id="2-版本发布"><a class="markdownIt-Anchor" href="#2-版本发布"></a> 2、版本发布</h2>
 <ul>
 <li>选择测试通过的版本</li>
 <li>版本可以是多组件的版本，一次性部署发布</li>
 <li>部署支持灰度切量部署</li>
 </ul>
 <p><img src="/zentao-cicd-demo/%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83-new.jpg" alt></p>
-<h2 id="3%E3%80%81%E6%B5%81%E7%A8%8B%E8%8A%82%E7%82%B9%E8%BF%9B%E5%BA%A6">3、流程节点进度</h2>
+<h2 id="3-流程节点进度"><a class="markdownIt-Anchor" href="#3-流程节点进度"></a> 3、流程节点进度</h2>
 <ul>
 <li>支持流程节点进度查看</li>
 <li>每个进度节点的状态和日志清晰查看</li>
 </ul>
 <p><img src="/zentao-cicd-demo/%E6%B5%81%E7%A8%8B%E8%8A%82%E7%82%B9%E8%BF%9B%E5%BA%A6-new.jpg" alt></p>
-<h2 id="4%E3%80%81%E7%89%88%E6%9C%AC%E6%95%88%E8%83%BD%E6%95%B0%E6%8D%AE">4、版本效能数据</h2>
+<h2 id="4-版本效能数据"><a class="markdownIt-Anchor" href="#4-版本效能数据"></a> 4、版本效能数据</h2>
 <ul>
 <li>每个流程节点操作者和操作时间被记录</li>
 <li>每个流程消耗时间统计计算</li>
 <li>整个流程效率展示在每个版本上</li>
 </ul>
 <p>基于此，可以统计效能指标数据</p>
-<p>-- 交付效率：版本构建到上线耗时</p>
-<p>-- 稳定性：单位时间内失败次数</p>
-<p>-- 吞吐量：单位时间内构建次数</p>
+<p>– 交付效率：版本构建到上线耗时</p>
+<p>– 稳定性：单位时间内失败次数</p>
+<p>– 吞吐量：单位时间内构建次数</p>
 <p><img src="/zentao-cicd-demo/%E7%89%88%E6%9C%AC%E6%95%88%E8%83%BD%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1-new.jpg" alt></p>
 ]]></content>
       <categories>
@@ -1363,8 +1363,8 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
     <content><![CDATA[<p>我们其实有很多移动端的产品，所以在做完web端容器相关持续交付后，我们开始关注移动端相关的应用场景，这里我们重点切入的移动安卓打包及相关打渠道包和最终的市场投放环节，这里也和大家做个简单的分享。</p>
 <p>在移动端母包构建和渠道打包上线后，给业务提效十分明显，尤其是渠道打包，基本能节省30-40%的时间，且自动化不易出错。</p>
 <span id="more"></span>
-<h2 id="1%E3%80%81%E7%A7%BB%E5%8A%A8%E7%AB%AFcicd%E8%AE%BE%E8%AE%A1">1、移动端CICD设计</h2>
-<h3 id="1.1%E3%80%81%E5%8E%9F%E6%B5%81%E7%A8%8B%E8%B0%83%E7%A0%94">1.1、原流程调研</h3>
+<h2 id="1-移动端cicd设计"><a class="markdownIt-Anchor" href="#1-移动端cicd设计"></a> 1、移动端CICD设计</h2>
+<h3 id="11-原流程调研"><a class="markdownIt-Anchor" href="#11-原流程调研"></a> 1.1、原流程调研</h3>
 <p>其实持续交付的核心就是建立一个可靠的交付流水线，将软件交付整个周期进行串联起来，通过这条流水线，将交付过程标准化、自动化、可视化，同时实现关键流程和节点管控。基于此，我们分析目前移动端整体现状或者工作流程，</p>
 <ul>
 <li>项目管理使用禅道</li>
@@ -1373,17 +1373,17 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <li>包管理暂时是Jenkins打包后通过下载手动传送，或者上传至禅道附件保存</li>
 <li>渠道通过平台打包，手动下载、手动重命名、手动FTP投放、手动邮件通知等</li>
 </ul>
-<h3 id="1.2%E3%80%81%E6%96%B0%E6%B5%81%E7%A8%8B%E8%AE%BE%E8%AE%A1">1.2、新流程设计</h3>
+<h3 id="12-新流程设计"><a class="markdownIt-Anchor" href="#12-新流程设计"></a> 1.2、新流程设计</h3>
 <p>针对原有流程，项目/需求管理还是使用禅道原有功能，将版本母包的功能集成到禅道的版本中，同时禅道支持渠道打包和市场投放功能。</p>
 <p><img src="/zentao-mobile-cicd/%E6%96%B0%E6%B5%81%E7%A8%8B-new.jpg" alt></p>
-<h4 id="%E7%89%88%E6%9C%AC%E6%AF%8D%E5%8C%85">版本母包</h4>
+<h4 id="版本母包"><a class="markdownIt-Anchor" href="#版本母包"></a> 版本母包</h4>
 <ul>
-<li>版本母包管理（支持自测--&gt;系统测试--&gt;母包同步等）</li>
+<li>版本母包管理（支持自测–&gt;系统测试–&gt;母包同步等）</li>
 <li>统一母包构建入口，支持定制化打包参数设置</li>
 <li>构建构成可视化</li>
 </ul>
 <p><img src="/zentao-mobile-cicd/%E7%89%88%E6%9C%AC%E6%9E%84%E5%BB%BA-new.jpg" alt></p>
-<h4 id="%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85">渠道打包</h4>
+<h4 id="渠道打包"><a class="markdownIt-Anchor" href="#渠道打包"></a> 渠道打包</h4>
 <ul>
 <li>批量打包管理（批量下载、自动重命名、二维码下载等）</li>
 <li>渠道包自动化抽签</li>
@@ -1391,10 +1391,10 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <li>渠道打包投放过程可视化</li>
 </ul>
 <p><img src="/zentao-mobile-cicd/%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85-new.jpg" alt></p>
-<h2 id="2%E3%80%81%E5%A4%9Aapp%E7%BB%9F%E4%B8%80%E9%A1%B5%E9%9D%A2%E5%AE%9E%E7%8E%B0%E5%AE%9A%E5%88%B6%E5%8C%96%E6%9E%84%E5%BB%BA%E6%AF%8D%E5%8C%85">2、多APP统一页面实现定制化构建母包</h2>
-<h3 id="2.1%E3%80%81%E6%AF%8D%E5%8C%85%E6%9E%84%E5%BB%BA%E9%A1%B5%E9%9D%A2">2.1、母包构建页面</h3>
+<h2 id="2-多app统一页面实现定制化构建母包"><a class="markdownIt-Anchor" href="#2-多app统一页面实现定制化构建母包"></a> 2、多APP统一页面实现定制化构建母包</h2>
+<h3 id="21-母包构建页面"><a class="markdownIt-Anchor" href="#21-母包构建页面"></a> 2.1、母包构建页面</h3>
 <p><img src="/zentao-mobile-cicd/%E5%AE%9A%E5%88%B6%E5%8C%96%E6%89%93%E5%8C%85-new.jpg" alt></p>
-<h3 id="2.2%E3%80%81%E5%AE%9A%E5%88%B6%E5%8F%82%E6%95%B0%E8%AE%BE%E8%AE%A1">2.2、定制参数设计</h3>
+<h3 id="22-定制参数设计"><a class="markdownIt-Anchor" href="#22-定制参数设计"></a> 2.2、定制参数设计</h3>
 <p><strong>通过业务项目代码的仓库的gradle.properties文件添加约定注解实现</strong></p>
 <ul>
 <li>普通注解示例</li>
@@ -1405,8 +1405,8 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </ul>
 <p><strong><code>安卓项目有附件资源依赖，附件资源以注解形式给出，通过定制参数传入</code></strong></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#@name:桌面Icon压缩包@show:true@enableModify:true@type:uploadfile@fileType:zip@description:桌面Icon，必须是压缩包，目录结构符合要求，文件名为 ICON_RES.zip</span><br><span class="line">ICON_RES=</span><br><span class="line"></span><br><span class="line">#@name:启动页图片压缩包@show:true@enableModify:true@type:uploadfile@fileType:zip@description:启动页图片，必须是压缩包，目录结构符合要求，文件名为 SPLASH_RES.zip</span><br><span class="line">SPLASH_RES=</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="2.3%E3%80%81%E6%9E%84%E5%BB%BA%E6%89%93%E5%8C%85jenkins-job%E8%AE%BE%E8%AE%A1">2.3、构建打包Jenkins Job设计</h3>
-<h4 id="%E5%85%A5%E5%8F%82%E8%AF%B4%E6%98%8E">入参说明</h4>
+<h3 id="23-构建打包jenkins-job设计"><a class="markdownIt-Anchor" href="#23-构建打包jenkins-job设计"></a> 2.3、构建打包Jenkins Job设计</h3>
+<h4 id="入参说明"><a class="markdownIt-Anchor" href="#入参说明"></a> 入参说明</h4>
 <ul>
 <li>Jenkins主要入参</li>
 </ul>
@@ -1549,7 +1549,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
     <url>/zentao-biz-model/</url>
     <content><![CDATA[<p>在基于禅道打造的持续交付系统，主要使用的流程以及各个角色在各个环节所起的作用，本文将会做一个详细的介绍说明。另外为了更好的使用，正确搭配使用禅道中的相关概念及操作，实现项目团队的项目管理和开发流程，我们把这种概念搭配和具体操作，抽象成项目管理流程模型。</p>
 <span id="more"></span>
-<h2 id="1%E3%80%81%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B">1、使用流程</h2>
+<h2 id="1-使用流程"><a class="markdownIt-Anchor" href="#1-使用流程"></a> 1、使用流程</h2>
 <p>大概来说，禅道的完整使用有四个流程：<br>
 1、项目创建流程（红色部分）<br>
 这个流程是禅道原生的功能流程，但是optimus二次开发后做了流程定制，跟原生的使用方式有细微的差别。</p>
@@ -1560,7 +1560,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <p>4、版本上线流程（黄色部分）<br>
 这个流程是optimus新增流程。用来支持持续交付的版本发布部署和上线审批流程。</p>
 <p><img src="/zentao-biz-model/%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B-new.png" alt></p>
-<h2 id="2%E3%80%81%E7%AE%A1%E7%90%86%E6%B5%81%E7%A8%8B%E6%A8%A1%E5%9E%8B">2、管理流程模型</h2>
+<h2 id="2-管理流程模型"><a class="markdownIt-Anchor" href="#2-管理流程模型"></a> 2、管理流程模型</h2>
 <p>项目团队在使用禅道的时候，如何正确搭配使用禅道中的相关概念及操作，实现项目团队的项目管理和开发流程，我们把这种概念搭配和具体操作，抽象成项目管理流程模型，提供给业务团队理解和正确使用。</p>
 <p>根据我们对业务各种项目团队管理模式和流程的初步调研，基于禅道的scrum敏捷开发模式，我们一般会有这几种团队开发协作模式：<br>
 1、基本团队模式：单个产品团队 - 单个开发团队 - 单个测试团队<br>
@@ -1609,27 +1609,38 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
     <content><![CDATA[<p>之前我司所执行的CI方案，其中对于业务来说是不开放Dockerfile的，由系统生成对应的Dcokerfile，业务唯一需要关心的只有build.sh文件。有优势（简单、高效、且安全）也有劣势（不灵活、无法多阶段构建、构建环境前依赖Jenkins机器环境），所以此处也做一个支持自定义的Dockerfile的方案。</p>
 <span id="more"></span>
 <p><strong>凡事都有两面性，各有优势，各位可执行选择哈</strong></p>
-<h2 id="1%E3%80%81%E7%8E%B0%E8%A1%8C%E6%96%B9%E6%A1%88%E6%A2%B3%E7%90%86">1、现行方案梳理</h2>
+<h2 id="1-现行方案梳理"><a class="markdownIt-Anchor" href="#1-现行方案梳理"></a> 1、现行方案梳理</h2>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// TODO 待补充</span><br></pre></td></tr></table></figure>
-<h2 id="2%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89dockerfile%E6%96%B9%E6%A1%88">2、自定义Dockerfile方案</h2>
+<h2 id="2-自定义dockerfile方案"><a class="markdownIt-Anchor" href="#2-自定义dockerfile方案"></a> 2、自定义Dockerfile方案</h2>
 <p>建议业务代码仓库存在CI的三个 标准文件: Dockerfile、Makefile、<a href="http://build.sh">build.sh</a></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">├── Dockerfile  // 业务代码基于此构建出响应的容器镜像</span><br><span class="line">├── Makefile    // make命令执行，多命令入口组合；可结合docker 实现编译（分平台）、打包、发布等过程阶段</span><br><span class="line">├── build.sh    // 与业务本身无关，CI执行入口，含特定CI过程，也可满足复杂CI场景需求，如：构建制品处理，前端文件Oss上传等</span><br><span class="line">├── src</span><br><span class="line">└── ...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="dockerfile">Dockerfile</h3>
+<h3 id="dockerfile"><a class="markdownIt-Anchor" href="#dockerfile"></a> Dockerfile</h3>
 <p>Dockerfile 是由一系列命令和参数构成的脚本，这些命令应用于基础镜像并最终创建一个新的镜像。它们简化了从头到尾的流程并极大的简化了部署工作。Dockerfile 从 FROM 命令开始，紧接着跟随者各种方法，命令和参数。其产出为一个新的可以用于创建容器的镜像。</p>
 <p>自定义的Dockerfile，可以支持<code>多阶段构建</code>，可以避免依赖构建的基础环境（比如：我们使用的Jenkins打包机）。</p>
 <p>**备注：**在应用CI集成过程中，<code>不建议</code>在Docker镜像中构建，一是新起构建容器有一定资源开销；二是整个构建过程相关依赖缓存无法使用；三是获取对应构建产出的制品文件不方便，总体来说 <strong>效率不高</strong> 。但是在开源或者演示项目，可以采用这种方式。</p>
+<p><strong>2022-11-24补充：</strong></p>
+<p>关于下文提供构建缓存问题，已经找到解决方案，同样以Go项目编译为示例说明：</p>
 <ul>
-<li>示例</li>
+<li>① 共用go mod 依赖缓存</li>
 </ul>
-<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># =========【多阶段构建】构建阶段 =========</span></span><br><span class="line"><span class="comment"># 注1：公司应用CI过程，不建议此种方式，会存在构建制品依赖、资源开销、缓存无法复用、制品导出不方便等效率问题</span></span><br><span class="line"><span class="comment"># 注2：公司应用CI过程，建议build.sh中执行：① make build 构建; ② Dcokerfile 中简单 Copy 即可</span></span><br><span class="line"><span class="comment"># 使用go16作为基础镜像 [建议：镜像放置在私有仓库中，否则可能被“墙”，另测试golang:1.16-alpine轻量镜像无git tool，会影响后续构建，公司私有gomod拉不下来，无语……]</span></span><br><span class="line"><span class="keyword">FROM</span> golang:<span class="number">1.16</span>.<span class="number">15</span> as build</span><br><span class="line"></span><br><span class="line"><span class="comment"># 传入LDFLAGS参数，指定应用相应版本、时间等信息</span></span><br><span class="line"><span class="keyword">ARG</span> LDFLAGS=<span class="string">&quot;-s -w&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置go 的相关环境变量</span></span><br><span class="line"><span class="keyword">ENV</span> GOPROXY=https://goproxy.cn,direct \</span><br><span class="line">    GOPRIVATE=gitlab.xxx.cn</span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /opt/build</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意加入.dockerignore，避免大量无用文件copy，如：.git、.idea、.vscode等</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> . .</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># CGO_ENABLED禁用cgo，使用静态编译（前提：程序未调用cgo命令）</span></span><br><span class="line"><span class="comment"># 当CGO_ENABLED=1（默认），进行编译时会将文件中引用libc的库（比如常用的net包），以动态链接的方式生成目标文件（此方式经过测试可能会引发后续运行的系列问题……）。 </span></span><br><span class="line"><span class="comment"># 当CGO_ENABLED=0，进行编译时则会把在目标文件中未定义的符号（外部函数）一起链接到可执行文件中，避免不同环境运行报错，含不同版本linux系统</span></span><br><span class="line"><span class="comment"># 然后指定OS等，并go build</span></span><br><span class="line"><span class="comment"># RUN CGO_ENABLED=0 GOOS=linux go build -ldflags &quot;$&#123;LDFLAGS&#125;&quot; -trimpath -o ./bin/demo ./cmd/web/main.go # 程序依赖了cgo，编译不通过，去除CGO_ENABLED=0</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> GOOS=linux go build -ldflags <span class="string">&quot;<span class="variable">$&#123;LDFLAGS&#125;</span>&quot;</span> -trimpath -o ./bin/demo ./cmd/web/main.go</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># =========【多阶段构建】运行阶段 =========</span></span><br><span class="line"><span class="comment"># 基础镜像，建议使用研发中台-应用配置-部署配置指定的基础镜像</span></span><br><span class="line"><span class="comment"># FROM harbor.xxx.cn/base/centos:7.8_200506170720 as prod   # 平台基础镜像存在go依赖libc版本不匹配，若使用轻量的alpine镜像，默认为sh，无bash/dash，程序运行报错……</span></span><br><span class="line"><span class="keyword">FROM</span> golang:<span class="number">1.16</span>.<span class="number">15</span> as prod</span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /opt/<span class="keyword">case</span>/cloud</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 更改Docker运行用户为httpd，若未指定，默认为：root</span></span><br><span class="line"><span class="comment"># USER httpd</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将build阶段对应的文件夹下的所有文件复制进来</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=build /opt/build/bin/. .</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=build /opt/build/conf .</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=build /opt/build/image-syncer .</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=build /opt/build/resource .</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 更改/opt/case的权限为：httpd（对应uid：2000）</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> chown 2000:2000 -R /opt/<span class="keyword">case</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 服务暴露端口，建议使用研发中台-应用配置-部署配置指定的服务端口</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8089</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 程序执行命令</span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">&quot;./demo&quot;</span>]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># =========【多阶段构建】导出构建制品阶段 =========</span></span><br><span class="line"><span class="comment"># 注：针对Docker容器内构建且需要传统部署应用，其他场景此阶段直接Pass</span></span><br><span class="line"><span class="comment"># 运行阶段指定scratch（空镜像）作为基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> scratch AS export-artifacts</span><br><span class="line"><span class="comment"># 需要导出的制品文件</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=build /opt/build/bin/. .</span></span><br></pre></td></tr></table></figure>
-<h3 id="makefile">Makefile</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">// docker新增一层生成依赖的镜像，以go为例，优先处理go.mod go.sum，达到层级共用</span><br><span class="line">参考：https://evilmartians.com/chronicles/speeding-up-go-modules-for-docker-and-ci</span><br><span class="line"></span><br><span class="line">FROM golang:1.18.8</span><br><span class="line"></span><br><span class="line">COPY go.mod go.sum /opt/build/</span><br><span class="line">RUN go mod download          // go.mod go.sum   这里COPY的文件有变化的话，docker build会重新生成镜像</span><br></pre></td></tr></table></figure>
+<ul>
+<li>② <font color="red"><strong>【推荐】</strong></font>实用buildkit，RUN --mount=type=cache 可以缓存中间文件到host，同时可以兼容使用①中的go mod缓存，且避免了mod变动需要重新生成分层的问题</li>
+</ul>
+<p>备注：buildkit is available from docker 18.09，同时需要在 docker build 命令前加入 <code>DOCKER_BUILDKIT=1</code> 启用buildKit特性</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 参考：https://yeasy.gitbook.io/docker_practice/buildx/buildkit</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 官网参考：https://github.com/moby/buildkit/blob/master/frontend/dockerfile/docs/reference.md<span class="comment">#run---mounttypecache</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> docker compose示例参考：https://github.com/docker/compose-cli/blob/main/Dockerfile</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 示例</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ===================================================================================</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> syntax=docker/dockerfile:1.2</span></span><br><span class="line">FROM golang:1.18.8 as build</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置go 的相关环境变量</span></span><br><span class="line">ENV GO111MODULE=on \</span><br><span class="line">    GOPROXY=https://goproxy.cn,direct \</span><br><span class="line">    GOPRIVATE=gitlab.2345.cn </span><br><span class="line"></span><br><span class="line">COPY go.mod go.sum /opt/build/</span><br><span class="line"></span><br><span class="line">WORKDIR /opt/build</span><br><span class="line"></span><br><span class="line">RUN --mount=type=cache,target=/go/pkg/mod \</span><br><span class="line">    go mod download</span><br><span class="line"></span><br><span class="line">ARG LDFLAGS=&quot;-s -w&quot;</span><br><span class="line">COPY . .</span><br><span class="line">RUN --mount=type=cache,target=/go/pkg/mod \</span><br><span class="line">    --mount=type=cache,target=/root/.cache/go-build,id=jszx-yfzt_go-build-cache \</span><br><span class="line">    GOOS=linux go build -ldflags &quot;$&#123;LDFLAGS&#125;&quot; -trimpath -o ./bin/yfzt ./cmd/web/main.go</span><br></pre></td></tr></table></figure>
+<ul>
+<li>示例（Old版）</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># =========【多阶段构建】构建阶段 =========</span></span><br><span class="line"><span class="comment"># 【Resolved】注1：公司应用CI过程，不建议此种方式，会存在构建制品依赖、资源开销、缓存无法复用、制品导出不方便等效率问题</span></span><br><span class="line"><span class="comment"># 注2：公司应用CI过程，建议build.sh中执行：① make build 构建; ② Dcokerfile 中简单 Copy 即可</span></span><br><span class="line"><span class="comment"># 使用go16作为基础镜像 [建议：镜像放置在私有仓库中，否则可能被“墙”，另测试golang:1.16-alpine轻量镜像无git tool，会影响后续构建，公司私有gomod拉不下来，无语……]</span></span><br><span class="line"><span class="keyword">FROM</span> golang:<span class="number">1.16</span>.<span class="number">15</span> as build</span><br><span class="line"></span><br><span class="line"><span class="comment"># 传入LDFLAGS参数，指定应用相应版本、时间等信息</span></span><br><span class="line"><span class="keyword">ARG</span> LDFLAGS=<span class="string">&quot;-s -w&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置go 的相关环境变量</span></span><br><span class="line"><span class="keyword">ENV</span> GOPROXY=https://goproxy.cn,direct \</span><br><span class="line">    GOPRIVATE=gitlab.xxx.cn</span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /opt/build</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意加入.dockerignore，避免大量无用文件copy，如：.git、.idea、.vscode等</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> . .</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># CGO_ENABLED禁用cgo，使用静态编译（前提：程序未调用cgo命令）</span></span><br><span class="line"><span class="comment"># 当CGO_ENABLED=1（默认），进行编译时会将文件中引用libc的库（比如常用的net包），以动态链接的方式生成目标文件（此方式经过测试可能会引发后续运行的系列问题……）。 </span></span><br><span class="line"><span class="comment"># 当CGO_ENABLED=0，进行编译时则会把在目标文件中未定义的符号（外部函数）一起链接到可执行文件中，避免不同环境运行报错，含不同版本linux系统</span></span><br><span class="line"><span class="comment"># 然后指定OS等，并go build</span></span><br><span class="line"><span class="comment"># RUN CGO_ENABLED=0 GOOS=linux go build -ldflags &quot;$&#123;LDFLAGS&#125;&quot; -trimpath -o ./bin/demo ./cmd/web/main.go # 程序依赖了cgo，编译不通过，去除CGO_ENABLED=0</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> GOOS=linux go build -ldflags <span class="string">&quot;<span class="variable">$&#123;LDFLAGS&#125;</span>&quot;</span> -trimpath -o ./bin/demo ./cmd/web/main.go</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># =========【多阶段构建】运行阶段 =========</span></span><br><span class="line"><span class="comment"># 基础镜像，建议使用研发中台-应用配置-部署配置指定的基础镜像</span></span><br><span class="line"><span class="comment"># FROM harbor.xxx.cn/base/centos:7.8_200506170720 as prod   # 平台基础镜像存在go依赖libc版本不匹配，若使用轻量的alpine镜像，默认为sh，无bash/dash，程序运行报错……</span></span><br><span class="line"><span class="keyword">FROM</span> golang:<span class="number">1.16</span>.<span class="number">15</span> as prod</span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /opt/<span class="keyword">case</span>/cloud</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 更改Docker运行用户为httpd，若未指定，默认为：root</span></span><br><span class="line"><span class="comment"># USER httpd</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将build阶段对应的文件夹下的所有文件复制进来</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=build /opt/build/bin/. .</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=build /opt/build/conf .</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=build /opt/build/image-syncer .</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=build /opt/build/resource .</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 更改/opt/case的权限为：httpd（对应uid：2000）</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> chown 2000:2000 -R /opt/<span class="keyword">case</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 服务暴露端口，建议使用研发中台-应用配置-部署配置指定的服务端口</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8089</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 程序执行命令</span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">&quot;./demo&quot;</span>]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># =========【多阶段构建】导出构建制品阶段 =========</span></span><br><span class="line"><span class="comment"># 注：针对Docker容器内构建且需要传统部署应用，其他场景此阶段直接Pass</span></span><br><span class="line"><span class="comment"># 运行阶段指定scratch（空镜像）作为基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> scratch AS export-artifacts</span><br><span class="line"><span class="comment"># 需要导出的制品文件</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=build /opt/build/bin/. .</span></span><br></pre></td></tr></table></figure>
+<h3 id="makefile"><a class="markdownIt-Anchor" href="#makefile"></a> Makefile</h3>
 <p><code>make</code>命令是GNU的工程化编译工具，用于编译众多相互关联的源代码文件，以实现工程化的管理，提高开发效率，make 执行时会在当前目录下寻找 Makefile 或 makefile 文件。如果存在相应的文件，它就会依据其中定义好的规则完成构建任务。<code>Makefile</code>主要出现在<code>c/c++</code>的项目居多，用来管理<code>c/c++</code>的编译依赖。实际上 Makefile 内都是你根据 make 语法规则，自己编写的特定 Shell 命令。</p>
 <p>它原生支持多入口子命令执行，是一个系统变量或者命令的集合。在容器化应用中引用dockerfile，或者读取默认的dockerfile，来完成自动按照某个流程 build的目的。</p>
 <ul>
 <li>示例</li>
 </ul>
 <figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">NOW = <span class="variable">$(<span class="built_in">shell</span> date -u &#x27;+%Y%m%d%I%M%S&#x27;)</span></span><br><span class="line"></span><br><span class="line">GOVET = go tool vet -composites=false -methods=false -structtags=false</span><br><span class="line">GOFMT ?= gofmt <span class="string">&quot;-s&quot;</span></span><br><span class="line">GOFILES := <span class="variable">$(<span class="built_in">shell</span> find . -name &quot;*.go&quot; -type f -not -path &quot;./vendor/*&quot;)</span></span><br><span class="line">LDFLAGS += -s -w</span><br><span class="line">LDFLAGS += -X <span class="string">&quot;demo/pkg/version.gitBranch=$(shell git symbolic-ref --short -q HEAD)&quot;</span></span><br><span class="line">LDFLAGS += -X <span class="string">&quot;demo/pkg/version.gitCommit=$(shell git rev-parse HEAD)&quot;</span></span><br><span class="line">LDFLAGS += -X <span class="string">&quot;demo/pkg/version.goVersion=$(shell go version)&quot;</span></span><br><span class="line">LDFLAGS += -X <span class="string">&quot;demo/pkg/version.buildTime=$(shell date &quot;</span>+%Y-%m-%d %T %Z<span class="string">&quot;)&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 镜像构建相关参数</span></span><br><span class="line">IMAGE_NAME = harbor.xxx.cn/defalut_project/default_name</span><br><span class="line">IMAGE_TAG = 0.1-demo</span><br><span class="line">ARTIFACT_OUTPUT = output_scm</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> GOPROXY=https://goproxy.io</span><br><span class="line"></span><br><span class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: clean build linux macos windows docker docker-push export-artifacts</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认编译目标系统是 Linux 的二进制文件</span></span><br><span class="line"><span class="section">all: clean linux</span></span><br><span class="line"></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	rm -rf demo</span><br><span class="line"></span><br><span class="line"><span class="section">fmt:</span></span><br><span class="line">	@<span class="variable">$(GOFMT)</span> -w <span class="variable">$(GOFILES)</span></span><br><span class="line"></span><br><span class="line"><span class="section">build:</span></span><br><span class="line">	go build -ldflags &#x27;<span class="variable">$(LDFLAGS)</span>&#x27; -trimpath -o demo cmd/web/main.go</span><br><span class="line"></span><br><span class="line"><span class="section">linux:</span></span><br><span class="line">    <span class="comment"># Jenkins 构建机器上，go16使用为绝对路径</span></span><br><span class="line">	@<span class="comment">#GOOS=linux /opt/app/go16/bin/go build -ldflags &#x27;$(LDFLAGS)&#x27; -trimpath -o ./bin/demo cmd/web/main.go</span></span><br><span class="line">	GOOS=linux go build -ldflags &#x27;<span class="variable">$(LDFLAGS)</span>&#x27; -trimpath -o ./bin/demo cmd/web/main.go</span><br><span class="line"></span><br><span class="line"><span class="section">macos:</span></span><br><span class="line">	GOOS=darwin go build -ldflags &#x27;<span class="variable">$(LDFLAGS)</span>&#x27; -trimpath -o ./bin/demo cmd/web/main.go</span><br><span class="line"></span><br><span class="line"><span class="section">windows:</span></span><br><span class="line">	GOOS=windows go build -ldflags &#x27;<span class="variable">$(LDFLAGS)</span>&#x27; -trimpath -o ./bin/demo cmd/web/main.go</span><br><span class="line"></span><br><span class="line"><span class="section">docker:</span></span><br><span class="line">	docker build --build-arg LDFLAGS=&#x27;<span class="variable">$(LDFLAGS)</span>&#x27; --target prod -t <span class="variable">$(IMAGE_NAME)</span>:<span class="variable">$(IMAGE_TAG)</span> -f ./Dockerfile .</span><br><span class="line"></span><br><span class="line"><span class="section">docker-push: docker</span></span><br><span class="line">	docker push <span class="variable">$(IMAGE_NAME)</span>:<span class="variable">$(IMAGE_TAG)</span></span><br><span class="line">	docker rmi <span class="variable">$(IMAGE_NAME)</span>:<span class="variable">$(IMAGE_TAG)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 针对Docker容器内构建且需要传统部署应用，其他场景此阶段直接Pass（备注：buildkit is available from docker 18.09）</span></span><br><span class="line"><span class="section">export-artifacts:</span></span><br><span class="line">	DOCKER_BUILDKIT=1  docker build --target export-artifacts --output $&#123;ARTIFACT_OUTPUT&#125; -f ./Dockerfile .</span><br></pre></td></tr></table></figure>
-<h3 id="build.sh"><a href="http://build.sh">build.sh</a></h3>
+<h3 id="buildsh"><a class="markdownIt-Anchor" href="#buildsh"></a> <a href="http://build.sh">build.sh</a></h3>
 <p>满足相对复杂的构建场景需求，作为CI（本文使用工具为：Jenkins）的执行的唯一入口。一般来说涵盖的执行过程大体和应用本身关联不大，主要是业务或者特殊场景处理情况，比如：构建制品的处理，前端文件Oss上传等</p>
 <ul>
 <li>示例</li>
@@ -1646,13 +1657,118 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
       </tags>
   </entry>
   <entry>
+    <title>HPA-Pod水平自动扩缩</title>
+    <url>/k8s-hpa/</url>
+    <content><![CDATA[<p>关于kubernetes的Hpa的配置调研实验。</p>
+<span id="more"></span>
+<h2 id="1-hpa简介"><a class="markdownIt-Anchor" href="#1-hpa简介"></a> 1、HPA简介</h2>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>DevOps</tag>
+        <tag>kubernetes</tag>
+        <tag>k8s</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubeadm安装K8s集群</title>
+    <url>/k8s-kubeadm-isntall-cluster/</url>
+    <content><![CDATA[<p>关于kubernetes的动态准入的配置调研实验。</p>
+<span id="more"></span>
+<h2 id="1-环境说明"><a class="markdownIt-Anchor" href="#1-环境说明"></a> 1、环境说明</h2>
+<p>1、一台ubuntu20.04 （master）</p>
+<p>2、一台centos7.8  （node）</p>
+<p>部署：</p>
+<p><a href="https://github.com/cncamp/101/tree/master/k8s-by-kubeadm">https://github.com/cncamp/101/tree/master/k8s-by-kubeadm</a></p>
+<h3 id="问题"><a class="markdownIt-Anchor" href="#问题"></a> 问题</h3>
+<p>1、Failed create pod sandbox: open /run/systemd/resolve/resolv.conf: no such file or directory：<a href="https://github.com/ivanfioravanti/kubernetes-the-hard-way-on-azure/issues/30">https://github.com/ivanfioravanti/kubernetes-the-hard-way-on-azure/issues/30</a></p>
+<ul>
+<li>
+<p>describe  nodes</p>
+</li>
+<li>
+<p>node 节点 kubelet日志 ，<code>sudo systemctl status kubelet</code>  <code>sudo journalctl -xefu kubelet</code></p>
+</li>
+<li>
+<p>检查pod信息 kubectl get pod --all-namespaces，查看问题pod，定位是calico网络，describe pod （Failed create pod sandbox: open /run/systemd/resolve/resolv.conf: no such file or directory）</p>
+<p>网络检索，说是从master进行copy一份即可，感觉似乎不妥，</p>
+</li>
+<li>
+<p>找到本机的resolv.conf文件，<code>sudo find /run -name &quot;resolv.conf&quot;</code> ，软链操作：<code>sudo ln -s /run/NetworkManager/resolv.conf /run/systemd/resolve/resolv.conf</code>，resolv.conf到底是什么？？？</p>
+</li>
+</ul>
+<p>2、Error from server (InternalError): error when creating “nginx-demo.yaml”: Internal error occurred: failed calling webhook “<a href="http://validate.nginx.ingress.kubernetes.io">validate.nginx.ingress.kubernetes.io</a>”: Post “<a href="https://ingress-nginx-controller-admission.ingress-nginx.svc:443/networking/v1/ingresses?timeout=10s">https://ingress-nginx-controller-admission.ingress-nginx.svc:443/networking/v1/ingresses?timeout=10s</a>”: context deadline exceeded</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/61616203/nginx-ingress-controller-failed-calling-webhook">https://stackoverflow.com/questions/61616203/nginx-ingress-controller-failed-calling-webhook</a></li>
+</ul>
+<h3 id="安装ingress-controller使用externalips暴露"><a class="markdownIt-Anchor" href="#安装ingress-controller使用externalips暴露"></a> 安装ingress controller，使用externalIPs暴露</h3>
+<ul>
+<li><a href="https://www.cnsre.cn/posts/210602036084/">https://www.cnsre.cn/posts/210602036084/</a></li>
+</ul>
+<h2 id="install-calico-cni-plugin"><a class="markdownIt-Anchor" href="#install-calico-cni-plugin"></a> install calico cni plugin</h2>
+<p><a href="https://docs.projectcalico.org/getting-started/kubernetes/quickstart">https://docs.projectcalico.org/getting-started/kubernetes/quickstart</a></p>
+<p><code>坑：只用于单节点集群</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml</span><br><span class="line">$ kubectl create -f https://docs.projectcalico.org/manifests/custom-resources.yaml</span><br></pre></td></tr></table></figure>
+<h4 id="ip_autodetection_method-value-interfaceeth1-根据实际网卡名称配置"><a class="markdownIt-Anchor" href="#ip_autodetection_method-value-interfaceeth1-根据实际网卡名称配置"></a> IP_AUTODETECTION_METHOD   value: “interface=eth1”  # 根据实际网卡名称配置</h4>
+<p>官网安装：<a href="https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises#determine-your-datastore">https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises#determine-your-datastore</a></p>
+<blockquote>
+<p>calico/node is not ready: BIRD is not ready: BGP not established with xxxx</p>
+</blockquote>
+<p>配置：<a href="https://www.jianshu.com/p/46e4261a63b4">https://www.jianshu.com/p/46e4261a63b4</a></p>
+<p><a href="https://www.cnblogs.com/houchaoying/p/14652573.html">https://www.cnblogs.com/houchaoying/p/14652573.html</a></p>
+<pre><code>        - name: IP_AUTODETECTION_METHOD
+          value: &quot;interface=en.*&quot;   # en.*正则表示匹配到em开头的所有网卡    
+</code></pre>
+<p>集群内部域名为什么ping不通，可以通过curl访问？？？</p>
+<ul>
+<li><a href="https://segmentfault.com/a/1190000039349716">https://segmentfault.com/a/1190000039349716</a></li>
+<li><a href="https://hansedong.github.io/2018/11/20/9/">https://hansedong.github.io/2018/11/20/9/</a></li>
+<li><a href="https://www.yoyoask.com/?p=4742">https://www.yoyoask.com/?p=4742</a></li>
+</ul>
+<h3 id="容器时区"><a class="markdownIt-Anchor" href="#容器时区"></a> 容器时区？</h3>
+<ul>
+<li>业务镜像通过定制Dockerfile添加时区：  <a href="https://i4t.com/4703.html">https://i4t.com/4703.html</a></li>
+</ul>
+<p>master IP变更后：</p>
+<p>是否可以使用域名？？？</p>
+<p><a href="https://www.jianshu.com/p/62813e9dbb7f">https://www.jianshu.com/p/62813e9dbb7f</a></p>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>DevOps</tag>
+        <tag>kubernetes</tag>
+        <tag>k8s</tag>
+        <tag>kubeadm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>K8s动态准入控制</title>
+    <url>/k8s-dynamic-admission/</url>
+    <content><![CDATA[<p>关于kubernetes的动态准入的配置调研实验。</p>
+<span id="more"></span>
+<h2 id="1-动态准入简介"><a class="markdownIt-Anchor" href="#1-动态准入简介"></a> 1、动态准入简介</h2>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>DevOps</tag>
+        <tag>kubernetes</tag>
+        <tag>k8s</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>分支管理规范</title>
     <url>/git-branch-strategy/</url>
     <content><![CDATA[<p>最近有机会体验下阿里的云效产品，感受下&quot;大厂&quot;的DevOps产品。在写这篇Blog时，正正好赶上了《<a href="https://mp.weixin.qq.com/s/3UmieN4cBCzjGVceMn4BlQ">阿里云效公共云基础版全面免费，不限人数使用</a>》，基本可以白嫖了，<strong>为双十一做的贡献，终于有回报了</strong>。</p>
 <p>估计应该由小伙伴为此纠结过吧，其实吧分支管理规范没有 <strong>”银弹“</strong> ，这里我只是分享我觉得比较简单也是对持续交付较为友好的  <a href="https://guides.github.com/introduction/flow/">GitHubFlow </a>+ Tag 分支模型。</p>
 <span id="more"></span>
 <p>重要的事儿还是需要在说一遍的：<strong>分支管理规范没有 ”银弹“！</strong></p>
-<h2 id="1%E3%80%81%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9E%8B">1、分支管理模型</h2>
+<h2 id="1-分支管理模型"><a class="markdownIt-Anchor" href="#1-分支管理模型"></a> 1、分支管理模型</h2>
 <p>推荐 <a href="https://guides.github.com/introduction/flow/">GitHubFlow </a>+ Tag 分支模型，不推荐GitlabFlow （<a href="https://georgestocker.com/2020/03/04/please-stop-recommending-git-flow/">Please stop recommending Git Flow!</a>）</p>
 <p>GitHub flow，是 GitHub 所推崇的 Workflow，具有很高的通用性，且叫简单快捷，对持续交付较友好。其流程图如下：</p>
 <p><img src="/git-branch-strategy/github%E5%88%86%E6%94%AF%E6%A8%A1%E5%9E%8B.png" alt="img"></p>
@@ -1664,7 +1780,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <li>第四步：你的PR 或 MR 被接受，合并（Merge）进master，重新部署（Deploy）后，原来你拉出来的那个分支就被删除。（备注：其中先部署再合并也可。）</li>
 <li>第五步【打Tag】：在第四步的合并（Merge）后打上 Tag，基于 Tag 进行部署（Deploy）。</li>
 </ul>
-<h2 id="2%E3%80%81%E5%88%86%E6%94%AF%E5%91%BD%E5%90%8D%E8%A7%84%E7%BA%A6">2、分支命名规约</h2>
+<h2 id="2-分支命名规约"><a class="markdownIt-Anchor" href="#2-分支命名规约"></a> 2、分支命名规约</h2>
 <table>
 <thead>
 <tr>
@@ -1696,16 +1812,16 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </tr>
 </tbody>
 </table>
-<h2 id="3%E3%80%81%E6%8F%90%E4%BA%A4%E5%91%BD%E5%90%8D%E8%A7%84%E7%BA%A6">3、提交命名规约</h2>
+<h2 id="3-提交命名规约"><a class="markdownIt-Anchor" href="#3-提交命名规约"></a> 3、提交命名规约</h2>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">任务ID： EE-233   // 对应JIRA Issue编号，可以自动实现Jira与Gitlab的提交关联``提交内容： [feat] 功能特性开发``     ``[fix] 修复Bug``    ``[``rm``] 删除无用文件``    ``[ref] 代码或功能重构 </span><br></pre></td></tr></table></figure>
-<h2 id="4%E3%80%81codereview%E8%A7%84%E7%BA%A6">4、CodeReview规约</h2>
-<h3 id="%E6%8F%90%E4%BA%A4mr">提交MR</h3>
+<h2 id="4-codereview规约"><a class="markdownIt-Anchor" href="#4-codereview规约"></a> 4、CodeReview规约</h2>
+<h3 id="提交mr"><a class="markdownIt-Anchor" href="#提交mr"></a> 提交MR</h3>
 <p>提交代码后，可以提交<code>mr</code>到<code>master</code>，申请合并代码。（此处可进行自动代码审查）</p>
-<h3 id="%E5%90%88%E5%B9%B6%E4%BB%A3%E7%A0%81">合并代码</h3>
+<h3 id="合并代码"><a class="markdownIt-Anchor" href="#合并代码"></a> 合并代码</h3>
 <p>研发组长（或结对编程小伙伴），打开MR，Review代码，可以添加相关修改Comment意见。</p>
 <p>开发同学根据建议修复代码，或者线下修改后commit代码。</p>
 <p>研发组长确认没有问题后，可以合并到master，并打上对应的标签。</p>
-<h2 id="5%E3%80%81%E7%89%88%E6%9C%AC%E5%8F%B7%E5%91%BD%E5%90%8D%E8%A7%84%E7%BA%A6">5、版本号命名规约</h2>
+<h2 id="5-版本号命名规约"><a class="markdownIt-Anchor" href="#5-版本号命名规约"></a> 5、版本号命名规约</h2>
 <p>参考<a href="https://semver.org/lang/zh-CN/">《语义化版本 2.0.0》</a></p>
 <p>版本格式：主版本号.次版本号.修订号，版本号递增规则如下：</p>
 <ol>
@@ -1714,29 +1830,29 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <li>修订号：当你做了向下兼容的问题修正。</li>
 </ol>
 <p>先行版本号及版本编译元数据可以加到“主版本号.次版本号.修订号”的后面，作为延伸。</p>
-<h2 id="6%E3%80%81%E4%B8%8A%E7%BA%BF%E8%A7%84%E8%8C%83">6、上线规范</h2>
+<h2 id="6-上线规范"><a class="markdownIt-Anchor" href="#6-上线规范"></a> 6、上线规范</h2>
 <p>所有上线的制品是基于 Git Tag 构建产出的制品。</p>
-<h2 id="7%E3%80%81commit-message%E6%8F%90%E4%BA%A4%E8%A7%84%E8%8C%83">7、Commit Message提交规范</h2>
+<h2 id="7-commit-message提交规范"><a class="markdownIt-Anchor" href="#7-commit-message提交规范"></a> 7、Commit Message提交规范</h2>
 <p>参考： <a href="https://www.conventionalcommits.org/zh-hans/v1.0.0-beta.4/">约定式提交 1.0.0-beta.4</a></p>
 <p><strong>目前有相应工具做到支持：</strong><a href="https://gist.github.com/redblue9771/5c3cecca694ae396e906bef285b6c19b">commitizen &amp; cz-conventional-changelog</a> 、 git-commit-plugin等</p>
-<h3 id="%E5%9F%BA%E6%9C%AC%E6%8F%90%E4%BA%A4%E6%A0%BC%E5%BC%8F%EF%BC%9A">基本提交格式：</h3>
+<h3 id="基本提交格式"><a class="markdownIt-Anchor" href="#基本提交格式"></a> 基本提交格式：</h3>
 <hr>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;类型&gt;([可选的作用域]): &lt;描述&gt;</span><br><span class="line">// 空一行</span><br><span class="line">[可选的正文]</span><br><span class="line">// 空一行</span><br><span class="line">[可选的脚注]</span><br></pre></td></tr></table></figure>
-<h3 id="%E6%8F%90%E4%BA%A4%E7%A4%BA%E4%BE%8B%EF%BC%9A">提交示例：</h3>
+<h3 id="提交示例"><a class="markdownIt-Anchor" href="#提交示例"></a> 提交示例：</h3>
 <hr>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">feat/fix: 完成一个很牛掰的功能开发/修复一个极度危险的Bug</span><br><span class="line"> </span><br><span class="line">re/fix  #EE-123 #EE-333</span><br></pre></td></tr></table></figure>
-<h3 id="%E7%BA%A6%E5%AE%9A%E8%AF%B4%E6%98%8E%EF%BC%9A">约定说明：</h3>
+<h3 id="约定说明"><a class="markdownIt-Anchor" href="#约定说明"></a> 约定说明：</h3>
 <hr>
-<h4 id="1.-%E7%B1%BB%E5%9E%8B---type">1. 类型 - type</h4>
+<h4 id="1-类型-type"><a class="markdownIt-Anchor" href="#1-类型-type"></a> 1. 类型 - type</h4>
 <p>type为必填项，用于指定commit的类型，约定了feat、fix两个主要type，以及docs、style、build、refactor、revert五个特殊type，其余type暂不使用。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 主要type</span><br><span class="line">feat:     增加新功能</span><br><span class="line">fix:      修复bug</span><br><span class="line"> </span><br><span class="line"># 特殊type</span><br><span class="line">docs:     只改动了文档相关的内容</span><br><span class="line">style:    不影响代码含义的改动，例如去掉空格、改变缩进、增删分号</span><br><span class="line">build:    构造工具的或者外部依赖的改动，例如webpack，npm</span><br><span class="line">refactor: 代码重构时使用</span><br><span class="line">revert:   执行git revert打印的message</span><br><span class="line"> </span><br><span class="line"># 暂不使用type</span><br><span class="line">test:     添加测试或者修改现有测试</span><br><span class="line">perf:     提高性能的改动</span><br><span class="line">ci:       与CI（持续集成服务）有关的改动</span><br><span class="line">chore:    不修改src或者test的其余修改，例如构建过程或辅助工具的变动</span><br></pre></td></tr></table></figure>
 <p>``</p>
 <p>当一次改动包括主要type与特殊type时，统一采用主要type。</p>
-<h4 id="2.-%E4%BD%9C%E7%94%A8%E5%9F%9F---scope">2. 作用域 - scope</h4>
+<h4 id="2-作用域-scope"><a class="markdownIt-Anchor" href="#2-作用域-scope"></a> 2. 作用域 - scope</h4>
 <p>scope也为必填项，用于描述改动的范围，格式为项目名/模块名，例如：node-pc/common rrd-h5/activity，而we-sdk不需指定模块名。如果一次commit修改多个模块，建议拆分成多次commit，以便更好追踪和维护。</p>
-<h4 id="3.-%E6%AD%A3%E6%96%87---body">3. 正文 - body</h4>
+<h4 id="3-正文-body"><a class="markdownIt-Anchor" href="#3-正文-body"></a> 3. 正文 - body</h4>
 <p>body填写详细描述，主要描述改动之前的情况及修改动机，对于小的修改不作要求，但是重大需求、更新等必须添加body来作说明。</p>
-<h4 id="4.-%E6%B3%A8%E8%84%9A---affect-issues">4. 注脚 - affect issues</h4>
+<h4 id="4-注脚-affect-issues"><a class="markdownIt-Anchor" href="#4-注脚-affect-issues"></a> 4. 注脚 - affect issues</h4>
 <p>affect issues指明是否影响了某个问题。例如我们使用jira时，我们在commit message中可以填写其影响的JIRA_ID。</p>
 <p>参考：<a href="https://www.cnblogs.com/xiao2shiqi/p/13514548.html">准时下班的秘密：集成 GitLab &amp;&amp; JIRA 实现自动化工作流</a></p>
 <p>填写方式例如：</p>
@@ -1752,118 +1868,13 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
       </tags>
   </entry>
   <entry>
-    <title>K8s动态准入控制</title>
-    <url>/k8s-dynamic-admission/</url>
-    <content><![CDATA[<p>关于kubernetes的动态准入的配置调研实验。</p>
-<span id="more"></span>
-<h2 id="1%E3%80%81%E5%8A%A8%E6%80%81%E5%87%86%E5%85%A5%E7%AE%80%E4%BB%8B">1、动态准入简介</h2>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>DevOps</tag>
-        <tag>kubernetes</tag>
-        <tag>k8s</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HPA-Pod水平自动扩缩</title>
-    <url>/k8s-hpa/</url>
-    <content><![CDATA[<p>关于kubernetes的Hpa的配置调研实验。</p>
-<span id="more"></span>
-<h2 id="1%E3%80%81hpa%E7%AE%80%E4%BB%8B">1、HPA简介</h2>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>DevOps</tag>
-        <tag>kubernetes</tag>
-        <tag>k8s</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Kubeadm安装K8s集群</title>
-    <url>/k8s-kubeadm-isntall-cluster/</url>
-    <content><![CDATA[<p>关于kubernetes的动态准入的配置调研实验。</p>
-<span id="more"></span>
-<h2 id="1%E3%80%81%E7%8E%AF%E5%A2%83%E8%AF%B4%E6%98%8E">1、环境说明</h2>
-<p>1、一台ubuntu20.04 （master）</p>
-<p>2、一台centos7.8  （node）</p>
-<p>部署：</p>
-<p><a href="https://github.com/cncamp/101/tree/master/k8s-by-kubeadm">https://github.com/cncamp/101/tree/master/k8s-by-kubeadm</a></p>
-<h3 id="%E9%97%AE%E9%A2%98">问题</h3>
-<p>1、Failed create pod sandbox: open /run/systemd/resolve/resolv.conf: no such file or directory：<a href="https://github.com/ivanfioravanti/kubernetes-the-hard-way-on-azure/issues/30">https://github.com/ivanfioravanti/kubernetes-the-hard-way-on-azure/issues/30</a></p>
-<ul>
-<li>
-<p>describe  nodes</p>
-</li>
-<li>
-<p>node 节点 kubelet日志 ，<code>sudo systemctl status kubelet </code>  <code>sudo journalctl -xefu kubelet</code></p>
-</li>
-<li>
-<p>检查pod信息 kubectl get pod --all-namespaces，查看问题pod，定位是calico网络，describe pod （Failed create pod sandbox: open /run/systemd/resolve/resolv.conf: no such file or directory）</p>
-<p>网络检索，说是从master进行copy一份即可，感觉似乎不妥，</p>
-</li>
-<li>
-<p>找到本机的resolv.conf文件，<code>sudo find /run -name &quot;resolv.conf&quot;</code> ，软链操作：<code>sudo ln -s /run/NetworkManager/resolv.conf  /run/systemd/resolve/resolv.conf </code>，resolv.conf到底是什么？？？</p>
-</li>
-</ul>
-<p>2、Error from server (InternalError): error when creating &quot;nginx-demo.yaml&quot;: Internal error occurred: failed calling webhook &quot;<a href="http://validate.nginx.ingress.kubernetes.io">validate.nginx.ingress.kubernetes.io</a>&quot;: Post &quot;<a href="https://ingress-nginx-controller-admission.ingress-nginx.svc:443/networking/v1/ingresses?timeout=10s">https://ingress-nginx-controller-admission.ingress-nginx.svc:443/networking/v1/ingresses?timeout=10s</a>&quot;: context deadline exceeded</p>
-<ul>
-<li><a href="https://stackoverflow.com/questions/61616203/nginx-ingress-controller-failed-calling-webhook">https://stackoverflow.com/questions/61616203/nginx-ingress-controller-failed-calling-webhook</a></li>
-</ul>
-<h3 id="%E5%AE%89%E8%A3%85ingress-controller%EF%BC%8C%E4%BD%BF%E7%94%A8externalips%E6%9A%B4%E9%9C%B2">安装ingress controller，使用externalIPs暴露</h3>
-<ul>
-<li><a href="https://www.cnsre.cn/posts/210602036084/">https://www.cnsre.cn/posts/210602036084/</a></li>
-</ul>
-<h2 id="install-calico-cni-plugin">install calico cni plugin</h2>
-<p><a href="https://docs.projectcalico.org/getting-started/kubernetes/quickstart">https://docs.projectcalico.org/getting-started/kubernetes/quickstart</a></p>
-<p><code>坑：只用于单节点集群</code></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml</span><br><span class="line">$ kubectl create -f https://docs.projectcalico.org/manifests/custom-resources.yaml</span><br></pre></td></tr></table></figure>
-<h4 id="ip_autodetection_method-value%3A-%22interface%3Deth1%22-%23-%E6%A0%B9%E6%8D%AE%E5%AE%9E%E9%99%85%E7%BD%91%E5%8D%A1%E5%90%8D%E7%A7%B0%E9%85%8D%E7%BD%AE">IP_AUTODETECTION_METHOD   value: &quot;interface=eth1&quot;  # 根据实际网卡名称配置</h4>
-<p>官网安装：<a href="https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises#determine-your-datastore">https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises#determine-your-datastore</a></p>
-<blockquote>
-<p>calico/node is not ready: BIRD is not ready: BGP not established with xxxx</p>
-</blockquote>
-<p>配置：<a href="https://www.jianshu.com/p/46e4261a63b4">https://www.jianshu.com/p/46e4261a63b4</a></p>
-<p><a href="https://www.cnblogs.com/houchaoying/p/14652573.html">https://www.cnblogs.com/houchaoying/p/14652573.html</a></p>
-<pre><code>        - name: IP_AUTODETECTION_METHOD
-          value: &quot;interface=en.*&quot;   # en.*正则表示匹配到em开头的所有网卡    
-</code></pre>
-<p>集群内部域名为什么ping不通，可以通过curl访问？？？</p>
-<ul>
-<li><a href="https://segmentfault.com/a/1190000039349716">https://segmentfault.com/a/1190000039349716</a></li>
-<li><a href="https://hansedong.github.io/2018/11/20/9/">https://hansedong.github.io/2018/11/20/9/</a></li>
-<li><a href="https://www.yoyoask.com/?p=4742">https://www.yoyoask.com/?p=4742</a></li>
-</ul>
-<h3 id="%E5%AE%B9%E5%99%A8%E6%97%B6%E5%8C%BA%EF%BC%9F">容器时区？</h3>
-<ul>
-<li>业务镜像通过定制Dockerfile添加时区：  <a href="https://i4t.com/4703.html">https://i4t.com/4703.html</a></li>
-</ul>
-<p>master IP变更后：</p>
-<p>是否可以使用域名？？？</p>
-<p><a href="https://www.jianshu.com/p/62813e9dbb7f">https://www.jianshu.com/p/62813e9dbb7f</a></p>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>DevOps</tag>
-        <tag>kubernetes</tag>
-        <tag>k8s</tag>
-        <tag>kubeadm</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Jenkins Pipeline语法详解</title>
     <url>/jenkins-pipeline-syntax/</url>
     <content><![CDATA[<p>如何编写流水线文件jenkinsfile呢？其实其重点是使用<code>Pipeline语法</code>。 所以此处将重点介绍如何使用Pipeline的语法，从Pipeline插件2.5版开始，Pipeline支持两种独立的语法结构：<strong>Declarative Pipeline</strong> 和 <strong>Scripted Pipeline</strong>，两者都支持建立连续传送的Pipeline。</p>
 <span id="more"></span>
-<h2 id="1-%E6%A6%82%E8%BF%B0">1 概述</h2>
+<h2 id="1-概述"><a class="markdownIt-Anchor" href="#1-概述"></a> 1 概述</h2>
 <p>先说下最后的选择吧，为与BlueOcean编辑器兼容，<code>建议使用Declarative Pipeline的方式进行编写</code>,这种语法结构也会是Jenkins Pipeline未来发展的趋势。</p>
-<h2 id="2-declarative-pipeline">2 Declarative Pipeline</h2>
+<h2 id="2-declarative-pipeline"><a class="markdownIt-Anchor" href="#2-declarative-pipeline"></a> 2 Declarative Pipeline</h2>
 <p>从Pipeline2.5版本以后，Jenkins Pipeline新增了一种新的语法类型Declarative Pipeline（声明式Pipeline），它在Pipeline系统之上提供了一种更加简单和有意义的语法。</p>
 <p>所有有效的Declarative Pipeline必须包含在一个pipeline块内，例如：</p>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">pipeline &#123; </span><br><span class="line"><span class="comment">/* insert Declarative Pipeline here */</span> </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
@@ -1882,9 +1893,9 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <p>属性引用以无参方法的方式调用。例如，输入被视为input（）。</p>
 </li>
 </ul>
-<h3 id="2.1-sections%EF%BC%88%E7%AB%A0%E8%8A%82%EF%BC%89">2.1 Sections（章节）</h3>
+<h3 id="21-sections章节"><a class="markdownIt-Anchor" href="#21-sections章节"></a> 2.1 Sections（章节）</h3>
 <p>Declarative Pipeline里的Sections通常包含一个或多个Directives或Steps。</p>
-<h4 id="agent">agent</h4>
+<h4 id="agent"><a class="markdownIt-Anchor" href="#agent"></a> agent</h4>
 <p>agent指定整个Pipeline或特定stage在Jenkins环境中执行的位置。在pipeline代码块的顶层agent必须进行定义，但在stage级使用是可选的。</p>
 <table>
 <thead>
@@ -1904,7 +1915,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </tr>
 </tbody>
 </table>
-<h5 id="%E5%8F%82%E6%95%B0%E5%88%97%E8%A1%A8">参数列表</h5>
+<h5 id="参数列表"><a class="markdownIt-Anchor" href="#参数列表"></a> 参数列表</h5>
 <p>为实现Pipeline可能拥有的各种用例，agent支持几种不同类型的参数。这些参数可以应用于pipeline块的顶层，也可以应用在每个stage指令内。</p>
 <p><strong>any</strong></p>
 <p>在任何可用的agent 上执行Pipeline或stage。例如：agent any<br>
@@ -1912,18 +1923,18 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <p>当在pipeline块的顶层使用none时，将不会为整个Pipeline运行分配全局agent ，每个stage部分将需要定义其自己的agent。</p>
 <p><strong>label</strong></p>
 <p>提供label标签名称，在Jenkins环境中可用的agent上执行Pipeline或stage。</p>
-<p label my-defined-label>例如：agent</p>
+<p>例如：agent { label ‘my-defined-label’ }</p>
 <p><strong>node</strong></p>
-<p>agent { node { label 'labelName' } }，等同于 agent { label 'labelName' }，但node也允许其他选项（如customWorkspace）。</p>
+<p>agent { node { label ‘labelName’ } }，等同于 agent { label ‘labelName’ }，但node也允许其他选项（如customWorkspace）。</p>
 <p><strong>docker</strong></p>
 <p>定义此参数时，执行Pipeline或stage时会动态提供一个docker节点去运行基于Docker的Pipelines。docker还可以接受一个args参数，直接传递给docker run指令调用。</p>
-<p>例如：agent { docker 'maven:3-alpine' }或</p>
+<p>例如：agent { docker ‘maven:3-alpine’ }或</p>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">agent &#123;</span><br><span class="line">    docker &#123;</span><br><span class="line">        image <span class="string">&#x27;maven:3-alpine&#x27;</span></span><br><span class="line">        label <span class="string">&#x27;my-defined-label&#x27;</span></span><br><span class="line">        args  <span class="string">&#x27;-v /tmp:/tmp&#x27;</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p><strong>dockerfile</strong></p>
 <p>使用从Dockerfile仓库中包含的dockerfile创建镜像文件来构建执行Pipeline或stage。为了使用此选项，Jenkinsfile必须从Multibranch Pipeline或“Pipeline from SCM&quot;中加载。</p>
-<p>默认目录是在Dockerfile仓库的根目录：agent { dockerfile true }。如果Dockerfile需在另一个目录中建立，可使用dir选项：agent { dockerfile { dir 'someSubDir' } }。</p>
-<p>还可以通过docker build ...使用additionalBuildArgs选项，如agent { dockerfile { additionalBuildArgs '--build-arg foo=bar' } }。</p>
-<h5 id="%E9%80%9A%E7%94%A8%E9%80%89%E9%A1%B9">通用选项</h5>
+<p>默认目录是在Dockerfile仓库的根目录：agent { dockerfile true }。如果Dockerfile需在另一个目录中建立，可使用dir选项：agent { dockerfile { dir ‘someSubDir’ } }。</p>
+<p>还可以通过docker build …使用additionalBuildArgs选项，如agent { dockerfile { additionalBuildArgs ‘–build-arg foo=bar’ } }。</p>
+<h5 id="通用选项"><a class="markdownIt-Anchor" href="#通用选项"></a> 通用选项</h5>
 <p>这些是可以应用于两个或多个agent中的选项。除非明确定义，否则非必需。</p>
 <p><strong>label</strong></p>
 <p>string字符串。标记在哪里运行pipeline或stage</p>
@@ -1933,14 +1944,14 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">agent &#123;</span><br><span class="line">    node &#123;</span><br><span class="line">        label <span class="string">&#x27;my-defined-label&#x27;</span></span><br><span class="line">        customWorkspace <span class="string">&#x27;/some/other/path&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>reuseNode</strong><br>
 一个布尔值，默认为false。如果为true，则在同一工作空间中，此选项适用于docker和dockerfile，并且仅在独立stage中使用agent时才有效。</p>
-<h5 id="%E6%A0%B7%E4%BE%8B">样例</h5>
+<h5 id="样例"><a class="markdownIt-Anchor" href="#样例"></a> 样例</h5>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Jenkinsfile (Declarative Pipeline)</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent &#123; docker <span class="string">&#x27;maven:3-alpine&#x27;</span> &#125; ①</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;Example Build&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                sh <span class="string">&#x27;mvn -B clean verify&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>①</strong>使用‘maven:3-alpine’的镜像创建容器，执行pipeline的所有步骤。</p>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Jenkinsfile (Declarative Pipeline)</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent none ①</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;Example Build&#x27;</span>) &#123;</span><br><span class="line">            agent &#123; docker <span class="string">&#x27;maven:3-alpine&#x27;</span> &#125; ②</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&#x27;Hello, Maven&#x27;</span></span><br><span class="line">                sh <span class="string">&#x27;mvn --version&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(<span class="string">&#x27;Example Test&#x27;</span>) &#123;</span><br><span class="line">            agent &#123; docker <span class="string">&#x27;openjdk:8-jre&#x27;</span> &#125; ③</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&#x27;Hello, JDK&#x27;</span></span><br><span class="line">                sh <span class="string">&#x27;java -version&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>①</strong>agent none在Pipeline顶层定义，表示将不会为整个Pipeline运行分配全局agent，每个stage需自己设置agent。</p>
 <p><strong>②</strong>使用‘maven:3-alpine’的镜像创建容器，执行此阶段中的步骤。</p>
 <p><strong>③</strong>使用‘openjdk:8-jre’的镜像创建容器，执行此阶段中的步骤。</p>
-<h4 id="post">post</h4>
+<h4 id="post"><a class="markdownIt-Anchor" href="#post"></a> post</h4>
 <p>定义Pipeline或stage运行结束后的操作。post支持以下类型的代码块：always，changed，failure，success，unstable和aborted。这些代码块允许在Pipeline或stage运行结束时执行相关步骤，具体取决于Pipeline的运行状态。</p>
 <table>
 <thead>
@@ -1960,7 +1971,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </tr>
 </tbody>
 </table>
-<h5 id="%E5%8F%82%E6%95%B0%E5%88%97%E8%A1%A8-1">参数列表</h5>
+<h5 id="参数列表-2"><a class="markdownIt-Anchor" href="#参数列表-2"></a> 参数列表</h5>
 <p><strong>always</strong></p>
 <p>结束时运行，无论Pipeline运行的完成状态如何。</p>
 <p><strong>changed</strong></p>
@@ -1973,11 +1984,11 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <p>只有当前Pipeline具有“不稳定”状态，一般由测试失败，代码违例等引起，才能运行。通常用黄色指示的Web UI表示。</p>
 <p><strong>aborted</strong></p>
 <p>只有当前Pipeline处于“中止”状态时，才会运行，通常是由于Pipeline被手动中止。通常用灰色指示的Web UI表示。</p>
-<h5 id="%E6%A0%B7%E4%BE%8B-1">样例</h5>
+<h5 id="样例-2"><a class="markdownIt-Anchor" href="#样例-2"></a> 样例</h5>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Jenkinsfile (Declarative Pipeline)</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;Example&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    post &#123; ①</span><br><span class="line">        always &#123; ②</span><br><span class="line">            echo <span class="string">&#x27;I will always say Hello again!&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>①post章节通常会放在pipeline末端。</p>
 <p>②post代码块里包括steps章节的内容。</p>
-<h4 id="stages">stages</h4>
+<h4 id="stages"><a class="markdownIt-Anchor" href="#stages"></a> stages</h4>
 <p>包含一个或多个stage的序列，Pipeline的大部分工作在此执行。建议stages至少包含至少一个stage指令，用于连接各个交付过程，如构建，测试和部署等。</p>
 <table>
 <thead>
@@ -1997,10 +2008,10 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </tr>
 </tbody>
 </table>
-<h5 id="%E6%A0%B7%E4%BE%8B-2">样例</h5>
+<h5 id="样例-3"><a class="markdownIt-Anchor" href="#样例-3"></a> 样例</h5>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Jenkinsfile (Declarative Pipeline)</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123; ①</span><br><span class="line">        stage(<span class="string">&#x27;Example&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>①</strong>stages章节通常跟随在agent,options等指令后面。</p>
-<h4 id="steps">steps</h4>
+<h4 id="steps"><a class="markdownIt-Anchor" href="#steps"></a> steps</h4>
 <p>steps包含一个或多个在stage块中执行的step序列。</p>
 <table>
 <thead>
@@ -2020,11 +2031,11 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </tr>
 </tbody>
 </table>
-<h5 id="%E6%A0%B7%E4%BE%8B-3">样例</h5>
+<h5 id="样例-4"><a class="markdownIt-Anchor" href="#样例-4"></a> 样例</h5>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Jenkinsfile (Declarative Pipeline)</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123; </span><br><span class="line">        stage(<span class="string">&#x27;Example&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;①</span><br><span class="line">                echo <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>① steps章节必须包括一个或多个step。</strong></p>
-<h3 id="2.2-directives-%EF%BC%88%E6%8C%87%E4%BB%A4%EF%BC%89">2.2 Directives （指令）</h3>
-<h4 id="environment">environment</h4>
+<h3 id="22-directives-指令"><a class="markdownIt-Anchor" href="#22-directives-指令"></a> 2.2 Directives （指令）</h3>
+<h4 id="environment"><a class="markdownIt-Anchor" href="#environment"></a> environment</h4>
 <p>environment指令指定一系列键值对，这些键值对将被定义为所有step或stage中step的环境变量，具体取决于environment指令在Pipeline中的位置。</p>
 <p>该指令支持一种特殊的方法credentials()，可通过标识符访问Jenkins环境中预定义好的Credential凭证。</p>
 <p>对于“Secret Text”类型的凭据，credentials()方法需确保指定的环境变量包含Secret Text内容，对于“Standard username and password&quot;”类型的凭证，指定的环境变量需要设置为username:password。</p>
@@ -2046,12 +2057,12 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </tr>
 </tbody>
 </table>
-<h5 id="%E6%A0%B7%E4%BE%8B-4">样例</h5>
+<h5 id="样例-5"><a class="markdownIt-Anchor" href="#样例-5"></a> 样例</h5>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Jenkinsfile (Declarative Pipeline)</span></span><br><span class="line">environment</span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    environment &#123; ①</span><br><span class="line">        CC = <span class="string">&#x27;clang&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;Example&#x27;</span>) &#123;</span><br><span class="line">            environment &#123; ②</span><br><span class="line">                AN_ACCESS_KEY = credentials(<span class="string">&#x27;my-prefined-secret-text&#x27;</span>) ③</span><br><span class="line">            &#125;</span><br><span class="line">            steps &#123;</span><br><span class="line">                sh <span class="string">&#x27;printenv&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>①</strong>environment指令放在pipeline顶级块中，将适用pipeline所有步骤。</p>
 <p><strong>②</strong>environment指令放在stage中，给定的环境变量将只适用该stage中的步骤。</p>
 <p><strong>③</strong>environment块中使用credentials()方法，可以访问Jenkins环境中预定义的凭证。</p>
-<h4 id="options">options</h4>
+<h4 id="options"><a class="markdownIt-Anchor" href="#options"></a> options</h4>
 <p>options指令允许在Pipeline内配置Pipeline专用选项。Pipeline本身提供了许多选项，例如buildDiscarder，它们也可以由Jenkins插件提供，例如 timestamps。</p>
 <table>
 <thead>
@@ -2071,32 +2082,32 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </tr>
 </tbody>
 </table>
-<h5 id="%E5%8F%82%E6%95%B0%E5%88%97%E8%A1%A8-2">参数列表</h5>
+<h5 id="参数列表-3"><a class="markdownIt-Anchor" href="#参数列表-3"></a> 参数列表</h5>
 <p><strong>buildDiscarder</strong></p>
 <p>pipeline保持构建的最大个数。例如：</p>
-<p builddiscarder(logrotator(numtokeepstr: 1))>options</p>
+<p>options{buildDiscarder(logRotator(numToKeepStr: ‘1’))}</p>
 <p><strong>disableConcurrentBuilds</strong></p>
 <p>不允许并行执行Pipeline,可用于防止同时访问共享资源等。例如：</p>
-<p disableconcurrentbuilds()>options</p>
+<p>options {disableConcurrentBuilds()}</p>
 <p><strong>skipDefaultCheckout</strong></p>
 <p>默认跳过来自源代码控制的代码。例如：</p>
-<p skipdefaultcheckout()>options</p>
+<p>options {skipDefaultCheckout()}</p>
 <p><strong>skipStagesAfterUnstable</strong></p>
 <p>一旦构建状态进入了“Unstable”状态，就跳过此stage。例如：</p>
-<p skipstagesafterunstable()>options</p>
+<p>options {skipStagesAfterUnstable()}</p>
 <p><strong>timeout</strong><br>
 设置Pipeline运行的超时时间。例如：</p>
-<p>options {timeout(time: 1, unit: 'HOURS')}F</p>
+<p>options {timeout(time: 1, unit: ‘HOURS’)}F</p>
 <p><strong>retry</strong></p>
 <p>失败后，重试整个Pipeline的次数。例如：</p>
-<p retry(3)>options</p>
+<p>options {retry(3)}</p>
 <p><strong>timestamps</strong></p>
 <p>预定义由Pipeline生成的所有控制台输出时间。例如：</p>
-<p timestamps()>options</p>
-<h5 id="%E6%A0%B7%E4%BE%8B-5">样例</h5>
+<p>options {timestamps()}</p>
+<h5 id="样例-6"><a class="markdownIt-Anchor" href="#样例-6"></a> 样例</h5>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Jenkinsfile (Declarative Pipeline)</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    options &#123; </span><br><span class="line">        timeout(<span class="attr">time:</span> <span class="number">1</span>, <span class="attr">unit:</span> <span class="string">&#x27;HOURS&#x27;</span>) ①</span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;Example&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>①</strong>设置pipeline全局的超时时间为1小时，超时后将会自动终止pipeline运行。</p>
-<h4 id="parameters">parameters</h4>
+<h4 id="parameters"><a class="markdownIt-Anchor" href="#parameters"></a> parameters</h4>
 <p>parameters指令提供用户在触发Pipeline时的参数列表。这些参数值通过params对象可用于Pipeline步骤，具体用法如下</p>
 <table>
 <thead>
@@ -2116,7 +2127,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </tr>
 </tbody>
 </table>
-<h5 id="%E5%8F%82%E6%95%B0%E5%88%97%E8%A1%A8-3">参数列表</h5>
+<h5 id="参数列表-4"><a class="markdownIt-Anchor" href="#参数列表-4"></a> 参数列表</h5>
 <p><strong>string</strong></p>
 <p>string类型的参数, 例如:</p>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">parameters &#123; </span><br><span class="line">string(<span class="attr">name:</span> <span class="string">&#x27;DEPLOY_ENV&#x27;</span>, <span class="attr">defaultValue:</span> <span class="string">&#x27;staging&#x27;</span>, <span class="attr">description:</span> <span class="string">&#x27;&#x27;</span>)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
@@ -2124,9 +2135,9 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <p>boolean类型的参数, 例如:</p>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">parameters &#123;</span><br><span class="line"> booleanParam(<span class="attr">name:</span> <span class="string">&#x27;DEBUG_BUILD&#x27;</span>, <span class="attr">defaultValue:</span> <span class="literal">true</span>, <span class="attr">description:</span> <span class="string">&#x27;&#x27;</span>) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>截至发稿，Jenkins社区目前已支持[booleanParam, choice, credentials, file, text, password, run, string]这几种参数类型，其他高级参数化类型也在陆续完善中。</p>
-<h5 id="%E6%A0%B7%E4%BE%8B-6">样例</h5>
+<h5 id="样例-7"><a class="markdownIt-Anchor" href="#样例-7"></a> 样例</h5>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Jenkinsfile (Declarative Pipeline)</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    parameters &#123;</span><br><span class="line">        string(<span class="attr">name:</span> <span class="string">&#x27;PERSON&#x27;</span>, <span class="attr">defaultValue:</span> <span class="string">&#x27;Mr Jenkins&#x27;</span>, <span class="attr">description:</span> <span class="string">&#x27;Who should I say hello to?&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;Example&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&quot;Hello $&#123;params.PERSON&#125;&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="triggers">triggers</h4>
+<h4 id="triggers"><a class="markdownIt-Anchor" href="#triggers"></a> triggers</h4>
 <p>triggers指令定义了Pipeline自动化触发的方式。对于与源代码集成的Pipeline，如GitHub或BitBucket，triggers可能不需要基于webhook的集成也已经存在。目前只有两个可用的触发器：cron、pollSCM和upstream。</p>
 <table>
 <thead>
@@ -2148,14 +2159,14 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </table>
 <p><strong>cron</strong></p>
 <p>接受一个cron风格的字符串来定义Pipeline触发的常规间隔，例如：</p>
-<p 0 cron(h 4* 1-5)>triggers</p>
-<p 0 pollscm(h 4* 1-5)><strong>pollSCM</strong><br>
-接受一个cron风格的字符串来定义Jenkins检查SCM源更改的常规间隔。如果存在新的更改，则Pipeline将被重新触发。例如：triggers</p>
+<p>triggers {cron(‘H 4/* 0 0 1-5’)}</p>
+<p><strong>pollSCM</strong><br>
+接受一个cron风格的字符串来定义Jenkins检查SCM源更改的常规间隔。如果存在新的更改，则Pipeline将被重新触发。例如：triggers {pollSCM(‘H 4/* 0 0 1-5’)}</p>
 <p><strong>upstream</strong></p>
-<p upstream(upstreamprojects: job1,job2, threshold: hudson.model.result.success)>可接受多个job名称以及一个threshold设置参数。任何一个job以符合threshold条件完成后，均可以触发Pipeline的运行。举例：</p>
-<h5 id="%E6%A0%B7%E4%BE%8B-7">样例</h5>
+<p>可接受多个job名称以及一个threshold设置参数。任何一个job以符合threshold条件完成后，均可以触发Pipeline的运行。举例：{ upstream(upstreamProjects: ‘job1,job2’, threshold: hudson.model.Result.SUCCESS) }</p>
+<h5 id="样例-8"><a class="markdownIt-Anchor" href="#样例-8"></a> 样例</h5>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Jenkinsfile (Declarative Pipeline)</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    triggers &#123;</span><br><span class="line">        cron(<span class="string">&#x27;H 4/* 0 0 1-5&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;Example&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="stage">stage</h4>
+<h4 id="stage"><a class="markdownIt-Anchor" href="#stage"></a> stage</h4>
 <p>stage指令包含在stages中，包含step、agent（可选）或其他特定包含于stage中的指令。实际上，Pipeline完成的所有实际工作都包含在一个或多个stage指令中。</p>
 <table>
 <thead>
@@ -2175,9 +2186,9 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </tr>
 </tbody>
 </table>
-<h5 id="%E6%A0%B7%E4%BE%8B-8">样例</h5>
+<h5 id="样例-9"><a class="markdownIt-Anchor" href="#样例-9"></a> 样例</h5>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Jenkinsfile (Declarative Pipeline)</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;Example&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="tools">tools</h4>
+<h4 id="tools"><a class="markdownIt-Anchor" href="#tools"></a> tools</h4>
 <p>通过tools可自动安装工具，并放置环境变量到PATH。如果agent none，这将被忽略。</p>
 <table>
 <thead>
@@ -2201,10 +2212,10 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <p>maven</p>
 <p>jdk</p>
 <p>gradle</p>
-<h5 id="%E6%A0%B7%E4%BE%8B-9">样例</h5>
+<h5 id="样例-10"><a class="markdownIt-Anchor" href="#样例-10"></a> 样例</h5>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Jenkinsfile (Declarative Pipeline)</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    tools &#123;</span><br><span class="line">        maven <span class="string">&#x27;apache-maven-3.0.1&#x27;</span> ①</span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;Example&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                sh <span class="string">&#x27;mvn --version&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>①</strong>调用的tool必须被预置在Jenkins中，可通过<strong>Manage Jenkins</strong>→<strong>Global Tool Configuration配置。</strong></p>
-<h4 id="when">when</h4>
+<h4 id="when"><a class="markdownIt-Anchor" href="#when"></a> when</h4>
 <p>when指令允许Pipeline根据给定的条件确定是否执行该阶段。when指令必须至少包含一个条件，如果when指令包含多个条件，则只有所有子条件返回true时才会执行stage，这与子条件嵌套在allOf相同（见下面的例子）。</p>
 <p>更复杂的条件结构可使用嵌套条件：not，allOf或anyOf，嵌套条件可以嵌套到任意深度。</p>
 <table>
@@ -2225,56 +2236,56 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </tr>
 </tbody>
 </table>
-<h5 id="%E5%86%85%E7%BD%AE%E6%9D%A1%E4%BB%B6">内置条件</h5>
+<h5 id="内置条件"><a class="markdownIt-Anchor" href="#内置条件"></a> 内置条件</h5>
 <p><strong>branch</strong></p>
-<p>当正在构建的分支与给出的分支模式匹配时执行，例如：when { branch 'master' }。请注意，这仅适用于multibranch Pipeline。</p>
+<p>当正在构建的分支与给出的分支模式匹配时执行，例如：when { branch ‘master’ }。请注意，这仅适用于multibranch Pipeline。</p>
 <p><strong>environment</strong></p>
-<p environment name: deploy_to, value: production>当指定的环境变量设置为指定值时执行，例如： when</p>
+<p>当指定的环境变量设置为指定值时执行，例如： when { environment name: ‘DEPLOY_TO’, value: ‘production’ }</p>
 <p><strong>expression</strong></p>
 <p>当指定的Groovy表达式求值为true时执行，例如： when { expression { return params.DEBUG_BUILD } }</p>
 <p><strong>not</strong></p>
-<p>当嵌套条件为false时执行。必须包含一个条件。例如：when { not { branch 'master' } }</p>
+<p>当嵌套条件为false时执行。必须包含一个条件。例如：when { not { branch ‘master’ } }</p>
 <p><strong>allOf</strong></p>
-<p>当所有嵌套条件都为true时执行。必须至少包含一个条件。例如：when { allOf { branch 'master'; environment name: 'DEPLOY_TO', value: 'production' } }</p>
+<p>当所有嵌套条件都为true时执行。必须至少包含一个条件。例如：when { allOf { branch ‘master’; environment name: ‘DEPLOY_TO’, value: ‘production’ } }</p>
 <p><strong>anyOf</strong></p>
-<p>当至少一个嵌套条件为真时执行。必须至少包含一个条件。例如：when { anyOf { branch 'master'; branch 'staging' } }</p>
-<h5 id="%E6%A0%B7%E4%BE%8B-10">样例</h5>
+<p>当至少一个嵌套条件为真时执行。必须至少包含一个条件。例如：when { anyOf { branch ‘master’; branch ‘staging’ } }</p>
+<h5 id="样例-11"><a class="markdownIt-Anchor" href="#样例-11"></a> 样例</h5>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Jenkinsfile (Declarative Pipeline)</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;Example Build&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(<span class="string">&#x27;Example Deploy&#x27;</span>) &#123;</span><br><span class="line">            when &#123;</span><br><span class="line">                branch <span class="string">&#x27;production&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&#x27;Deploying&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Jenkinsfile (Declarative Pipeline)</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;Example Build&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(<span class="string">&#x27;Example Deploy&#x27;</span>) &#123;</span><br><span class="line">            when &#123;</span><br><span class="line">                expression &#123; BRANCH_NAME ==~ <span class="regexp">/(production|staging)/</span> &#125;</span><br><span class="line">                anyOf &#123;</span><br><span class="line">                    environment <span class="attr">name:</span> <span class="string">&#x27;DEPLOY_TO&#x27;</span>, <span class="attr">value:</span> <span class="string">&#x27;production&#x27;</span></span><br><span class="line">                    environment <span class="attr">name:</span> <span class="string">&#x27;DEPLOY_TO&#x27;</span>, <span class="attr">value:</span> <span class="string">&#x27;staging&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&#x27;Deploying&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2.3-parallel(%E5%B9%B6%E8%A1%8C)">2.3 Parallel(并行)</h3>
+<h3 id="23-parallel并行"><a class="markdownIt-Anchor" href="#23-parallel并行"></a> 2.3 Parallel(并行)</h3>
 <p>Declarative Pipeline的stages中可能包含多个嵌套的stage, 对相互不存在依赖的stage可以通过并行的方式执行，以提升pipeline的运行效率。</p>
 <p>另外，通过在某个stage中设置“failFast true”，可实现当这个stage运行失败的时候，强迫所有parallel stages中止运行（详见下面的例子）。</p>
-<h5 id="%E6%A0%B7%E4%BE%8B-11">样例</h5>
+<h5 id="样例-12"><a class="markdownIt-Anchor" href="#样例-12"></a> 样例</h5>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Jenkinsfile (Declarative Pipeline)</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;Non-Parallel Stage&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&#x27;This stage will be executed first.&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(<span class="string">&#x27;Parallel Stage&#x27;</span>) &#123;</span><br><span class="line">            when &#123;</span><br><span class="line">                branch <span class="string">&#x27;master&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">            failFast <span class="literal">true</span></span><br><span class="line">            parallel &#123;</span><br><span class="line">                stage(<span class="string">&#x27;Branch A&#x27;</span>) &#123;</span><br><span class="line">                    agent &#123;</span><br><span class="line">                        label <span class="string">&quot;for-branch-a&quot;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    steps &#123;</span><br><span class="line">                        echo <span class="string">&quot;On Branch A&quot;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                stage(<span class="string">&#x27;Branch B&#x27;</span>) &#123;</span><br><span class="line">                    agent &#123;</span><br><span class="line">                        label <span class="string">&quot;for-branch-b&quot;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    steps &#123;</span><br><span class="line">                        echo <span class="string">&quot;On Branch B&quot;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2.4-steps%EF%BC%88%E6%AD%A5%E9%AA%A4%EF%BC%89">2.4 Steps（步骤）</h3>
+<h3 id="24-steps步骤"><a class="markdownIt-Anchor" href="#24-steps步骤"></a> 2.4 Steps（步骤）</h3>
 <p>Declarative Pipeline可使用Pipeline Steps手册中的所有可用步骤，以及以下仅在Declarative Pipeline中支持的步骤。</p>
 <p>Pipeline Stepsreference：<a href="https://jenkins.io/doc/pipeline/steps/">https://jenkins.io/doc/pipeline/steps/</a></p>
-<h4 id="script">script</h4>
+<h4 id="script"><a class="markdownIt-Anchor" href="#script"></a> script</h4>
 <p>script步骤中可以引用script Pipeline语句，并在Declarative Pipeline中执行。对于大多数用例，script在Declarative Pipeline中的步骤不是必须的，但它可以提供一个有用的加强。</p>
-<h5 id="%E6%A0%B7%E4%BE%8B-12">样例</h5>
+<h5 id="样例-13"><a class="markdownIt-Anchor" href="#样例-13"></a> 样例</h5>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Jenkinsfile (Declarative Pipeline)</span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;Example&#x27;</span>) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line">                script &#123;</span><br><span class="line">                    <span class="keyword">def</span> browsers = [<span class="string">&#x27;chrome&#x27;</span>, <span class="string">&#x27;firefox&#x27;</span>]</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; browsers.size(); ++i) &#123;</span><br><span class="line">                        echo <span class="string">&quot;Testing the $&#123;browsers[i]&#125; browser&quot;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="3-scripted-pipeline">3 Scripted Pipeline</h2>
+<h2 id="3-scripted-pipeline"><a class="markdownIt-Anchor" href="#3-scripted-pipeline"></a> 3 Scripted Pipeline</h2>
 <p>Groovy脚本不一定适合所有使用者，因此Jenkins创建了Declarative Pipeline，为编写Jenkins Pipeline提供了一种更简单、更有意义的语法。但是不可否认，由于脚本化的pipeline是基于groovy的一种DSL语言，所以与Declarative pipeline相比为Jenkins用户提供了更巨大的灵活性和可扩展性。</p>
-<h3 id="3.1-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6">3.1 流程控制</h3>
+<h3 id="31-流程控制"><a class="markdownIt-Anchor" href="#31-流程控制"></a> 3.1 流程控制</h3>
 <p>Pipeline脚本同其它脚本语言一样，从上至下顺序执行，它的流程控制取决于Groovy表达式，如if/else条件语句，举例如下：</p>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Jenkinsfile (Scripted Pipeline)</span></span><br><span class="line">node &#123;</span><br><span class="line">    stage(<span class="string">&#x27;Example&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (env.BRANCH_NAME == <span class="string">&#x27;master&#x27;</span>) &#123;</span><br><span class="line">            echo <span class="string">&#x27;I only execute on the master branch&#x27;</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            echo <span class="string">&#x27;I execute elsewhere&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Pipeline脚本流程控制的另一种方式是Groovy的异常处理机制。当任何一个步骤因各种原因而出现异常时，都必须在Groovy中使用try/catch/finally语句块进行处理，举例如下：</p>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Jenkinsfile (Scripted Pipeline)</span></span><br><span class="line">node &#123;</span><br><span class="line">    stage(<span class="string">&#x27;Example&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            sh <span class="string">&#x27;exit 1&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (exc) &#123;</span><br><span class="line">            echo <span class="string">&#x27;Something failed, I should sound the klaxons!&#x27;</span></span><br><span class="line">            <span class="keyword">throw</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3.2-steps">3.2 Steps</h3>
+<h3 id="32-steps"><a class="markdownIt-Anchor" href="#32-steps"></a> 3.2 Steps</h3>
 <p>如本章开始所言，pipeline最核心和基本的部分就是“step”。从根本上来说，steps是作为Declarative pipeline和Scripted pipeline语法的最基本的语句块，来告诉jenkins应该执行什么操作。</p>
 <p>Scripted pipeline不再专门将steps作为它的语法的一部分来介绍，但是在Pipeline Steps reference这篇文档中对pipeline及其插件涉及的steps做了很详细的介绍。如有需要可参考Jenkins官网对该部分的介绍。</p>
-<h3 id="3.3-%E4%B8%8E%E6%99%AE%E9%80%9Agroovy%E7%9A%84%E5%8C%BA%E5%88%AB">3.3 与普通Groovy的区别</h3>
+<h3 id="33-与普通groovy的区别"><a class="markdownIt-Anchor" href="#33-与普通groovy的区别"></a> 3.3 与普通Groovy的区别</h3>
 <p>由于pipeline的一些个性化需求，比如在重新启动Jenkins后要求pipeline脚本仍然可以运行，那么pipeline脚本必须将相关数据做序列化，然而这一点 Groovy并不能完美的支持。</p>
-<h3 id="3.4-declarative-pipeline%E5%92%8Cscripted-pipeline%E7%9A%84%E6%AF%94%E8%BE%83">3.4 Declarative Pipeline和Scripted Pipeline的比较</h3>
+<h3 id="34-declarative-pipeline和scripted-pipeline的比较"><a class="markdownIt-Anchor" href="#34-declarative-pipeline和scripted-pipeline的比较"></a> 3.4 Declarative Pipeline和Scripted Pipeline的比较</h3>
 <p>共同点：</p>
 <p>两者都是pipeline代码的持久实现，都能够使用pipeline内置的插件或者插件提供的steps，两者都可以利用共享库扩展。</p>
 <p>区别：</p>
 <p>两者不同之处在于语法和灵活性。Declarative Pipeline对用户来说，语法更严格，有固定的组织结构，更容易生成代码段，使其成为用户更理想的选择。但是Scripted pipeline更加灵活，因为Groovy本身只能对结构和语法进行限制，对于更复杂的pipeline来说，用户可以根据自己的业务进行灵活的实现和扩展。</p>
-<h2 id="4-%E5%B0%8F%E7%BB%93">4 小结</h2>
+<h2 id="4-小结"><a class="markdownIt-Anchor" href="#4-小结"></a> 4 小结</h2>
 <p>Pipeline语法是使用Jenkins Pipeline的基础，Jenkins提供了Declarative Pipeline和Scripted Pipeline两种语法结构，这两者在底层都是基于相同的Pipeline子系统，依照&quot;Pipeline as code&quot;的理念进行实现。</p>
 <p>相对来说，Declarative Pipeline语法更简洁也更容易理解，而且可以与BlueOcean编辑器进行图形化操作结合，也是Jenkins社区鼓励使用的一种语法结构。</p>
 <p>基于以上原因，<code>后面我们的交付流水线样例均采用 **Declarative语法** 结构进行编写。</code></p>
-<h2 id="5-%E5%BC%95%E7%94%A8">5 引用</h2>
+<h2 id="5-引用"><a class="markdownIt-Anchor" href="#5-引用"></a> 5 引用</h2>
 <p><a href="https://jenkins.io/doc/book/pipeline/syntax/">Jenkins Pipeline 语法官方文档参考</a></p>
 ]]></content>
       <categories>
@@ -2291,7 +2302,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <span id="more"></span>
 <p>以下是体验环境：个人注册账号，免费版阿里云效</p>
 <p>云效官方文档：<a href="https://help.aliyun.com/product/150040.html?spm=a2c4g.11186623.6.540.6d9bfefeVpEjd2">阿里云效</a></p>
-<h2 id="%E4%BA%91%E6%95%88%E4%BA%A7%E5%93%81%E6%A2%B3%E7%90%86">云效产品梳理</h2>
+<h2 id="云效产品梳理"><a class="markdownIt-Anchor" href="#云效产品梳理"></a> 云效产品梳理</h2>
 <hr>
 <table>
 <thead>
@@ -2341,22 +2352,22 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </tr>
 <tr>
 <td style="text-align:left">日志、监控、预警</td>
-<td style="text-align:left">预警平台、阿里云日志平台、...</td>
-<td style="text-align:left">--</td>
+<td style="text-align:left">预警平台、阿里云日志平台、…</td>
+<td style="text-align:left">–</td>
 <td style="text-align:left">阿里云日志、告警</td>
 </tr>
 <tr>
 <td style="text-align:left">运维平台</td>
-<td style="text-align:left">DB平台、资产平台、域名平台、事件平台、...</td>
-<td style="text-align:left">--</td>
+<td style="text-align:left">DB平台、资产平台、域名平台、事件平台、…</td>
+<td style="text-align:left">–</td>
 <td style="text-align:left">阿里云平台（部分功能管理，如，上云资产）</td>
 </tr>
 </tbody>
 </table>
-<h2 id="%E4%BA%91%E6%95%88%E6%88%90%E6%9C%AC%E9%A2%84%E4%BC%B0">云效成本预估</h2>
+<h2 id="云效成本预估"><a class="markdownIt-Anchor" href="#云效成本预估"></a> 云效成本预估</h2>
 <hr>
 <p>参考：<a href="https://help.aliyun.com/document_detail/173288.html?spm=a2c4g.11186623.6.1313.547d548d4FzBw5">云效2020资费</a></p>
-<h3 id="1%E3%80%81%E5%9F%BA%E7%A1%80%E7%89%88">1、基础版</h3>
+<h3 id="1-基础版"><a class="markdownIt-Anchor" href="#1-基础版"></a> 1、基础版</h3>
 <p>免费使用，不限人数</p>
 <ul>
 <li>代码管理：代码库数量不限，单库容量 10 GB（Git 库 5 GB + LFS 5 GB）</li>
@@ -2364,7 +2375,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <li>制品仓库：容量不限</li>
 </ul>
 <p><strong>可基本满足试点项目的使用需求</strong></p>
-<h3 id="2%E3%80%81%E9%AB%98%E7%BA%A7%E7%89%88%E6%9C%AC">2、高级版本</h3>
+<h3 id="2-高级版本"><a class="markdownIt-Anchor" href="#2-高级版本"></a> 2、高级版本</h3>
 <p>高级版 <strong>618 元/人/年</strong></p>
 <ul>
 <li>专属功能：效能洞察、代码安全等</li>
@@ -2374,33 +2385,33 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </ul>
 <p>按照现有使用人员预估：技术、开发、运维约250人 - 300人 （含大数据、算法开发人员，移动端包含部分产运人员）</p>
 <p><strong>使用成本预估：￥154500/年 - ￥185400/年</strong></p>
-<h3 id="3%E3%80%81%E4%BC%98%E6%83%A0%E5%A5%97%E9%A4%90">3、优惠套餐</h3>
+<h3 id="3-优惠套餐"><a class="markdownIt-Anchor" href="#3-优惠套餐"></a> 3、优惠套餐</h3>
 <ul>
 <li><strong>30 人套餐 1280 元/年</strong></li>
 <li><strong>100 人套餐 12800 元/年</strong></li>
 </ul>
 <p>**试点项目可以购买 “**<strong>30 人套餐 1280 元/年” 套餐，体验相关专属功能</strong></p>
-<h2 id="%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C">使用体验</h2>
+<h2 id="使用体验"><a class="markdownIt-Anchor" href="#使用体验"></a> 使用体验</h2>
 <hr>
-<h3 id="1%E3%80%81%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86">1、项目管理</h3>
+<h3 id="1-项目管理"><a class="markdownIt-Anchor" href="#1-项目管理"></a> 1、项目管理</h3>
 <p>整合需求、迭代、任务管理等工具，联动性较好，<strong>高级版具有效能洞察能力</strong></p>
-<h3 id="2%E3%80%81cicd%E6%B5%81%E6%B0%B4%E7%BA%BF">2、CICD流水线</h3>
+<h3 id="2-cicd流水线"><a class="markdownIt-Anchor" href="#2-cicd流水线"></a> 2、CICD流水线</h3>
 <p>自由化程度高，灵活性也较高，但是相对流程和试用体验可以进一步优化。构建部署和项目（或应用）相关关联度较低，具体操作不是很便捷。</p>
-<h3 id="3%E3%80%81%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E7%AE%A1%E7%90%86">3、测试用例管理</h3>
+<h3 id="3-测试用例管理"><a class="markdownIt-Anchor" href="#3-测试用例管理"></a> 3、测试用例管理</h3>
 <p>支持测试用例平台化管理</p>
-<h2 id="%E4%BD%93%E9%AA%8C%E6%80%BB%E7%BB%93">体验总结</h2>
+<h2 id="体验总结"><a class="markdownIt-Anchor" href="#体验总结"></a> 体验总结</h2>
 <hr>
-<h3 id="1%E3%80%81%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E8%83%BD%E5%8A%9B%E8%BE%83%E5%A5%BD">1、项目管理能力较好</h3>
+<h3 id="1-项目管理能力较好"><a class="markdownIt-Anchor" href="#1-项目管理能力较好"></a> 1、项目管理能力较好</h3>
 <ul>
 <li>需求、迭代、看板、各种维度的数据串联整合</li>
 <li><strong>具有效能数据统计洞察能力</strong></li>
 </ul>
-<h3 id="2%E3%80%81%E6%B5%8B%E8%AF%95%E7%AE%A1%E7%90%86-%E7%94%A8%E4%BE%8B%E7%AE%A1%E7%90%86%E8%BE%83%E5%A5%BD%EF%BC%8C%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E8%83%BD%E5%8A%9B%E7%AF%87%E5%BC%B1">2、测试管理-用例管理较好，自动化测试能力篇弱</h3>
+<h3 id="2-测试管理-用例管理较好自动化测试能力篇弱"><a class="markdownIt-Anchor" href="#2-测试管理-用例管理较好自动化测试能力篇弱"></a> 2、测试管理-用例管理较好，自动化测试能力篇弱</h3>
 <ul>
 <li>有完善的测试用例管理平台</li>
 <li>相关集成的自动化测试能力缺乏，如：API自动化测试、性能测试、Mock测试等</li>
 </ul>
-<h3 id="2%E3%80%81%E8%BF%90%E7%BB%B4%E9%85%8D%E5%90%88-%E5%89%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E6%89%93%E9%80%9A">2、运维配合-前置服务打通</h3>
+<h3 id="2-运维配合-前置服务打通"><a class="markdownIt-Anchor" href="#2-运维配合-前置服务打通"></a> 2、运维配合-前置服务打通</h3>
 <p>基础资源的服务网络链路打通，需要运维伙伴进行配置执行。</p>
 <ul>
 <li>Gitlab仓库</li>
@@ -2409,7 +2420,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <li>部署主机的网络通信打通</li>
 <li>……</li>
 </ul>
-<h3 id="3%E3%80%81%E6%94%B9%E8%BF%9B%E6%8F%90%E5%8D%87%E7%82%B9">3、改进提升点</h3>
+<h3 id="3-改进提升点"><a class="markdownIt-Anchor" href="#3-改进提升点"></a> 3、改进提升点</h3>
 <table>
 <thead>
 <tr>
@@ -2479,8 +2490,8 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </tr>
 </tbody>
 </table>
-<h2 id="cicd%E4%BD%93%E9%AA%8C%E8%83%BD%E5%8A%9B%E5%AF%B9%E6%AF%94">CICD体验能力对比</h2>
-<h3 id="1%E3%80%81web%E7%AB%AFci%2Fcd%E7%89%B9%E6%80%A7%E5%AF%B9%E6%AF%94">1、Web端CI/CD特性对比</h3>
+<h2 id="cicd体验能力对比"><a class="markdownIt-Anchor" href="#cicd体验能力对比"></a> CICD体验能力对比</h2>
+<h3 id="1-web端cicd特性对比"><a class="markdownIt-Anchor" href="#1-web端cicd特性对比"></a> 1、Web端CI/CD特性对比</h3>
 <table>
 <thead>
 <tr>
@@ -2784,7 +2795,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </tr>
 </tbody>
 </table>
-<h4 id="%E4%BD%93%E9%AA%8C%E6%80%BB%E7%BB%93%EF%BC%9A">体验总结：</h4>
+<h4 id="体验总结-2"><a class="markdownIt-Anchor" href="#体验总结-2"></a> 体验总结：</h4>
 <ol>
 <li>代码源分支/标签下拉选择，减少输入引起的错误，提高用户体验。</li>
 <li>容器K8S集群中ConfigMap和PVC配置需要能够配置。</li>
@@ -2797,7 +2808,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <li>制品部署，同一制品可部署多个环境。</li>
 <li>多应用构建部署，应用之间存在关联部署，例如微服务项目。</li>
 </ol>
-<h3 id="2%E3%80%81%E7%A7%BB%E5%8A%A8%E6%89%93%E5%8C%85%E8%B0%83%E7%A0%94">2、移动打包调研</h3>
+<h3 id="2-移动打包调研"><a class="markdownIt-Anchor" href="#2-移动打包调研"></a> 2、移动打包调研</h3>
 <table>
 <thead>
 <tr>
@@ -2921,7 +2932,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 </tr>
 </tbody>
 </table>
-<h4 id="%E4%BD%93%E9%AA%8C%E6%80%BB%E7%BB%93%EF%BC%9A-1">体验总结：</h4>
+<h4 id="体验总结-3"><a class="markdownIt-Anchor" href="#体验总结-3"></a> 体验总结：</h4>
 <ol>
 <li>阿里云效平台无法支持渠道的管理，目前没有解决方案，影响渠道包的构建。</li>
 <li>阿里云效无法支持母包管理，构建母包时无法通过选择母包进行构建，只能通过定制参数来进行渠道打包。</li>
