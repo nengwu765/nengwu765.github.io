@@ -85,6 +85,8 @@
   </style>
 </noscript>
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -292,13 +294,13 @@
 </li>
 </ul>
 <p>我们设计的CI和CD流水线的概图如下：<br>
-<img src="/zentao-rd-pipeline/CICD%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
+<img src="/zentao-rd-pipeline/CICD%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt=""></p>
 <h2 id="2-持续集成流水线ci-continuous-integration"><a class="markdownIt-Anchor" href="#2-持续集成流水线ci-continuous-integration"></a> 2 持续集成流水线（CI, Continuous Integration）</h2>
 <p>下面是一个一般的CI的流程模型：<br>
-<img src="/zentao-rd-pipeline/CI%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
+<img src="/zentao-rd-pipeline/CI%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt=""></p>
 <h2 id="3-持续发布流水线cdcontinous-delivery"><a class="markdownIt-Anchor" href="#3-持续发布流水线cdcontinous-delivery"></a> 3 持续发布流水线（CD，Continous Delivery）</h2>
 <p>下面是一个一般的CD的流程模型：<br>
-<img src="/zentao-rd-pipeline/CD%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt></p>
+<img src="/zentao-rd-pipeline/CD%E6%B5%81%E6%B0%B4%E7%BA%BF-new.png" alt=""></p>
 <h2 id="4-版本和环境流程图"><a class="markdownIt-Anchor" href="#4-版本和环境流程图"></a> 4、版本和环境流程图</h2>
 <p>在逻辑意义上来说，我们目前做了如下定义：</p>
 <ul>
@@ -310,7 +312,7 @@
 <li>预发布环境 pre-release</li>
 <li>灰度发布环境 grey verification environment</li>
 <li>正式生产环境 mass production<br>
-<img src="/zentao-rd-pipeline/%E7%89%88%E6%9C%AC%E5%8F%8A%E7%8E%AF%E5%A2%83-new.png" alt></li>
+<img src="/zentao-rd-pipeline/%E7%89%88%E6%9C%AC%E5%8F%8A%E7%8E%AF%E5%A2%83-new.png" alt=""></li>
 </ul>
 </li>
 </ul>
@@ -320,12 +322,12 @@
 <li>
 <p>1、不同环境不同域名方案</p>
 <p>部署至不同集群环境，生成不同域名方案。</p>
-<p>如：域名为&quot;<a target="_blank" rel="noopener" href="http://demo.com">demo.com</a>&quot;，部署至sit0环境，则自动生成域名&quot;<a target="_blank" rel="noopener" href="http://sit0-demo.com">sit0-demo.com</a>&quot;</p>
+<p>如：域名为"<a target="_blank" rel="noopener" href="http://demo.com">demo.com</a>"，部署至sit0环境，则自动生成域名"<a target="_blank" rel="noopener" href="http://sit0-demo.com">sit0-demo.com</a>"</p>
 </li>
 <li>
 <p>2、不同环境同一域名方案</p>
 <p>部署至不同集群环境，访问客户端通过**<code>域名代理</code>**访问同一域名（多环境同域名方案OpenResty方案: Nginx+lua + redis 实现根据访问者<code>IP</code>将访问请求转发到对应环境，并能对<code>IP</code>与<code>环境</code>的绑定关系进行管理（<a href="/zentao-one-domain-multiEnv/" title="方案详情参考此文，多环境同域名设计">方案详情参考此文，多环境同域名设计</a>），访问至不同集群环境。</p>
-<p>如：域名为&quot;<a target="_blank" rel="noopener" href="http://demo.com">demo.com</a>&quot;，通过域名代理将访问客户端IP与目的访问集群入口域名&quot;<a target="_blank" rel="noopener" href="http://sit0-demo.com">sit0-demo.com</a>&quot;绑定即可实现同一域名访问。</p>
+<p>如：域名为"<a target="_blank" rel="noopener" href="http://demo.com">demo.com</a>"，通过域名代理将访问客户端IP与目的访问集群入口域名"<a target="_blank" rel="noopener" href="http://sit0-demo.com">sit0-demo.com</a>"绑定即可实现同一域名访问。</p>
 </li>
 </ul>
 
@@ -432,20 +434,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -472,7 +474,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -482,13 +484,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">75k</span>
+    <span title="站点总字数">78k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:08</span>
+    <span title="站点阅读时长">1:11</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

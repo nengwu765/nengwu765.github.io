@@ -81,6 +81,8 @@
   </style>
 </noscript>
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -268,7 +270,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>最近有机会体验下阿里的云效产品，感受下&quot;大厂&quot;的DevOps产品。在写这篇Blog时，正正好赶上了《<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/3UmieN4cBCzjGVceMn4BlQ">阿里云效公共云基础版全面免费，不限人数使用</a>》，基本可以白嫖了，<strong>为双十一做的贡献，终于有回报了</strong>。</p>
+        <p>最近有机会体验下阿里的云效产品，感受下"大厂"的DevOps产品。在写这篇Blog时，正正好赶上了《<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/3UmieN4cBCzjGVceMn4BlQ">阿里云效公共云基础版全面免费，不限人数使用</a>》，基本可以白嫖了，<strong>为双十一做的贡献，终于有回报了</strong>。</p>
 <p>估计应该由小伙伴为此纠结过吧，其实吧分支管理规范没有 <strong>”银弹“</strong> ，这里我只是分享我觉得比较简单也是对持续交付较为友好的  <a target="_blank" rel="noopener" href="https://guides.github.com/introduction/flow/">GitHubFlow </a>+ Tag 分支模型。</p>
 <span id="more"></span>
 <p>重要的事儿还是需要在说一遍的：<strong>分支管理规范没有 ”银弹“！</strong></p>
@@ -317,7 +319,7 @@
 </tbody>
 </table>
 <h2 id="3-提交命名规约"><a class="markdownIt-Anchor" href="#3-提交命名规约"></a> 3、提交命名规约</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">任务ID： EE-233   // 对应JIRA Issue编号，可以自动实现Jira与Gitlab的提交关联``提交内容： [feat] 功能特性开发``     ``[fix] 修复Bug``    ``[``rm``] 删除无用文件``    ``[ref] 代码或功能重构 </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">任务ID： EE-233   // 对应JIRA Issue编号，可以自动实现Jira与Gitlab的提交关联``提交内容： [feat] 功能特性开发``     ``[fix] 修复Bug``    ``[``rm``] 删除无用文件``    ``[ref] 代码或功能重构 </span><br></pre></td></tr></tbody></table></figure>
 <h2 id="4-codereview规约"><a class="markdownIt-Anchor" href="#4-codereview规约"></a> 4、CodeReview规约</h2>
 <h3 id="提交mr"><a class="markdownIt-Anchor" href="#提交mr"></a> 提交MR</h3>
 <p>提交代码后，可以提交<code>mr</code>到<code>master</code>，申请合并代码。（此处可进行自动代码审查）</p>
@@ -341,15 +343,15 @@
 <p><strong>目前有相应工具做到支持：</strong><a target="_blank" rel="noopener" href="https://gist.github.com/redblue9771/5c3cecca694ae396e906bef285b6c19b">commitizen &amp; cz-conventional-changelog</a> 、 git-commit-plugin等</p>
 <h3 id="基本提交格式"><a class="markdownIt-Anchor" href="#基本提交格式"></a> 基本提交格式：</h3>
 <hr>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;类型&gt;([可选的作用域]): &lt;描述&gt;</span><br><span class="line">// 空一行</span><br><span class="line">[可选的正文]</span><br><span class="line">// 空一行</span><br><span class="line">[可选的脚注]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;类型&gt;([可选的作用域]): &lt;描述&gt;</span><br><span class="line">// 空一行</span><br><span class="line">[可选的正文]</span><br><span class="line">// 空一行</span><br><span class="line">[可选的脚注]</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="提交示例"><a class="markdownIt-Anchor" href="#提交示例"></a> 提交示例：</h3>
 <hr>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">feat/fix: 完成一个很牛掰的功能开发/修复一个极度危险的Bug</span><br><span class="line"> </span><br><span class="line">re/fix  #EE-123 #EE-333</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">feat/fix: 完成一个很牛掰的功能开发/修复一个极度危险的Bug</span><br><span class="line"> </span><br><span class="line">re/fix  #EE-123 #EE-333</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="约定说明"><a class="markdownIt-Anchor" href="#约定说明"></a> 约定说明：</h3>
 <hr>
 <h4 id="1-类型-type"><a class="markdownIt-Anchor" href="#1-类型-type"></a> 1. 类型 - type</h4>
 <p>type为必填项，用于指定commit的类型，约定了feat、fix两个主要type，以及docs、style、build、refactor、revert五个特殊type，其余type暂不使用。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 主要type</span><br><span class="line">feat:     增加新功能</span><br><span class="line">fix:      修复bug</span><br><span class="line"> </span><br><span class="line"># 特殊type</span><br><span class="line">docs:     只改动了文档相关的内容</span><br><span class="line">style:    不影响代码含义的改动，例如去掉空格、改变缩进、增删分号</span><br><span class="line">build:    构造工具的或者外部依赖的改动，例如webpack，npm</span><br><span class="line">refactor: 代码重构时使用</span><br><span class="line">revert:   执行git revert打印的message</span><br><span class="line"> </span><br><span class="line"># 暂不使用type</span><br><span class="line">test:     添加测试或者修改现有测试</span><br><span class="line">perf:     提高性能的改动</span><br><span class="line">ci:       与CI（持续集成服务）有关的改动</span><br><span class="line">chore:    不修改src或者test的其余修改，例如构建过程或辅助工具的变动</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 主要type</span><br><span class="line">feat:     增加新功能</span><br><span class="line">fix:      修复bug</span><br><span class="line"> </span><br><span class="line"># 特殊type</span><br><span class="line">docs:     只改动了文档相关的内容</span><br><span class="line">style:    不影响代码含义的改动，例如去掉空格、改变缩进、增删分号</span><br><span class="line">build:    构造工具的或者外部依赖的改动，例如webpack，npm</span><br><span class="line">refactor: 代码重构时使用</span><br><span class="line">revert:   执行git revert打印的message</span><br><span class="line"> </span><br><span class="line"># 暂不使用type</span><br><span class="line">test:     添加测试或者修改现有测试</span><br><span class="line">perf:     提高性能的改动</span><br><span class="line">ci:       与CI（持续集成服务）有关的改动</span><br><span class="line">chore:    不修改src或者test的其余修改，例如构建过程或辅助工具的变动</span><br></pre></td></tr></tbody></table></figure>
 <p>``</p>
 <p>当一次改动包括主要type与特殊type时，统一采用主要type。</p>
 <h4 id="2-作用域-scope"><a class="markdownIt-Anchor" href="#2-作用域-scope"></a> 2. 作用域 - scope</h4>
@@ -360,7 +362,7 @@
 <p>affect issues指明是否影响了某个问题。例如我们使用jira时，我们在commit message中可以填写其影响的JIRA_ID。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xiao2shiqi/p/13514548.html">准时下班的秘密：集成 GitLab &amp;&amp; JIRA 实现自动化工作流</a></p>
 <p>填写方式例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">re #JIRA_ID</span><br><span class="line">fix #JIRA_ID</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">re #JIRA_ID</span><br><span class="line">fix #JIRA_ID</span><br></pre></td></tr></tbody></table></figure>
 
     </div>
 
@@ -386,8 +388,8 @@
       <i class="fa fa-chevron-left"></i> 阿里云效初体验
     </a></div>
       <div class="post-nav-item">
-    <a href="/k8s-dynamic-admission/" rel="next" title="K8s动态准入控制">
-      K8s动态准入控制 <i class="fa fa-chevron-right"></i>
+    <a href="/k8s-hpa/" rel="next" title="HPA-Pod水平自动扩缩">
+      HPA-Pod水平自动扩缩 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -464,20 +466,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -504,7 +506,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -514,13 +516,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">75k</span>
+    <span title="站点总字数">78k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:08</span>
+    <span title="站点阅读时长">1:11</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

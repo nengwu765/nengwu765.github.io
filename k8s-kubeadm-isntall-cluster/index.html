@@ -80,6 +80,8 @@
   </style>
 </noscript>
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -288,7 +290,7 @@
 <p>网络检索，说是从master进行copy一份即可，感觉似乎不妥，</p>
 </li>
 <li>
-<p>找到本机的resolv.conf文件，<code>sudo find /run -name &quot;resolv.conf&quot;</code> ，软链操作：<code>sudo ln -s /run/NetworkManager/resolv.conf /run/systemd/resolve/resolv.conf</code>，resolv.conf到底是什么？？？</p>
+<p>找到本机的resolv.conf文件，<code>sudo find /run -name "resolv.conf"</code> ，软链操作：<code>sudo ln -s /run/NetworkManager/resolv.conf /run/systemd/resolve/resolv.conf</code>，resolv.conf到底是什么？？？</p>
 </li>
 </ul>
 <p>2、Error from server (InternalError): error when creating “nginx-demo.yaml”: Internal error occurred: failed calling webhook “<a target="_blank" rel="noopener" href="http://validate.nginx.ingress.kubernetes.io">validate.nginx.ingress.kubernetes.io</a>”: Post “<a target="_blank" rel="noopener" href="https://ingress-nginx-controller-admission.ingress-nginx.svc:443/networking/v1/ingresses?timeout=10s">https://ingress-nginx-controller-admission.ingress-nginx.svc:443/networking/v1/ingresses?timeout=10s</a>”: context deadline exceeded</p>
@@ -302,7 +304,7 @@
 <h2 id="install-calico-cni-plugin"><a class="markdownIt-Anchor" href="#install-calico-cni-plugin"></a> install calico cni plugin</h2>
 <p><a target="_blank" rel="noopener" href="https://docs.projectcalico.org/getting-started/kubernetes/quickstart">https://docs.projectcalico.org/getting-started/kubernetes/quickstart</a></p>
 <p><code>坑：只用于单节点集群</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml</span><br><span class="line">$ kubectl create -f https://docs.projectcalico.org/manifests/custom-resources.yaml</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml</span><br><span class="line">$ kubectl create -f https://docs.projectcalico.org/manifests/custom-resources.yaml</span><br></pre></td></tr></tbody></table></figure>
 <h4 id="ip_autodetection_method-value-interfaceeth1-根据实际网卡名称配置"><a class="markdownIt-Anchor" href="#ip_autodetection_method-value-interfaceeth1-根据实际网卡名称配置"></a> IP_AUTODETECTION_METHOD   value: “interface=eth1”  # 根据实际网卡名称配置</h4>
 <p>官网安装：<a target="_blank" rel="noopener" href="https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises#determine-your-datastore">https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises#determine-your-datastore</a></p>
 <blockquote>
@@ -311,7 +313,7 @@
 <p>配置：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/46e4261a63b4">https://www.jianshu.com/p/46e4261a63b4</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/houchaoying/p/14652573.html">https://www.cnblogs.com/houchaoying/p/14652573.html</a></p>
 <pre><code>        - name: IP_AUTODETECTION_METHOD
-          value: &quot;interface=en.*&quot;   # en.*正则表示匹配到em开头的所有网卡    
+          value: "interface=en.*"   # en.*正则表示匹配到em开头的所有网卡    
 </code></pre>
 <p>集群内部域名为什么ping不通，可以通过curl访问？？？</p>
 <ul>
@@ -348,8 +350,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/k8s-hpa/" rel="prev" title="HPA-Pod水平自动扩缩">
-      <i class="fa fa-chevron-left"></i> HPA-Pod水平自动扩缩
+    <a href="/k8s-dynamic-admission/" rel="prev" title="K8s动态准入控制">
+      <i class="fa fa-chevron-left"></i> K8s动态准入控制
     </a></div>
       <div class="post-nav-item">
     <a href="/custom-define-dockerfile/" rel="next" title="代码自定义Dockerfile">
@@ -430,20 +432,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -470,7 +472,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -480,13 +482,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">75k</span>
+    <span title="站点总字数">78k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:08</span>
+    <span title="站点阅读时长">1:11</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

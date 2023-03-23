@@ -85,6 +85,8 @@
   </style>
 </noscript>
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -287,14 +289,14 @@
 </ul>
 <h3 id="12-新流程设计"><a class="markdownIt-Anchor" href="#12-新流程设计"></a> 1.2、新流程设计</h3>
 <p>针对原有流程，项目/需求管理还是使用禅道原有功能，将版本母包的功能集成到禅道的版本中，同时禅道支持渠道打包和市场投放功能。</p>
-<p><img src="/zentao-mobile-cicd/%E6%96%B0%E6%B5%81%E7%A8%8B-new.jpg" alt></p>
+<p><img src="/zentao-mobile-cicd/%E6%96%B0%E6%B5%81%E7%A8%8B-new.jpg" alt=""></p>
 <h4 id="版本母包"><a class="markdownIt-Anchor" href="#版本母包"></a> 版本母包</h4>
 <ul>
 <li>版本母包管理（支持自测–&gt;系统测试–&gt;母包同步等）</li>
 <li>统一母包构建入口，支持定制化打包参数设置</li>
 <li>构建构成可视化</li>
 </ul>
-<p><img src="/zentao-mobile-cicd/%E7%89%88%E6%9C%AC%E6%9E%84%E5%BB%BA-new.jpg" alt></p>
+<p><img src="/zentao-mobile-cicd/%E7%89%88%E6%9C%AC%E6%9E%84%E5%BB%BA-new.jpg" alt=""></p>
 <h4 id="渠道打包"><a class="markdownIt-Anchor" href="#渠道打包"></a> 渠道打包</h4>
 <ul>
 <li>批量打包管理（批量下载、自动重命名、二维码下载等）</li>
@@ -302,21 +304,21 @@
 <li>FTP自动化投放</li>
 <li>渠道打包投放过程可视化</li>
 </ul>
-<p><img src="/zentao-mobile-cicd/%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85-new.jpg" alt></p>
+<p><img src="/zentao-mobile-cicd/%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85-new.jpg" alt=""></p>
 <h2 id="2-多app统一页面实现定制化构建母包"><a class="markdownIt-Anchor" href="#2-多app统一页面实现定制化构建母包"></a> 2、多APP统一页面实现定制化构建母包</h2>
 <h3 id="21-母包构建页面"><a class="markdownIt-Anchor" href="#21-母包构建页面"></a> 2.1、母包构建页面</h3>
-<p><img src="/zentao-mobile-cicd/%E5%AE%9A%E5%88%B6%E5%8C%96%E6%89%93%E5%8C%85-new.jpg" alt></p>
+<p><img src="/zentao-mobile-cicd/%E5%AE%9A%E5%88%B6%E5%8C%96%E6%89%93%E5%8C%85-new.jpg" alt=""></p>
 <h3 id="22-定制参数设计"><a class="markdownIt-Anchor" href="#22-定制参数设计"></a> 2.2、定制参数设计</h3>
 <p><strong>通过业务项目代码的仓库的gradle.properties文件添加约定注解实现</strong></p>
 <ul>
 <li>普通注解示例</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#@name:是否展示获取数据的权限弹框@show:true@enableModify:true@type:bool@description:是否展示获取数据的权限弹框</span><br><span class="line">SHOW_DATA_PERMISSION_DIALOG=false</span><br><span class="line"></span><br><span class="line">#@name:限制升级时间(天)@show:true@enableModify:true@type:int@description:限制升级的时间</span><br><span class="line">UPDATE_LIMIT_DAYS=0</span><br><span class="line"></span><br><span class="line">#@name:是否开启1*1桌面组件@show:true@enableModify:true@type:bool@description:是否开启1*1桌面小组件</span><br><span class="line">IS_USE_WIDGET_1_1=true</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#@name:是否展示获取数据的权限弹框@show:true@enableModify:true@type:bool@description:是否展示获取数据的权限弹框</span><br><span class="line">SHOW_DATA_PERMISSION_DIALOG=false</span><br><span class="line"></span><br><span class="line">#@name:限制升级时间(天)@show:true@enableModify:true@type:int@description:限制升级的时间</span><br><span class="line">UPDATE_LIMIT_DAYS=0</span><br><span class="line"></span><br><span class="line">#@name:是否开启1*1桌面组件@show:true@enableModify:true@type:bool@description:是否开启1*1桌面小组件</span><br><span class="line">IS_USE_WIDGET_1_1=true</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li>新增附件上传注解</li>
 </ul>
 <p><strong><code>安卓项目有附件资源依赖，附件资源以注解形式给出，通过定制参数传入</code></strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#@name:桌面Icon压缩包@show:true@enableModify:true@type:uploadfile@fileType:zip@description:桌面Icon，必须是压缩包，目录结构符合要求，文件名为 ICON_RES.zip</span><br><span class="line">ICON_RES=</span><br><span class="line"></span><br><span class="line">#@name:启动页图片压缩包@show:true@enableModify:true@type:uploadfile@fileType:zip@description:启动页图片，必须是压缩包，目录结构符合要求，文件名为 SPLASH_RES.zip</span><br><span class="line">SPLASH_RES=</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#@name:桌面Icon压缩包@show:true@enableModify:true@type:uploadfile@fileType:zip@description:桌面Icon，必须是压缩包，目录结构符合要求，文件名为 ICON_RES.zip</span><br><span class="line">ICON_RES=</span><br><span class="line"></span><br><span class="line">#@name:启动页图片压缩包@show:true@enableModify:true@type:uploadfile@fileType:zip@description:启动页图片，必须是压缩包，目录结构符合要求，文件名为 SPLASH_RES.zip</span><br><span class="line">SPLASH_RES=</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 <h3 id="23-构建打包jenkins-job设计"><a class="markdownIt-Anchor" href="#23-构建打包jenkins-job设计"></a> 2.3、构建打包Jenkins Job设计</h3>
 <h4 id="入参说明"><a class="markdownIt-Anchor" href="#入参说明"></a> 入参说明</h4>
 <ul>
@@ -351,7 +353,7 @@
 <ul>
 <li>通用 CALLBACK_URLS_JSON 参数示例说明</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  // 流水线Job执行结果回调</span><br><span class="line">  &quot;resultCallbackUrl&quot;: &#123;</span><br><span class="line">  	&quot;url&quot;: &quot;http://demo.2345.com&quot;,</span><br><span class="line">  	&quot;host&quot;: &quot;&quot;   // 是否绑定host返回，默认：&quot;&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">{</span><br><span class="line">  // 流水线Job执行结果回调</span><br><span class="line">  "resultCallbackUrl": {</span><br><span class="line">  	"url": "http://demo.2345.com",</span><br><span class="line">  	"host": ""   // 是否绑定host返回，默认：""</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p><strong>BUILD_PARAMS_JSON参数说明</strong></p>
 <p><strong><code>采用一个Json构建字符串，便于后期的扩展和维护</code></strong></p>
 <ul>
@@ -383,13 +385,13 @@
 <td style="text-align:center">commonParams.gitBranchName</td>
 <td style="text-align:center">string</td>
 <td style="text-align:center">是</td>
-<td style="text-align:center">git分支名，若gitMode为tag，字段传空值：&quot;&quot;</td>
+<td style="text-align:center">git分支名，若gitMode为tag，字段传空值：""</td>
 </tr>
 <tr>
 <td style="text-align:center">commonParams.gitTagName</td>
 <td style="text-align:center">string</td>
 <td style="text-align:center">是</td>
-<td style="text-align:center">git标签名，若gitMode为branch，字段传空值：&quot;&quot;</td>
+<td style="text-align:center">git标签名，若gitMode为branch，字段传空值：""</td>
 </tr>
 <tr>
 <td style="text-align:center">commonParams.buildType</td>
@@ -444,7 +446,7 @@
 <ul>
 <li>构建参数示例</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // ====== 构建 通用 参数说明 =====</span><br><span class="line">    &quot;commonParams&quot;: &#123;</span><br><span class="line">        &quot;gitMode&quot;: &quot;branch&quot;,  // 拉取git仓库方式：branch/tag</span><br><span class="line">        &quot;gitBranchName&quot;: &quot;branchName&quot;,  // git分支名</span><br><span class="line">        &quot;gitTagName&quot;: &quot;tagName&quot;,  //git标签名</span><br><span class="line">        &quot;buildType&quot;: &quot;test&quot;,   // 打包版本类型 test-内测、测试版本，release-正式版本</span><br><span class="line">        &quot;appName&quot;: &quot;ABC&quot;, // 应用名称</span><br><span class="line">        &quot;packageName&quot;: &quot;demo&quot;, // 应用包名</span><br><span class="line">        &quot;productFlavor&quot;: &quot;demo123&quot;, // 定制的产品特性</span><br><span class="line">        &quot;channel&quot;: &quot;UMENG_CHANNEL_VALUE&quot;, // 渠道号,多个渠道号请用英文逗号分隔</span><br><span class="line">        &quot;versionName&quot;： &quot;2.3.4.5&quot;, // 外部版本号，主要用于显示给用户，服务端个别接口的逻辑，与内部版本号对应</span><br><span class="line">        &quot;versionCode&quot;: &quot;2345&quot;, // 内部版本号，主要用于升级，与外部版本号对应</span><br><span class="line">        &quot;buildDesc&quot;: &quot;&quot;   // 构建描述</span><br><span class="line">    &#125;,</span><br><span class="line">    // ====== 构建 定制 参数说明 =====</span><br><span class="line">    &quot;customParams&quot;: &#123;</span><br><span class="line">        &quot;NEED_ENCYPT&quot;: true,  // 是否加密</span><br><span class="line">        &quot;IS_PATCH&quot;: true,   // 是否patch包</span><br><span class="line">        &quot;ICON_RES&quot;: &quot;http://download.demo.com&quot;,   // 资源附件url</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">{</span><br><span class="line">    // ====== 构建 通用 参数说明 =====</span><br><span class="line">    "commonParams": {</span><br><span class="line">        "gitMode": "branch",  // 拉取git仓库方式：branch/tag</span><br><span class="line">        "gitBranchName": "branchName",  // git分支名</span><br><span class="line">        "gitTagName": "tagName",  //git标签名</span><br><span class="line">        "buildType": "test",   // 打包版本类型 test-内测、测试版本，release-正式版本</span><br><span class="line">        "appName": "ABC", // 应用名称</span><br><span class="line">        "packageName": "demo", // 应用包名</span><br><span class="line">        "productFlavor": "demo123", // 定制的产品特性</span><br><span class="line">        "channel": "UMENG_CHANNEL_VALUE", // 渠道号,多个渠道号请用英文逗号分隔</span><br><span class="line">        "versionName"： "2.3.4.5", // 外部版本号，主要用于显示给用户，服务端个别接口的逻辑，与内部版本号对应</span><br><span class="line">        "versionCode": "2345", // 内部版本号，主要用于升级，与外部版本号对应</span><br><span class="line">        "buildDesc": ""   // 构建描述</span><br><span class="line">    },</span><br><span class="line">    // ====== 构建 定制 参数说明 =====</span><br><span class="line">    "customParams": {</span><br><span class="line">        "NEED_ENCYPT": true,  // 是否加密</span><br><span class="line">        "IS_PATCH": true,   // 是否patch包</span><br><span class="line">        "ICON_RES": "http://download.demo.com",   // 资源附件url</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
     </div>
 
@@ -549,20 +551,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -589,7 +591,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -599,13 +601,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">75k</span>
+    <span title="站点总字数">78k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:08</span>
+    <span title="站点阅读时长">1:11</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

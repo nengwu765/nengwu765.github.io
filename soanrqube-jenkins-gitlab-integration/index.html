@@ -78,6 +78,8 @@
   </style>
 </noscript>
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -295,7 +297,7 @@
 </ul>
 <p>**Sonar Serverbase Url设置：**Administration &gt; Configuration &gt; General&gt; Server base URL</p>
 <p><strong>Webhook配置：（实操，不配置，JEnkins在获取质量门结果时会无限等待）</strong></p>
-<p>Administration &gt; Configuration &gt; Webhooks. The URL should point to your Jenkins server： <code>http://&#123;JENKINS_HOST&#125;/sonarqube-webhook/</code></p>
+<p>Administration &gt; Configuration &gt; Webhooks. The URL should point to your Jenkins server： <code>http://{JENKINS_HOST}/sonarqube-webhook/</code></p>
 <p>具体说明：参考Jenkins官方文档说明（<a target="_blank" rel="noopener" href="https://www.jenkins.io/doc/pipeline/steps/sonar/#waitforqualitygate-wait-for-sonarqube-analysis-to-be-completed-and-return-quality-gate-status">Configure a webhook in your SonarQube server pointing</a> … ）</p>
 <p><strong>Gitlab授权登陆：</strong></p>
 <p>Administration &gt; Configuration &gt; GitLab &gt; Authentication ：设置对应的 Application ID + Secret</p>
@@ -315,7 +317,7 @@
 <p>说明：这个可以根据实际需求配置说明，此处可根据需求配置将检测的结果是否以comment回写。此处暂时不配置。</p>
 <h3 id="3-gitlab配置"><a class="markdownIt-Anchor" href="#3-gitlab配置"></a> 3、Gitlab配置</h3>
 <p><strong>授权登陆设置：</strong><br>
-Admin Settings -&gt; Application：设置对应的回调：https://<your sonar domain>/oauth2/callback/gitlab (备注：sonar的domain不可为IP+Port形式，经测试http目前也是支持)</your></p>
+Admin Settings -&gt; Application：设置对应的回调：https://<your sonar="" domain="">/oauth2/callback/gitlab (备注：sonar的domain不可为IP+Port形式，经测试http目前也是支持)</your></p>
 <h2 id="问题记录"><a class="markdownIt-Anchor" href="#问题记录"></a> 问题记录</h2>
 <ul>
 <li>SonarCloud + GitHub + Pull Request Analysis = No Inline Comments：<a target="_blank" rel="noopener" href="https://community.sonarsource.com/t/sonarcloud-github-pull-request-analysis-no-inline-comments/7371/2">https://community.sonarsource.com/t/sonarcloud-github-pull-request-analysis-no-inline-comments/7371/2</a><br>
@@ -432,20 +434,20 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -472,7 +474,7 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -482,13 +484,13 @@ Admin Settings -&gt; Application：设置对应的回调：https://<your sonar d
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">75k</span>
+    <span title="站点总字数">78k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:08</span>
+    <span title="站点阅读时长">1:11</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

@@ -81,6 +81,8 @@
   </style>
 </noscript>
 
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -285,7 +287,7 @@
 <blockquote>
 <p>注：<code>sdkmanager</code>工具在 Android SDK Tools 软件包（25.2.3 及更高版本）中提供，并位于 android_sdk/tools/bin/ 目录下，无需独立安装。</p>
 </blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// Android SDK Tools Dockerfile</span><br><span class="line">FROM harbor.demo.com/base/jre_centos:8u202_7.8</span><br><span class="line">USER root</span><br><span class="line"></span><br><span class="line">ENV SDK_TOOLS_URL=&quot;https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip&quot; \</span><br><span class="line">    ANDROID_HOME=&quot;/opt/app/android-sdk&quot;</span><br><span class="line"></span><br><span class="line">RUN yum install -y zip unzip</span><br><span class="line">RUN mkdir -p &quot;$ANDROID_HOME&quot; .android \</span><br><span class="line">    &amp;&amp; cd &quot;$ANDROID_HOME&quot; \</span><br><span class="line">    &amp;&amp; curl -o sdk-tools.zip $SDK_TOOLS_URL \</span><br><span class="line">    &amp;&amp; unzip sdk-tools.zip \</span><br><span class="line">    &amp;&amp; rm sdk-tools.zip</span><br><span class="line">RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses \</span><br><span class="line">    &amp;&amp; $ANDROID_HOME/tools/bin/sdkmanager --update</span><br><span class="line"></span><br><span class="line">#RUN $ANDROID_HOME/tools/bin/sdkmanager --install &quot;build-tools;29.0.1&quot; &quot;platforms;android-29&quot;</span><br><span class="line"></span><br><span class="line">CMD [&quot;/bin/bash&quot;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// Android SDK Tools Dockerfile</span><br><span class="line">FROM harbor.demo.com/base/jre_centos:8u202_7.8</span><br><span class="line">USER root</span><br><span class="line"></span><br><span class="line">ENV SDK_TOOLS_URL="https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip" \</span><br><span class="line">    ANDROID_HOME="/opt/app/android-sdk"</span><br><span class="line"></span><br><span class="line">RUN yum install -y zip unzip</span><br><span class="line">RUN mkdir -p "$ANDROID_HOME" .android \</span><br><span class="line">    &amp;&amp; cd "$ANDROID_HOME" \</span><br><span class="line">    &amp;&amp; curl -o sdk-tools.zip $SDK_TOOLS_URL \</span><br><span class="line">    &amp;&amp; unzip sdk-tools.zip \</span><br><span class="line">    &amp;&amp; rm sdk-tools.zip</span><br><span class="line">RUN yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses \</span><br><span class="line">    &amp;&amp; $ANDROID_HOME/tools/bin/sdkmanager --update</span><br><span class="line"></span><br><span class="line">#RUN $ANDROID_HOME/tools/bin/sdkmanager --install "build-tools;29.0.1" "platforms;android-29"</span><br><span class="line"></span><br><span class="line">CMD ["/bin/bash"]</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="12-将android-sdk作为pvc挂载出来"><a class="markdownIt-Anchor" href="#12-将android-sdk作为pvc挂载出来"></a> 1.2 将Android sdk作为PVC挂载出来</h3>
 <ul>
 <li>
@@ -295,18 +297,18 @@
 <p>Android SDK Tools镜像挂载PVC</p>
 </li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 安装Android sdk工具</span><br><span class="line">sdkmanager --install XXX</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 安装Android sdk工具</span><br><span class="line">sdkmanager --install XXX</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="13-android-sdk更新"><a class="markdownIt-Anchor" href="#13-android-sdk更新"></a> 1.3 Android SDK更新</h3>
 <ul>
 <li>使用cronjob重新发布一次即可</li>
 </ul>
 <p><strong><code>Cronjob更新稳定性不是很好，如果没有成功安装SDK工具，则可进入容器中，直接执行sdkmanager更新命令（cluster: cluster_pro 内网正式, namespace：jenkins，pod：androidsdk-xxxxx）</code></strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// cronjob的部署示例：</span><br><span class="line">jobs:</span><br><span class="line">- name: androidsdk-job</span><br><span class="line">  # job运行环境集群，和 global.env 的值对应</span><br><span class="line">  runEnv:</span><br><span class="line">  - dev</span><br><span class="line">  - test</span><br><span class="line">  - pdt</span><br><span class="line">  image:</span><br><span class="line">     repository: harbor.demo.com/cicd/android-sdk-tools</span><br><span class="line">     tag: v0.0.1</span><br><span class="line">     pullPolicy: Always</span><br><span class="line">  command:</span><br><span class="line">  - &quot;/opt/app/android-sdk-v/tools/bin/sdkmanager&quot;</span><br><span class="line">  - &quot;--install&quot;</span><br><span class="line">  args:</span><br><span class="line">#### ./sdkmanager --list sdk包 ####</span><br><span class="line">#  - &quot;build-tools;19.1.0&quot;</span><br><span class="line">#  - &quot;build-tools;20.0.0&quot;</span><br><span class="line">#  - &quot;build-tools;21.1.2&quot;</span><br><span class="line">#  - &quot;build-tools;22.0.1&quot;</span><br><span class="line">#  - &quot;build-tools;23.0.1&quot;</span><br><span class="line">#  - &quot;build-tools;23.0.2&quot;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// cronjob的部署示例：</span><br><span class="line">jobs:</span><br><span class="line">- name: androidsdk-job</span><br><span class="line">  # job运行环境集群，和 global.env 的值对应</span><br><span class="line">  runEnv:</span><br><span class="line">  - dev</span><br><span class="line">  - test</span><br><span class="line">  - pdt</span><br><span class="line">  image:</span><br><span class="line">     repository: harbor.demo.com/cicd/android-sdk-tools</span><br><span class="line">     tag: v0.0.1</span><br><span class="line">     pullPolicy: Always</span><br><span class="line">  command:</span><br><span class="line">  - "/opt/app/android-sdk-v/tools/bin/sdkmanager"</span><br><span class="line">  - "--install"</span><br><span class="line">  args:</span><br><span class="line">#### ./sdkmanager --list sdk包 ####</span><br><span class="line">#  - "build-tools;19.1.0"</span><br><span class="line">#  - "build-tools;20.0.0"</span><br><span class="line">#  - "build-tools;21.1.2"</span><br><span class="line">#  - "build-tools;22.0.1"</span><br><span class="line">#  - "build-tools;23.0.1"</span><br><span class="line">#  - "build-tools;23.0.2"</span><br><span class="line">...</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="14-k8s集群中android-sdk安装与更新"><a class="markdownIt-Anchor" href="#14-k8s集群中android-sdk安装与更新"></a> 1.4 K8s集群中Android SDK安装与更新</h3>
 <ul>
 <li>使用Helm进行部署和更新，此处我们使用的是Helm方式部署的（有关Helm的部署，将后续分享……）</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// TODO chart部署仓库</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// TODO chart部署仓库</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="2-jenkins-slave节点使用android-sdk工具"><a class="markdownIt-Anchor" href="#2-jenkins-slave节点使用android-sdk工具"></a> 2 Jenkins slave节点使用Android SDK工具</h2>
 <ul>
 <li>配置Jenkins slave节点</li>
@@ -317,7 +319,7 @@
 <li>Jenkinsfile中使用</li>
 </ul>
 <p>直接使用对应Jenkins slave节点，执行gradle命令即可。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">    // 全局执行代理</span><br><span class="line">    agent &#123;</span><br><span class="line">        kubernetes &#123;</span><br><span class="line">            cloud &#x27;kubernetes&#x27;</span><br><span class="line">            label &#x27;label-gradle&#x27;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	stages &#123;</span><br><span class="line">        stage (&quot;gradle构建&quot;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                sh &quot;./gradlew clean &quot; +</span><br><span class="line">                        &quot;channelRelease --stacktrace &quot; +</span><br><span class="line">                        &quot;-PBUILD_NUMBER=$&#123;env.BUILD_NUMBER&#125;&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">pipeline {</span><br><span class="line">    // 全局执行代理</span><br><span class="line">    agent {</span><br><span class="line">        kubernetes {</span><br><span class="line">            cloud 'kubernetes'</span><br><span class="line">            label 'label-gradle'</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">	stages {</span><br><span class="line">        stage ("gradle构建") {</span><br><span class="line">            steps {</span><br><span class="line">                sh "./gradlew clean " +</span><br><span class="line">                        "channelRelease --stacktrace " +</span><br><span class="line">                        "-PBUILD_NUMBER=${env.BUILD_NUMBER}"</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">	}</span><br></pre></td></tr></tbody></table></figure>
 
     </div>
 
@@ -421,20 +423,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -461,7 +463,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -471,13 +473,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">75k</span>
+    <span title="站点总字数">78k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:08</span>
+    <span title="站点阅读时长">1:11</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
